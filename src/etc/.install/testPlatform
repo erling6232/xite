@@ -8,6 +8,7 @@ XITE_HOSTTYPE=`expr "$1" : '[ ]*\(.*\)'`
 if test "$XITE_HOSTTYPE" != "AIX" \
      -a "$XITE_HOSTTYPE" != "IRIX" \
      -a "$XITE_HOSTTYPE" != "IRIX64" \
+     -a "$XITE_HOSTTYPE" != "Debian" \
      -a "$XITE_HOSTTYPE" != "Linux" \
      -a "$XITE_HOSTTYPE" != "OSF1" \
      -a "$XITE_HOSTTYPE" != "SunOS5" \

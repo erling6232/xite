@@ -59,6 +59,9 @@ do
 	elif test "$XITE_HOSTTYPE" = "Linux"
 	then
 	    fine=1; ok=1
+	elif test "$XITE_HOSTTYPE" = "Debian"
+	then
+	    fine=1; ok=1
         elif test "$XITE_HOSTTYPE" = "CYGWIN32/NT"
 	then
 	    XITE_HOSTTYPE="CYGWIN32"

@@ -298,6 +298,7 @@ for those which do not apply).
      - AIX        (IBM RS 6000 AIX 4.1.3)
      - IRIX       (Silicon Graphics IRIX 5.x)
      - IRIX64     (Silicon Graphics IRIX 6.x, 64-bit architecture)
+     - Debian     (For Debian GNU/Linux)
      - Linux      (For ix86 PC)
      - OSF1       (Dec alpha AXP OSF/1 V4.0)
      - SunOS5     (Solaris 2.x, x >= 5)
