@@ -1,0 +1,18 @@
+xite (3.4.4-3) unstable; urgency=low
+
+  * Build on a system using libxaw7-dev instead of libxa6-dev.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Wed, 29 Jan 2002 13:27:14 +0100
+
+xite (3.4.4-2) unstable; urgency=low
+
+  * Depend on libxaw7-dev instead of libxaw6-dev.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Wed, 29 Jan 2002 10:27:14 +0100
+
+xite (3.4.4-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Thu, 19 Dec 2002 10:27:14 +0100
+

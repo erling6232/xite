@@ -1,0 +1,240 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This is the debhelper compatibility version to use.
+export DH_COMPAT=3
+
+# This is where install_xite will place its output
+export XITE_HOME=$(CURDIR)/debian/tmp
+export XITE_LIB=$(XITE_HOME)/usr/lib
+LD_LIBRARY_PATH += $(XITE_LIB)
+export LD_LIBRARY_PATH
+
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+# shared library versions, option 1
+version=2.0.5
+major=2
+# option 2, assuming the library is created as src/.libs/libfoo.so.2.0.5 or so
+#version=`ls src/.libs/lib*.so.* | \
+# awk '{if (match($$0,/[0-9]+\.[0-9]+\.[0-9]+$$/)) print substr($$0,RSTART)}'`
+#major=`ls src/.libs/lib*.so.* | \
+# awk '{if (match($$0,/\.so\.[0-9]+$$/)) print substr($$0,RSTART+4)}'`
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	# Add here commands to configure the package.
+
+	# Prepare xite.tar with filenames without leading <package>-<version> path
+	tar xzf ../xite-3.4.4.tar.gz
+	cd xite-3.4.4; tar cf ../xite.tar *
+	rm -rf xite-3.4.4
+
+	#sed -e 's/tar tf \$tarfile .\/etc\/.install/tar tf \$tarfile .\/xite-3.4.4\/etc\/.install/' \
+	#    -e 's/initPath=""/initPath="xite-3.4.4\/"/' install_xite > install_xite_Debian
+
+	# Modify install_xite to make man pages
+	patch -p0 < debian/install_xite_Debian.patch
+	cp install_xite install_xite_Debian
+
+	chmod a+rx install_xite_Debian
+
+	# install_xite will not run when some installation directories are missing
+	mkdir -p $(XITE_HOME)/usr/bin
+	mkdir -p $(XITE_LIB)
+	mkdir -p $(XITE_HOME)/usr/include/xite
+	mkdir -p $(XITE_HOME)/usr/share/man
+	mkdir -p $(XITE_HOME)/usr/share/doc/xite
+
+
+	./install_xite_Debian -x $(XITE_HOME) -b $(XITE_HOME)/usr/bin -l $(XITE_LIB) \
+	-i $(XITE_HOME)/usr/include \
+	-m $(XITE_HOME)/usr/share/man -e $(XITE_HOME)/usr/share/doc/xite \
+	-xi /usr/include -xl /usr/X11R6/lib \
+	-ti /usr/include -tl /usr/lib \
+	-pi /usr/include -pl /usr/lib \
+	-mh - -mi - -ml - -mm - \
+	-p Linux -cc cc \
+	-t xite.tar \
+	-nomail \
+	-s -c
+
+	# Do not use -rpath when linking
+	cd debian/tmp; \
+	patch -p0 < debian/makeMakefile_no_rpath.patch
+
+	# Modified startProg.sh script to define XSHOWPATH
+	cd debian/tmp; \
+	patch -p0 < debian/startProg.patch
+
+	touch configure-stamp
+
+
+build: build-stamp
+build-stamp: configure-stamp 
+	dh_testdir
+
+	# Add here commands to compile the package.
+	./install_xite_Debian -p Linux -f xite_params -nomail -d -c
+
+	# Re-build libfwf.so without -rpath
+	mkdir libfwf.tmp
+	cd libfwf.tmp; \
+	ar -x $(XITE_LIB)/libfwf.a; \
+	cc -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o $(XITE_LIB)/libfwf.so.3.4
+	rm -rf libfwf.tmp
+	cd $(XITE_LIB); \
+	rm -f libfwf.so; \
+	ln -s libfwf.so.3.4 libfwf.so
+
+	# Re-build libxite.so without -rpath
+	mkdir libxite.tmp
+	cd libxite.tmp; \
+	ar -x $(XITE_LIB)/libxite.a; \
+	cc -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o $(XITE_LIB)/libxite.so.3.4
+	rm -rf libxite.tmp
+	cd $(XITE_LIB); \
+	rm -f libxite.so; \
+	ln -s libxite.so.3.4 libxite.so
+
+	# Re-build libxite_pnm.so without -rpath
+	mkdir libxite_pnm.tmp
+	cd libxite_pnm.tmp; \
+	ar -x $(XITE_LIB)/libxite_pnm.a; \
+	cc -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o $(XITE_LIB)/libxite_pnm.so.3.4
+	rm -rf libxite_pnm.tmp
+	cd $(XITE_LIB); \
+	rm -f libxite_pnm.so; \
+	ln -s libxite_pnm.so.3.4 libxite_pnm.so
+
+	# Re-build libxite_tiff.so without -rpath
+	mkdir libxite_tiff.tmp
+	cd libxite_tiff.tmp; \
+	ar -x $(XITE_LIB)/libxite_tiff.a; \
+	cc -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o $(XITE_LIB)/libxite_tiff.so.3.4
+	rm -rf libxite_tiff.tmp
+	cd $(XITE_LIB); \
+	rm -f libxite_tiff.so; \
+	ln -s libxite_tiff.so.3.4 libxite_tiff.so
+
+	# Re-build libxiteX.so without -rpath
+	mkdir libxiteX.tmp
+	cd libxiteX.tmp; \
+	ar -x $(XITE_LIB)/libxiteX.a; \
+	cc -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o $(XITE_LIB)/libxiteX.so.3.4
+	rm -rf libxiteX.tmp
+	cd $(XITE_LIB); \
+	rm -f libxiteX.so; \
+	ln -s libxiteX.so.3.4 libxiteX.so
+
+	# Re-build libxpm.so without -rpath
+	mkdir libxpm.tmp
+	cd libxpm.tmp; \
+	ar -x $(XITE_LIB)/libxpm.a; \
+	cc -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o $(XITE_LIB)/libxpm.so.3.4
+	rm -rf libxpm.tmp
+	cd $(XITE_LIB); \
+	rm -f libxpm.so; \
+	ln -s libxpm.so.3.4 libxpm.so
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+
+	# Add here commands to clean up after the build process.
+	#-$(MAKE) clean
+	rm -rf debian/tmp
+
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	# dh_clean -k
+
+	# Add here commands to install the package into debian/tmp
+	# install $(XITE_LIB)/libfwf.so.3.4 
+
+	# dh_installdirs -A usr/bin usr/lib usr/include usr/share/man usr/share/doc/xite
+	install -d -m 755 debian/xite-doc/usr/share/doc/xite/ReferenceManual
+	install -d -m 755 debian/libfwf-dev/usr/include/Xfwf
+	install -d -m 755 debian/libxite-dev/usr/include/xite
+	install -d -m 755 debian/xite/etc/xite
+	install -d -m 755 debian/xite/etc/X11/app-defaults
+	install -d -m 755 debian/xite/usr/share/man/man1
+	install -d -m 755 debian/libxite-dev/usr/share/man/man3
+	install -d -m 755 debian/libxite-dev/usr/share/man/man5
+
+	install -m 644 data/xshow/* debian/xite/etc/xite
+	install -m 644 etc/app-defaults/* debian/xite/etc/X11/app-defaults
+	install -m 644 debian/tmp/usr/share/man/man1/* debian/xite/usr/share/man/man1
+	install -m 644 debian/tmp/usr/share/man/man3/* debian/libxite-dev/usr/share/man/man3
+	install -m 644 debian/tmp/usr/share/man/man5/* debian/libxite-dev/usr/share/man/man5
+
+	dh_movefiles
+
+	# Remove symbolic links which use absolute paths
+	cd debian/xite/usr/bin; \
+	rm -f xadd xfft xfilter xhistogram ximage_example xmovie xpyramid xregion xshow xwarp; \
+	ln -s startProg xadd; \
+	ln -s startProg xfft; \
+	ln -s startProg xfilter; \
+	ln -s startProg xhistogram; \
+	ln -s startProg ximage_example; \
+	ln -s startProg xmovie; \
+	ln -s startProg xpyramid; \
+	ln -s startProg xregion; \
+	ln -s startProg xshow; \
+	ln -s startProg xwarp
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	# dh_clean -k
+
+#	dh_installdebconf	
+	dh_installdocs -A
+#	dh_installexamples
+	dh_installmenu
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+#	dh_installinit
+#	dh_installcron
+	dh_installman -A
+	dh_installinfo
+#	dh_undocumented
+	dh_installchangelogs 
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_makeshlibs
+	dh_installdeb
+#	dh_perl
+	dh_shlibdeps -l$(CURDIR)/debian/libxite/usr/lib
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

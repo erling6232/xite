@@ -1,0 +1,30 @@
+--- etc/.install/makeMakefile.orig	Mon Jan 13 11:56:56 2003
++++ etc/.install/makeMakefile	Thu Jan 23 13:39:11 2003
+@@ -249,25 +249,8 @@
+ 
+ EOF_START
+ 
+-if    [ "$XITE_HOSTTYPE" = "IRIX"   -o \
+-	"$XITE_HOSTTYPE" = "IRIX64" -o \
+-	"$XITE_HOSTTYPE" = "OSF1" ]
+-then
+-	echo "RPATH_OPT       = -rpath"
+-	RPATH_OPT="yes"
+-elif [ "$XITE_HOSTTYPE" = "SunOS5" ]; then
+-	echo "RPATH_OPT       = -R"
+-	RPATH_OPT="yes"
+-elif [ "$XITE_HOSTTYPE" = "Linux" ]; then
+-	echo "RPATH_OPT       = -Xlinker -rpath -Xlinker"
+-	RPATH_OPT="yes"
+-elif [ "$XITE_HOSTTYPE" = "Debian" ]; then
+-	echo "RPATH_OPT       ="
+-	RPATH_OPT=""
+-else
+-	echo "RPATH_OPT       ="
+-	RPATH_OPT=""
+-fi
++echo "RPATH_OPT       ="
++RPATH_OPT=""
+ 
+ if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+ 	echo "SHELL           = /bin/sh"

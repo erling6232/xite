@@ -1,0 +1,31 @@
+--- src/scripts/startProg.sh.orig	Thu Dec 19 15:26:09 2002
++++ src/scripts/startProg.sh	Thu Jan 23 19:25:25 2003
+@@ -5,25 +5,7 @@
+ # XITE X applications should be links to this script.
+ 
+ prog=`basename $0`
+-dir=`dirname $0`
+-if test -n "$dir"; then
+-    prog_full=${dir}/${prog};
+-else
+-    prog_full=$prog;
+-fi
++XSHOWPATH=${XSHOWPATH:-/etc/xite}
++export XSHOWPATH
+ 
+-if test -z "$XITE_HOME"; then
+-    echo "$0 error: Missing value for environment variable XITE_HOME."
+-    exit 1
+-fi
+-
+-XAPPLRESDIR=$XITE_HOME/etc/app-defaults
+-export XAPPLRESDIR
+-
+-if [ "$XUSERFILESEARCHPATH" != "" ]; then
+-    XUSERFILESEARCHPATH=$XUSERFILESEARCHPATH:$XAPPLRESDIR/%N
+-    export XUSERFILESEARCHPATH
+-fi
+-
+-
+-exec "${prog_full}.bin" -name $prog "$@"
++exec "/usr/bin/${prog}.bin" -name $prog "$@"

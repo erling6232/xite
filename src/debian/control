@@ -1,0 +1,76 @@
+Source: xite
+Priority: extra
+Maintainer: Erling Andersen <Erling.Andersen@Helse-Bergen.NO>
+Build-Depends: debhelper (>> 3.0.0)
+Standards-Version: 3.5.2
+
+Package: xite
+Section: science
+Architecture: any
+Depends: libxite (= ${Source-Version}), libfwf (= ${Source-Version})
+Suggests: xite-doc
+Description: X-based Image processing Tools and Environment
+ XITE consists of display programs with image widget and graphical user
+ interface as well as more than 200 command line programs and 600 subroutines,
+ all documented on-line. XITE uses its own image file format (BIFF), but
+ comes with converters between BIFF and TIFF, pnm, sunraster, raw, MATLAB and
+ ascii.
+ .
+ The command line programs and subroutine library are written in C and run
+ under UNIX, Windows NT and Windows 95.
+ .
+ The display programs run under UNIX. They work with images of arbitrary size
+ and pixel type on 8-bit PseudoColor and 24-bit DirectColor and TrueColor X11
+ displays. Images can be zoomed and panned, and colortables can be selected
+ from a menu. The main display program, xshow, gives access to most of the
+ other command line programs via a menu interface which the user can customize
+ and extend to include local programs. Input images for the menu entries
+ can be selected with the mouse, and output images appear on the display.
+ .
+ The available programs include operations such as statistics, merging,
+ resampling, arithmetic/logical/relational operations, rotation, mirroring,
+ affine transformations, convolution, filter design, Fourier/Hartley/Haar/Hough
+ transforms, color manipulation, histogram transformations, global and
+ local thresholding, binary thinning, edge detection, morphological operations,
+ classification, image analysis and texture estimation.
+ .
+ A toolkit is supplied to simplify development of X11 based applications.
+
+Package: xite-doc
+Section: devel
+Architecture: any
+Description: Documentation for the xite and libxite packages
+ Documentation for the xite and libxite packages. In HTML, PostScript
+ and PDF format.
+
+Package: libxite-dev
+Section: devel
+Architecture: any
+Depends: libxite (= ${Source-Version}), xlibs-dev, libxaw7-dev
+Suggests: xite-doc
+Description: Development libraries and header files
+ This development package contains the static libraries and header files for the XITE
+ image processing routines and for the BIFF image file format.
+
+Package: libxite
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Shared libraries for XITE
+ This package contains the shared libraries used by XITE.
+
+Package: libfwf
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Shared libraries for Xfwf widgets
+ This package contains the shared libraries used by the
+ Xfwf Free Widget Foundation widgets.
+
+Package: libfwf-dev
+Section: devel
+Architecture: any
+Depends: libfwf (= ${Source-Version}), xlibs-dev, libxite-dev (= ${Source-Version})
+Description: Development libraries and header files for Xfwf widgets
+ This development package contains the static libraries and header files for the
+ Xfwf Free Widget Foundation widgets.
