@@ -135,6 +135,7 @@ dso_target () {
     lib_extract_f "\$(?)"
     ld_basic_cmd "$4" "*.${OBJ_EXT}"
     echo "	             $7${CMD_SEP} \\"
+    echo "	       \$(RM_F) *.${OBJ_EXT} obj-files${CMD_SEP} \\"
     unix_only "	       \$(CHMOD) a+rx $3${DIR_SEP}$4 ${TO_DEV_NULL}"
   else
     echo "$3${DIR_SEP}$4: $6${DIR_SEP}$5"
@@ -530,11 +531,11 @@ DIRENT          =
 CFLAGS_ALWAYS   = -D$(XITE_HOSTTYPE) -DSYSTEM_V -DSYSV -D_BSD_SIGNALS \
                   -Dvfork=fork -DGETPTY $(DEBUG) $(REGEX) $(DIRENT)
 
-OPTIM           = -O2
+OPTIM           = -O2 -OPT:Olimit=0
 OPTIM_GNU       = -O
 CDEBUG          = -g -fullwarn
 CC_DSO_FLAGS    =
-CARCH_OPT       = -signed -mips2
+CARCH_OPT       = -signed -n32 -mips4 -LD_MSG:OFF=84 -diag_suppress 1174,1552 -DV5_COMPAT
 
 EOF_IRIX
 
@@ -549,11 +550,11 @@ DIRENT          =
 CFLAGS_ALWAYS   = -D$(XITE_HOSTTYPE) -DSYSTEM_V -DSYSV -D_BSD_SIGNALS \
                   -Dvfork=fork -DGETPTY $(DEBUG) $(REGEX) $(DIRENT)
 
-OPTIM           = -O2
+OPTIM           = -O2 -OPT:Olimit=0
 OPTIM_GNU       = -O
 CDEBUG          = -g -fullwarn
 CC_DSO_FLAGS    =
-CARCH_OPT       = -signed
+CARCH_OPT       = -signed -mips4 -LD_MSG:OFF=84 -diag_suppress 1174,1552 -DV5_COMPAT
 
 EOF_IRIX64
 
@@ -740,7 +741,7 @@ CFLAGS_PROD_CC  = $(CFLAGS_ALWAYS) $(OPTIM) $(CARCH_OPT) -I$(XITE_INC_DEST)
 #
 CFLAGS_DEV_CC   = $(CFLAGS_ALWAYS) $(CDEBUG) $(CARCH_OPT) -I$(XITE_INC_DEST)
 
-CFLAGS_CMEX     = $(CFLAGS_ALWAYS) -O -I$(XITE_INC_DEST)
+CFLAGS_CMEX     = -V5 $(CFLAGS_ALWAYS) -O -I$(XITE_INC_DEST)
 EOF_CFLAGS_PROD
 
 
@@ -1006,7 +1007,11 @@ EOF_LD
 echo "
 # 12) Set MATLAB_INC
 #
-MATLAB          = ${DIR_SEP}local${DIR_SEP}matlab
+"
+if [ -z "$MATLAB" ]; then
+	echo "MATLAB          = ${DIR_SEP}local${DIR_SEP}matlab"
+fi
+echo "
 MATLAB_INC      = \$(MATLAB)${DIR_SEP}extern${DIR_SEP}include
 
 # 13) Set MATLAB_LIB
