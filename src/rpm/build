@@ -1,0 +1,280 @@
+#!/bin/bash
+# Script to build a package.  It uses init_buildsystem to setup a chroot
+# building tree.  This script needs a directory as parameter.  This directory
+# has to include sources and a spec file.  Some date will be taken out
+# of pac files.
+#
+# BUILD_ROOT        here the packages will be built
+# BUILT_PACKAGES  here the packages will be stored.
+#
+# (c) 1997-2001 SuSE GmbH Nuernberg, Germany
+
+test -z "$BUILD_ROOT" && export BUILD_ROOT=/var/tmp/build-root
+test -z "$BUILD_RPMS" && export BUILD_RPMS=/media/dvd/suse
+
+export PATH=/usr/lib/build:$PATH
+
+# This is for insserv
+export YAST_IS_RUNNING=1
+
+echo_help () {
+    cat << EOT
+
+Some comments for build
+-----------------------
+
+With build you can create rpm packages.  They will be built in a chroot
+system.  This chroot system will be setup automatically.  Normally you can
+simply call build with a spec file as parameter - nothing else has to be
+set.
+
+If you want to set the directory were the chroot system will be setup
+(at the moment it uses $BUILD_ROOT),
+simply set the the environment variable BUILD_ROOT.
+
+Example:
+
+  export BUILD_ROOT=/var/tmp/mybuildroot
+
+
+Normally build builds the complete package including src.rpm (rpm -ba).
+If you want let build only make the binary package, simply set
+
+   export BUILD_RPM_BUILD_STAGE=-bb
+
+(or -bc, -bp, -bi, ...  see "maximum rpm" for more details).
+
+When the build command succeeds, the rpm files can be found under
+$BUILD_ROOT/usr/src/packages/RPMS/
+
+
+Known Parameters:
+
+  --help      You already got it :)
+
+  --clean     Delete old build root before initializing it.
+
+  --no-init   Skip initialization of build root and start with build
+              immediately.
+
+  --rpms path Specify path where to find the RPMs for build system
+
+  --verify    Run verify, when initializing the build root.
+
+Remember to have fun!
+
+EOT
+}
+usage () {
+    echo "Usage: `basename $0` [--no-init|--clean|--rpms path|--verify|--help] [dir-to-build|spec-to-build]"
+    cleanup_and_exit
+}
+
+function clean_build_root () {
+        test -n "$BUILD_ROOT" && {
+            umount -n $BUILD_ROOT/proc 2> /dev/null
+            umount -n $BUILD_ROOT/dev/pts 2> /dev/null
+            umount -n $BUILD_ROOT/mnt 2> /dev/null
+            rm -rf $BUILD_ROOT/*
+        }
+}
+
+#
+#  cleanup_and_exit
+#
+cleanup_and_exit () {
+    if test "$1" = 0 -o -z "$1" ; then
+        exit 0
+    else
+        exit $1
+    fi
+}
+
+
+DO_INIT=true
+CLEAN_BUILD=false
+SRCDIR=""
+
+while test -n "$1"; do
+  case "$1" in
+      *-no*init)
+        DO_INIT=false
+      ;;
+      *-clean)
+        CLEAN_BUILD=true
+      ;;
+      *-rpms)
+        BUILD_RPMS="$2"
+	if [ -z "$BUILD_RPMS" ] ; then
+	  echo_help
+	  cleanup_and_exit
+	fi
+        shift
+      ;;
+      *-verify)
+        export VERIFY_BUILD_SYSTEM=true
+      ;;
+      *-help)
+        echo_help
+        cleanup_and_exit
+      ;;
+      -*)
+        echo Unknown Option "$1". Exit.
+        cleanup_and_exit 1
+      ;;
+      *)
+        test -n "$SRCDIR" && usage
+        SRCDIR="$1"
+      ;;
+    esac
+    shift
+done
+
+test $UID != 0 && {
+    echo You have to be root to use $0. Exit.
+    cleanup_and_exit 1
+}
+
+
+if test "`echo $SRCDIR | cut -c 1`" != "/" ; then
+    SRCDIR=`pwd`/$SRCDIR
+fi
+
+if test -f $SRCDIR ; then
+    SPECFILES=`basename $SRCDIR`
+    SRCDIR=`dirname $SRCDIR`
+else
+    SPECFILES=""
+    for i in $SRCDIR/*.spec ; do
+        SPECFILES="$SPECFILES `basename $i`"
+    done
+    test -z "$SPECFILES" && {
+	for i in $SRCDIR/*.src.rpm ; do
+	    SPECFILES="$SPECFILES `basename $i`"
+	done
+    }
+fi
+
+test -z "$SPECFILES" && {
+    echo no spec files and src rpms found in $SRCDIR. exit...
+    cleanup_and_exit 1
+}
+
+if test -z "$SRCDIR" -o ! -d "$SRCDIR" ; then
+    echo Usage: $0 \<src-dirctory\>
+    cleanup_and_exit 1
+fi
+
+rm -f $BUILD_ROOT/exit
+
+mkdir -p $BUILD_ROOT || {
+    echo can not create BUILD_ROOT=$BUILD_ROOT. Exit...
+    cleanup_and_exit 1
+}
+
+echo  logging output to $BUILD_ROOT/.build.log...
+rm -f $BUILD_ROOT/.build.log
+touch $BUILD_ROOT/.build.log
+exec 1> >(exec -a 'build logging tee' tee -a $BUILD_ROOT/.build.log) 2>&1
+
+#
+# say hello
+#
+echo $HOST started \"build "$*"\" at `date`.
+echo
+echo Using BUILD_ROOT=$BUILD_ROOT
+echo Using BUILD_RPMS=$BUILD_RPMS
+echo
+
+cd $SRCDIR
+
+for SPECFILE in $SPECFILES ; do
+    #
+    # first setup building directory...
+    #
+    test -s $SPECFILE || {
+       echo $SPECFILE is empty.  This should not happen...
+       continue
+    }
+
+    if test "$SPECFILE" != "${SPECFILE%.src.rpm}" ; then
+	echo processing src rpm `pwd`/$SPECFILE...
+	rm -rf $BUILD_ROOT/usr/src/packages
+	mkdir -p $BUILD_ROOT/usr/src/packages/SOURCES $BUILD_ROOT/usr/src/packages/SPECS
+	rpm -i --root $BUILD_ROOT $SPECFILE || {
+	    echo "could not install $SPECFILE."
+	    continue
+	}
+	rm -rf $BUILD_ROOT/.build-srcdir
+	mkdir -p $BUILD_ROOT/.build-srcdir
+	mv $BUILD_ROOT/usr/src/packages/SOURCES/* $BUILD_ROOT/.build-srcdir
+	mv $BUILD_ROOT/usr/src/packages/SPECS/* $BUILD_ROOT/.build-srcdir
+	MYSRCDIR=$BUILD_ROOT/.build-srcdir
+	cd $MYSRCDIR || cleanup_and_exit 1
+	for SPECFILE in *.spec ; do : ; done
+    else
+	echo processing specfile `pwd`/$SPECFILE...
+	MYSRCDIR=$SRCDIR
+    fi
+
+    USEDFORBUILD=`grep "^#.*usedforbuild" $SPECFILE`
+    if [ -z "$USEDFORBUILD" ] ; then
+      USEDFORBUILD="fillup attr acl aaa_base filesystem aaa_version autoconf automake bash bind9-utils binutils bison bzip2 cpio cpp cracklib cyrus-sasl2 db devs diffutils e2fsprogs file findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib m4 make man mktemp modutils ncurses ncurses-devel net-tools pam pam-devel pam-modules patch perl permissions ps rcs readline rpm sed sendmail shadow strace syslogd sysvinit tar texinfo timezone unzip util-linux vim zlib-devel XFree86-devel XFree86-libs libnetpbm libtiff"
+# fileutils netcfg sh-utils textutils
+    fi
+    for i in $USEDFORBUILD ; do
+      case "$i" in
+        \#*)
+	;;
+        usedforbuild)
+        ;;
+        *)
+          ADDITIONAL_PACKS="$ADDITIONAL_PACKS $i"
+        ;;
+      esac
+    done
+
+    test "$CLEAN_BUILD" = true && {
+        clean_build_root
+        DO_INIT=true
+    }
+    test "$DO_INIT" = true && {
+        echo init_buildsystem $ADDITIONAL_PACKS ...
+        init_buildsystem $ADDITIONAL_PACKS || cleanup_and_exit 1
+    }
+    #
+    # now clean up RPM building directories
+    #
+    rm -rf $BUILD_ROOT/usr/src/packages
+    for i in BUILD RPMS/`arch` RPMS/i386 RPMS/noarch SOURCES SPECS SRPMS ; do
+        mkdir -p $BUILD_ROOT/usr/src/packages/$i
+    done
+    test -e $BUILD_ROOT/exit && {
+        cleanup_and_exit
+    }
+    mkdir -p $BUILD_ROOT/usr/src/packages/SOURCES
+    cp -p $MYSRCDIR/* $BUILD_ROOT/usr/src/packages/SOURCES/
+    test $MYSRCDIR = $BUILD_ROOT/.build-srcdir && rm -rf $MYSRCDIR
+    cd $BUILD_ROOT/usr/src/packages/SOURCES || cleanup_and_exit 1
+    chown -R root.root .
+
+    echo -----------------------------------------------------------------
+    echo ----- building $SPECFILE
+    echo -----------------------------------------------------------------
+    echo -----------------------------------------------------------------
+    sync
+    mount -oro -n -tproc none $BUILD_ROOT/proc 2> /dev/null
+    mount -n -tdevpts none $BUILD_ROOT/dev/pts 2> /dev/null
+
+    BUILD_SUCCEDED=false
+    test -z "$BUILD_RPM_BUILD_STAGE" && BUILD_RPM_BUILD_STAGE=-ba
+    chroot $BUILD_ROOT su -c "rpm $BUILD_RPM_BUILD_STAGE /usr/src/packages/SOURCES/$SPECFILE" - < /dev/null && BUILD_SUCCEDED=true
+
+    umount -n $BUILD_ROOT/proc 2> /dev/null
+    umount -n $BUILD_ROOT/mnt 2> /dev/null
+    umount -n $BUILD_ROOT/dev/pts 2> /dev/null
+    test "$BUILD_SUCCEDED" = true || cleanup_and_exit 1
+    cd $SRCDIR
+done
+
+cleanup_and_exit 0

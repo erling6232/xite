@@ -1,0 +1,15 @@
+Building SuSE package
+---------------------
+
+cd ..
+tar czf /usr/src/packages/SOURCES/xite3_44.tar.gz xite
+cp xite/rpm/xite-3.4.4.spec /usr/src/packages/SPECS
+
+# Insert SuSE DVD 1
+##mount tjener:/cdrom /dev/cdrom
+##export BUILD_RPMS=/media/cdrom/suse
+export BUILD_RPMS=/rpm
+build
+
+cd /usr/src/packages/SPECS
+rpm -ba xite-3.4.4.spec

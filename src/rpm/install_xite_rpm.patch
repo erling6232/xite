@@ -1,0 +1,11 @@
+--- install_xite	2003-12-05 13:33:29.000000000 +0100
++++ install_xite_rpm	2003-12-07 17:30:50.000000000 +0100
+@@ -969,7 +969,7 @@
+ else
+ 	# Don't rebuild documentation (man pages and hypertext)
+ 	if test "$XITE_HOSTTYPE" != "NT4"; then
+-		makexite_command="$makexite -v -c -a $XITE_HOSTTYPE -i -l $dso -e $local_opt -xite $XITE_HOME"
++		makexite_command="$makexite -v -d -c -a $XITE_HOSTTYPE -i -l $dso -e $local_opt -xite $XITE_HOME"
+ 	else
+ 		makexite_command="$makexite -v -c -a $XITE_HOSTTYPE -xite $XITE_HOME"
+ 	fi
