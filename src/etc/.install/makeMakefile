@@ -340,7 +340,8 @@ else
 	echo "CC              = cl"
 fi
 
-if [ "$XITE_HOSTTYPE" != "NT4" -a "$XITE_HOSTTYPE" != "Debian" ]; then
+# if [ "$XITE_HOSTTYPE" != "NT4" -a "$XITE_HOSTTYPE" != "Debian" ]; then
+if [ "$XITE_HOSTTYPE" != "NT4" ]; then
 
 	cat <<\EOF_X
 
@@ -583,7 +584,7 @@ then
 REGEX           = -DREGEX
 DIRENT          = 
 
-CFLAGS_ALWAYS   = -DLinux $(DEBUG) -Dinstring=__instring \
+CFLAGS_ALWAYS   = -DLinux $(DEBUG) -Dinstring=__instring -DFUNCPROTO \
                   $(REGEX) $(DIRENT)
 
 OPTIM           = -O
