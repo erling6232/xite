@@ -90,6 +90,8 @@ for the Xfwf Free Widget Foundation widgets.
 %setup -n xite
 tar cf xite.tar *
 
+rm -f /usr/share/man/man1/*
+
 # Modify install_xite to make man pages
 patch -p0 < rpm/install_xite_rpm.patch
 cp install_xite install_xite_rpm
@@ -117,7 +119,7 @@ mkdir -p /usr/share/doc/packages/xite
 patch -p0 < debian/makeMakefile_no_rpath.patch
 
 # Compile using DEBUG flag
-#patch -p0 < debian/makeMakefile_debug.patch
+patch -p0 < debian/makeMakefile_debug.patch
 
 # Modified startProg.sh script to define XSHOWPATH
 patch -p0 < debian/startProg.patch
