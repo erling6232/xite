@@ -1,0 +1,26 @@
+#
+#   Makefile definitions for region
+#
+OBJ   = regionArea.o      regionCreate.o     regionDraw.o   regionFree.o    \
+        regionHisto.o     regionMean.o       regionMinMax.o regionMoment.o  \
+        regionPerimeter.o regionSearch.o     regionSort.o   regionVolume.o  \
+        regionYline.o     regionConvexHull.o regionUnion.o  regionPerform.o \
+        regionPoint.o     regionImoment.o    regionInsert.o
+PROG  = regionAnalyse regionConvexHull
+MANP  = regionAnalyse.m regionArea.m    regionConvexHull.m regionCreate.m    \
+        regionDraw.m    regionFree.m    regionHisto.m      regionMean.m      \
+        regionMinMax.m  regionMoment.m  regionPerform.m    regionPerimeter.m \
+        regionPoint.m   regionSearch.m  regionSort.m       regionUnion.m     \
+	regionVolume.m  regionYline.m   regionImoment.m    regionInsert.m    \
+        xregion.m
+CINCL = region.i
+XPROG = xregion
+
+xprog:  $(XPROG)
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog xprog
+doc:    manpage
+

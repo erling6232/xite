@@ -1,0 +1,50 @@
+OBJ	= \
+	bin_ab.o \
+	bin_be.o \
+	bin_etm.o \
+	bin_ki.o \
+	bin_ksw.o \
+	bin_man.o \
+	bin_mh.o \
+	bin_ni.o \
+	bin_nr.o \
+	bin_ot.o \
+	bin_pa.o \
+	bin_tfj.o \
+	bin_wr1.o \
+	bin_wr2.o \
+	bin_yb.o \
+	expand_edge.o \
+	remove_ghost.o  
+PROG	= \
+	binarize \
+	expand_edge 
+MANP	= binarize.m \
+	bin_ab.m \
+	bin_be.m \
+	bin_etm.m \
+	bin_ki.m \
+	bin_ksw.m \
+	bin_man.m \
+	bin_mh.m \
+	bin_ni.m \
+	bin_nr.m \
+	bin_ot.m \
+	bin_pa.m \
+	bin_tfj.m \
+	bin_wr1.m \
+	bin_wr2.m \
+	bin_yb.m \
+	expand_edge.m \
+	remove_ghost.m \
+	remove_small.m
+CINCL    = binarize.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

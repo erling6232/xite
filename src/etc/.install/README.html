@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<HTML>
+<!-- $Id$ -->
+
+<HEAD>
+  <TITLE> README file for XITE </TITLE>
+</HEAD>
+
+</BODY>
+
+<H1>README file for XITE</H1>
+
+This document provides some basic information about XITE (X-based Image
+processing Tools and Environment) and describes the files needed to install
+the software.
+
+<H2> Contents </H2>
+<UL>
+  <LI> <a HREF="#WWW">XITE on the World Wide Web</A>
+  <LI> <a HREF="#ftp">XITE on anonymous ftp</A>
+  <LI> <a HREF="#dependencies">XITE dependencies</A>
+  <LI> <a HREF="#files">Files</A>
+  <LI> <a HREF="#platforms">Available platforms</A>
+</UL>
+<HR>
+
+<H2><a NAME="WWW"> XITE on the World Wide Web</A></H2>
+
+There is a World Wide Web home page for XITE. You can reach
+it with a program such as Opera, Netscape, Lynx or Internet Explorer,
+using the URL <CODE>http://www.ifi.uio.no/~blab/Software/Xite</CODE>.
+
+<H2><a NAME="ftp"> XITE on anonymous ftp</A></H2>
+XITE is available with anonymous ftp from
+<CODE>ftp.ifi.uio.no</CODE> in <CODE>/pub/blab/xite</CODE>.
+Remember to use binary transfer mode for the files with extension
+<CODE>Z</CODE>, <CODE>gz</CODE>, <CODE>zip</CODE> or <CODE>dll</CODE>.
+
+<H2><A NAME="dependencies">XITE dependencies</A></H2>
+<UL>
+ <LI> For the display programs:
+      <UL>
+	<LI> The X Window System, Version 11, Release 5 or higher.
+        <LI> A PseudoColor or GrayScale 8-plane, or DirectColor or TrueColor
+             24-plane visual. PseudoColor or DirectColor is preferable.
+      </UL>
+ <LI> For conversion between XITE BIFF image files and TIFF files: An ANSI
+      C compiler, like GNU gcc, and the libtiff TIFF library. You can get the
+      library from <KBD>ftp.sgi.com/graphics/tiff</KBD>.
+ <LI> For conversion between XITE BIFF image files and pbm/pgm/ppm/pnm files:
+      The Netpbm or Pbmplus library. You can get the libraries from
+      <KBD>http://www.funet.fi/pub/graphics/packages/pbmplus/</KBD>.
+ <LI> For conversion between XITE BIFF image files and MATLAB MAT-files:
+      MATLAB. You can get MATLAB from <KBD>http://www.mathworks.com/</KBD>.
+ <LI> For the prebuilt Windows NT/95 distribution: The Microsoft Visual C
+      dynamic link runtime library. If this is not already installed on your
+      system, it is available from the XITE ftp directory as the file
+      <A HREF="msvcrt.dll">msvcrt.dll</A>.
+ <LI> For reading the System Administrator's and the User's Manual:
+      <UL>
+        <LI> PostScript viewer/printer or PDF reader
+             (e.g. <KBD>acroread</KBD> from Adobe).
+        <LI> Most of the documentation is also available <KBD>html</KBD>-coded
+             on the XITE WWW home page and can be read with a WWW browser.
+      </UL>
+</UL>
+
+<H2><A NAME="files">Files</A></H2>
+Most of these files are also contained in xite.tar.gz (and xite.tar.Z).
+They can be found in the <CODE>etc</CODE> and <CODE>etc/.install</CODE>
+directories below the XITE home directory after installation.
+<UL>
+  <LI> Read before installing XITE
+  <DL>
+    <DT> <A HREF="WHAT_IS_XITE">WHAT_IS_XITE</A>
+    <DD> Read this to see whether you want to install XITE at your site.
+    <DT> <A HREF="FUNC_PROG_LIST">FUNC_PROG_LIST</A>
+    <DD> One-line summaries of manual page descriptions for XITE
+	 programs, functions and BIFF file format.
+    <DT> <A HREF="CHANGES">CHANGES</A>
+    <DD> A list of changes between versions.
+    <DT> <A HREF="BUGS">BUGS</A>
+    <DD> A list of known bugs.
+    <DT> <A HREF="COPYRIGHT">COPYRIGHT</A>
+    <DD> The XITE Copyright notice (XITE is available without fee).
+  </DL>
+  <LI> Needed to install XITE
+  <DL>
+    <DT> <A HREF="REGISTER">REGISTER</A>
+    <DD> Register your copy of XITE by completing this and mailing it to
+	 xite-register@ifi.uio.no (XITE is free software).
+    <DT> <A HREF="README.INSTALL">README.INSTALL</A>
+    <DD> A condensed description of how to install XITE.
+    <DT> <A HREF="SysAdmManual.ps">SysAdmManual.ps</A> (PostScript),
+         <A HREF="SysAdmManual.pdf">SysAdmManual.pdf</A> (PDF)
+    <DD> A more thorough description of how to install XITE.
+    <DT> For UNIX hosts
+    <DD>
+      <DL>
+	<DT> <A HREF="install_xite">install_xite</A>
+	<DD> The shell script which installs XITE.
+	<DT> <A HREF="xite.tar.gz">xite.tar.gz</A>
+	<DD> This contains all the source files, manual pages, example
+	     images, data, scripts, User's Manual, Programmer's Manual
+	     and System Administrator's Manual.
+	<DT> <A HREF="xite.tar.Z">xite.tar.Z</A>
+	<DD> Same as xite.tar.gz, but compressed with "compress" instead
+	     of "gzip". If you have "gzip", then don't get xite.tar.Z.
+      </DL>
+    <DT> For Windows hosts
+    <DD>
+      <DL>
+	<DT> <A HREF="xite.zip">xite.zip</A>
+	<DD> The prebuilt distribution for Windows NT 4.0 and Windows 95.
+	<DT> <A HREF="msvcrt.dll">msvcrt.dll</A>
+	<DD> The Microsoft Visual C dynamic link runtime library. If this
+	     is not already installed on your system, put it inside the
+	     XITE bin folder which is created when
+	     <A HREF="xite.zip">xite.zip</A> is unzipped.
+	<DT> <A HREF="xite.tar.gz">xite.tar.gz</A>
+	<DD> The complete XITE distribution, including source code. You
+	     don't need this to run XITE, but you may choose to download
+	     it and build the binaries yourself.
+      </DL>
+  </DL>
+  <LI> Miscellaneous
+  <DL>
+    <DT> <A HREF="UsersManual.ps">UsersManual.ps</A> (PostScript),
+         <A HREF="UsersManual.pdf">UsersManual.pdf</A> (PDF)
+    <DD> User's Manual
+    <DT> <A HREF="VERSION">VERSION</A>
+    <DD> XITE version number.
+    <DT> <A HREF="bugReport">bugReport</A>
+    <DD> Template for issuing bug reports.
+  </DL>
+</UL>
+
+<H2><A NAME="platforms">Available platforms</A></H2>
+XITE should run on the following platforms
+<PRE>
+

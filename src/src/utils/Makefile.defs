@@ -1,0 +1,18 @@
+#
+#   Makefile definitions for utils
+#
+OBJ   = mallocp.o envfindfile.o readswitch.o tilde_expand.o gaussfunc.o\
+	utl_malloc.o message.o compu4.o debug.o strings.o
+MANP  = mallocp.m envfindfile.m readswitch.m tilde_expand.m gaussfunc.m\
+	utl_malloc.m message.m compu4.m debug.m
+CINCL = mallocp.i message.i readarg.i compu4.i utl_malloc.i utils.i debug.i \
+	strings.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:
+doc:    manpage
+xprog:  
+

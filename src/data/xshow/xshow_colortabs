@@ -1,0 +1,25 @@
+;
+; $Id$
+;
+:Standard colortabs
+;
+;
+white.col
+black.col
+red.col
+green.col
+blue.col
+spectrum.col
+hue1.col
+rainbow.col
+;xshow.1.col
+;xshow.2.col
+;xshow.3.col
+;xshow.4.col
+;
+:Overlay colortabs
+;
+white.ovl.col
+black.ovl.col
+;xshow.1.ovl.col
+;xshow.2.ovl.col

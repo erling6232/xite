@@ -1,0 +1,88 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! FileSelector widget (popup child of toplevel application shell widget, popup
+! child of Slice window or popup child of histogram window)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*fileSelectorShell.baseTranslations:		#override		\n\
+ <ClientMessage>WM_PROTOCOLS: QuitFileSel()
+
+*XfwfFileSelector*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+*XfwfFileSelector*Background:			Gray80
+*XfwfFileSelector*Foreground:			Gray20
+
+*XfwfFileSelector*Scrollbar.Width:		8
+
+*XfwfFileSelector*goto_button.Accelerators:	#override		\n\
+ <KeyPress>Return: set_shadow(sunken) activate() set_shadow()
+*XfwfFileSelector*select_button.Accelerators: 	#override		\n\
+ <KeyPress>Return: set_shadow(sunken) activate() set_shadow()
+
+*XfwfMultiList.baseTranslations: 		#replace 		\n\
+ <Btn1Down>: Select()      						\n\
+ <Btn1Up>:   Notify()      						\n\
+ <Btn2Down>: Select()     						\n\
+ <Btn2Up>:   Notify2()							\n\
+
+*XfwfFileSelector*Text*Background: 		White
+*XfwfFileSelector*Text*Foreground:		Black
+*XfwfFileSelector*showOkButton: 		False
+*XfwfFileSelector.Height: 			400
+
+*XfwfFileSelector*XfwfButton*width:		70
+*XfwfFileSelector*XfwfButton*height:		26
+*XfwfFileSelector*XfwfButton*frameType:		raised
+*XfwfFileSelector*XfwfButton*frameWidth:	2
+*XfwfFileSelector*XfwfButton*ShadowScheme:	color
+*XfwfFileSelector*XfwfButton*topShadowColor:	Gray95
+*XfwfFileSelector*XfwfButton*bottomShadowColor:	Gray20
+
+*XfwfFileSelector*currentDirectory:		.
+*XfwfFileSelector*checkExistence: 		False
+
+*readBIFFfile*pattern:				*
+*readBIFFfile.Label:				Input BIFF file
+*readBIFFfile*checkExistence:  			True
+*writeBIFFfile*pattern:				*
+*writeBIFFfile*Label:				Output BIFF file
+
+*readColortabfile*pattern:			*
+*readColortabfile*Label:			Input BIFF colortable file
+*readColortabfile*checkExistence:  		True
+*writeColortabfile*pattern:			*
+*writeColortabfile*Label:			Output BIFF colortable file
+
+*readColormapfile*pattern:			*
+*readColormapfile*Label:			Input BIFF colormap file
+*readColormapfile*checkExistence:  		True
+*writeColormapfile*pattern:			*
+*writeColormapfile*Label:			Output BIFF colormap file
+
+*readTIFFfile*pattern:				*.tif*
+*readTIFFfile*Label:				Input TIFF file
+*readTIFFfile*checkExistence:  			True
+*writeTIFFfile*pattern:				*.tif*
+*writeTIFFfile*Label:				Output TIFF file
+
+*readMATfile*pattern:				*.mat
+*readMATfile*Label:				Input MATLAB file
+*readMATfile*checkExistence:  			True
+*writeMATfile*pattern:				*.mat
+*writeMATfile*Label:				Output MATLAB file
+
+*writePSfile*pattern:				*.ps
+*writePSfile*Label:				Output Postscript file
+
+*readfile*Label:				Input file
+*readfile*checkExistence:  			True
+*readfile*sortMode:				2
+*writefile*Label:				Output file
+*writefile*checkExistence: 			False
+*writefile*sortMode:				2
+
+*writeMacrofile*pattern:			*
+*writeMacrofile*Label:				Output macro file
+*writeMacrofile*checkExistence: 		False
+*writeMacrofile*sortMode:			2
+*writeMacrofile*currentDirectory:		$HOME/bin

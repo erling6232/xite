@@ -1,0 +1,8 @@
+$makexite -v -c -i -d $local_opt -xite $XITE_HOME \
+  Image biff geometry histo matlab noise region ximage xshow;
+$makexite -v -l $dso $local_opt -xite $XITE_HOME \
+  Image biff cdoc geometry histo matlab noise region statistics ximage xshow;
+$makexite -v -xe $local_opt -xite $XITE_HOME \
+  arithmetic fft geometry ideal pyramid region ximage xshow;
+$makexite -v -e $local_opt -xite $XITE_HOME \
+  biff arithmetic cdoc fft geometry histo ideal matlab noise region statistics;

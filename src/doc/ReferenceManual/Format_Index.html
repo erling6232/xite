@@ -1,0 +1,102 @@
+<html>
+
+<head>
+  <title>XITE format routines
+  </title>
+</head>
+
+<body background="../mona_canny.jpg">
+
+<h1> XITE format  routines </h1>
+
+Here is an alphabetic list of all the documented XITE routines for the BIFF
+image format and widget data structures.
+Some reference pages contain hypertext links to other pages.
+</p>
+
+[
+  <a href="Contents.html"> Up to Reference manual </a>
+| <a href="Programs_Index.html"> Programs </a>
+| <a href="Routines_Index.html"> Routines </a>
+]
+</p>
+
+<hr>
+
+<pre>
+<a href="Iappend_line_5.html">Iappend_line</a>                     append a line to BIFF image text field
+<a href="Iband_status_5.html">Iband_status</a>                     return the status of a BIFF band
+<a href="Ibandsize_5.html">Ibandsize</a>                        Return BIFF band size in bytes
+<a href="Iclearbit_5.html">Iclearbit</a>                        clear a single bit in a byte band
+<a href="Iclose_image_5.html">Iclose_image</a>                     close a BIFF image file
+<a href="Icopy_band_5.html">Icopy_band</a>                       copy a BIFF band
+<a href="Icopy_init_5.html">Icopy_init</a>                       Create BIFF image with equal size as old
+<a href="Icopy_text_5.html">Icopy_text</a>                       copy textfield from one BIFF image to another
+<a href="Idel_band_5.html">Idel_band</a>                        delete a BIFF band
+<a href="Idel_band_pix_5.html">Idel_band_pix</a>                    delete the pixels of a BIFF band
+<a href="Idel_image_5.html">Idel_image</a>                       delete a BIFF image
+<a href="Idel_text_5.html">Idel_text</a>                        delete some text in the BIFF image textfield
+<a href="Iedit_text_5.html">Iedit_text</a>                       edit the text in the BIFF image textfield
+<a href="Iend_of_text_5.html">Iend_of_text</a>                     return TRUE if at end of BIFF image text field
+<a href="Ierr_action_5.html">Ierr_action</a>                      perform error handling
+<a href="Ierr_message_5.html">Ierr_message</a>                     return BIFF format error message
+<a href="Iparse_band_spec_5.html">Ifilename_part</a>                   interpret/parse file name and band specification
+<a href="Iget_line_5.html">Iget_line</a>                        read a line from BIFF image text field
+<a href="Iget_param_5.html">Iget_param</a>                       get a parameter from the BIFF image
+<a href="Iget_roi_5.html">Iget_roi</a>                         return Region Of Interest of BIFF band
+<a href="Igetbit_5.html">Igetbit</a>                          get a single bit from a byte band
+<a href="Igetchar_5.html">Igetchar</a>                         read a character from BIFF image text field
+<a href="Igetpos_5.html">Igetpos</a>                          return character position in BIFF image text field
+<a href="Ihistory_5.html">Ihistory</a>                         append a history line in the BIFF image text field
+<a href="Imake_band_5.html">Imake_band</a>                       create a new BIFF band
+<a href="Imake_bands_5.html">Imake_bands</a>                      create all bands of a BIFF image
+<a href="Imake_image_5.html">Imake_image</a>                      Create the whole BIFF image data structure
+<a href="Imake_subband_5.html">Imake_subband</a>                    define subband of existing BIFF band
+<a href="Inbands_5.html">Inbands</a>                          return the number of bands in the BIFF image
+<a href="Inchars_5.html">Inchars</a>                          Report number of characters in text field
+<a href="Inegbit_5.html">Inegbit</a>                          negate a single bit in a byte band
+<a href="Init_band_5.html">Init_band</a>                        initiate a BIFF band
+<a href="Init_bands_5.html">Init_bands</a>                       initialize all bands of a BIFF image
+<a href="Init_image_5.html">Init_image</a>                       initialize a BIFF image
+<a href="Iopen_image_5.html">Iopen_image</a>                      open a BIFF-file
+<a href="IparsePixtyp_5.html">IparsePixtyp</a>                     return the BIFF pixeltype from a string representation
+<a href="Iparse_band_spec_5.html">Iparse_band_spec</a>                 interpret/parse file name and band specification
+<a href="Iparse_band_spec_5.html">Iparse_filename</a>                  interpret/parse file name and band specification
+<a href="Ipixname_5.html">IpixPrintFormat</a>                  return the pixeltype name of a BIFF pixel type, and the format string for printing pixel values
+<a href="Ipixname_5.html">Ipixname</a>                         return the pixeltype name of a BIFF pixel type, and the format string for printing pixel values
+<a href="Ipixsize_5.html">Ipixsize</a>                         return the BIFF pixel size in bits
+<a href="Ipixtyp_5.html">Ipixtyp</a>                          return the pixel type of the BIFF band
+<a href="Iput_text_5.html">Iput_text</a>                        insert text at current position of BIFF image text field
+<a href="Iputchar_5.html">Iputchar</a>                         insert character at current position in BIFF image text field
+<a href="Iread_band_5.html">Iread_band</a>                       read BIFF band from file
+<a href="Iread_block_5.html">Iread_block</a>                      read a block from a BIFF image file
+<a href="Iread_image_5.html">Iread_image</a>                      read (parts of ) a BIFF image from file
+<a href="Iread_image_5.html">Iread_image_bands</a>                read (parts of ) a BIFF image from file
+<a href="Iread_text_5.html">Iread_text</a>                       read text field from file into BIFF image
+<a href="Iset_abort_5.html">Iset_abort</a>                       turn BIFF error abort on/off
+<a href="Iset_mag_5.html">Iset_mag</a>                         set the magnification attributes of BIFF band
+<a href="Iset_message_5.html">Iset_message</a>                     turn BIFF error messaging on/off
+<a href="Iset_nbands_5.html">Iset_nbands</a>                      change number of bands in the BIFF image
+<a href="Iset_overwrite_5.html">Iset_overwrite</a>                   turn BIFF image file overwrite on/off
+<a href="Iset_param_5.html">Iset_param</a>                       assign new value to BIFF image parameter
+<a href="Iset_roi_5.html">Iset_roi</a>                         set new Region Of Interest values for BIFF band
+<a href="Iset_start_5.html">Iset_start</a>                       set the xstart and ystart attributes of BIFF band
+<a href="Iset_title_5.html">Iset_title</a>                       assign a new title to the BIFF image
+<a href="Isetbit_5.html">Isetbit</a>                          set a single bit in a byte band
+<a href="Isetpos_5.html">Isetpos</a>                          set new character position in BIFF image text field
+<a href="Istatus_5.html">Istatus</a>                          return the BIFF image status
+<a href="Ititle_5.html">Ititle</a>                           Return the title of the BIFF image
+<a href="Itype_text_5.html">Itype_text</a>                       send all text in BIFF image textfield to a file
+<a href="Iwrite_band_5.html">Iwrite_band</a>                      Write a BIFF band to file
+<a href="Iwrite_block_5.html">Iwrite_block</a>                     write a block to BIFF image file
+<a href="Iwrite_image_5.html">Iwrite_image</a>                     write a BIFF image to file
+<a href="Iwrite_text_5.html">Iwrite_text</a>                      write text field from BIFF image to file
+<a href="Ixmag_5.html">Ixmag</a>                            return the horizontal magnification of BIFF band
+<a href="Ixsize_5.html">Ixsize</a>                           return horizontal BIFF band size
+<a href="Ixstart_5.html">Ixstart</a>                          return horizontal starting point of BIFF band
+<a href="Iymag_5.html">Iymag</a>                            return the vertical magnification of BIFF band
+<a href="Iysize_5.html">Iysize</a>                           return vertical BIFF band size
+<a href="Iystart_5.html">Iystart</a>                          return vertical starting point of BIFF band
+  </pre>
+  </body>
+  </html>

@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for zernike
+#
+OBJ   = zernike.o
+PROG  = zernike
+MANP  = zernike.m
+CINCL = zernike.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

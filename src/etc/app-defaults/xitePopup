@@ -1,0 +1,28 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Popup dialog
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*popup.Translations:				#override		\n\
+ <ClientMessage>WM_PROTOCOLS: QuitDialog()
+
+*popup*Background:				Gray80
+*popup*Foreground:				Gray20
+*popup*Font:			-*-courier-bold-r-normal--??-100-*-iso8859-1
+
+*popup*AsciiText*Font:		-*-courier-bold-r-normal--??-100-*-iso8859-1
+*popup*Dialog*Text*Background:			Gray85
+*popup.Dialog.label.Translations:  		#override		\n\
+ <KeyPress>q: QuitDialog()
+
+*popup*Dialog*XfwfButton.Font:	-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+! *popup*Dialog*XfwfButton.ShrinkToFit:		True
+*popup*Dialog*XfwfButton.width:			100
+*popup*Dialog*XfwfButton.height:		30
+*popup*Dialog*XfwfButton.ShadowScheme:		color
+*popup*Dialog*XfwfButton.TopShadowColor:	Gray95
+*popup*Dialog*XfwfButton.BottomShadowColor:	Gray20
+*popup*Dialog*XfwfButton.FrameType:		raised
+*popup*Dialog*XfwfButton.FrameWidth:		2

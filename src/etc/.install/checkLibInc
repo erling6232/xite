@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# $Id$
+
+########## Check existence of libraries and include files ##########
+
+abort=0
+
+if test "$XITE_HOSTTYPE" != "NT4"; then
+  $checkExist f $X_LIB_DIR 'the library' 2 libX11 libXt libXaw libXmu libXext \
+    || abort=1
+  $checkExist d $X_INC_DIR 'the header-file collection' 0 X11 X11/Xaw \
+    || abort=1
+
+  line=`grep '#define XtSpecificationRelease' $X_INC_DIR/X11/Intrinsic.h`
+  release=`echo "$line" | awk '{print $NF}'`
+  if test "$release" -lt 5
+  then
+    echo "ERROR: You have specified X Window System Release $release." 1>&2
+    echo "       XITE needs release 5 or higher." 1>&2
+    abort=1
+  fi
+fi
+
+if test "$tiff_install" = "y"
+then
+  $checkExist f $TIFF_LIB_DIR 'the library' 2 libtiff || abort=1
+  $checkExist f $TIFF_INC_DIR 'the header-file' 0 tiff.h tiffio.h || abort=1
+fi
+
+if test "$pnm_install" = "y"
+then
+  $checkExist f $PNM_LIB_DIR 'the library' 2 libpbm libpgm libppm libpnm || \
+    abort=1
+  $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
+    pbmplus.h || abort=1
+fi
+
+if test "$matlab_install" = "y"
+then
+  $checkExist f $MATLAB_LIB 'the library' 2 libmat || abort=1
+  $checkExist f $MATLAB_INC 'the header-file' 0 mat.h matrix.h mex.h || \
+    abort=1
+fi
+
+if test "$abort" -eq 1
+then
+  echo "" 1>&2
+  echo "XITE installation/build aborted." 1>&2
+  echo "" 1>&2
+  $paramMessage 1>&2
+  # No cleaning necessary (except $TMPDIR)
+  echo "exit 1"
+fi
+
+cd $XITE_MAN_DEST
+chmod 755 cat*
+cd $XITE_HOME

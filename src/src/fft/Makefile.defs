@@ -1,0 +1,19 @@
+#
+#   Makefile definitions for fft
+#
+OBJ     = tab.o dintime.o idintime.o bitrev.o b512.o dint.o idint.o fft2d.o
+PROG    = fft2d fftMagPhase
+XPROG   = xfft
+SCRIPTS = fftReal fftImag fftAmp fftPhase fftPower fftMult fftMakeLp \
+	  fftMakeHp fftMakeBp fftMakeBs fftDisplay
+MANP    = fft2d.m xfft.m fftMagPhase.m
+CINCL   = fft.i
+
+xprog:  $(XPROG)
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog scripts xprog
+doc:    manpage
+

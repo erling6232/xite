@@ -1,0 +1,369 @@
+#!/bin/sh
+
+# $Id$
+
+# Author: Svein Bøe, 1994
+# Description: 	Produce C language header file from XITE source code.
+#		Header file is valid for ANSI and traditional C.
+#               Default is to include only those routines which have a manual
+#               page.
+
+usage () {
+    echo "usage: $prog [<options>...] [<file>...]"
+    echo ""
+    echo "where <options> consists of <option> and/or <extract-option>."
+    echo ""
+    echo "An <option> is one of the following:"
+    echo "  -d <dir>      : The directory to be processed. Default: present."
+    echo "  -f <filename> : Name of resulting header file. Default: <dir>.h."
+    echo "                  Any existing file with the same name is moved"
+    echo "                  to <filename>.old."
+    echo "  -H <string>   : Definition string to surround header file"
+    echo "                  content. Default: _<dir>_H_, where <dir> is the"
+    echo "                  last part of the name of the directory to be"
+    echo "                  processed."
+    echo "  -h(elp)       : Print this message."
+    echo "  -Ipathname    : Add pathname to the list of directories to search"
+    echo "                  for header-files. $XITE_HOME/include and"
+    echo "                  /local/X11R5/include are always searched."
+    echo "  -m            : Include also routines without manual pages."
+    echo "  -q            : Suppress warnings."
+    echo "  -Q            : Suppress errors."
+    echo "  -v            : Verbose."
+    echo ""
+    echo "An <extract-option> is one which is not among the above listed."
+    echo "It is passed directly to cextract."
+    echo "Suggestion: Use '+r +s:none'"
+    echo ""
+    echo "A <file> is a C language file with extension '.c'."
+
+    exit 1
+}
+
+### Constants
+
+here=`pwd`
+tmpdir=/local/tmp
+if [ -z "$XITE_HOME" ]; then
+  XITE_HOME=/local/blab/xite
+fi
+copyrightFile=$XITE_HOME/etc/emacs-header
+GNU=/local/gnu/bin
+GREP=$GNU/grep
+CSPLIT=$GNU/csplit
+HEAD=$GNU/head
+TAIL=$GNU/tail
+prog=`basename $0`
+
+### Command line argument processing
+
+quiet=0; Quiet=0; verbose=0; man=0
+includePath="-I$XITE_HOME/include -I/local/X11R5/include"
+cextractOpt=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+    -d)	shift
+	if [ $# -eq 0 ]; then
+	    if [ $Quiet -ne 1 ]; then
+		echo "$prog error: Missing option argument for -d."
+	    fi
+	    exit 1
+	fi
+	dir=$1; shift;;
+    -f)	shift
+	if [ $# -eq 0 ]; then
+	    if [ $Quiet -ne 1 ]; then
+	        echo "$prog error: Missing option argument for -f."
+	    fi
+	    exit 1
+	fi
+	headerFile=$1; shift;;
+    -H)	shift
+	if [ $# -eq 0 ]; then
+	    if [ $Quiet -ne 1 ]; then
+	        echo "$prog error: Missing option argument for -H."
+	    fi
+	    exit 1
+	fi
+	h_string=$1; shift;;
+    -h|-help)
+	usage;;
+    -I*) if [ -z "$includePath" ]; then
+	     includePath="$1"
+	 else
+	     includePath="$includePath $1"
+	 fi
+	shift;;
+    -m) shift; man=1;;
+    -Q)	shift; Quiet=1;;
+    -q)	shift; quiet=1;;
+    -v) shift; verbose=1;;
+    -*|+*) if [ -z "$cextractOpt" ]; then
+	    cextractOpt="$1"
+	else
+	    cextractOpt="$cextractOpt $1"
+	fi
+	shift;;
+    *)	if [ -z "$files" ]; then
+	    files="$1"
+	else
+	    files="$files $1"
+	fi
+	shift;;
+    esac
+done
+
+### Assign defaults
+
+if [ -z "$dir" -o "$dir" = "." ]; then
+    dir=$here
+fi
+echo $dir | $GREP '/' > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    # Directory name does not contain "/", assume relative to $XITE_HOME/src.
+    dir=$XITE_HOME/src/$dir
+fi
+
+if [ -z "$h_string" ]; then
+    base=`basename $dir`
+    base=`echo $base | \
+	sed 'y/abcdefghijklmnopqrstuvwxyzæøå/ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ/'`
+    h_string=_${base}_H_
+fi
+
+if [ -z "$headerFile" ]; then
+    headerFile=`basename $dir`.h
+fi
+
+cd $dir
+if [ -f $headerFile ]; then
+    cp $headerFile $headerFile.old
+    oldHeaderFile=$headerFile.old
+    if [ $verbose -eq 1 ]; then
+      echo "$prog: $headerFile copied to $headerFile.old."
+    fi
+fi
+
+tmpHeaderFile=$tmpdir/`basename $headerFile`
+
+if [ -z "$files" ]; then
+    files=`/bin/ls *.c`
+fi
+
+# Discard multiple occurences
+files=`echo "$files" | sort | uniq`
+
+# Check the existence of each file
+
+for f in $files; do
+    if [ ! -f $f ]; then
+	if [ $Quiet -ne 1 ]; then
+	    echo "$prog error: File $f not found."
+	fi
+	exit 1
+    fi
+    if [ -z "$ff" ]; then
+	ff="$f"
+    else
+	ff="$ff $f"
+    fi
+done
+files="$ff"
+if [ -z "$files" ]; then
+    if [ $Quiet -ne 1 ]; then
+	echo "$prog error: No files to process."
+    fi
+    exit 1
+fi
+
+if [ "$verbose" -ne 0 ]; then
+    echo "$prog: The results of this script should be checked manually."
+fi
+
+### Extract prototypes into temporary header file
+
+if [ "$verbose" -ne 0 ]; then
+    echo "$prog: Extracting prototypes..."
+fi
+
+if [ "$verbose" -ne 0 ]; then
+  echo "cextract $cextractOpt -DXITE_HEADERS -H"$h_string" $includePath $files > $tmpHeaderFile"
+fi
+cextract $cextractOpt -DXITE_HEADERS -H"$h_string" $includePath $files > $tmpHeaderFile
+
+if [ "$man" -eq 0 ]; then
+    if [ "$verbose" -ne 0 ]; then
+        echo "$prog: Find the functions which have a manual page..."
+    fi
+
+    manDescriptions=`$GREP '\/\*[FD]:' $files`
+    for d in $manDescriptions; do
+	# Check if manual page name is link
+	m=`expr "$d" : '.*:\(.*\)='`
+	if [ -z "$m" ]; then
+	    # Find manual page name which is not link
+	    m=`expr "$d" : '.*:\(.*\)\*'`
+	fi
+	if [ -z "$manEntries" ]; then
+	    manEntries="$m"
+	else
+	    manEntries="$manEntries $m"
+	fi
+    done
+
+    # Replace blanks by NEWLINE and sort
+    manEntries=`echo $manEntries | \
+	awk '{for (i=1; i<=NF;i++) print $i}' - | sort`
+fi
+
+splitFile=$tmpdir/$h_string
+if [ "$man" -eq 0 ]; then
+    if [ "$verbose" -ne 0 ]; then
+        echo "$prog: Only retain the functions which have a manual page..."
+    fi
+
+    ### Split temporary prototype header file in ANSI- and non-ANSI parts
+
+    $CSPLIT -s -f "$splitFile" "$tmpHeaderFile" %ifndef% /STDC/ '{2}'
+    rm $tmpHeaderFile
+
+    echo "" >> ${splitFile}00
+
+    cat <<EOF >> ${splitFile}00
+
+#ifdef __STDC__
+
+EOF
+
+    ### Add the prototypes, which have manual pages, to the ANSI part
+    ### of the header file
+
+    if [ "$verbose" -ne 0 ]; then
+        echo "$prog: Include ANSI prototypes..."
+    fi
+
+    # Extracted function names should be compared with manEntries */
+
+    funcs=`$GREP 'extern ' ${splitFile}01 | awk '{print $3}' - \
+	| awk 'BEGIN {FS="*"} {print $NF}' -`
+
+    for f in $funcs; do
+	echo "$manEntries" | $GREP "$f" > /dev/null 2>&1
+	if [ "$?" -ne 0 -a "$quiet" -ne 1 ]; then
+	    echo "$prog warning: Manual entry missing for ANSI function $f."
+	fi
+    done
+
+    # Keep only those with manual pages
+    # Remove multiple occurences (happens when a source file includes another)
+    for d in $manEntries; do
+	$GREP " \{1\}\**$d \{1\}(" ${splitFile}01 | sort -u >> ${splitFile}00
+    done
+
+    cat <<EOF >> ${splitFile}00
+
+#else /* __STDC__ */
+
+EOF
+
+    ### Add the prototypes, which have manual pages, to the non-ANSI part of
+    ### the header file
+
+    if [ "$verbose" -ne 0 ]; then
+	echo "$prog: Include non-ANSI prototypes..."
+    fi
+
+    # Extracted function names should be compared with manEntries
+
+    funcs=`$GREP 'extern ' ${splitFile}02 | awk '{print $3}' - \
+	| awk 'BEGIN {FS="*"} {print $NF}' -`
+
+    for f in $funcs; do
+	echo "$manEntries" | $GREP "$f" > /dev/null 2>&1
+	if [ "$?" -ne 0 -a "$quiet" -ne 1 ]; then
+	    echo "$prog warning: Manual entry missing for non-ANSI function $f."
+	fi
+    done
+
+    # Keep only those with manual pages
+    # Remove multiple occurences (happens when a source file includes another)
+    for d in $manEntries; do
+	$GREP " \{1\}\**$d \{1\}(" ${splitFile}02 | sort -u >> ${splitFile}00
+    done
+
+    cat <<EOF >> ${splitFile}00
+
+#endif /* __STDC__ */
+#endif /* $h_string */
+EOF
+
+else
+#    $CSPLIT -s -f "$splitFile" "$tmpHeaderFile" %ifndef%
+    $CSPLIT -s -f "$splitFile" "$tmpHeaderFile" %ifndef% /STDC/+1 /STDC/ /STDC/
+    rm $tmpHeaderFile
+
+    tail +2 ${splitFile}01 | sort +2 -3 -u >> ${splitFile}00
+
+    cat <<EOF >> ${splitFile}00
+
+#else /* __STDC__ */
+EOF
+
+    tail +3 ${splitFile}02 | sort +2 -3 -u >> ${splitFile}00
+    echo "" >> ${splitFile}00
+    cat ${splitFile}03 >> ${splitFile}00
+fi
+
+### Produce a copyright notice for the top of the header file
+
+if [ "$verbose" -ne 0 ]; then
+    echo "$prog: Copyright notice..."
+fi
+$CSPLIT -s -f "${splitFile}.Copyright" "$copyrightFile" %blab-header-C%+4 /static/
+headerFile=`basename $headerFile`
+$HEAD -n 5 ${splitFile}.Copyright00 > ${splitFile}.Copyright01
+echo "        $headerFile" >> ${splitFile}.Copyright01
+echo "        \$Id\$" >> ${splitFile}.Copyright01
+$TAIL -n 24 ${splitFile}.Copyright00 >> ${splitFile}.Copyright01
+
+### Assemble the final header file
+
+if [ "$verbose" -ne 0 ]; then
+    echo "$prog: Assemble resulting files..."
+fi
+
+cat ${splitFile}.Copyright01 ${splitFile}00 > $tmpHeaderFile
+
+move=1
+if [ -f "$headerFile" ]; then
+    d=`diff $tmpHeaderFile $headerFile`
+    n=`echo "$d" | wc -l`
+
+    if [ "$n" -le 4 ]; then
+      # No change
+      move=0
+    fi
+fi
+
+if [ "$move" -ne 0 ]; then
+    cat <<EOF | cat - $tmpHeaderFile > $headerFile
+
+/*
+  This header-file is produced automatically (at least in part) by
+  makeHeader of BLAB, Ifi, UiO.
+*/
+
+EOF
+elif [ "$verbose" -ne 0 ]; then
+    echo "$prog: No changes to existing header-file."
+fi
+
+### Clean up
+
+rm ${splitFile}*
+
+if [ -n "$directivesFile" ]; then
+    rm $directivesFile
+fi
+
+cd $here

@@ -1,0 +1,143 @@
+#!/bin/sh
+
+# $Id$
+
+# DESCRIPTION:
+#    Check for existence of a file or directory (or stem of such).
+# OUTPUTS:
+#    Return value:
+#        0 : Everything ok
+#        1 : Not existing
+# INPUTS:
+#    $1 : Type of item to check ('d' for directory, 'f' for file).
+#    $2 : Parent directory of item.
+#    $3 : Text for echo (default: none)
+#    $4 : Flag to determine wildcarding,
+#         0 : Exact match of items
+#         1 : Add frontal '*' to each item
+#         2 : Add trailing '*' to each item
+#         3 : Add both frontal and trailing '*' to each item
+#    $5.. : List of items
+#
+# Skip blanks (assumes that none of the arguments is purely "/").
+
+type=`expr "$1" : '[ ]*\(.*\)'`
+dir=`expr "$2" : '[ ]*\(.*\)'`
+text=`expr "$3" : '[ ]*\(.*\)'`
+flag=`expr "$4" : '[ ]*\(.*\)'`
+
+prog=`basename $0`;
+
+# Some old shells can't take numeric argument for shift.
+shift; shift; shift; shift
+
+items=""; missing0=0
+
+while test $# -gt 0
+do
+  if test -z "$items"
+  then
+    items="$1"
+  else
+    items="$items $1"
+  fi
+  shift
+done
+
+for item in $items
+do
+  missing=0
+
+  if test "$flag" -eq 0
+  then
+    # No wildcard on item
+    if test ! -${type} "${dir}/${item}"
+    then
+      missing=1
+    fi
+
+    if test "$missing" -eq 1
+    then
+      echo "ERROR: Could not find ${text} ${item} in ${dir}." 1>&2
+    fi
+
+  elif test "$flag" -eq 1
+  then
+    ii=`ls ${dir} 2>/dev/null | grep "${item}$" 2>/dev/null`
+
+    if test -z "$ii"
+    then
+      missing=1
+    else
+      for i in $ii
+      do
+        if test ! -${type} "${dir}/$i"
+        then
+          missing=1
+        fi
+      done
+    fi
+
+    if test "$missing" -eq 1
+    then
+      echo "ERROR: Could not find ${text} *${item} in ${dir}." 1>&2
+    fi
+
+  elif test "$flag" -eq 2
+  then
+    ii=`ls ${dir} 2>/dev/null | grep "^${item}" 2>/dev/null`
+
+    if test -z "$ii"
+    then
+      missing=1
+    else
+      for i in $ii
+      do
+        if test ! -${type} "${dir}/$i"
+        then
+          missing=1
+        fi
+      done
+    fi
+
+    if test "$missing" -eq 1
+    then
+      echo "ERROR: Could not find ${text} ${item}* in ${dir}." 1>&2
+    fi
+
+  elif test "$flag" -eq 3
+  then
+    ii=`ls ${dir} 2>/dev/null | grep "${item}" 2>/dev/null`
+
+    if test -z "$ii"
+    then
+      missing=1
+    else
+      for i in $ii
+      do
+        if test ! -${type} "${dir}/$i"
+        then
+          missing=1
+        fi
+      done
+    fi
+
+    if test "$missing" -eq 1
+    then
+      echo "ERROR: Could not find ${text} *${item}* in ${dir}." 1>&2
+    fi
+
+  fi
+
+  if test "$missing" -eq 1
+  then
+    missing0=$missing
+  fi
+done
+
+if test "$missing0" -eq 1
+then
+  exit 1
+else
+  exit 0
+fi

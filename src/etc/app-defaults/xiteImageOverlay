@@ -1,0 +1,28 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Image window (popup child of toplevel application shell widget)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*ImageForm.defaultDistance:			0
+
+*ImageForm*Background:				Gray80
+*ImageForm*Foreground:				Gray20
+! Also for the case when ImageOverlay is not child of ImageForm.
+*topContainer*Background:			Gray80
+*topContainer*Foreground:			Gray20
+
+*ImageOverlay.Menubar:    			on
+*ImageOverlay.left:          			chainleft
+*ImageOverlay.right:         			chainright
+*ImageOverlay.top:           			chaintop
+*ImageOverlay.bottom:        			chainbottom
+*ImageOverlay.Font:		-*-courier-bold-r-normal--??-100-*-iso8859-1
+*ImageOverlay.Font1:		-*-courier-bold-r-normal--?-80-*-iso8859-1
+*ImageOverlay.Font2:		-*-courier-bold-r-normal--??-120-*-iso8859-1
+*ImageOverlay.Font3:		-*-courier-bold-r-normal--??-180-*-iso8859-1
+*ImageOverlay.baseTranslations:			#override		   \n\
+ None <Btn1Down>:	roi(StartDrag)					   \n\
+ None <Btn1Motion>:	roi(Drag)					   \n\
+ None <Btn1Up>:		roi(StopDrag)					   

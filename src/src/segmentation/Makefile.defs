@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for segmentation
+#
+OBJ   = segmSpannWilson.o segmRandom.o
+PROG  = segmSpannWilson   segmRandom
+MANP  = segmSpannWilson.m segmRandom.m
+CINCL  = segmentation.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

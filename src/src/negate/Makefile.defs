@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for the negate subdirectory
+#
+OBJ   = negate.o absValue.o complexConjug.o
+PROG  = negate absValue complexConjug
+MANP  = negate.m absValue.m complexConjug.m
+CINCL =  negate.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

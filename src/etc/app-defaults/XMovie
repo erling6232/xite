@@ -1,0 +1,88 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XMovie.ZoomAll:					False
+XMovie.XiteResourceVersion:			3.4
+XMovie.allowShellResize:			True
+XMovie.Layout:					separate
+XMovie.AdjustWidth:				True
+XMovie.PanelContainer:				Form
+XMovie.WidgetSet:				Xfwf
+
+*TopLevelShell.baseTranslations:		#override		\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*topContainer*Background:			Gray80
+*topContainer*Foreground:			Gray20
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*topContainer.defaultDistance:			2
+
+*topContainer*Scrollbar.vertDistance:		2
+*topContainer*Scrollbar.horizDistance:		2
+*topContainer*Scrollbar.Orientation:		horizontal
+*topContainer*Scrollbar.width:			605
+*topContainer*Scrollbar.height:			20
+*topContainer*Scrollbar.left:			chainleft
+*topContainer*Scrollbar.right:			chainright
+*topContainer*Scrollbar.Background:		white
+
+*topContainer*Frame 1.width:			605
+*topContainer*Frame 1.fromVert:			ximagescroll
+*topContainer*Label.BorderWidth:		0
+*topContainer*quit.fromVert:			Frame 1
+*topContainer*stop.fromVert:			Frame 1
+*topContainer*stop.fromHoriz:			quit
+*topContainer*prev.fromVert:			Frame 1
+*topContainer*prev.fromHoriz:			stop
+*topContainer*next.fromVert:			Frame 1
+*topContainer*next.fromHoriz:			prev
+*topContainer*series.fromVert:			Frame 1
+*topContainer*series.fromHoriz:			next
+*topContainer*movie.fromVert:			Frame 1
+*topContainer*movie.fromHoriz:			series
+
+*topContainer*XfwfLabel.height:			30
+*quit.Label:					Quit
+*stop.Label:					Stop
+*prev.Label:					Previous
+*next.Label:					Next
+*series.Label:					Series
+*movie.Label:					Movie
+
+! *topContainer*XfwfButton.ShrinkToFit:           True
+*topContainer*XfwfButton.width:			100
+*topContainer*XfwfButton.height:		30
+*topContainer*XfwfButton.FrameType:             raised
+*topContainer*XfwfButton.FrameWidth:            2
+*topContainer*XfwfButton.TopShadowColor:        Gray95
+*topContainer*XfwfButton.BottomShadowColor:     Gray20
+*topContainer*XfwfButton.ShadowScheme:          color
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteImage"
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteFileSel"
+#include "xitePopup"
+#include "xitePrompt"

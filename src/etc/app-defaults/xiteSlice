@@ -1,0 +1,125 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Slice window (popup child of image window)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*sliceShell.baseTranslations:                           #override       \n\
+  <ClientMessage>WM_PROTOCOLS: QuitXslice()
+
+*sliceForm.Background:					Gray80
+*sliceForm.Foreground:					Gray20
+*sliceForm.Label.Background:				Gray80
+*sliceForm.Label.Foreground:				Gray20
+*sliceForm.Command.Background:				Gray80
+*sliceForm.Command.Foreground:				Gray20
+
+*sliceForm*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*sliceForm.defaultDistance: 				0
+*sliceForm.borderWidth:					20
+
+*sliceForm*Label.Justify:				left
+*sliceForm*Command.Justify:				left
+
+*sliceForm*topLabel.Label:				Color slice
+*sliceForm*topLabel.Justify:				center
+*sliceForm*topLabel.vertDistance:			5
+*sliceForm*topLabel.horizDistance:			0
+*sliceForm*topLabel.left:				chainleft
+*sliceForm*topLabel.right:				chainright
+
+*sliceForm*Scrollbar.Height:				300
+*sliceForm*Scrollbar.Width:				25
+*sliceForm*Scrollbar.horizDistance:			5
+*sliceForm*Scrollbar.vertDistance:			10
+*sliceForm*Scrollbar.scrollDCursor:			sb_up_arrow
+*sliceForm*Scrollbar.scrollUCursor:			sb_down_arrow
+
+*sliceForm*scrollbarRed*Foreground: 			Red
+*sliceForm*scrollbarRed*Thumb:				None
+*sliceForm*scrollbarGreen*Foreground:			Green
+*sliceForm*scrollbarGreen*Thumb:			None
+*sliceForm*scrollbarBlue*Foreground:			Blue
+*sliceForm*scrollbarBlue*Thumb:				None
+
+*sliceForm*labelIntensity*Label: 			I
+*sliceForm*labelHue*Label: 				H
+*sliceForm*labelSaturation*Label: 			S
+*sliceForm*labelRed*Label: 				R
+*sliceForm*labelGreen*Label: 				G
+*sliceForm*labelBlue*Label: 				B
+
+*sliceForm*labelIntensity.horizDistance:		7
+*sliceForm*labelHue.horizDistance: 			7
+*sliceForm*labelSaturation.horizDistance: 		7
+*sliceForm*labelRed.horizDistance: 			7
+*sliceForm*labelGreen.horizDistance: 			7
+*sliceForm*labelBlue.horizDistance: 			7
+
+*sliceForm*labelIntensity.width:			25
+*sliceForm*labelHue.width: 				25
+*sliceForm*labelSaturation.width: 			25
+*sliceForm*labelRed.width: 				25
+*sliceForm*labelGreen.width: 				25
+*sliceForm*labelBlue.width: 				25
+
+*sliceForm*labelIntensity.borderWidth: 			0
+*sliceForm*labelHue.borderWidth:			0
+*sliceForm*labelSaturation.borderWidth: 		0
+*sliceForm*labelRed.borderWidth: 			0
+*sliceForm*labelGreen.borderWidth: 			0
+*sliceForm*labelBlue.borderWidth: 			0
+
+*sliceForm*labelIntensity.Justify: 			center
+*sliceForm*labelHue.Justify: 				center
+*sliceForm*labelSaturation.Justify: 			center
+*sliceForm*labelRed.Justify: 				center
+*sliceForm*labelGreen.Justify: 				center
+*sliceForm*labelBlue.Justify: 				center
+
+*sliceForm*colorPatch.Width:				202
+*sliceForm*colorPatch.Height:				80
+*sliceForm*colorPatch.vertDistance:			10
+*sliceForm*colorPatch.horizDistance:			10
+
+*sliceForm*labelIhs.borderWidth:			0
+*sliceForm*labelIhs.vertDistance:			10
+*sliceForm*labelIhs.horizDistance:			10
+
+*sliceForm*labelRgb.borderWidth:			0
+*sliceForm*labelRgb.vertDistance:			5
+*sliceForm*labelRgb.horizDistance:			10
+
+*sliceForm*sendColtabToXshow.Label:		Send colortable to xshow
+*sliceForm*sendColtabToXshow.vertDistance:		10
+*sliceForm*sendColtabToXshow.horizDistance:		10
+
+*sliceForm*sendColtabToFile.Label:		Send colortable to file
+*sliceForm*sendColtabToFile.horizDistance:		10
+
+*sliceForm*loadColtabFromXshow.Label:		Load original colortable
+*sliceForm*loadColtabFromXshow.horizDistance:		10
+
+*sliceForm*loadColtabFromFile.Label:		Load colortable from file
+*sliceForm*loadColtabFromFile.horizDistance:		10
+
+*sliceForm*range.Label:				Set patch in color range
+*sliceForm*range.horizDistance:				10
+
+*sliceForm*quit.horizDistance:				10
+*sliceForm*quit.Label:					Quit
+
+*sliceForm*color.Label:					Color index:
+*sliceForm*color.borderWidth:				0
+*sliceForm*color.vertDistance:				10
+*sliceForm*color.horizDistance:				10
+
+*sliceForm*colorIndex.Label:		
+*sliceForm*colorIndex.borderWidth:			0
+*sliceForm*colorIndex.vertDistance:			10
+
+*sliceForm*colorStripe.Width:				400
+*sliceForm*colorStripe.Height:				50
+*sliceForm*colorStripe.vertDistance:			10
+*sliceForm*colorStripe.horizDistance:			4

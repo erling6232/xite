@@ -1,0 +1,303 @@
+! $Id$
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The menu hierarchy (popup child of toplevel control window)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*MenuBox*Background:					Gray80
+*MenuBox*Foreground:					Gray20
+*MenuBox*Font:			-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*MenuBox*hSpace: 					0
+*mainMenu*baseTranslations:				#override 	\n\
+ <ClientMessage>WM_PROTOCOLS: QuitMenu()
+*mainMenu.baseTranslations:				#override 	\n\
+ <ClientMessage>WM_PROTOCOLS: QuitXshow()
+*mainMenu*MenuBox.baseTranslations: 			#override 	\n\
+ <Key>Down:     change_entry(1)						\n\
+ !Ctrl<Key>n:   change_entry(1)						\n\
+ !Ctrl<Key>p:   change_entry(-1)					\n\
+ <Key>Up:       change_entry(-1)
+*mainMenu*MenuBox*Justify:				left
+*mainMenu*MenuBox.menuTopLabel.Background:		Black
+*mainMenu*MenuBox.menuTopLabel.Foreground:		White
+*mainMenu*MenuBox.menuTopLabel.baseTranslations:	#override       \n\
+ <LeaveWindow>: UndisplayMenu()                                 	\n\
+ <Key>q:	QuitMenu()						\n\
+ <Btn1Up>:      CopyMenu()						\n\
+ <Key>Down:     change_entry(1)						\n\
+ !Ctrl<Key>n:   change_entry(1)
+*mainMenu*MenuBox.menuSepLabel.baseTranslations:	#override       \n\
+ <Key>q:	QuitMenu()						\n\
+ <LeaveWindow>: UndisplayMenu()						\n\
+ <Key>Down:     change_entry(1)						\n\
+ !Ctrl<Key>n:   change_entry(1)						\n\
+ !Ctrl<Key>p:   change_entry(-1)					\n\
+ <Key>Up:       change_entry(-1)
+*mainMenu*MenuBox.MenuCommand.Background:		White
+*mainMenu*MenuBox.MenuCommand.Foreground:		Black
+*mainMenu*MenuBox.MenuCommand.baseTranslations:		#override      	\n\
+ <LeaveWindow>: reset() UndisplayMenu()                         	\n\
+ <Key>Return:   set() notify() reset()					\n\
+ <Btn1Up>:      set() notify() reset()					\n\
+ <Key>q:	QuitMenu()						\n\
+ <Key>Down:	change_entry(1)						\n\
+ !Ctrl<Key>n:   change_entry(1)						\n\
+ !Ctrl<Key>p:   change_entry(-1)					\n\
+ <Key>Up:       change_entry(-1)
+*mainMenu*MenuBox.SubMenuCommand.Background:		White
+*mainMenu*MenuBox.SubMenuCommand.Foreground:		Black
+*mainMenu*MenuBox.SubMenuCommand.baseTranslations:	#override       \n\
+ <EnterWindow>: DisplayMenu() highlight()                       	\n\
+ <LeaveWindow>: reset() UndisplayMenu()                         	\n\
+ <MouseMoved>:  DisplayMenu()                                   	\n\
+ <Btn1Up>:      DisplayMenu() reset()
+! Only allow button-press to make submenus popup of toplevel menu.
+*mainMenu.MenuBox.SubMenuCommand.baseTranslations:	#override       \n\
+ <Key>q:	QuitMenu()						\n\
+ <Key>Down:	change_entry(1)						\n\
+ !Ctrl<Key>n:   change_entry(1)						\n\
+ !Ctrl<Key>p:   change_entry(-1)					\n\
+ <Key>Up:       change_entry(-1)					\n\
+ <Key>Return:   DisplayMenu() reset()					\n\
+ <Btn1Up>:      DisplayMenu() reset()
+
+! Accelerators for popping up first-level submenu
+
+*mainMenu*MenuBox.File.Accelerators: 			#override 	\n\
+ !:Ctrl<KeyPress>f: set() notify() unset()				\n\
+ !:<KeyPress>f: set() CopyMenu() unset()
+*mainMenu*MenuBox.Image information.Accelerators:	#override	\n\
+ !:Ctrl<KeyPress>i: set() notify() unset()				\n\
+ !:<KeyPress>i: set() CopyMenu() unset()
+*mainMenu*MenuBox.Format conversions.Accelerators:	#override 	\n\
+ !:Ctrl<KeyPress>o: set() notify() unset()				\n\
+ !:<KeyPress>o: set() CopyMenu() unset()
+*mainMenu*MenuBox.Color.Accelerators: 			#override 	\n\
+ !:Ctrl<KeyPress>c: set() notify() unset()				\n\
+ !:<KeyPress>c: set() CopyMenu() unset()
+*mainMenu*MenuBox.Histogram.Accelerators: 		#override	\n\
+ !:Ctrl<KeyPress>h: set() notify() unset()				\n\
+ !:<KeyPress>h: set() CopyMenu() unset()
+*mainMenu*MenuBox.Image representation.Accelerators: 	#override	\n\
+ !:Ctrl<KeyPress>r: set() notify() unset()				\n\
+ !:<KeyPress>r: set() CopyMenu() unset()
+*mainMenu*MenuBox.Arithmetic/logical.Accelerators: 	#override	\n\
+ !:Ctrl<KeyPress>a: set() notify() unset()				\n\
+ !:<KeyPress>a: set() CopyMenu() unset()
+*mainMenu*MenuBox.Local operators.Accelerators: 	#override 	\n\
+ !:Ctrl<KeyPress>l: set() notify() unset()				\n\
+ !:<KeyPress>l: set() CopyMenu() unset()
+*mainMenu*MenuBox.Global operators.Accelerators: 	#override	\n\
+ !:Ctrl<KeyPress>g: set() notify() unset()				\n\
+ !:<KeyPress>g: set() CopyMenu() unset()
+*mainMenu*MenuBox.Filter design.Accelerators: 		#override 	\n\
+ !:Ctrl<KeyPress>d: set() notify() unset()				\n\
+ !:<KeyPress>d: set() CopyMenu() unset()
+*mainMenu*MenuBox.Image analysis.Accelerators: 		#override 	\n\
+ !:Ctrl<KeyPress>e: set() notify() unset()				\n\
+ !:<KeyPress>e: set() CopyMenu() unset()
+*mainMenu*MenuBox.System.Accelerators: 			#override	\n\
+ !:Ctrl<KeyPress>u: set() notify() unset()				\n\
+ !:<KeyPress>u: set() CopyMenu() unset()
+*mainMenu*MenuBox.Site-specific programs.Accelerators: #override 	\n\
+ !:Ctrl<KeyPress>s: set() notify() unset()				\n\
+ !:<KeyPress>s: set() CopyMenu() unset()
+*mainMenu*MenuBox.My programs.Accelerators: 		#override	\n\
+ !:Ctrl<KeyPress>m: set() notify() unset()				\n\
+ !:<KeyPress>m: set() CopyMenu() unset()
+
+! Accelerators for selecting menu-entry below specific submenu
+
+*mainMenu.File.MenuBox.Save image.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>s: set() notify() unset()
+*mainMenu.File.MenuBox.Read image.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>r: set() notify() unset()
+*mainMenu*MenuBox.Copy image.Accelerators: 		#override	\n\
+ !:Mod1<KeyPress>c: set() notify() unset()
+*mainMenu.File.MenuBox.Make new image.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>m: set() notify() unset()
+*mainMenu*MenuBox.Read colortable.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>t: set() notify() unset()
+*mainMenu.Histogram.MenuBox.Show.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>h: set() notify() unset()
+*mainMenu*MenuBox.Negate.Accelerators: 			#override	\n\
+ !:Mod1<KeyPress>n: set() notify() unset()
+*mainMenu*MenuBox.Absolute value.Accelerators: 		#override	\n\
+ !:Mod1<KeyPress>a: set() notify() unset()
+*mainMenu*MenuBox.Complex conjugate.Accelerators: 	#override	\n\
+ !:Mod1<KeyPress>*: set() notify() unset()
+*mainMenu*MenuBox.Absolute difference.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>d: set() notify() unset()
+*mainMenu*MenuBox.Signed difference.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>-: set() notify() unset()
+*mainMenu*MenuBox.Weighted sum.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>U: set() notify() unset()
+*mainMenu*MenuBox.Multiply.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>x: set() notify() unset()
+*mainMenu*MenuBox.Divide.Accelerators:			#override	\n\
+ !:Mod1<KeyPress>/: set() notify() unset()
+*mainMenu*MenuBox.Square.Accelerators:			#override	\n\
+ !:Mod1<KeyPress>^: set() notify() unset()
+*mainMenu*MenuBox.Square root.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>v: set() notify() unset()
+*mainMenu*MenuBox.Convolve 3x3 (input).Accelerators:	#override	\n\
+ !:Mod1<KeyPress>3: set() notify() unset()
+*mainMenu*MenuBox.Convolve 5x5 (input).Accelerators:	#override	\n\
+ !:Mod1<KeyPress>5: set() notify() unset()
+*mainMenu*MenuBox.Convolve 7x7 (input).Accelerators:	#override	\n\
+ !:Mod1<KeyPress>7: set() notify() unset()
+*mainMenu*MenuBox.Convolve 9x9 (input).Accelerators:	#override	\n\
+ !:Mod1<KeyPress>9: set() notify() unset()
+*mainMenu*MenuBox.Convolve images.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>0: set() notify() unset()
+*mainMenu*Fft.MenuBox.2D forward.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>f: set() notify() unset()
+*mainMenu*Fft.MenuBox.2D inverse.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>F: set() notify() unset()
+*mainMenu*MenuBox.Median.Accelerators:			#override	\n\
+ !:Mod1<KeyPress>M: set() notify() unset()
+*mainMenu*MenuBox.Color quantization.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>q: set() notify() unset()
+*mainMenu*MenuBox.Image info.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>i: set() notify() unset()
+*mainMenu*MenuBox.List image files.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>l: set() notify() unset()
+*mainMenu*MenuBox.Scale.Accelerators:			#override	\n\
+ !:Mod1<KeyPress>S: set() notify() unset()
+*mainMenu*MenuBox.kMeans clustering.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>k: set() notify() unset()
+*mainMenu*MenuBox.Pyramid.Accelerators:			#override	\n\
+ !:Mod1<KeyPress>p: set() notify() unset()
+*mainMenu*MenuBox.To BIFF.Accelerators:			#override	\n\
+ !:Mod1<KeyPress>B: set() notify() unset()
+*mainMenu*MenuBox.To pbm/pgm/ppm.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>P: set() notify() unset()
+*mainMenu*MenuBox.To raw binary.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>W: set() notify() unset()
+*mainMenu*MenuBox.To ascii.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>A: set() notify() unset()
+*mainMenu*MenuBox.To MATLAB.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>L: set() notify() unset()
+*mainMenu*MenuBox.To TIFF grayscale.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>G: set() notify() unset()
+*mainMenu*MenuBox.To TIFF palette.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>T: set() notify() unset()
+*mainMenu*MenuBox.To TIFF rgb.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>R: set() notify() unset()
+*mainMenu*MenuBox.From pbm/pgm/ppm.Accelerators:	#override	\n\
+ !:Ctrl Mod1<KeyPress>P: set() notify() unset()
+*mainMenu*MenuBox.From raw binary.Accelerators:		#override	\n\
+ !:Ctrl Mod1<KeyPress>W: set() notify() unset()
+*mainMenu*MenuBox.From ascii.Accelerators:		#override	\n\
+ !:Ctrl Mod1<KeyPress>A: set() notify() unset()
+*mainMenu*MenuBox.From MATLAB.Accelerators:		#override	\n\
+ !:Ctrl Mod1<KeyPress>L: set() notify() unset()
+*mainMenu*MenuBox.From TIFF palette.Accelerators:	#override	\n\
+ !:Ctrl Mod1<KeyPress>T: set() notify() unset()
+*mainMenu*MenuBox.From TIFF gray or rgb.Accelerators:	#override	\n\
+ !:Ctrl Mod1<KeyPress>G: set() notify() unset()
+*mainMenu*MenuBox.Gamma correction.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>g: set() notify() unset()
+*mainMenu*MenuBox.Equalize.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>e: set() notify() unset()
+*mainMenu*MenuBox.Normalize.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>N: set() notify() unset()
+*mainMenu*MenuBox.Input1 == input2.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>=: set() notify() unset()
+*mainMenu*MenuBox.Input1 < input2.Accelerators:		#override	\n\
+ !:Mod1<KeyPress><: set() notify() unset()
+*mainMenu*MenuBox.Input1 > input2.Accelerators:		#override	\n\
+ !:Mod1<KeyPress>>: set() notify() unset()
+*mainMenu*MenuBox.Input1 <> input2.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>!: set() notify() unset()
+*mainMenu*MenuBox.Input1 and input2.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>&: set() notify() unset()
+*mainMenu*MenuBox.Input1 or input2.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>|: set() notify() unset()
+*mainMenu*MenuBox.Canny edge detection.Accelerators:	#override	\n\
+ !:Mod1<KeyPress>C: set() notify() unset()
+
+
+! Accelerators for popping up submenu below specific submenu
+
+*mainMenu*Global operators*Fft.Accelerators: 		#override	\n\
+ !:Ctrl<KeyPress>w: set() notify() unset()				\n\
+ !:<KeyPress>w: set() CopyMenu() unset()
+*mainMenu*Global operators*Fht.Accelerators: 		#override	\n\
+ !:Ctrl<KeyPress>H: set() notify() unset()				\n\
+ !:<KeyPress>H: set() CopyMenu() unset()
+*mainMenu*Hough.Accelerators: 				#override	\n\
+ !:Ctrl<KeyPress>U: set() notify() unset()				\n\
+ !:<KeyPress>U: set() CopyMenu() unset()
+*mainMenu*Geometric transformations.Accelerators: 	#override	\n\
+ !:Ctrl<KeyPress>T: set() notify() unset()				\n\
+ !:<KeyPress>T: set() CopyMenu() unset()
+*mainMenu*Single-level, locally adaptive.Accelerators:	#override	\n\
+ !:Ctrl<KeyPress>v: set() notify() unset()				\n\
+ !:<KeyPress>v: set() CopyMenu() unset()
+*mainMenu*Image analysis*Texture.Accelerators: 		#override	\n\
+ !:Ctrl<KeyPress>x: set() notify() unset()				\n\
+ !:<KeyPress>x: set() CopyMenu() unset()
+*mainMenu*Image analysis*Thresholding.Accelerators: 	#override	\n\
+ !:Ctrl<KeyPress>n: set() notify() unset()				\n\
+ !:<KeyPress>n: set() CopyMenu() unset()
+*mainMenu*Image analysis*Binary thinning.Accelerators: #override	\n\
+ !:Ctrl<KeyPress>b: set() notify() unset()				\n\
+ !:<KeyPress>b: set() CopyMenu() unset()
+*mainMenu*Logical.Accelerators:				#override	\n\
+ !:Ctrl<KeyPress>|: set() notify() unset()				\n\
+ !:<KeyPress>|: set() CopyMenu() unset()
+*mainMenu*Relational.Accelerators:			#override	\n\
+ !:Ctrl<KeyPress><: set() notify() unset()				\n\
+ !:<KeyPress><: set() CopyMenu() unset()
+*mainMenu*Nearest neighbor.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>N: set() notify() unset()				\n\
+ !:<KeyPress>N: set() CopyMenu() unset()
+*mainMenu*Morphological operations.Accelerators:	#override	\n\
+ !:Ctrl<KeyPress>M: set() notify() unset()				\n\
+ !:<KeyPress>M: set() CopyMenu() unset()
+*mainMenu*Generate noisy images.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>z: set() notify() unset()				\n\
+ !:<KeyPress>z: set() CopyMenu() unset()
+*mainMenu*Row/column extraction.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>E: set() notify() unset()				\n\
+ !:<KeyPress>E: set() CopyMenu() unset()
+*mainMenu*Merge and combine.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>C: set() notify() unset()				\n\
+ !:<KeyPress>C: set() CopyMenu() unset()
+*mainMenu*Local extrema.Accelerators:			#override	\n\
+ !:Ctrl<KeyPress>L: set() notify() unset()				\n\
+ !:<KeyPress>L: set() CopyMenu() unset()
+*mainMenu*General convolutions.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>G: set() notify() unset()				\n\
+ !:<KeyPress>G: set() CopyMenu() unset()
+*mainMenu*Gradient operators.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>O: set() notify() unset()				\n\
+ !:<KeyPress>O: set() CopyMenu() unset()
+*mainMenu*Median and rank.Accelerators:			#override	\n\
+ !:Ctrl<KeyPress>R: set() notify() unset()				\n\
+ !:<KeyPress>R: set() CopyMenu() unset()
+*mainMenu*Pixelwise extremum.Accelerators:		#override	\n\
+ !:Ctrl<KeyPress>p: set() notify() unset()				\n\
+ !:<KeyPress>p: set() CopyMenu() unset()
+*mainMenu*Bitwise shift.Accelerators:			#override	\n\
+ !:Ctrl<KeyPress>B: set() notify() unset()				\n\
+ !:<KeyPress>B: set() CopyMenu() unset()
+*mainMenu*Compass.Accelerators:				#override	\n\
+ !:Ctrl<KeyPress>S: set() notify() unset()				\n\
+ !:<KeyPress>S: set() CopyMenu() unset()
+*mainMenu*Laplace.Accelerators:				#override	\n\
+ !:Ctrl<KeyPress>A: set() notify() unset()				\n\
+ !:<KeyPress>A: set() CopyMenu() unset()
+*mainMenu.Image information.MenuBox.Profile.Accelerators:   #override   \n\
+ !:Ctrl<KeyPress>P: set() notify() unset()				\n\
+ !:<KeyPress>P: set() CopyMenu() unset()
+*mainMenu.Image representation.MenuBox.Profile.Accelerators: #override  \n\
+ !:Ctrl<KeyPress>P: set() notify() unset()				\n\
+ !:<KeyPress>P: set() CopyMenu() unset()
+*mainMenu.Image information.MenuBox.Statistics.Accelerators:  #override \n\
+ !:Ctrl<KeyPress>t: set() notify() unset()				\n\
+ !:<KeyPress>t: set() CopyMenu() unset()

@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for knn
+#
+OBJ   = knn.o mbknn.o
+PROG  = knn mbknn
+MANP  = knn.m mbknn.m
+CINCL =  knn.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

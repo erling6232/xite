@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for fractal..
+#
+OBJ   = mkFractalSra.o
+PROG  = minmaxTexture mkFractalSra
+MANP  = minmaxTexture.m mkFractalSra.m
+CINCL = fractal.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for threshold
+#
+OBJ   = threshold.o thresLloyd.o thresOtsu.o thresPtile.o thresRidCal.o thresBernsen.o thresSigma.o thresMinErr.o thresUniErr.o
+PROG  = threshold thresLloyd thresOtsu thresPtile thresRidCal thresBernsen thresSigma thresMinErr thresUniErr
+MANP  = threshold.m thresLloyd.m thresOtsu.m thresPtile.m thresRidCal.m thresBernsen.m thresSigma.m thresMinErr.m thresUniErr.m
+CINCL =  threshold.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

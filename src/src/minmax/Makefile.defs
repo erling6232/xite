@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for minmax
+#
+OBJ   = closestMinMax.o maxarea.o minarea.o
+PROG  = closestMinMax maxarea minarea
+MANP  = closestMinMax.m maxarea.m minarea.m
+CINCL =  minmax.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,19 @@
+#
+#   Makefile definitions for median
+#
+OBJ   = lit.o maxHisto.o median.o mode.o pseudomedian3x3.o rank.o\
+        fractile.o fractile_mask.o
+PROG  = lit maxHisto median mode pseudomedian3x3 rank\
+        fractile
+MANP  = lit.m maxHisto.m median.m  mode.m pseudomedian3x3.m rank.m\
+        fractile.m fractile_mask.m
+CINCL =  median.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for texture
+#
+OBJ   = glcm.o glcmParameter.o glRunLength.o peanoScan.o 
+PROG  = glcm   glcmParameter   glRunLength   peanoScan 
+MANP  = glcm.m glcmParameter.m glRunLength.m peanoScan.m 
+CINCL =  texture.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

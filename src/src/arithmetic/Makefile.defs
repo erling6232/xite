@@ -1,0 +1,24 @@
+#
+#   Makefile definitions for arithmetic
+#
+OBJ   = absDiff.o  addw.o    average.o   crossSection.o divide.o   logical.o \
+	multiply.o profile.o rms.o       scale.o        signDiff.o square.o  \
+	squareRoot.o real.o  imag.o      power.o        phase.o    logarithm.o
+PROG  = absDiff    addw      average     crossSection   divide     logical \
+	multiply   profile   rms         scale          signDiff   square  \
+	squareRoot real      imag        power          phase      logarithm
+XPROG = xadd
+MANP  = absDiff.m  addw.m    average.m   crossSection.m divide.m   logical.m \
+	multiply.m profile.m rms.m       scale.m        signDiff.m square.m \
+	squareRoot.m xadd.m  real.m      imag.m         power.m    phase.m \
+	logarithm.m
+CINCL = arithmetic.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+xprog:  $(XPROG)
+program:cprog xprog
+doc:    manpage
+

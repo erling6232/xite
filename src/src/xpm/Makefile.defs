@@ -1,0 +1,15 @@
+#
+#   Makefile definitions for xpm
+#
+XPMOBJ  = data.o create.o visual.o misc.o rgb.o scan.o parse.o \
+	  XpmWrFFrP.o XpmRdFToP.o XpmCrPFData.o XpmCrDataFP.o \
+	  XpmWrFFrI.o XpmRdFToI.o XpmCrIFData.o XpmCrDataFI.o
+XPMINCL = xpm.i
+
+include:xpmincl
+object: xpmobj
+lib:    xpmlib
+dso:    xpm_dso
+program:
+doc:    
+xprog:  

@@ -1,0 +1,94 @@
+#!/bin/sh
+
+# $Id$
+
+# Generate makefile
+
+if test "$buildOnly" -eq 0
+then
+  if test "$quiet" -eq 0
+  then
+    echo "Generating Makefile templates for a few platforms." 1>&2
+  fi
+
+  for plat in `$extractPlatforms -a ${extractPlatforms}.awk -p .install/install_xite`
+  do
+    $makeMakefile -x $XITE_HOME -p $plat > Makefile.$plat.tmpl
+  done
+else
+  if test "$quiet" -eq 0
+  then
+    echo "Generating Makefile template for $XITE_HOSTTYPE." 1>&2
+  fi
+
+  $makeMakefile -x $XITE_HOME -p $XITE_HOSTTYPE > Makefile.$XITE_HOSTTYPE.tmpl 
+fi
+
+if test "$quiet" -eq 0
+then
+  echo "Editing Makefile.$XITE_HOSTTYPE template." 1>&2
+fi
+
+if test -f Makefile.$XITE_HOSTTYPE
+then
+  $echoNl "Moving existing Makefile.$XITE_HOSTTYPE to " 1>&2
+  echo    "Makefile.${XITE_HOSTTYPE}.old." 1>&2
+  mv Makefile.$XITE_HOSTTYPE Makefile.${XITE_HOSTTYPE}.old
+fi
+
+awk -f $edmakefile hosttype=$XITE_HOSTTYPE bin=$XITE_BIN_DEST \
+  lib=$XITE_LIB_DEST \
+  inc=$XITE_INC_DEST man=$XITE_MAN_DEST doc=$XITE_DOC_DEST \
+  matlib=$MATLAB_LIB matinc=$MATLAB_INC matmex=$MATLAB_MEX_DEST \
+  xinc=$X_INC_DIR xlib=$X_LIB_DIR \
+  tiffinc=$TIFF_INC_DIR tifflib=$TIFF_LIB_DIR \
+  pnminc=$PNM_INC_DIR pnmlib=$PNM_LIB_DIR \
+  matlab_hosttype=$MATLAB_HOSTTYPE \
+  regex=$regex dirent=$dirent \
+  cc=$CC Makefile.$XITE_HOSTTYPE.tmpl > Makefile.$XITE_HOSTTYPE
+
+if test $? -ne 0
+then
+  echo "ERROR:" 1>&2
+  echo "Editing Makefile.$XITE_HOSTTYPE failed." 1>&2
+  rm Makefile.$XITE_HOSTTYPE > /dev/null 2>&1
+  echo "" 1>&2
+  $paramMessage 1>&2
+
+  exit 1
+fi
+
+cd ../src
+
+if test "$XITE_HOSTTYPE" != "NT4"
+then
+  if test "$quiet" -eq 0; then
+    echo "Generating src/Makefile.unix." 1>&2
+  fi
+
+  if test -f Makefile.unix
+  then
+    $echoNl "Moving existing Makefile.unix to " 1>&2
+    echo    "Makefile.unix.old." 1>&2
+    mv Makefile.unix Makefile.unix.old
+  fi
+
+  $makeSrcMakefile -x $XITE_HOME -p $XITE_HOSTTYPE > Makefile.unix
+else
+  if test "$quiet" -eq 0; then
+    echo "Generating src/Makefile.NT4." 1>&2
+  fi
+
+  if test -f Makefile.NT4
+  then
+    $echoNl "Moving existing Makefile.NT4 to " 1>&2
+    echo    "Makefile.NT4.old." 1>&2
+    mv Makefile.NT4 Makefile.NT4.old
+  fi
+
+  $makeSrcMakefile -x $XITE_HOME -p $XITE_HOSTTYPE > Makefile.NT4
+fi
+
+cd ../etc
+
+exit 0

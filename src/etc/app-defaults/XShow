@@ -1,0 +1,162 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XShow.ZoomAll:      				False
+! XShow.visualsMenu:				False
+XShow.LogPos:					True
+XShow.XiteResourceVersion:			3.4
+XShow.XiteHelper:		netscape:Mosaic:lynx:man:xman:more:less:cat
+XShow.XiteHelperOption:				
+! If you already have netscape running on your screen and prefer not to
+! start another copy, uncomment the next line
+! XShow.XiteHelperOption:				-remote::::
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! xshow control window (toplevel application window, class name XShow,
+! instance name given by invocation name or by the X Toolkit command-line
+! option "-name <name>")
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XShow.baseTranslations: 			#override		\n\
+  <ClientMessage>WM_PROTOCOLS: QuitXshow()
+
+*TopLevelShell.baseTranslations:		#override		\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+*Form.Background:				Gray80
+*Form.Foreground:				Gray20
+*Form*Form*Background:				Gray80
+*Form*Form*Foreground:				Gray20
+
+*Form*Font:			-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+*Form*horizDistance: 				4
+*Form*vertDistance:				2
+*Form*ShrinkToFit:				True
+*Form*ShadowScheme:				color
+
+*Form*XfwfButton.FrameType:			raised
+*Form*XfwfButton.FrameWidth:			2
+*Form*XfwfButton.TopShadowColor:		Gray95
+*Form*XfwfButton.BottomShadowColor:		Gray20
+*Form*XfwfToggle.FrameType:			raised
+*Form*XfwfToggle.FrameWidth:			2
+*Form*XfwfToggle.TopShadowColor:		Gray95
+*Form*XfwfToggle.BottomShadowColor:		Gray20
+*Form*XfwfLabel.FrameWidth:			2
+*Form*XfwfLabel.FrameType:			raised
+*Form*XfwfLabel.TopShadowColor:			Gray95
+*Form*XfwfLabel.BottomShadowColor:		Gray20
+
+*promptDialog*Abort_macro.width:		100
+*promptDialog*Accept_macro.width:		250
+*promptDialog*Continue_macro.width:		150
+
+! Left column of buttons
+
+*menuForm.BorderWidth:				0
+*menuLabel.Label:				- menu -
+*Form*menuLabel.vertDistance:			6
+*Form*Form*menuLabel.Background:		Black
+*Form*Form*menuLabel.Foreground:		White
+*Form*menuLabel.TopShadowColor:			black
+*Form*menuLabel.BottomShadowColor:		black
+
+*action1Button.Label:				Macro: off
+*action1Button.Accelerators:			#override 		\n\
+ !Mod2<KeyPress>m:				toggle()
+
+*action2Button.Label:				Help
+*action2Button.Accelerators:			#override 		\n\
+ !Mod2<KeyPress>h: set_shadow(sunken) activate() set_shadow()
+
+*action3Button.Label:				Quit
+*action3Button.Accelerators:			#override 		\n\
+ !Mod2<KeyPress>q: set_shadow(sunken) activate() set_shadow()
+
+! Middle column of buttons
+
+*infoForm.BorderWidth:				0
+*infoLabel.Label:				- info -
+*Form*infoLabel.vertDistance:			6
+*Form*Form*infoLabel.Background:		Black
+*Form*Form*infoLabel.Foreground:		White
+*Form*infoLabel.TopShadowColor: black
+*Form*infoLabel.BottomShadowColor: black
+
+*activeForm.BorderWidth:			0
+*Form*activeLabel.vertDistance:			6
+*imagesLabel.Label:				Images :  0
+*Form*imagesLabel.FrameType:			sunken
+*jobsButton.Label:				Jobs   :  0
+*mouseButton.Label:				Mouse  :  N
+*mouseButton.sensitive:				False
+
+! Right column of buttons
+
+*activeLabel.Label:				- Active Images -
+*Form*Form*activeLabel.Background:   		Black
+*Form*Form*activeLabel.Foreground:   		White
+*Form*activeLabel.TopShadowColor:		black
+*Form*activeLabel.BottomShadowColor:		black
+*activeLabel.Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*Form*imageNameLabel.FrameType:			sunken
+*Form*zoomLabel.FrameType:			sunken
+*Form*dataLabel.FrameType:			sunken
+
+! Bottom text area
+
+*Form*XfwfFrame.FrameType:			sunken
+*Form*XfwfFrame.FrameWidth:			2
+*Form*XfwfFrame.ShadowScheme:			color
+*Form*XfwfFrame.TopShadowColor:			Gray95
+*Form*XfwfFrame.BottomShadowColor:		Gray20
+*Form*XfwfFrame.TraversalOn:			False
+
+*Form*XfwfFrame*Background:			Gray80
+*Form*XfwfFrame*Foreground:			Gray20
+
+*Form*stderr*Font:	-*-helvetica-medium-r-normal--??-100-*-iso8859-1
+! Remove translations, for the accelerator events to propagate through
+*stderr.baseTranslations:
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xshowMenuHier"
+#include "xiteImageOverlay"
+
+! Change some of the translations to include a call to Message(). Use
+! resource XtNtranslations, not XtNbaseTranslations, so that these changes
+! are merged into the XtNbaseTranslations defined in xiteImageOverlay.
+
+*ImageOverlay.Translations:           		#override                  \n\
+ <EnterWindow>:         WMColormap(Enter) Message(Enter)                   \n\
+ <LeaveWindow>:         WMColormap(Leave) Message(Leave)                   \n\
+ Shift Ctrl <Btn1Down>: zoom_pan(*8, MousePosC, MousePosC) Message(Resize) \n\
+ Shift Ctrl <Btn2Down>: zoom_pan(1, MousePosC, MousePosC) Message(Resize)  \n\
+ Shift Ctrl <Btn3Down>: zoom_pan(/8, MousePosC, MousePosC) Message(Resize) \n\
+ Ctrl <Btn1Down>:       zoom_pan(*2, MousePosC, MousePosC) Message(Resize) \n\
+ Ctrl <Btn2Down>:       zoom_pan(0, MousePosC, MousePosC)  Message(Resize) \n\
+ Ctrl <Btn3Down>:       zoom_pan(/2, MousePosC, MousePosC) Message(Resize) \n\
+
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteFileSel"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteTerm"
+#include "xitePopup"
+#include "xitePrompt"

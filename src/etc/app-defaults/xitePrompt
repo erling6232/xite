@@ -1,0 +1,91 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Prompt dialog
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*promptDialog.Translations:			#override		\n\
+ <ClientMessage>WM_PROTOCOLS: QuitFormDialog()
+
+*promptDialog*button0.Accelerators:		#override		\n\
+ <KeyPress>q: set_shadow(sunken) activate() set_shadow()
+*promptDialog*button1.Accelerators:		#override		\n\
+ <KeyPress>Return: set_shadow(sunken) activate() set_shadow()
+*promptDialog*button2.Accelerators:		#override		\n\
+ <KeyPress>h: set_shadow(sunken) activate() set_shadow()
+
+*promptDialog*Background:			Gray80
+*promptDialog*Foreground:			Gray20
+*promptDialog*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+*promptDialog*BorderWidth:			0
+
+*promptDialog.Form.Label*Height:		30
+
+*promptDialog*Label*Justify:			left
+*promptDialog*header*Justify:			center
+
+*promptDialog*XfwfGroup*Rows:			0
+*promptDialog*XfwfGroup*StoreByRow:		True
+*promptDialog*XfwfGroup*SelectionStyle:		one
+*promptDialog*XfwfGroup.OuterOffset:		0
+*promptDialog*XfwfGroup.InnerOffset:		0
+*promptDialog*XfwfGroup.FrameWidth:		0
+
+*promptDialog*XfwfGroup*XfwfToggle.OnIcon:	filleddiamond
+*promptDialog*XfwfGroup*XfwfToggle.OffIcon:	emptydiamond
+*promptDialog*XfwfGroup*XfwfToggle.topShadowColor: Gray95
+*promptDialog*XfwfGroup*XfwfToggle.bottomShadowColor: Gray20
+*promptDialog*XfwfGroup*XfwfToggle.rightMargin:	20
+
+*promptDialog*XfwfGroup*promptMulti.OnIcon:	filledsquare
+*promptDialog*XfwfGroup*promptMulti.OffIcon:	emptysquare
+*promptDialog*XfwfGroup*promptMulti.Alignment:	center left
+
+*promptDialog*groupMulti*SelectionStyle:	multi
+
+*promptDialog*XfwfToggle.Background:		Gray80
+*promptDialog*XfwfToggle.BorderWidth:		0
+*promptDialog*XfwfToggle.FrameWidth:		0
+*promptDialog*XfwfToggle.OuterOffset:		0
+*promptDialog*XfwfToggle.InnerOffset:		0
+
+*promptDialog*XfwfButton.ShrinkToFit:		False
+*promptDialog*XfwfButton.width:			100
+*promptDialog*XfwfButton.height:		30
+*promptDialog*XfwfButton.FrameType:		raised
+*promptDialog*XfwfButton.FrameWidth:		2
+*promptDialog*XfwfButton.TopShadowColor:	Gray95
+*promptDialog*XfwfButton.BottomShadowColor:	Gray20
+*promptDialog*XfwfButton.ShadowScheme:		color
+
+*promptDialog*XfwfPrompt.Font:	-*-courier-bold-r-normal--??-100-*-iso8859-1
+*promptDialog*XfwfPrompt.Background:		Gray85
+*promptDialog*XfwfPrompt.Height:		30
+*promptDialog*XfwfPrompt.Width:			200
+*promptDialog*XfwfPrompt.Alignment:		center right
+*promptDialog*XfwfPrompt.FrameWidth:		2
+*promptDialog*XfwfPrompt.FrameType:		sunken
+*promptDialog*XfwfPrompt.ShadowScheme:		color
+*promptDialog*XfwfPrompt.TopShadowColor:	Gray95
+*promptDialog*XfwfPrompt.BottomShadowColor:	Gray20
+
+*promptDialog*promptInt.ShrinkToFit:		False
+*promptDialog*promptInt.Width:			100
+
+*promptDialog*promptFloat.ShrinkToFit:		False
+
+*promptDialog*promptString.ShrinkToFit:		False
+*promptDialog*promptString.Width:		400
+
+*promptDialog*promptChar*Template:		_
+*promptDialog*promptChar*Pattern:		X
+
+*promptDialog*promptRadio.Alignment:		center left
+
+*promptDialog*promptBool.Alignment:		center center
+*promptDialog*promptBool.Abs_width:		30
+*promptDialog*promptBool.Abs_height:		30
+*promptDialog*promptBool.ShrinkToFit:		False
+*promptDialog*promptBool.topShadowColor: 	Gray95
+*promptDialog*promptBool.bottomShadowColor: 	Gray20

@@ -1,0 +1,287 @@
+.\"remove .ig hn for full docs
+.de hi
+.ig eh
+..
+.de eh
+..
+.TH "" 3 "" "Version 3.0" "Free Widget Foundation"
+.SH NAME
+XfwfRows
+.SH DESCRIPTION
+The RowCol widget forces all its children into tightly packed
+rows. The children keep their preferred size, but the preferred
+position is ignored.
+
+.SS "Public variables"
+
+.ps -2
+.TS
+center box;
+cBsss
+lB|lB|lB|lB
+l|l|l|l.
+XfwfRows
+Name	Class	Type	Default
+XtNalignTop	XtCAlignTop	Boolean 	True 
+
+.TE
+.ps +2
+
+.TP
+.I "XtNalignTop"
+The children are packed together on as many rows as are needed, but
+within the row they can either be aligned on the top or on the bottom.
+
+	
+
+.hi
+Boolean  alignTop = True 
+.eh
+
+.TP
+.I "XtNframeType"
+The inherited resource \fIframeType\fP is given a default value of
+\fIXfwfSunken\fP, instead of the inherited default \fIXfwfRaised\fP. The frame
+width is set to a default of 2 pixels, instead of 0.
+
+	
+
+.hi
+ frameType = XfwfSunken 
+.eh
+
+.TP
+.I "XtNframeWidth"
+
+.hi
+ frameWidth = 2 
+.eh
+
+.ps -2
+.TS
+center box;
+cBsss
+lB|lB|lB|lB
+l|l|l|l.
+XfwfBoard
+Name	Class	Type	Default
+XtNabs_x	XtCAbs_x	Position 	0 
+XtNrel_x	XtCRel_x	Float 	"0.0"
+XtNabs_y	XtCAbs_y	Position 	0 
+XtNrel_y	XtCRel_y	Float 	"0.0"
+XtNabs_width	XtCAbs_width	Position 	0 
+XtNrel_width	XtCRel_width	Float 	"1.0"
+XtNabs_height	XtCAbs_height	Position 	0 
+XtNrel_height	XtCRel_height	Float 	"1.0"
+XtNhunit	XtCHunit	Float 	"1.0"
+XtNvunit	XtCVunit	Float 	"1.0"
+XtNlocation	XtCLocation	String 	NULL 
+
+.TE
+.ps +2
+
+.ps -2
+.TS
+center box;
+cBsss
+lB|lB|lB|lB
+l|l|l|l.
+XfwfFrame
+Name	Class	Type	Default
+XtNcursor	XtCCursor	Cursor 	None 
+XtNframeType	XtCFrameType	FrameType 	XfwfRaised 
+XtNframeWidth	XtCFrameWidth	Dimension 	0 
+XtNouterOffset	XtCOuterOffset	Dimension 	0 
+XtNinnerOffset	XtCInnerOffset	Dimension 	0 
+XtNshadowScheme	XtCShadowScheme	ShadowScheme 	XfwfAuto 
+XtNtopShadowColor	XtCTopShadowColor	Pixel 	compute_topcolor 
+XtNbottomShadowColor	XtCBottomShadowColor	Pixel 	compute_bottomcolor 
+XtNtopShadowStipple	XtCTopShadowStipple	Bitmap 	NULL 
+XtNbottomShadowStipple	XtCBottomShadowStipple	Bitmap 	NULL 
+
+.TE
+.ps +2
+
+.ps -2
+.TS
+center box;
+cBsss
+lB|lB|lB|lB
+l|l|l|l.
+XfwfCommon
+Name	Class	Type	Default
+XtNtraversalOn	XtCTraversalOn	Boolean 	True 
+XtNhighlightThickness	XtCHighlightThickness	Dimension 	2 
+XtNhighlightColor	XtCHighlightColor	Pixel 	XtDefaultForeground 
+XtNhighlightPixmap	XtCHighlightPixmap	Pixmap 	None 
+XtNnextTop	XtCNextTop	Callback	NULL 
+XtNuserData	XtCUserData	Pointer	NULL 
+
+.TE
+.ps +2
+
+.ps -2
+.TS
+center box;
+cBsss
+lB|lB|lB|lB
+l|l|l|l.
+Composite
+Name	Class	Type	Default
+XtNchildren	XtCChildren	WidgetList 	NULL 
+insertPosition	XtCInsertPosition	XTOrderProc 	NULL 
+numChildren	XtCNumChildren	Cardinal 	0 
+
+.TE
+.ps +2
+
+.ps -2
+.TS
+center box;
+cBsss
+lB|lB|lB|lB
+l|l|l|l.
+Core
+Name	Class	Type	Default
+XtNx	XtCX	Position 	0 
+XtNy	XtCY	Position 	0 
+XtNwidth	XtCWidth	Dimension 	0 
+XtNheight	XtCHeight	Dimension 	0 
+borderWidth	XtCBorderWidth	Dimension 	0 
+XtNcolormap	XtCColormap	Colormap 	NULL 
+XtNdepth	XtCDepth	Int 	0 
+destroyCallback	XtCDestroyCallback	XTCallbackList 	NULL 
+XtNsensitive	XtCSensitive	Boolean 	True 
+XtNtm	XtCTm	XTTMRec 	NULL 
+ancestorSensitive	XtCAncestorSensitive	Boolean 	False 
+accelerators	XtCAccelerators	XTTranslations 	NULL 
+borderColor	XtCBorderColor	Pixel 	0 
+borderPixmap	XtCBorderPixmap	Pixmap 	NULL 
+background	XtCBackground	Pixel 	0 
+backgroundPixmap	XtCBackgroundPixmap	Pixmap 	NULL 
+mappedWhenManaged	XtCMappedWhenManaged	Boolean 	True 
+XtNscreen	XtCScreen	Screen *	NULL 
+
+.TE
+.ps +2
+
+.hi
+.SS "Methods"
+
+If a child becomes managed or unmanaged, the RowCol widget
+recomputes the positions of all managed children. That is done by a
+method \fIlayout\fP.
+
+.nf
+change_managed($)
+{
+    $layout($);
+}
+.fi
+
+The \fIlayout\fP function is responsible for moving the children to their
+positions in the grid. It is called from \fIchange_managed\fP,
+\fIgeometry_manager\fP and \fIresize\fP.
+
+.nf
+layout($)
+{
+    Position top, left, x, y;
+    Dimension width, height, w, maxht;
+    int i, j;
+    Widget child;
+
+    $compute_inside($, left, top, width, height);
+    y = top;
+    i = 0;
+    while (i < $num_children) {
+	child = $children[i];
+	w = $child$width;			/* Accumulated width */
+	maxht = $child$height;			/* Max. height in this row */
+	j = i + 1;
+	do {
+	    if (j >= $num_children) break;
+	    child = $children[j];
+	    if (w + $child$width > width) break;
+	    w += $child$width;
+	    if ($child$height > maxht) maxht = $child$height;
+	    j++;
+	} while (1);
+	for (x = left; i < j; i++) {
+	    child = $children[i];
+	    if ($alignTop)
+		XtMoveWidget(child, x, y);
+	    else
+		XtMoveWidget(child, x, y + maxht - $child$height);
+	    x += $child$width;
+	}
+	y += maxht;
+    }
+}
+.fi
+
+When a child wants to change its size or border width, it calls its
+parent's \fIgeometry_manager\fP method (through a call to
+\fIXtMakeGeometryRequest\fP or \fIXtMakeResizeRequest\fP.) The RowCol widget
+always grants size changes to its children. The size change is carried
+out immediately and a new layout is computed. If a child requests a
+change of position, the request is denied. A request for a change in
+stacking order is ignored.
+
+.nf
+XtGeometryResult  geometry_manager(Widget  child, XtWidgetGeometry * request, XtWidgetGeometry * reply)
+{
+    Dimension newwd, newht, newbd;
+
+    if (request->request_mode  (CWX | CWY)) return XtGeometryNo;
+    if (request->request_mode  XtCWQueryOnly) return XtGeometryYes;
+
+    newwd = request->request_mode  CWWidth ? request->width : $child$width;
+    newht = request->request_mode  CWHeight ? request->height : $child$height;
+    newbd = request->request_mode  CWBorderWidth
+	? request->border_width : $child$border_width;
+
+    if (newwd == $child$width  newht == $child$height
+	 newbd == $child$border_width) return XtGeometryNo;
+
+    XtResizeWidget(child, newwd, newht, newbd);
+    $layout($);
+    return XtGeometryDone;
+}
+.fi
+
+The \fIresize\fP method is called when the widget is resized. If the
+\fIrows\fP and \fIcolumns\fP resources are both zero, the children will have
+to be be re-aligned. In this case, there is no sense in asking the
+parent for a new size, so \fIlayout\fP is passed a value of \fIFalse\fP.
+
+.nf
+resize($)
+{
+    $layout($);
+}
+.fi
+
+The RowCol widget needs to recompute the positions of the children
+when one of the resources changes. When the layout changes, the widget
+also needs to be redrawn, of course.  The private variables are not
+dependent on the resources, so they don't need recomputing.
+
+.nf
+Boolean  set_values(Widget  old, Widget  request, $, ArgList  args, Cardinal * num_args)
+{
+    Boolean need_layout = False;
+    Boolean need_redisplay = False;
+
+    if ($old$alignTop != $alignTop) {
+	need_layout = True;
+    }
+    if (need_layout) {
+	$layout($);
+	need_redisplay = True;
+    }
+    return need_redisplay;
+}
+.fi
+
+.hi

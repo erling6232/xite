@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for morphology
+#
+OBJ   = morphDilate.o morphErode.o morphOpen.o morphClose.o mkMorph.o
+PROG  = morphDilate   morphErode   morphOpen   morphClose mkMorph
+MANP  = morphDilate.m mkMorph.m
+CINCL =  morph.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,19 @@
+
+# $Id$
+
+{
+	if ( $1 == "XITE_HOME=" && NF == 1 ) {
+		print "  " $1 home
+		printed = 1
+	}
+
+	if ( $1 == "XITE_HOSTTYPE=" && NF == 1 ) {
+		print "  " $1 hosttype
+		printed = 1
+	}
+
+	if (! printed) print $0
+	else printed = 0
+}
+
+

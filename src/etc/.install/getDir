@@ -1,0 +1,146 @@
+#!/bin/sh
+
+# $Id$
+
+# DESCRIPTION:
+#    Return full path for a directory (possibly non-existing).
+#    Use blank or empty strings for intermediate command line argument
+#    which should not be set.
+# OUTPUTS:
+#    On stdout: Full path for directory (which may not exist).
+#    Return value:
+#        0 : Everything ok
+#        1 : Missing value for par 1 and par 2 and par 3
+#        2 : Illegal octal protection code
+# INPUTS:
+#    $1 : Suggested return value (e.g. from environment variable).
+#         Is used if not all-blank or empty (default: none).
+#         (This eliminates the need to test the emptiness of such a variable
+#         before calling this script.)
+#         May also be given as '-', which is returned on stdout and
+#         considered ok.
+#    $2 : Default value (default: `cwd`)
+#    $3 : Text for echo (default: none)
+#    $4 : Directory for XITE utilities getPath, echoNl and checkdir
+#         (default: `pwd`)
+#    $5 : Non-empty if dialog output is to appear on stderr. This makes it
+#     	  possible to have a dialog and return a value when the script is
+#         called within backquotes (``).
+#    $6 : 0 : Don't do any checks on the directory.
+#         1 : Don't return until an existing directory is given.
+#         2 : As 1), but also try to create the directory.
+#    $7 : Protection mode octal code. Only used if $6 is 1 or 2
+
+# Skip blanks (assumes that none of the arguments is purely "/").
+
+prot=`expr "$7" : '[ ]*\(.*\)'`
+check=`expr "$6" : '[ ]*\(.*\)'`
+dest=`expr "$5" : '[ ]*\(.*\)'`
+utildir=`expr "$4" : '[ ]*\(.*\)'`
+text=`expr "$3" : '[ ]*\(.*\)'`
+default=`expr "$2" : '[ ]*\(.*\)'`
+var="-"
+[ "$1" != "-" ] && var=`expr "$1" : '[ ]*\(.*\)'`
+
+[ "$var" = "-" ] && echo "$var" && exit 0
+
+prog=`basename $0`;
+if test -n "$dest"
+then
+  dest="1>&2"
+fi
+
+if test -z "$var" -a -z "$default" -a -z "$text"
+then
+  eval "echo 'usage: $prog [<preliminary value>] [<default>] [<text>]'" $dest
+  eval "echo '              [<utility directory>] [<stderr>] [<check dir>]'"\
+    $dest
+  eval "echo '              [<octal protection code>]'" $dest
+  exit 1
+fi
+
+if test "$check" -ne 0 -a "$check" -ne 1 -a "$check" -ne 2
+then
+  check=0
+fi
+if test -z "$utildir"
+then
+  utildir="."
+fi
+if test -z "$default"
+then
+  default="."
+fi
+
+getPath=$utildir/getPath
+echoNl=$utildir/echonl
+checkdir=$utildir/checkdir
+
+ok=0;
+while test "$ok" -eq 0
+do
+  if test -z "$var"
+  then
+    if test -n "$default" -a -n "$text"
+    then
+      eval "$echoNl '$text: [$default] '" $dest
+    elif test -n "$default"
+    then
+      eval "$echoNl '[$default] '" $dest
+    elif test -n "$text"
+    then
+      eval "$echoNl '$text: '" $dest
+    else
+      eval "$echoNl" $dest
+    fi
+
+    read var
+    if test -z "$var"
+    then
+      var="$default"
+    fi
+  fi
+
+  var=`$getPath "$var"`
+
+  if test "$check" -eq 1
+  then
+    # Check for existence
+    if test ! -d "$var"
+    then
+      eval "echo '$prog error: Directory $var does not exist.'" $dest
+      eval "echo 'Give new name.'" $dest
+      var=""
+    else
+      ok=1
+    fi
+  elif test "$check" -eq 2
+  then
+    # Check for existence and create if necessary
+    $checkdir $prot $var > /dev/null 2>&1
+
+    err="$?"
+
+    if test "$err" -eq 2
+    then
+      eval "echo 'Illegal octal protection code.'" $dest
+      exit 2
+    elif test "$err" -eq 1
+    then
+      eval "echo '$prog error: Directory $var does not exist'" $dest
+      eval "echo 'and could not be created.'" $dest
+      eval "echo 'You must have write permission in the parent directory.'" \
+	      $dest
+      eval "$echoNl 'Give new name or abort and rerun with higher '" $dest
+      eval "echo 'privileges.'" $dest
+
+      var=""
+    else
+      ok=1
+    fi
+  else
+    ok=1
+  fi
+done
+
+echo "$var"

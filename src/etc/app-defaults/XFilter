@@ -1,0 +1,251 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XFilter.widgetIn:				True
+XFilter.widgetFourIn:				False
+XFilter.widgetFilt:				False
+XFilter.widgetFourFilt:				True
+XFilter.widgetOut:				True
+XFilter.widgetFourOut:				False
+XFilter.widgetCross:				True
+XFilter.widgetDiff:				False
+XFilter.crossMinMin:				-200
+XFilter.crossMaxMax:				50
+XFilter.crossMin:				-80
+XFilter.crossMax:				10
+XFilter.epsMin:					1.0e-20
+XFilter.epsMax:					0.5
+XFilter.cutLow:					0.2
+XFilter.cutHigh:				0.5
+XFilter.dispScale:				10.0
+XFilter.filterOrder:				41
+XFilter.filterType:				lp
+XFilter.rmsCalc:				True
+XFilter.windowType:				hm
+XFilter.linearFourIn:				False
+XFilter.linearFourFilt:				False
+XFilter.linearFourOut:				False
+
+XFilter.ZoomAll:				False
+XFilter.XiteResourceVersion:			3.4
+XFilter.Layout:					separate
+XFilter.AdjustWidth:				True
+XFilter.PanelContainer:				Form
+XFilter.WidgetSet:				Xfwf
+XFilter.baseTranslations:			#override	\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+*TopLevelShell.baseTranslations:		#override	\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*topContainer*Background:			Gray80
+*topContainer*Foreground:			Gray20
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*topContainer.BorderWidth:			0
+*topContainer.defaultDistance:			2
+
+*topContainer*Scrollbar.Orientation:		horizontal
+*topContainer*Scrollbar.vertDistance:           2
+*topContainer*Scrollbar.horizDistance:          5
+*topContainer*Scrollbar.width:                  260
+*topContainer*Scrollbar.height:			30
+*topContainer*Scrollbar.left:                   chainleft
+*topContainer*Scrollbar.right:                  chainright
+*topContainer*Scrollbar.minimumThumb:		4
+*topContainer.Scrollbar.Background:		white
+
+*topContainer*MenuButton*width:			385
+*topContainer*MenuButton.height:		30
+*topContainer*MenuButton*Justify:		center
+*topContainer*MenuButton*Alignment:		center
+*topContainer*MenuButton*Background:		white
+
+*topContainer*Label.width:			200
+*topContainer*Label.height:			30
+*topContainer*Label.Justify:			left
+*topContainer*Label.BorderWidth:		0
+*topContainer*XfwfLabel.width:			200
+*topContainer*XfwfLabel.height:			30
+*topContainer*XfwfLabel.Alignment:		left
+
+*topContainer.XfwfButton.width:			146
+*topContainer.XfwfButton.height:		30
+*topContainer.XfwfButton.Alignment:		center
+*topContainer.Command.width:			150
+
+*topContainer*XfwfPrompt.Width:			120
+*topContainer*XfwfPrompt.Height:                30
+*topContainer*XfwfPrompt.Alignment:		center right
+*topContainer*XfwfPrompt.Font: -*-courier-bold-r-normal--??-100-100-100-*-iso8859-1
+*topContainer*XfwfPrompt.Background:            Gray85
+*topContainer*XfwfPrompt.FrameWidth:            2
+*topContainer*XfwfPrompt.FrameType:             sunken
+*topContainer*XfwfPrompt.ShadowScheme:          color
+*topContainer*XfwfPrompt.TopShadowColor:        Gray95
+*topContainer*XfwfPrompt.BottomShadowColor:     Gray20
+
+*topContainer*Filter type.Label:		Filter type:
+
+*topContainer*Filter-menu.fromHoriz:		Filter type
+
+*topContainer*Filter-menu*lowpass.Label:	Lowpass by window method
+*topContainer*Filter-menu*highpass.Label:	Highpass by window method
+*topContainer*Filter-menu*bandpass.Label:	Bandpass by window method
+*topContainer*Filter-menu*bandstop.Label:	Bandstop by window method
+*topContainer*Filter-menu*lowpass_ideal.Label:	"Ideal" lowpass
+*topContainer*Filter-menu*butterworth_lp.Label:	Butterworth lowpass
+*topContainer*Filter-menu*exponential_lp.Label:	Exponential lowpass
+
+*topContainer*Low cutoff.Label:			Low cutoff:
+*topContainer*Low cutoff.fromVert:		Filter-menu
+
+! *topContainer*lowPrompt.Template:		_.__
+! *topContainer*lowPrompt.Pattern:		9.99
+*topContainer*lowPrompt.fromVert:		Filter-menu
+*topContainer*lowPrompt.fromHoriz:		Low cutoff
+
+*topContainer*lowScroll.fromVert:		Filter-menu
+*topContainer*lowScroll.fromHoriz:		lowPrompt
+
+*topContainer*High cutoff.Label:		High cutoff:
+*topContainer*High cutoff.fromVert:		lowScroll
+
+! *topContainer*highPrompt.Template:		_.__
+! *topContainer*highPrompt.Pattern:		9.99
+*topContainer*highPrompt.fromVert:		lowScroll
+*topContainer*highPrompt.fromHoriz:		High cutoff
+
+*topContainer*highScroll.fromVert:		lowScroll
+*topContainer*highScroll.fromHoriz:		highPrompt
+
+*topContainer*Filter order.Label:		Filter order:
+*topContainer*Filter order.fromVert:		highScroll
+
+! *topContainer*orderPrompt.Template:		___
+! *topContainer*orderPrompt.Pattern:		999
+*topContainer*orderPrompt.fromVert:		highScroll
+*topContainer*orderPrompt.fromHoriz:		Filter order
+
+*topContainer*orderScroll.fromVert:		highScroll
+*topContainer*orderScroll.fromHoriz:		orderPrompt
+
+*topContainer*Window type.fromVert:		orderScroll
+*topContainer*Window type.Label:		Window type:
+
+*topContainer*Window-menu.fromVert:		orderScroll
+*topContainer*Window-menu.fromHoriz:		Window type
+
+*topContainer*Window-menu*rectangle.Label:	Rectangle
+*topContainer*Window-menu*bartlett.Label:	Bartlett
+*topContainer*Window-menu*triangle.Label:	Triangle
+*topContainer*Window-menu*hamming.Label:	Hamming
+*topContainer*Window-menu*hanning.Label:	Hanning
+
+*topContainer*rmsDiff.fromVert:			Window-menu
+*topContainer*rmsDiff*width:			589
+*topContainer*rmsDiff*Justify:			center
+*topContainer*rmsDiff*Alignment:		center
+
+*topContainer*fInimageEpsLabel.Label:           Sensitivity log|FFT(input)|:
+*topContainer*fInimageEpsLabel.fromVert:	rmsDiff
+
+*topContainer*fInimageEpsPrompt.fromVert:	rmsDiff
+*topContainer*fInimageEpsPrompt.fromHoriz:	fInimageEpsLabel
+
+*topContainer*fInimageEpsScroll.fromVert:	rmsDiff
+*topContainer*fInimageEpsScroll.fromHoriz:	fInimageEpsPrompt
+
+*topContainer*fFiltimageEpsLabel.Label:         Sensitivity log|FFT(filter)|:
+*topContainer*fFiltimageEpsLabel.fromVert:	fInimageEpsLabel
+
+*topContainer*fFiltimageEpsPrompt.fromVert:	fInimageEpsLabel
+*topContainer*fFiltimageEpsPrompt.fromHoriz:	fFiltimageEpsLabel
+
+*topContainer*fFiltimageEpsScroll.fromVert:	fInimageEpsLabel
+*topContainer*fFiltimageEpsScroll.fromHoriz:	fFiltimageEpsPrompt
+
+*topContainer*fOutimageEpsLabel.Label:          Sensitivity log|FFT(output)|:
+*topContainer*fOutimageEpsLabel.fromVert:	fFiltimageEpsLabel
+
+*topContainer*fOutimageEpsPrompt.fromVert:	fFiltimageEpsLabel
+*topContainer*fOutimageEpsPrompt.fromHoriz:	fOutimageEpsLabel
+
+*topContainer*fOutimageEpsScroll.fromVert:	fFiltimageEpsLabel
+*topContainer*fOutimageEpsScroll.fromHoriz:	fOutimageEpsPrompt
+
+*topContainer*crossMinLabel.Label:		Cross-section min:
+*topContainer*crossMinLabel.fromVert:		fOutimageEpsLabel
+
+! *topContainer*crossMinPrompt.Template:	___.___
+! *topContainer*crossMinPrompt.Pattern:		999.999
+*topContainer*crossMinPrompt.fromVert:		fOutimageEpsLabel
+*topContainer*crossMinPrompt.fromHoriz:		crossMinLabel
+
+*topContainer*crossMinScroll.fromVert:		fOutimageEpsLabel
+*topContainer*crossMinScroll.fromHoriz:		crossMinPrompt
+
+*topContainer*crossMaxLabel.Label:		Cross-section max:
+*topContainer*crossMaxLabel.fromVert:		crossMinLabel
+
+! *topContainer*crossMaxPrompt.Template:	___.___
+! *topContainer*crossMaxPrompt.Pattern:		999.999
+*topContainer*crossMaxPrompt.fromVert:		crossMinLabel
+*topContainer*crossMaxPrompt.fromHoriz:		crossMaxLabel
+
+*topContainer*crossMaxScroll.fromVert:		crossMinLabel
+*topContainer*crossMaxScroll.fromHoriz:		crossMaxPrompt
+
+*topContainer*read inimage.Label:		Read inimage
+*topContainer*read inimage.fromVert:		crossMaxLabel
+
+*topContainer*save outimage.Label:		Save outimage
+*topContainer*save outimage.fromVert:		crossMaxLabel
+*topContainer*save outimage.fromHoriz:		read inimage
+
+*topContainer*save filter.Label:		Save filter
+*topContainer*save filter.fromVert:		crossMaxLabel
+*topContainer*save filter.fromHoriz:		save outimage
+
+*topContainer*quit.Label:			Quit
+*topContainer*quit.fromVert:			crossMaxLabel
+*topContainer*quit.fromHoriz:			save filter
+
+*topContainer*XfwfButton.FrameType:             raised
+*topContainer*XfwfButton.FrameWidth:            2
+*topContainer*XfwfButton.TopShadowColor:        Gray95
+*topContainer*XfwfButton.BottomShadowColor:     Gray20
+*topContainer*XfwfButton.ShadowScheme:          color
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteImage"
+
+*TopLevelShell*image.width:              	128
+*TopLevelShell*image.height:             	128
+
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteFileSel"
+#include "xiteTerm"
+#include "xitePopup"
+#include "xitePrompt"

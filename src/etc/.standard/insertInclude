@@ -1,0 +1,120 @@
+#!/local/bin/perl -w
+
+# $Id$
+
+# Must be called from $XITE_HOME/src.
+
+# Insert include directive for the header file which contains the
+# declarations for the particular source file. In this way, the
+# compiler will discover inconsistencies between source file definitions
+# and header file declarations.
+
+# If header file (with extension ".i") is listed in Makefile.defs for each
+# directory, then the include statement uses "<" and ">", otherwise, 
+# inclusion is for a file in the local directory.
+
+# typedefs and variables must not occur in both source file and header
+# file.
+
+sub Help {
+    print "Insert include directive for 'own' header file.\n";
+    print "If header file (with extension '.i') is listed in Makefile.defs\n";
+    print "for each directory, then the include statement uses '<' and '>',\n";
+    print "otherwise, inclusion is for a file in the local directory.\n";
+}
+
+sub usage {
+    print "\n";
+    &Help;
+    print "\n";
+    print "usage: insertInclude <pairFileName> <sourceFile> ...\n";
+    print "  <pairFileName> : Two-column text file where the entry\n";
+    print "      in the second column is the name of the include-\n";
+    print "      file which contains the function prototypes of each\n";
+    print "      <sourceFile>.\n";
+
+  exit 1;
+}
+
+if ($#ARGV == -1) {
+    &usage;
+}
+
+$fileList = shift;  # With list of source files and corresponding header files
+open(FILELIST, $fileList);
+while (<FILELIST>) {
+    if ($_ !~ /^#/) {
+	split;
+	$files{@_[0]} = @_[1];
+    }
+}
+
+file: while ($ARGV = shift) {
+  if (!defined($files{$ARGV})) {
+      next file;
+  }
+
+  open(FILE, $ARGV);
+  @lines = <FILE>;                    # Read in complete file.
+
+  $headerFile = $files{$ARGV};
+
+  # Remove directory part of name
+  if ($headerFile =~ /.*\/(.+\.h)/) {
+      $headerFile = $1;
+  }
+
+  $headerFileStem = $headerFile;
+  $headerFileStem =~ s/(.+)\.h/\1/;
+
+  # Check to see whether include directive should be for a file local to
+  # the directory or for a file in the global XITE include directory
+  $oldDir = $dir;
+  if ($ARGV =~ /(.+)\/[A-Za-z_0-9.]+/) {
+      $dir = $1;
+  } else {
+      $dir = `pwd`;
+  }
+
+  if ($dir ne $oldDir) {
+      open(MAKEFILEDEFS, "$dir\/Makefile.defs");
+      @makeFile = <MAKEFILEDEFS>;
+  }
+
+  if (grep(/$headerFileStem\.i/, @makeFile)) {
+      $includeDirective = "#include <xite/$headerFile>";
+  } else {
+      $includeDirective = "#include \"$headerFile\"";
+  }
+
+  if (grep(/^# *include +<xite\/$headerFile>/, @lines)) {
+    close(FILE);
+    next file;
+  }
+
+  $outFileName = "${ARGV}.new";
+  open(OUTFILE, ">$outFileName");
+
+  $lineNo = 0;
+  line: while (($lineNo <= $#lines) && ($_ = $lines[$lineNo++])) {
+
+    if (/^# *include +<xite\/biff\.h>/ || /^# *include +<biff\.h>/ ||
+	/^# *include +<xite\/includes\.h>/) {
+	if (/^# *include +<xite\//) {
+	    print OUTFILE $_;
+	} else {
+	    print OUTFILE "#include <xite/biff.h>\n";
+	}
+	print OUTFILE "$includeDirective\n";
+	print OUTFILE @lines[$lineNo..($#lines)];
+	next file;
+    }
+    if (/^# *include +<xite\/XITE_\.h>/) {
+      print OUTFILE "#include <xite/$headerFile>\n";
+      print OUTFILE $_;
+      print OUTFILE @lines[$lineNo..($#lines)];
+      next file;
+    }
+    print OUTFILE $_;
+  }  
+}

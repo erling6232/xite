@@ -1,0 +1,59 @@
+
+# $Id$
+
+This is the file README.INSTALL, originating from ftp.ifi.uio.no
+in directory /pub/blab/xite.
+
+NOTE: THE SYSTEM ADMINISTRATOR'S MANUAL GIVES A BETTER DESCRIPTION OF
+HOW TO INSTALL XITE. YOU WILL FIND IT IN THE SAME LOCATION YOU FOUND
+THIS FILE.
+
+Below is a condensed description of the installation procedure.
+root privileges may be needed, depending on how you choose to install
+the software.
+
+  1) Create an account or a directory for XITE, e.g. /usr/local/xite on
+     a UNIX system, or c:\XITE on a Windows system.
+
+  2) Set the environment variable XITE_HOME to the XITE directory.
+
+  3a) On a UNIX system:
+
+      Use the script "install_xite" to
+
+      i) Unpack the gzip'ed/compressed tar-file and update utility scripts.
+
+     ii) Build library, executables, manual pages and
+         hypertext reference manual.
+
+  3b) On a Windows system:
+
+      i) With the XITE prebuilt distribution for Windows, unzip xite.zip
+         inside the XITE directory. You may also need to get the file
+         msvcrt.dll and put it into the bin directory below the XITE directory.
+
+     ii) or with the XITE source distribution
+
+         - Create folders for the
+           + XITE libraries (e.g. %XITE_HOME%\lib\NT4)
+           + XITE executables (e.g. %XITE_HOME%\bin\NT4)
+           + manual page documentation (e.g. %XITE_HOME%\man)
+           + html Reference Manual documentation
+             (e.g. %XITE_HOME%\doc\ReferenceManual)
+
+         - Copy the file %XITE_HOME%\etc\Makefile.NT4.tmpl to
+           %XITE_HOME%\etc\Makefile.NT4 and reflect your above choices in
+           it.
+
+         - In the folder %XITE_HOME%\src, run the command
+             nmake /r /f Makefile.NT4 XITE_HOME=%XITE_HOME%
+
+Check the System Administrator's Manual for further instructions and
+help in case of problems. Also you'll find descriptions on
+
+  - how to build XITE on multiple computer architectures
+  - how to setup user accounts
+  - the XITE mailing list
+  - how to report bugs
+  - how to register your XITE copy
+  - how to read about XITE on the World Wide Web

@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# $Id$
+# Author: Svein Bøe, 1994
+
+usage () {
+  echo "usage: $0 [-h] [<files>]"
+  echo "  <files>  : C-files and header-files."
+  echo "             Default: *.c and *.h-files in cwd."
+  echo "  -h       : Print this text."
+  echo "  -v       : Verbose."
+  echo ""
+  echo "Purpose:"
+  echo "Check files for include-directives which should be changed to"
+  echo "include XITE-determined header-files. Produces files with names of"
+  echo "the form <headerFileName>.<sourceFileName>.grep, indicating existence"
+  echo "of headers which should be changed. Make the changes with the script"
+  echo "changeIncludes."
+
+  exit 1
+}
+
+prog=`basename $0`; files=""; help=0; verbose=0
+while [ $# -gt 0 ]; do
+  case $1 in
+    -h|-help)  help=1; usage;;
+    -v)        verbose=1; shift;;
+    *)         if [ -z "$files" ]; then
+	         files=$1
+	       else
+		 files="$files $1"
+	       fi
+	       shift;;
+  esac
+done
+
+includes="<fcntl.h> <sys/fcntl.h> <sys/file.h> <sys/io.h> <io.h> <vfork.h> \
+          <malloc.h> <memory.h> <sys/stat.h> <stdarg.h> <varargs.h> \
+          <stdio.h> <string.h> <strings.h> <time.h> <sys/types.h> <unistd.h> \
+	  <limits.h>"
+
+if [ -z "$files" ]; then
+  files=`ls *.c *.h 2>/dev/null`
+fi
+
+if [ -z "$files" ]; then
+  echo "$prog error: No such files." 1>&2
+  usage
+fi
+
+cnt=0
+for f in $files; do
+  for i in $includes; do
+    grep "# *include \{1,\}.*$i" "$f" > /dev/null 2>&1 && \
+	grep "# *include \{1,\}.*$i" "$f" > "$i.$f.grep" && cnt=`expr $cnt + 1`
+  done
+done
+
+if [ "$cnt" -gt 0 -a "$verbose" -ne 0 ]; then
+
+  echo "Number of obsolete include directives found: $cnt."
+  echo "Use the script changeIncludes."
+elif [ "$verbose" -ne 0 ]; then
+  echo "No changes necessary."
+fi

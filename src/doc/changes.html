@@ -1,0 +1,1733 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<HTML>
+
+<HEAD>
+  <TITLE>Changes between XITE versions
+  </TITLE>
+</HEAD>
+
+<BODY BACKGROUND="mona_canny.jpg">
+
+<H1>Changes between XITE versions</H1>
+
+<HR>
+
+Pay special attention to the descriptions of
+<STRONG>version incompatibilities</STRONG> for each version.
+
+<H2>Contents</H2>
+<UL>
+  <LI> <A HREF="#v3.42-3.44">Changes between versions 3.42 and 3.44</A>
+  <LI> <A HREF="#v3.41-3.42">Changes between versions 3.41 and 3.42</A>
+  <LI> <A HREF="#v3.4-3.41">Changes in patch 3.41</A>
+  <LI> <A HREF="#v3.3-3.4">Changes between versions 3.3 and 3.4</A>
+  <LI> <A HREF="#v3.2-3.3">Changes between versions 3.2 and 3.3</A>
+  <LI> <A HREF="#v3.1b-3.2">Changes between versions 3.1b and 3.2</A>
+  <LI> <A HREF="#v3.1a-3.1b">Changes between versions 3.1a and 3.1b</A>
+  <LI> <A HREF="#v3.1-3.1a">Changes between versions 3.1 and 3.1a</A>
+  <LI> <A HREF="#v3.0-3.1">Changes between versions 3.0 and 3.1</A>
+  <LI> <A HREF="#v3.0">Changes in version 3.0</A>
+</UL>
+
+<HR>
+
+<H2><A NAME="v3.42-3.44">Changes between version 3.42 and 3.44</A></H2>
+
+<UL>
+  <LI> Adapted for Linux 2.4 under RedHat 7.2.
+  <LI> Adapted for Solaris 7.
+  <LI> Avoiding warnings on endian constants.
+  <LI> Added Image-widget resource XtNrange.
+  <LI> Renamed type Matrix as xiteMatrix to avoid conflict.
+  <LI> regionConvexHull: Processing all bands (not only the first one
+       repeatedly).
+</UL>
+
+<HR>
+
+<H2><A NAME="v3.41-3.42">Changes between version 3.41 and 3.42</A></H2>
+
+<UL>
+  <LI> Fixed makefiles for OSF1 to enable building of dynamic libraries.
+  <LI> Fixed bug which prevented specifying only one of the parameters
+       for image width or height when running display programs which use
+       the ImageOverlay widget.
+  <LI> <EM>biff2pnm</EM>: Fixed segmentation violation bug. Removed option
+       <KBD>-rgb</KBD>. BIFF images with three bands are automatically
+       converted to ppm format. The conversions are now performed by functions
+       which can be linked with other programs. See the function manual page
+       for <EM>biff2pnm</EM>.
+  <LI> <EM>pnm2biff</EM>: The conversions are now performed by functions
+       which can be linked with other programs. See the function manual page
+       for <EM>pnm2biff</EM>.
+  <LI> <EM>glcmParameter</EM>: Various bug fixes in calculating the GLCM
+       parameters.
+  <LI> <EM>stdev</EM>: Fixed bug which showed up with some linkers.
+</UL>
+
+<HR>
+
+<H2><A NAME="v3.4-3.41">Changes in patch 3.41</A></H2>
+
+<UL>
+  <LI> New programs: <EM>xwarp</EM> and accompanying script
+       <EM>warpExAnalysis</EM>.
+  <li> New functions: <EM>warp</EM>, <EM>ioWarpMapping</EM> and
+       <EM>warp_resample</EM>.
+  <li> <EM>xmovie</EM>: Handles any pixel type</EM>.
+  <LI> <EM>xshow</EM>: Added option <KBD>-dialog_defaults</KBD> to
+       automatically accept dialog defaults, without popping up any dialog
+       window.
+  <LI> Changed name of type <CODE>ImageData</CODE> to <CODE>ImageDataReg</CODE>
+       in <KBD>region.h</KBD> to avoid naming conflict.
+  <LI> The System Administrator's Manual and the User's Manual are also
+       supplied in PDF format, to be read e.g. with <KBD>acroread</KBD>.
+</UL>
+
+<HR>
+
+<H2><a NAME="v3.3-3.4">Changes between version 3.3 and 3.4</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.4_main-features">Main new features</A>
+  <LI> <A HREF="#v3.4_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.4_installation">Installation</A>
+  <LI> <A HREF="#v3.4_documentation">Documentation</A>
+  <LI> <A HREF="#v3.4_new-non-visual">New non-visual programs</A>       
+  <LI> <A HREF="#v3.4_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.4_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.4_fix-tools">
+       New features and bug fixes for toolkit, widgets and functions</A>
+  <LI> <A HREF="#v3.4_other">Other</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.4_main-features">Main new features</A></H3>
+
+<UL>
+  <LI> The non-visual programs run under Windows NT version 4 and Windows 95.
+       The routine library of non-visual functions is also available.<P>
+
+       Differences between the NT/95 version and the Unix versions:
+       <UL>
+	 <LI> The notation for specifying a subset of bands when reading
+              from a BIFF file uses ";" as band specification separator under
+              Windows NT/95 (and ":" under UNIX).
+	 <LI> <EM>cdoc</EM> can not make symbolic links under NT/95 while
+	      producing reference documentation. Files are copied instead.
+	 <LI> <EM>colorquant</EM> has no timing support under NT/95.
+         <LI> For tilde ("~") expansion of path-names, the environment
+              variable <VAR>HOMEPATH</VAR> is checked under Windows NT/95 if
+              the environment variable <VAR>HOME</VAR> is not set. The password
+              database is not used.
+       </UL>
+
+       <P>
+       Also note that the <KBD>-man</KBD> and <KBD>-whatis</KBD> options
+       work under Windows NT/95.
+</UL>
+
+<H3><a NAME="v3.4_incompatibilities">Version incompatibilities</A></H3>
+
+This version is compatible with the previous version, except for the
+arguments of the function <EM>scatter</EM>.
+
+<H3><a NAME="v3.4_installation">Installation</A></H3>
+
+<UL>
+  <LI> Dynamic shared libraries (dynamic-link libraries on Windows NT/95) are
+       created by default for some platforms.
+       This, in addition to other compilation changes, greatly reduces
+       required disk space for the executable binaries. Typically only
+       one sixth of the space is needed.
+  <LI> MATLAB- and TIFF-dependent functions are put in separate libraries.
+  <LI> Removed all dependencies on <EM>csh</EM>.
+  <LI> Adapted for Windows NT/95, when installation is run under UNIX.
+       Compilation and linking must of course be run under NT, but makefiles
+       etc can be created under UNIX.
+  <LI> Separate installation for precompiled NT/95 distribution.
+</UL>
+
+<H3><a NAME="v3.4_documentation">Documentation</A></H3>
+
+Updated manuals for NT/95. Various other updates and extensions to the
+reference manual.
+
+<H3><a NAME="v3.4_new-non-visual">New non-visual programs</A></H3>
+
+<H4>mkMorph</H4>
+
+<EM>mkMorph</EM> can be used to create a structuring element for
+morphological operations. It is included in the menu hierarchy for
+<EM>xshow</EM>.
+
+<H3><a NAME="v3.4_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>All programs</H4>
+<UL>
+  <LI> Fixed bug which made histograms and cumulative histograms of very
+       large images get a very coarse appearance (a quantization of
+       the correct curves). The maximum histogram value now touches the top
+       of the display area.
+  <LI> The Image Information entry in the Tools menu of the <EM>Image</EM>
+       Widget works also for images with pixel type complex and double complex.
+  <LI> Zooming in on a complex-valued image will show the numerical pixel
+       values.
+  <LI> Fixed floating exception error on Dec alpha and Linux.
+  <LI> Avoiding some unnecessary resizing and exposure calls.
+  <LI> The histogram and slice tools in the <EM>Image</EM> widget don't crash
+       on complex-valued images.
+</UL>
+
+<H4>xfilter</H4>
+<UL>
+  <LI> Added difference widget.
+  <LI> New option: <KBD>-wdiff</KBD>.
+  <LI> Obsolete option: <KBD>-wall</KBD>.
+  <LI> Added application resources.
+  <LI> All options have their application resource counterpart.
+</UL>
+
+<H4>xhistogram</H4>
+
+Removed the possibility of giving an <KBD>&lt;outimage&gt;</KBD> command-line
+argument. The functionality is provided by <EM>xshow</EM> and various
+command-line based histogram programs.
+
+<H4>xshow</H4>
+
+<UL>
+  <LI> Reading/copying a subset of bands from a memory-intensive image is
+       much more efficient, using only the memory necessary for the requested
+       bands.
+  <LI> The control widget will display pixel values also for complex-valued
+       images.
+  <LI> Added <EM>mkMorph</EM> to menu hierarchy.
+  <LI> Removed <EM>image_minmax</EM> from menu hierarchy. <EM>statistics</EM>
+       covers this functionality.
+  <LI> Fixed the macro function for the case when no menu-file could be
+       edited (no private file and no writable public file). Expanding tilde
+       in menu-file names.
+</UL>
+
+<H3><a NAME="v3.4_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>All programs</H4>
+
+Using the environment variable MESSAGEPROG now works. Did it ever work?
+The environment variable can now also take options and arguments.
+
+<H4>biff2matlab, matlab2biff, loadBiff, saveBiff</H4>
+
+Converted to MATLAB 5.1.
+
+<H4>biff2sunraster</H4>
+
+<UL>
+  <LI> Accepts three-band rgb images, converting to 24-bit Sun rasterfiles.
+  <LI> Accepts standard XITE filenames ("-", "-0", "-1").
+</UL>
+
+<H4>biffcopy</H4>
+
+Extracting a subset of bands from a memory-intensive image is
+much more efficient, using only the memory necessary for the requested
+bands.
+
+<H4>biffinfo</H4>
+
+<UL>
+  <LI> Will handle more than one stdin input argument.
+  <LI> Will handle band specification also when appended to stdin input
+       argument.
+  <LI> Band specification on file name can be mixed with option <KBD>-n</KBD>.
+  <LI> Options can not any longer be grouped, they must be space separated.
+</UL>
+
+<H4>glRunLength</H4>
+
+<UL>
+  <LI> Fixed bug which required exactly two command-line arguments in addition
+       to options.
+  <LI> Improved output appearance.
+</UL>
+
+<H4>glcm</H4>
+
+<UL>
+  <LI> Initialized output band (GLCM matrix) properly to zeros, to avoid
+       uninitialized output pixels for input pixel values greater than
+       <SAMP>num_greylevels</SAMP>.
+  <LI> Avoid processing remaining bands only if there is a real error
+       condition in <EM>glcm()</EM>, not for a warning condition.
+</UL>
+
+<H4>glcmParameter</H4>
+
+<UL>
+  <LI> Avoids scaling error when the GLCM matrix contains only zeros.
+  <LI> Initializing the GLCM matrix if the <KBD>-mkglcm</KBD> option is used.
+</UL>
+
+<H4>houghCircle</H4>
+
+Function <EM>drawCircle()</EM> made public.
+
+<H4>houghLine</H4>
+
+<UL>
+  <LI> Function <EM>drawLine()</EM> made public.
+  <LI> Giving special treatment to the case of theta=90 degrees.
+</UL>
+
+<H4>imag</H4>
+
+Removed "Bus error" when input pixeltype is dcomplex and output pixel-type
+is double.
+
+<H4>morphDilate</H4>
+
+Fixed bug in calculating maximum values.
+
+<H4>scatter</H4>
+
+Function <EM>scatter()</EM> requires an additional argument.
+
+<H4>statistics</H4>
+
+<UL>
+  <LI> Can also handle complex-valued images (added function
+       <EM>cstatistic()</EM>).
+  <LI> Fixed the calculation of mean value for unsigned byte images to avoid
+       integer overflow (and thus negative mean).
+  <LI> Fixed the calculation of minimum and maximum value when only these
+       two parameters were requested in the call to the <EM>statistic()</EM>
+       function.
+  <LI> Options can not any longer be grouped, they must be space separated.
+</UL>
+
+<H4>sunraster2biff</H4>
+
+<UL>
+  <LI> Handles images with odd width correctly.
+  <LI> Handles 24-bit BGR and RGB as well as 32-bit XBGR and XRGB rasterfiles,
+       all converted to three-band rgb BIFF images.
+  <LI> Handles depth-1 rasterfiles correctly.
+  <LI> Accepts old-format Sun rasterfiles.
+  <LI> Accepts standard XITE filenames ("-", "-0", "-1").
+</UL>
+
+<H3><a NAME="v3.4_fix-tools">
+New features and bug fixes for toolkit, widgets and functions</A></H3>
+
+<H4>BIFF library</H4>
+<UL>
+  <LI> Added functions <EM>Iread_image_bands</EM>, <EM>Idel_band_pix</EM>,
+       <EM>Iparse_band_spec</EM>, <EM>Ifilename_part</EM>,
+       <EM>Iparse_filename</EM>, <EM>IpixPrintFormat</EM>.
+  <LI> Improved the handling of input pipes.
+  <LI> Using ";" as band specification separator under Windows NT/95.
+  <LI> <EM>Iopen_image</EM> can now handle file names with band specification
+       appended.
+</UL>
+
+<H4>ximage toolkit</H4>
+<UL>
+  <LI> The <EM>ximageInit</EM> function now processes both the standard
+       <EM>ximage</EM> application resources and those described by the
+       resources argument (instead of processing only the latter when they
+       are supplied). The options table argument should be the
+       concatenation of options tables for standard ximage options and
+       any new options corresponding to the additional application resources.
+  <LI> Added functions <EM>ximage_app_resources()</EM> and
+       <EM>ximage_app_options()</EM>.
+  <LI> Applications written without accompanying X resource files get
+       reasonable appearances.
+  <LI> Label widgets can now be from the Xaw or Xfwf widget set.
+</UL>
+
+<H4>cxite compilation/linking tool</H4>
+
+<UL>
+  <LI> Added option <KBD>-R</KBD>.
+  <LI> Added platform-dependent compile- and link-flags. This takes care
+       of using whatever definitions and libraries XITE is built with when
+       you build your own XITE-dependent application. An example is to
+       use Unix BSD definitions and libraries under SunOS5.
+</UL>
+
+<H2><a NAME="v3.2-3.3">Changes between versions 3.2 and 3.3</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.3_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.3_documentation">Documentation</A>
+  <LI> <A HREF="#v3.3_new-visual">New X based visual programs</A>
+  <LI> <A HREF="#v3.3_new-non-visual">New non-visual programs</A>
+  <LI> <A HREF="#v3.3_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.3_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.3_fix-tools">
+       New features and bug fixes for toolkit, widgets and functions</A>
+  <LI> <A HREF="#v3.3_other">Other</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.3_incompatibilities">Version incompatibilities</A></H3>
+
+This version is compatible with the previous version.
+
+<H3><a NAME="v3.3_documentation">Documentation</A></H3>
+
+A number of new man pages are available, e.g. for the <EM>Image</EM> and
+<EM>ImageOverlay</EM> widgets. Several man pages have been extended, e.g. the
+one for the <EM>ximage</EM> toolkit, and numerous pages have been revised.
+<P>
+
+Improved the html descriptions. Hopefully not as many dead-end links.
+
+<H3><a NAME="v3.3_new-visual">New X based visual programs</A></H3>
+
+<H4>xfilter</H4>
+
+An X based visual program for filter design. The input image, filter
+and output image are displayed simultaneously along with their Fourier
+transform magnitudes. The filter type and window function can be
+selected from menus.
+
+<H3><a NAME="v3.3_new-non-visual">New non-visual programs</A></H3>
+
+All the non-visual programs are included in the menu hierarchy for
+<EM>xshow</EM>, the main visual program in XITE.
+
+<H4>bandpass</H4>
+
+Replaces <EM>fftMakeBp</EM> (which is retained as a script calling
+<EM>bandpass</EM>). <EM>bandpass</EM> has more options than
+<EM>fftMakeBp</EM>. The filter can be returned in the spatial
+or Fourier domain, the window function can be chosen among several
+predefined types, and the pixel type can be chosen among all
+non-integral types (i.e. real, double, complex and double complex)
+when the filter is returned in the spatial domain.
+
+Refer to the new <EM>window</EM> program below.
+
+<H4>bandstop</H4>
+
+Replaces <EM>fftMakeBs</EM> (which is retained as a script calling
+<EM>bandstop</EM>). See <EM>bandpass</EM> above.
+
+<H4>bdf2biff</H4>
+Converts a BDF font file to a BIFF image.
+
+<H4>biffwrite</H4>
+Writes text on a BIFF image. Depends on BDF font files.
+
+<H4>butterworth</H4>
+Makes a Butterworth lowpass filter in the spatial or Fourier domain.
+
+<H4>exponential</H4>
+Makes an exponential lowpass filter in the spatial or Fourier domain.
+
+<H4>fftMagPhase</H4>
+2D Fourier transform and conversion into linear/logarithmic magnitude
+and/or phase.
+
+<H4>highpass</H4>
+Replaces <EM>fftMakeHp</EM> (which is retained as a script calling
+<EM>highpass</EM>). See <EM>bandpass</EM> above.
+
+<H4>imag</H4>
+Replaces <EM>fftImag</EM> (which is retained as a script calling
+<EM>imag</EM>).
+
+<H4>logarithm</H4>
+<UL>
+  <LI> Replaces <EM>fftDisplay</EM> (which is retained as a script calling
+       <EM>logarithm</EM>).
+  <LI> Changed <EM>logarithm()</EM> to use log10, not log (which gives ln).
+  <LI> Output pixel type can be chosen among unsigned byte, real and double.
+  <LI> Can handle all pixel types directly in the input image, without
+       converting to complex.
+  <LI> Improved efficiency for input pixeltypes UNS_BYTE, SIGN_BYTE,
+       UNS_SHORT and SIGN_SHORT.
+</UL>
+
+<H4>lowpass</H4>
+<UL>
+  <LI> Replaces <EM>fftMakeLp</EM> (which is retained as a script calling
+       <EM>lowpass</EM>). See <EM>bandpass</EM> above.
+  <LI> Fixed bug when all filter-coefficients were zero (divide by zero in
+       scaling).
+  <LI> Major revision of lowpass-generating function which should now work
+       irrespective of odd/even filter size and odd/even band size.
+</UL>
+
+<H4>lowpassIdeal</H4>
+Makes an ideal lowpass filter in the spatial or Fourier domain.
+
+<H4>phase</H4>
+<UL>
+  <LI> Replaces <EM>fftPhase</EM> (which is retained as a script calling
+       <EM>phase</EM>).
+  <LI> Added option <KBD>-shift</KBD>.
+  <LI> Will give a real pixel type output for a complex pixel type input and
+       a double pixel type output for a double complex pixel type input,
+       unless option <KBD>-b</KBD> is used.
+</UL>
+
+<H4>power</H4>
+<UL>
+  <LI> Replaces <EM>fftPower</EM> (which is retained as a script calling
+       <EM>power</EM>).
+  <LI> Handles all input pixel types.
+  <LI> Can scale the result.
+  <LI> Output pixel type will be the same as the input pixel type, unless
+       option <KBD>-real</KBD> is used. This will give a real output type for a
+       complex input type and a double output type for a double complex input
+       type.
+</UL>
+
+<H4>real</H4>
+Replaces <EM>fftReal</EM> (which is retained as a script calling
+<EM>real</EM>).
+
+<H4>window</H4>
+Makes a BIFF image containing a window function for filter design.
+
+<H4>zernike</H4>
+Computes Zernike moments for an image.
+
+<H3><a NAME="v3.3_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>General comments</H4>
+<UL>
+  <LI> All the programs are based on the <EM>ximage</EM> toolkit which is a
+       part of XITE. See comments about changes to the toolkit further down.
+  <LI> The images will by default be split from the control buttons. This
+       enables ordinary resizing of all image widgets in all <EM>ximage</EM>
+       based applications.
+  <LI> The visual class of an image does not need to equal the default visual
+       class of the display server.
+  <LI> All the programs handle images displayed with different visual classes.
+  <LI> Added menubar to <EM>Image</EM> and <EM>ImageOverlay</EM> widgets (no
+       OverlayColors menu button for an <EM>Image</EM> widget).
+  <LI> A new entry in the Tools menu can create a colorbar for the presently
+       active colortable.
+  <LI> The cursor position in every image can be traced.
+  <LI> Honors setting of widget width without setting height, and vice
+       versa, taking aspect ratio (fixed or variable) into consideration.
+  <LI> The histogram entry in the Tools menu will now calculate the total
+       histogram for a three-band rgb image if the right mousebutton is used
+       to select the input image. Previously this would result in three
+       histograms, one for each band. Using the middle mouse button will still
+       create the histogram only of band numer one (i.e. the red band).
+  <LI> Every image widget created via the "Send image" button in the histogram 
+       window will have the correct callback functions installed and thus
+       behave exactly as other image widgets.
+  <LI> Replaced some Xaw widgets by Xfwf widgets. Also see the <EM>ximage</EM>
+       option <KBD>-widgetset</KBD>.
+  <LI> XPM (X Pixmap) pixmaps and functions are used. XITE supplies the
+       necessary code and links with its own libxpm library, to avoid problems
+       with non-existent or old versions of local XPM libraries.
+  <LI> Renamed and added some options and application resources, including
+       all the ones which <EM>xshow</EM> had.
+  <LI> Fixed segmentation fault when the image display window only consisted
+       of one screen pixel.
+  <LI> The applications do not exit when a single image is closed.
+</UL>
+
+<H4>xshow</H4>
+<UL>
+  <LI> Also refer to the general comments about changes to visual programs
+       above and changes to the <EM>ximage</EM> toolkit, <EM>Image</EM> and
+       <EM>ImageOverlay</EM> widgets described below.
+  <LI> Improved dialog appearance and input checking when <EM>xshow</EM>
+       starts a program from the menu hierarchy.
+  <LI> If a colortable or overlay table was produced by the same program
+       which produced an image, this colortable will be used for the image.
+       Otherwise, the default "Work-map" will be used.
+  <LI> Fixed bug which sometimes made the main <EM>xshow</EM> menu disappear
+       (e.g. when selecting FFT forward).
+  <LI> Fixed bug where <EM>xshow</EM> sometimes would not pop up a submenu.
+  <LI> Fixed old bug which sometimes made <EM>xshow</EM> crash when one widget
+       among two or more from the same image was killed with the <KBD>q</KBD>
+       key.
+  <LI> The menu file format has been changed, but <EM>xshow</EM> can still
+       read the old format.
+  <LI> The XTERMOUT code (&lt;xterm&gt;) in a menu file entry is no longer
+       removed, but replaced by (-1), the negative of the stdout
+       filedescriptor. This means that the XTERMOUT code should be used when
+       a program requires a filename for ascii output.
+</UL>
+
+<H4>xfft</H4>
+<UL>
+  <LI> Also refer to to the general comments about changes to visual programs
+       above and changes to the <EM>ximage</EM> toolkit, <EM>Image</EM> and
+       <EM>ImageOverlay</EM> widgets described below.
+  <LI> Changed pixeltype of Fourier-transform band from unsigned byte to
+       real. The old version could only handle unsigned byte output band,
+       and the result would be truncated unless a scale-factor was supplied.
+       This would give a saturated image. Now, the image should always appear
+       correctly.
+  <LI> The ROI (Region of interest) changes according to expand, shrink, zoom
+       and pan.
+</UL>
+
+<H4>xhistogram</H4>
+<UL>
+  <LI> Also refer to to the general comments about changes to visual programs
+       above and changes to the <EM>ximage</EM> toolkit, <EM>Image</EM> and
+       <EM>ImageOverlay</EM> widgets described below.
+  <LI> Added option <KBD>-split</KBD> to the main program. Default behavior
+       is to calculate total histogram for all bands of an image.
+       <KBD>-split</KBD> will calcaulate for each band separately.
+</UL>
+
+<H4>xmovie</H4>
+<UL>
+  <LI> Also refer to the general comments about changes to visual programs
+       above and changes to the <EM>ximage</EM> toolkit, <EM>Image</EM> and
+       <EM>ImageOverlay</EM> widgets described below.
+  <LI> Removed limitation of maximum 256 bands.
+  <LI> Added option <KBD>-f</KBD>.
+</UL>
+
+<H4>xpyramid</H4>
+<UL>
+  <LI> Changed to use the <EM>ximage</EM> toolkit.
+  <LI> Also refer to to the general comments about changes to visual programs
+       above and changes to the <EM>ximage</EM> toolkit, <EM>Image</EM> and
+       <EM>ImageOverlay</EM> widgets described below.
+  <LI> Fixed bug so that it will now really use the number of colors chosen.
+</UL>
+
+<H3><a NAME="v3.3_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>General comments</H4>
+<UL>
+  <LI> Each pixel type has a string representation which can be used on the
+       command line of programs which need pixel type input.
+  <LI> All (hopefully) programs and public functions check that the pixel type
+       of image bands are correct.
+</UL>
+
+<H4>absValue</H4>
+<UL>
+  <LI> Added option <KBD>-real</KBD>.
+  <LI> Changed absolute value of complex from separate absolute value of
+       real and imaginary parts to length of complex vector.
+  <LI> Allowing complex input band to result in real output band and
+       double complex input band to result in double output band.
+</UL>
+
+<H4>ascii2biff</H4>
+Can now also read ascii images which have coordinate system added by
+<EM>biff2ascii</EM>.
+
+<H4>average</H4>
+<UL>
+  <LI> The bands in the averaging can now have different pixeltypes.
+       This could previously give erroneous results, because only the type
+       of the first band was tested.
+  <LI> Can now process bands from several input images.
+  <LI> Changed scale parameter from integer to double.
+</UL>
+
+<H4>biff2pnm</H4>
+Now works correctly with all BIFF pixeltypes (converting to unsigned
+byte or unsigned short, though without scaling).
+
+<H4>biff2ps</H4>
+Requiring arguments for input- and output-files (could be "-" variants
+as usual).
+
+<H4>biff2sunraster</H4>
+Can now handle all pixeltypes (but without scaling).
+
+<H4>biff2tiff</H4>
+Fixed crash.
+
+<H4>biffcopy</H4>
+Accepts multiple <KBD>-band</KBD> options.
+
+<H4>binarize</H4>
+Removed "bus error" for method Ab.
+
+<H4>canny</H4>
+Fixed bug in generation of canny filters.
+
+<H4>color2ascii</H4>
+Changed interpretation of filename argument. Empty filename is no
+longer interpreted. Both <KBD>-</KBD> and <KBD>-1</KBD> mean stdout.
+Removed option <KBD>-o</KBD>.
+
+<H4>colorquant</H4>
+Fixed bug in pixelvalue calculation for BIFF colortable file.
+
+<H4>crossSection</H4>
+Fixed functions to really be able to handle any pixeltype.
+
+<H4>fht2d</H4>
+Changed the fht2d function so as not to change the input band. Also fixed
+memory read error.
+
+<H4>glcmParameter</H4>
+Avoiding "bus error".
+
+<H4>houghCircle</H4>
+Initializing band correctly.
+
+<H4>houghLine</H4>
+Fixed rounding error.
+
+<H4>linearTrans</H4>
+Fixed addressing which caused "segmentation fault" on some architectures.
+
+<H4>matlab2biff</H4>
+Removed mxFree-statement which caused errors in conversion.
+
+<H4>maxarea</H4>
+Made sure that index does not go outside image bounds.
+
+<H4>pnm2biff</H4>
+Fixed addressing bug in BIFF image band.
+
+<H4>pseudo2rgb</H4>
+Fixed "bus error" bug caused by the color handling using the complete
+24-bit pixel-value in a colortable, not only the pseudocolor part.
+
+<H4>pyramid</H4>
+Testing that the number of levels is not too high. This would
+generate bands of size 0 which <EM>xshow</EM> does not like.
+
+<H4>rainbow</H4>
+Requiring &lt;outfile&gt; argument to be given.
+
+<H4>rms</H4>
+Added all pixeltypes.
+
+<H4>segmSpannWilson</H4>
+Avoiding "segmentation fault" error.
+
+<H4>statistics</H4>
+<UL>
+  <LI> Fixed bug in calculating standard deviation (at least buggy on
+       SGI). Now works fine also on e.g. unsigned short pixeltype.
+  <LI> Can now read from multiple <KBD>-</KBD> file arguments.
+</UL>
+
+<H3><a NAME="v3.3_fix-tools">
+New features and bug fixes for toolkit, widgets and functions</A></H3>
+
+<H4>ximage toolkit</H4>
+<UL>
+  <LI> Also see the general comments about
+       <A HREF="#v3.3_fix-visual">changes to X-based visual programs</A>.
+  <LI> The toolkit has been almost completely rewritten.
+  <LI> Several new toolkit command-line options and application resources.
+  <LI> <EM>Image</EM> and <EM>ImageOverlay</EM> widgets can now be displayed
+       separately from buttons, sliders etc. The old behavior is still
+       supported. The options <KBD>-layout</KBD>, <KBD>-panelcontainer</KBD>
+       and <KBD>-adjustwidth</KBD> can be used to get the desired behavior.
+  <LI> Displaying images separately from buttons etc. has the advantage that
+       the images can be resized with the mouse, as usual for images controlled
+       by the window manager.
+  <LI> Image menus for Colors, OverlayColors, Tools, Options and Visuals
+       are available to all applications based on the <EM>ximage</EM> toolkit.
+       The OverlayColors menu is only available for <EM>ImageOverlay</EM>
+       image widgets.
+  <LI> Added widgettype "P" (Prompt), "l" (list) and "E" (small ascii).
+  <LI> The user can choose between using Athena widgets Command and Toggle or
+       the Free Widget Foundation widgets XfwfButton and XfwfToggle (with a
+       runtime option).
+  <LI> A new function <EM>ximageLayout</EM> can be used as an alternative to
+       <EM>ximage_layout</EM>. The new function is more flexible.
+  <LI> Widget types can now also be specified by descriptive words, not only
+       one-letter codes.
+  <LI> Added code to handle passing of callback-function-data to display
+       functions (e.g. via histogram). This will make image widgets produced
+       via the "Send image" button in the histogram window behave exactly
+       like other image widgets.
+  <LI> Added function close_shell (action function CloseShell) which replaces
+       several other similar functions defined in some <EM>ximage</EM>-based
+       applications.
+  <LI> Changed resource instance name of image widgets to always be "image"
+       when the widget is created via the <EM>ximage_layout</EM> or
+       <EM>ximageLayout</EM> functions.
+  <LI> Removed setting of fallback-resources.       
+  <LI> Moved some of the color-resource checking to the <EM>Image</EM> and
+       <EM>ImageOverlay</EM> widgets (in Initialize and SetValues methods).
+</UL>
+
+<H4>Image widget</H4>
+<UL>
+  <LI> Added a manual page comment for the widget.
+  <LI> Added the readonly resource XtNimageRgb which keeps track of whether
+       the widget displays one band or a three-band rgb image.
+  <LI> Added checking of color resources (some code moved in from ximage.c,
+       formerly Xdisplay.c). Checking is done both for Initialize() and
+       SetValues() methods.
+  <LI> Improved the SetValues() method to handle more situations of resource
+       setting.
+  <LI> Now only freeing pixmap memory if the pixmap size must change. This
+       saves allocation time.
+  <LI> Added WMColormap action-function. This will inform the window manager
+       about which widgets need their colormap installed when the mouse pointer
+       is inside the widgets. It was needed especially for the case of
+       DirectColor visual and "reduced-color" display.
+  <LI> Added tables tab128_s and tab256_s as default values for the XtNcolorPtr
+       resource (set by the function deftab()).
+  <LI> Added functions ImageCopyResources, ImageGetResources and
+       ImageGetImageResources.
+  <LI> Added functions ImageScreenToWidth(), ImageScreenToHeight(),
+       ImageWidthToScreen() and ImageHeightToScreen().
+  <LI> Made sure widget width or height does not become zero.
+</UL>
+
+<H4>ImageOverlay widget</H4>
+<UL>
+  <LI> Added checking of color resources in methods Initialize() and
+       SetValues().
+  <LI> Added resource <EM>roiZoomPan</EM> to enable resizing and panning of
+       the ROI (Region of interest) along with widget zooming and panning.
+  <LI> Changed the Redisplay() function (expose method) to take care of a ROI
+       which should be zoomed and panned (via the resource roiZoomPan).
+  <LI> Added functions ImageOverlayCopyResources, ImageOverlayGetResources
+       and ImageOverlayGetImageOverlayResources.
+  <LI> Made sure widget width or height does not become zero.
+</UL>
+
+<H4>InitMessage function</H4>
+<UL>
+  <LI> InitMessage now strips a trailing <KBD>.bin</KBD> from the program
+       name, in order to work properly for the X based applications which
+       are started via shell scripts.
+</UL>
+
+<H3><a NAME="v3.3_other">Other</A></H3>
+
+<H4>Code improvements</H4>
+<UL>
+  <LI> Most of the code for the <EM>ximage</EM> toolkit and the main display
+       program <EM>xshow</EM> has been rewritten.
+  <LI> The header files related to image processing can now be used with C++.
+</UL>
+
+<H4>cxite</H4>
+The compilation/linking script also links with libxiteX.a and libxpm.a.
+
+<HR>
+
+<H2><a NAME="v3.1b-3.2">Changes between versions 3.1b and 3.2</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.2_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.2_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.2_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.2_fix-tools">
+       New features and bug fixes for toolkit, widgets and functions</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.2_incompatibilities">Version incompatibilities</A></H3>
+
+This version is incompatible with the previous version in the following areas
+<UL>
+  <LI> Changed parameter list for <EM>ximage_layout()</EM>. The first
+       parameter must now always be non-NULL. It should be equal to the
+       widget reference returned from <EM>ximage_init()</EM>. Setting this
+       parameter equal to NULL in previous versions, resulted in a new window
+       on the screen. This is now instead controlled by the new last parameter
+       <EM>res_inst_name</EM> (short for <dfn>resource_instance_name</dfn>).
+       This should supply the X instance name of the new widget (if you don't
+       understand this, just supply an arbitrary string). If equal to NULL,
+       there will not be a new window.
+  <LI> Some widgets have changed class or instance name. If you have set
+       X resources for these in an X resource file, the behaviour may not be
+       what you expect. Check the documentation for the program you are running
+       (if this is supplied with XITE). If you have written the program
+       yourself, based on the ximage toolkit supplied with XITE, check the
+       documentation for ximage.
+  <LI> The widget hierarchies in the XITE display programs have changed.
+       You may want to adjust any X resource settings you have made.
+</UL>
+
+<H3><a NAME="v3.2_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>xshow</H4>
+<UL>
+  <LI> Bug fixes
+  <UL>
+    <LI> Fixed bug which caused crash if path in FileSelector window was
+	 given as a single <KBD>~</KBD>.
+    <LI> Fixed bug which sometimes caused crash during zooming.
+    <LI> Removed warning if bits-per-rgb does not equal 8. bits-per-rgb
+	 different from 8 has no influence on the way XITE display programs
+	 behave. The bits-per-rgb characteristic is a measure of the
+	 resolution of the D/A convertor in the display hardware.
+    <LI> Fixed bug which caused crash if empty directory field was returned
+	 in fileselector widget.
+  </UL>
+  <LI> Changes to main menu hierarchy
+  <UL>
+    <LI> Introduced a permanent separate window for the program menu
+	 hierarchy, not launched by the "Run program" button in the Control
+	 window.
+    <LI> Submenus in the main menu-window require a mouse click to pop up.
+	 Lower-level submenus may still pop up because of mouse movement.
+    <LI> Made sure that submenus don't pop up too low or too far to the right
+	 to be visible on the screen.
+    <LI> Introduced possilibity for saving/sticking submenus on the screen.
+    <LI> Installed keyboard accelerators/shortcuts in the Control window
+	 for the quit, help and macro buttons as well as for popping up
+	 submenus (temporary and permanent) and executing command entries.
+    <LI> One may navigate in the permanent submenus with the keyboard
+	 (arrow down/up or ctrl n/p) and command entries can be executed
+	 with the Return key.
+    <LI> Permanent submenus can be popped down with the <KBD>q</KBD> key.
+    <LI> Added menu items for reading and copying only certain bands from
+	 an image.
+  </UL>
+  <LI> Changes/additions to menu entries
+  <UL>
+    <LI> Made rainbow (in menu entry "Create ihs-based colormap") send output
+	 to a separate xterm window which can be saved with Shift+Btn2.
+    <LI> Made color2ascii (in menu entry "Colortable --> Ascii") send output
+	 to a separate xterm window which can be saved with Shift+Btn2.
+    <LI> Added menu entries for reading and copying only specific bands from
+	 an image.
+    <LI> The menu entry "Rgb --> pseudocolor" is now processed entirely
+	 by colorquant, not by makepseudo.
+  </UL>
+  <LI> Other user-interface changes
+  <UL>
+    <LI> Removed "Run program" button from Control window.
+    <LI> Changed position of Macro button in Control window.
+    <LI> Removed macro filename from label in macro button.
+    <LI> Added confirmation box for stopping macro logging.
+    <LI> Made the Control window, histogram and slice applications better
+	 at handling user-selected fonts, i.e. label/command
+         widget widths are determined by chosen font/string.
+    <LI> Control window now behaves better during a window manager resize.
+    <LI> Changed width of term widget from 80 times max_bounds for font to
+         80 times the width of the character <VAR>m</VAR>.
+    <LI> Histogram data are now back in the top label of the histogram
+	 window (accidentally removed).
+    <LI> A fileselector widget is now used when saving the contents of an
+	 xterm window to file.
+    <LI> A fileselector widget is now used when sending a colortable from
+	 the histogram application to a file.
+  </UL>
+  <LI> Changes to X resources
+  <UL>
+    <LI> The application resource file is no longer installed in the standard
+	 app-defaults directory by the XITE installation procedure. Instead
+	 <EM>xshow</EM> sets the environment variable XAPPLRESDIR (and
+         possibly also
+	 XUSERFILESEARCHPATH) appropriately, so that the resource file is
+	 found in the directory $XITE_HOME/etc/app-defaults. This should not
+	 make any difference to the typical user.
+    <LI> The Control window is now also the main application shell generated
+	 when the application is initialized.
+    <LI> Changed the widgets of class Box to class Form in the Control window.
+         This improves the behaviour when the window is resized.
+    <LI> Changed instance names of Form widgets (which used to be Box widgets)
+	 in the Control window.
+    <LI> Added some constraint resources (like XtNfromHoriz and XtNright)
+	 because of the above change of class from Box to Form.
+    <LI> Instance name of macro button changed to action1Button.
+    <LI> Main menu hierarchy starts with a widget of class TopLevelShell,
+         popped up below the top application shell (Control window).
+    <LI> Changed popup menus in the program menu hierarchy from class
+	 MenuShell to class OverrideShell (to avoid the popup location to
+	 depend on pointer position).
+    <LI> Changed classes of menu command entry buttons and submenu buttons to
+         MenuCommand and SubMenuCommand respectively (in order to be able to
+         set common resources for all the widgets in each class).
+    <LI> Changed image shell from separate ApplicationShell to a
+	 TopLevelShell which is popped up from the Control window.
+    <LI> Several Xslice resources removed because of hardcoding in source-code.
+    <LI> Improved setting of width of stderr widget.
+    <LI> Changed class of histogram application from ApplicationShell to
+         TopLevelShell which is popped up from the corresponding image widget
+         shell.
+    <LI> Changed some hardcoded resource-settings for the histogram
+	 application.
+    <LI> Added setting of some constraint resources for the slice application.
+    <LI> Changed xterm shell widget from ApplicationShell class to
+	 TopLevelShell class which is popped up from the Control window.
+    <LI> Set font of menu dialog-widget to fixed-width.
+  </UL>
+  <LI> Other changes
+  <UL>
+    <LI> If <EM>xshow</EM> is used at the end of a pipe, an argument of
+	 <KBD>-</KBD> must be given to indicate that it should read from
+	 stdin. Previously this argument was not needed.
+  </UL>
+</UL>
+
+<H4>xadd, xfft, xhistogram, xmovie, xpyramid, xregion</H4>
+<UL>
+  <LI> The application resource file is no longer installed in the standard
+       app-defaults directory by the XITE installation procedure. Instead
+       each program sets the environment variable XAPPLRESDIR (and possibly
+       also XUSERFILESEARCHPATH) appropriately, so that the resource file is
+       found in the directory $XITE_HOME/etc/app-defaults. This should not
+       make any difference to the typical user.
+</UL>
+
+<H4>xadd</H4>
+Using file-selector widget to get filenames.
+
+<H4>xfft, xmovie, xshow</H4>
+<UL>
+  <LI> Additional toplevel widgets are now pop-up
+       widgets of class TopLevelShell, not ApplicationShell.
+       This means that some X resource specifications have changed.
+  <LI> Fixed bug which sometimes caused crash during zooming.
+</UL>
+
+<H4>xfft</H4>
+<UL>
+  <LI> Fixed info() to report current values, not constants.
+  <LI> Improved treatment of roixsize and roiysize (independent).
+  <LI> Using file-selector widget to get filenames.
+</UL>
+
+<H4>ximage_example</H4>
+<UL>
+  <LI> Updated since several changes have been made to the ximage toolkit.
+  <LI> Upgraded to better adhere to XITE standard.
+</UL>
+
+<H4>xpyramid</H4>
+Fixed bug which sometimes caused crash during zooming.
+
+<H4>xregion</H4>
+<UL>
+  <LI> Can now produce histogram without crashing.
+  <LI> Made the "Send colortab" entry in the histogram application sensitive.
+  <LI> Using file-selector widget to get filenames.
+</UL>
+
+<H3><a NAME="v3.2_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>addw</H4>
+Fixed bug (introduced in version 3.1) when bands were of pixeltype
+unsigned-byte.
+
+<H4>binarize</H4>
+Introduced limitation on region size to minimum of xsize and ysize
+of image.
+
+<H4>color2ascii</H4>
+<UL>
+  <LI> Should now give correct ascii result regardless of byteorder.
+  <LI> Error message if input file is not BIFF colortable. Earlier versions
+       also processed BIFF images.
+  <LI> Removed option <KBD>-ind</KBD>.
+</UL>
+
+<H4>colorquant</H4>
+<UL>
+  <LI> Implemented option <KBD>-c</KBD> (for BIFF colortable output).
+  <LI> Added options <KBD>-ct</KBD> and <KBD>-t</KBD> (for colortable and image
+       titles).
+</UL>
+
+<H4>makepseudo</H4>
+<UL>
+  <LI> Fixed usage message.
+  <LI> Temporary storage area is determined by environment variable TMPDIR.
+  <LI> Updated because of changes to colorquant.
+</UL>
+
+<H4>mct</H4>
+<UL>
+  <LI> Responds with usage message if no argument is given.
+  <LI> Changed to only store 8 bits from pixel-value, not 3x8 bits.
+</UL>
+
+<H4>rainbow</H4>
+Output pixel-values written as hexadecimal numbers.
+
+<H4>regionAnalyse</H4>
+Added "M" (i.e. mean) as possibility for option <KBD>-if</KBD>.
+
+<H4>saturmod</H4>
+<UL>
+  <LI> Can now read pixel-values in hexadecimal format.
+  <LI> Lines in colormap file can start with initial <SAMP>#</SAMP> (for
+       comments).
+</UL>
+
+<H3><a NAME="v3.2_fix-tools">
+New features and bug fixes for toolkit, widgets and functions</A></H3>
+
+<H4>ximage toolkit</H4>
+<UL>
+  <LI> Fix to avoid segmentation fault when changing overlay color.
+  <LI> Changed parameters to ximage_layout().
+  <LI> Fixed bug in ximage_info().
+  <LI> Fixed bug which sometimes caused crash during zooming.
+  <LI> Added widget type MenuButton to the possibilities handled by
+       ximage_layout().
+  <LI> Added manual page comments, especially on arguments to callback function
+       ximage_work_fun.
+</UL>
+
+<H4>Image and ImageOverlay widgets</H4>
+<UL>
+  <LI> Changes because image is now a popup child of Control widget.
+  <LI> Made sure that widget is really resized fully when the window manager
+       requests a resize.
+  <LI> Changed SetValues() in terms of how the widget instance variable
+       "update" is set and to give return-value depending on what instance
+       variables were changed.
+  <LI> Moved contents of SetValuesHook() into SetValues() (the hook procedure
+       is obsolete since X11R4, though called by Xt for compatibility).
+  <LI> Moved UPDATE_* constants from private header-file to public header-file.
+  <LI> Fixed bug which sometimes caused crash during zooming.
+</UL>
+
+<H4>PrintColortable</H4>
+<UL>
+  <LI> Changed so that printed ascii colortable with hex-format pixelvalues
+       has leading <SAMP>0x</SAMP>, not zeros. In this way, the program
+       <EM>mct</EM> will determine the correct number base.
+  <LI> Fixed bug so that it now should give the same output ascii format
+       for pixelvalues in colortable regardless of host byteorder.
+  <LI> Removed function argument "ind".
+</UL>
+
+<H4>tilde_expand</H4>
+Fixed bug which caused crash if filename was given as a single <KBD>~</KBD>.
+
+<HR>
+
+<H2><a NAME="v3.1a-3.1b">Changes between versions 3.1a and 3.1b</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.1b_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.1b_new">New programs</A>
+  <LI> <A HREF="#v3.1b_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.1b_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.1b_other">Other code changes</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.1b_incompatibilities">Version incompatibilities</A></H3>
+
+This version is compatible with the previous version.
+
+<H3><a NAME="v3.1b_new">New programs</A></H3>
+
+<H4>biff2pnm and pnm2biff</H4>
+For conversion between BIFF and pbm/pgm/ppm (from the Pbmplus or Netpbm
+free software package).
+
+<H4>kMeansCluster</H4>
+Renamed from KmeansCluster.
+
+<H3><a NAME="v3.1b_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>xshow</H4>
+Made sure that also the color menus available from the menu-bar will
+mark current colormaps (fixed by adding translations to resource file).
+
+<H4>xadd, xfft, xmovie, xregion</H4>
+Enabled marking of current colormap and overlay colormap in Colors
+and OverlayColors menus in menubar.
+
+<H3><a NAME="v3.1b_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>biff2sunraster</H4>
+Removed segmentation fault and updated menu-file.
+
+<H3><a NAME="v3.1b_other">Other code changes</A></H3>
+
+<H4>src-directory </H4>
+<UL>
+  <LI> biff/biff.h: Added definition of NULL.
+  <LI> sunraster/biff2sunraster.c: Added colormap-length parameter to
+	function write_sunraster.
+</UL>
+
+<HR>
+
+<H2><a NAME="v3.1-3.1a">Changes between versions 3.1 and 3.1a</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.1a_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.1a_documentation">Documentation</A>
+  <LI> <A HREF="#v3.1a_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.1a_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.1a_fix-tools">
+       New features and bug fixes for functions</A>
+  <LI> <A HREF="#v3.1a_other">Other code changes</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.1a_incompatibilities">Version incompatibilities</A></H3>
+
+This version is incompatible with the previous version in the following areas
+<UL>
+  <LI> Added arguments for window name and icon name to functions
+	<EM>InformationBox</EM>, <EM>ConfirmationBox</EM>,
+	<EM>SimpleDialog</EM> and <EM>CreateDialog</EM>.
+	These arguments determine what appears in the window manager
+	title field of each window (or icon).
+  <LI> Extra arguments to function <EM>Init_color()</EM>. This function
+	is probably not used by anyone except internally by the XITE
+	display programs.
+</UL>
+
+<H3><a NAME="v3.1a_documentation">Documentation</A></H3>
+
+New version of User's Manual. Updates to several man-pages (and online
+hypertext reference manual html-pages).
+
+<H3><a NAME="v3.1a_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>xshow</H4>
+<UL>
+  <LI> The file-browser widgets should now work also for Suns running
+       Solaris 2.x (SunOS 5.x).
+  <LI> The colortable in use for a particular image window will now be
+       marked by an <SAMP>x</SAMP> next to the corresponding entry in the
+       Colors menu. Likewise with the overlay colortable in use for a
+       particular image window, it will be marked by an <SAMP>x</SAMP> next
+       to the corresponding entry in the OverlayColors menu.
+  <LI> The above changes mean that <EM>xshow</EM> now is able to keep track
+       of which colortable and which overlay colortable is in use for each
+       particular image window when more than one window are displayed at
+       the same time. The behavior was rather confusing in the past.
+  <LI> Not really a change, just a comment about behavior related to the
+       handling of colortables and overlay colortables:
+
+       All image windows still share the same list of colortables and
+       overlay colortables. This means that two images with overlays
+       can not use the same colortable and at the same time different
+       overlay colortables. This is because the overlay colortables are
+       installed as part of the ordinary colortables.
+
+       Of course, one may add an extra copy of one of the colortables
+       and use a different overlay colortable with this copy.
+  <LI> Fixed the behavior of option <KBD>-overlay</KBD>. Now, each overlay given
+       on the command-line will get the specified overlay colortable.
+  <LI> Enabled reading of overlay colortables when a command-line argument
+       has a leading <KBD>+</KBD> and the remaining argument refers to a
+       colortable file. This was a documented possibility already, but it
+       didn't work.
+
+       An overlay will get the last overlay colortable specified in front of
+       it on the command-line.
+  <LI> The option <KBD>-p</KBD> for protection of the overlays has been fixed.
+  <LI> Fixed the option <KBD>-i &lt;chan&gt;</KBD>. This makes it possible to
+       fork <EM>xshow</EM>
+       from inside another program and pipe images along a specified channel.
+       This was a documented possiblity already, but it didn't work.
+  <LI> An image overlay will now not disappear when colortable or overlay
+       colortable is changed.
+  <LI> Added a "Background" overlay colortable.
+  <LI> Changed title of Overlay colortable menu, from Overlays to
+       OverlayColors.
+  <LI> Changed names of some standard colortables.
+</UL>
+
+<H4>xregion</H4>
+<UL>
+  <LI> Removed covar push-button. It didn't do anything anyway.
+  <LI> Fixed bug which could sometimes result in the error message
+       "broken pipe" and abortion on Silicon Graphics, when the statistics
+       pushbutton is used.
+  <LI> Mask image command-line argument is now checked to see that it is of
+       type unsigned-byte.
+  <LI> The option <KBD>-p</KBD> for protection of the overlays has been fixed.
+  <LI> An image overlay will now not disappear when colortable or overlay
+       colortable is changed.
+</UL>
+
+<H3><a NAME="v3.1a_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>biffinfo</H4>
+Changed behaviour so that a usage message is given if no image
+is given on the command line (as filename or the special symbols
+accepted by Iread_image()). This is standard XITE behaviour.
+
+<H4>cdoc</H4>
+Improvements to LaTeX, troff and html output.
+
+<H4>statistics</H4>
+<UL>
+  <LI> Added option <KBD>-a</KBD> for user-decision of output format (number of
+       significant digits) of integer and floating-point results.
+  <LI> Added option <KBD>-h</KBD> for printing horizontal header above results.
+  <LI> Fixed bugs which sometimes returned incorrect minimum and
+       maximum values.
+  <LI> Minor changes to semantics for some options.
+</UL>
+
+<H3><a NAME="v3.1a_fix-tools">New features and bug fixes for functions</A></H3>
+<UL>
+  <LI> statistics/statistics.c: Fixed bugs in statisticsMask
+       which sometimes returned incorrect minimum and maximum values
+  <LI> Added resource XtNoverlaytab to <EM>ImageOverlay</EM> Widget, to
+       keep track of the overlay colortable in use.
+</UL>
+
+<H3><a NAME="v3.1a_other">Other code changes</A></H3>
+
+<H4>include-directory</H4>
+xite_random.h: Changed declarations under IBM AIX.
+
+
+<H4>src-directory </H4>
+<UL>
+  <LI> ximage/xmovie.c: Renamed function usleep to avoid conflict under
+       IBM AIX.
+  <LI> xshow/Xdialog.c: Added arguments for window name and icon name to
+       functions InformationBox, ConfirmationBox, SimpleDialog and
+       CreateDialog
+  <LI> xshow/Xcolor.c: Cleaned up in global variables and removed function
+       Get_color() because keeping track of the colortable in use must be
+       done by each image widget separately.
+  <LI> xshow/Xcolor.c: Added functions ColorHook() and OverlayHook() to
+       handle marking of color menu entries to show present colortable and
+       overlay colortable in use for each image window.
+  <LI> xshow/Xcolor.c: Fixed indexing of overlay colortables.
+  <LI> xshow/Xcolor.c: Added function Color_ovl_max().
+  <LI> xshow/Xfunc.c: Extra arguments to function Init_color().
+  <LI> matlab/saveBiff.c: Avoided error message under IBM AIX.
+</UL>
+
+<HR>
+
+<H2><a NAME="v3.0-3.1">Changes between versions 3.0 and 3.1</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.1_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.1_documentation">Documentation</A>
+  <LI> <A HREF="#v3.1_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.1_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.1_fix-tools">
+       New features and bug fixes for toolkit</A>
+  <LI> <A HREF="#v3.1_other">Other</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.1_incompatibilities">Version incompatibilities</A></H3>
+
+This version is incompatible with the previous version in the following areas
+<UL>
+  <LI> Function <EM>ximage_init()</EM> has an additional parameter
+       <EM>warn</EM>. You should probably set this equal to zero.
+       Setting it equal to 1 makes the function check that
+       the version of the X app-defaults file is synchronized with the
+       version of XITE. 
+</UL>
+
+<H3><a NAME="v3.1_documentation">Documentation</A></H3>
+
+A <EM>reference manual</EM> is available in hypertext (html) format. This is
+built automatically from the <code>man</code> pages when you install XITE.
+The reference manual reflects the traditional <code>man</code> grouping into
+sections as well as the <EM>xshow</EM> menu hierarchy.
+<P>
+The reference manual can be read independently with an html reader or be
+shown from inside <EM>xshow</EM>. See the comments on <EM>xshow</EM> below.
+
+<H3><a NAME="v3.1_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>xshow</H4>
+<UL>
+  <LI> Can also display images with signed byte pixels.
+  <LI> Improved widget geometry negotiation when very narrow images are
+       displayed.
+  <LI> Fixed bug which made <EM>xshow</EM> crash when zooming in on images with
+       very large pixelvalues (when the pixelvalues would be shown in
+       ascii).
+  <LI> There used to be a lower limit on how small subimages one could
+       choose with the left mouse-button as input to a program. This limit
+       has now been decreased so that images consisting of more than one
+       pixel may now be chosen.
+  <LI> The action of the help-button in the control window can now be chosen
+       by the user. The action is to start one of a list of chosen help
+       programs, such as <KBD>netscape, Mosaic, lynx, man</KBD>
+       or <KBD>xman</KBD>.
+       Choosing one of the three WWW browsers will bring up the front page
+       of the XITE online hypertext reference manual. See <KBD>man xshow</KBD>
+       for more information on this.
+  <LI> <EM>xshow</EM> not only compiles and builds but now also runs under
+       Linux. Tested briefly under Linux 1.2.13 on a Pentium.
+</UL>
+
+<H3><a NAME="v3.1_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>addw</H4>
+Works for all pixeltypes.
+
+<H4>cdoc</H4>
+<UL>
+  <LI> Additional markup-codes introduced for manual-page comments.
+  <LI> Can also handle html format in output-files (for hypertext reference
+       manual).
+</UL>
+
+<H4>convolve</H4>
+The convolution kernel can also be a BIFF image.
+
+<H4>image_minmax</H4>
+Works also for signed-byte images.
+
+<H4>mean</H4>
+Works for all non-complex pixel-types.
+
+<H4>signDiff</H4>
+Works for all pixeltypes.
+
+<H4>statistics</H4>
+<UL>
+  <LI> Works also for signed byte pixeltype.
+  <LI> Avoids abortion if mask size is different from band size (by checking
+       for this condition).
+  <LI> Changed behaviour when no image argument is given, to echo a
+       usage message (standard XITE behaviour).
+</UL>
+
+<H3><a NAME="v3.1_fix-tools">New features and bug fixes for toolkit</A></H3>
+
+<H4>ximage_init</H4>
+This function now has an extra parameter "warn".
+
+<H3><a NAME="v3.1_other">Other</A></H3>
+
+<H4>makexite</H4>
+Fixed bug in installation script for Linux.
+
+<HR>
+
+<H2><a NAME="v3.0">Changes in version 3.0</A></H2>
+
+<UL>
+  <LI> <A HREF="#v3.0_incompatibilities">Version incompatibilites</A>
+  <LI> <A HREF="#v3.0_main-features">Main new features</A>
+  <LI> <A HREF="#v3.0_fix-visual">
+       New features and bug fixes for X based visual programs</A>
+  <LI> <A HREF="#v3.0_fix-non-visual">
+       New features and bug fixes for non-visual programs</A>
+  <LI> <A HREF="#v3.0_code">Code improvements</A>
+  <LI> <A HREF="#v3.0_tools">New tools for programmers</A>
+  <LI> <A HREF="#v3.0_installation">Installation etc.</A>
+</UL>
+
+<HR>
+
+<H3><a NAME="v3.0_incompatibilities">Version incompatibilities</A></H3>
+
+This version is incompatible with the previous version in the following area
+
+<H4>Byte-ordering for images</H4>
+
+This version does automatic byte-swapping, as explained below in the section
+Architectures/platforms. BIFF images written with a previous
+version of XITE may give peculiar results when reading them with
+version 3.0 or higher.
+This will happen if an image with pixeltype other than unsigned byte or signed
+byte was written with a little-endian host. Examples of little-endian
+platforms are DecStation and Intel ix86, while most other platforms are
+big-endian.<P>
+
+The peculiar results may be an error message like "bus error" or
+strange-looking images. Running the XITE program
+<EM>statistics</EM>(1) on such an image
+will typically give rather extreme values for Min and Max and the value NaN for
+Mean and St.dev.<P>
+
+The solution is to explicitly perform byte-swapping on the images. This is done
+with the XITE program <EM>byteswap</EM>(1). Note that this is only
+necessary for multi-byte pixeltypes.
+
+<H3><a NAME="v3.0_main-features">Main new features</A></H3>
+
+<H4>Menus</H4>
+<UL>
+  <LI> A simple macro-generator for <EM>xshow</EM>. It generates
+       macros from mouse-button activity. This minimizes mouse usage when
+       running a sequence of algorithms on different images.<P>
+
+       The macro may optionally be appended as an entry in the menu
+       hierarchy which will be updated on-the-fly.
+  <LI> Multiple menufiles are handled by <EM>xshow</EM>, e.g. the
+       menufile supplied
+       with the XITE distribution, one site-specific file, one
+       project-specific file and a personal file. They are all linked in
+       the menu hierarchy in <EM>xshow</EM>.
+  <LI> An expanded menu interface in <EM>xshow</EM>(1). Virtually
+       all XITE programs are available from menu entries.
+</UL>
+
+<H4>Architectures/platforms</H4>
+<UL>
+  <LI> XITE also runs on 64-bit architectures (tested on Dec Alpha
+       under OSF1).
+  <LI> Architectures tested include: Silicon Graphics Indy under IRIX 5,
+       Sun Sparc under SunOS 4, Dec Alpha under OSF1, Pentium PC under Linux,
+       IBM RS 6000 under AIX and DecStation 5000 under ULTRIX 4.
+  <LI> Automatic byte-swapping when reading BIFF images from a file with
+       a foreign byte-ordering (little-endian versus big-endian).
+</UL>
+
+<H4>Format converters</H4>
+<UL>
+  <LI> Converters between XITE's file format BIFF and TIFF (Tag Image File
+       Format) are included. See <EM>biff2tiff(1), biff2tiff(3),
+       tiff2biff(1)</EM> and <EM>tiff2biff(3)</EM>.
+  <LI> Converters between XITE's file format BIFF and MATLAB binary files
+       are included. See <EM>matlab2biff(1), matlab2biff(3),
+       biff2matlab(1), biff2matlab(3)</EM> and the MATLAB
+       functions <EM>loadBiff</EM> and <EM>saveBiff</EM>.
+  <LI> New program <EM>color2ascii</EM>(1).
+</UL>
+
+<H4>Algorithms</H4>
+<UL>
+  <LI> Lots of new thresholding/binarization algorithms, see
+       <EM>binarize(1)</EM>.
+  <LI> Routines and programs to extract rows, columns, cross-sections and
+       lines with arbitrary inclination.  See <EM>profile(1), profile(3),
+       crossSection(1), crossSection(3)</EM> and
+       <EM>vectorPeak(3)</EM>.
+</UL>
+
+<H4>Colors and such</H4>
+<UL>
+  <LI> All the X11 programs now handle 24-bit color displays of visual types
+       DirectColor and TrueColor, as well as 8-bit PseudoColor and
+       GrayScale.
+  <LI> All the supplied colortables work for both 8-bit and 24-bit pixels.
+  <LI> New program <EM>color2ascii</EM>(1).
+</UL>
+
+<H4>Other changes to X user interface</H4>
+<UL>
+  <LI> New widgets (file browsers) for selecting input/output files in
+       <EM>xshow</EM>(1).
+  <LI> X11 resources can now be set by each individual user.
+  <LI> Default X11 application resources files for the programs
+       <EM>xshow, xregion, xmovie, xfft, xadd, xhistogram</EM>
+       and <EM>xpyramid</EM>.
+  <LI> All the X11 applications will behave gracefully when the window
+       manager tries to kill a window.
+  <LI> Fixed or variable aspect ratio in <EM>xshow</EM> is now
+       local to each image, not a global setting. Can be controlled via
+       menu and <EM>xshow</EM> option <KBD>-aspect</KBD>.
+  <LI> Each image in <EM>xshow</EM> may have a menubar attached
+       above it. Can be controlled via menu and <EM>xshow</EM>
+       option <KBD>-mb</KBD>.
+</UL>
+
+<H3><a NAME="v3.0_fix-visual">
+New features and bug fixes for X based visual programs</A></H3>
+
+<H4>xshow</H4>
+
+<UL>
+<LI> Menus
+<UL>
+  <LI> A simple macro-generator which generates macros from
+       mouse-button activity. This minimizes mouse usage when running a
+       sequence of algorithms on different images.<P>
+
+       The macro may optionally be appended as an entry in the menu
+       hierarchy which will be updated on-the-fly.
+
+       The macro-generator is limited to the programs accessed via the
+       control window menu button and does not record activity in the
+       image menubar or image popup menus.<P>
+  <LI> Multiple menufiles are handled, e.g. the menufile supplied
+       with the XITE distribution, one site-specific file, one
+       project-specific file and a personal file. They are all linked in
+       the menu hierarchy.
+  <LI> An expanded menu interface. Virtually all XITE programs
+       are available from menu entries.
+  <LI> Each image may have a menubar attached above it. The menubar gives
+       access to the same facilities as the popup menus inside the image.
+       Can be controlled via menu and option <KBD>-mb</KBD>.
+</UL>
+
+<LI> Colors and such
+<UL>
+  <LI> Added the ability to load colortables into the slice tool, from file or
+       from the corresponding image.
+  <LI> Can handle displays with 24-bit DirectColor or TrueColor as their
+       default visual type, as well as 8-bit PseudoColor and GrayScale.
+  <LI> Made reduced-color the default at startup for 24-bit DirectColor.
+  <LI> Changed the setting of colormap for text widgets to be the default
+       colormap of the display. Should rather use Xmu functions which can
+       give colormaps for available, non-default visuals.
+  <LI> Checking inclusive or of color-masks when getting the list of
+       available visuals. Must match what <EM>xshow</EM> expects (i.e. 0bbbbbb,
+       where each <VAR>b</VAR> denotes 4 consecutive high bits).
+  <LI> Added a warning if the bits_per_rgb of the display does not match
+       what <EM>xshow</EM> expects.
+  <LI> Denying change of overlay colors when default colormap is in use.
+  <LI> Fixed a bug so that the line in the histogram widget with red
+       mode is no longer blue, and vice versa.
+  <LI> Generates better names for the colortables menu entries referring
+       to the colortables used by the histogram and slice tools.
+</UL>
+
+<LI> Other changes to X user interface
+<UL>
+  <LI> Fixed or variable aspect ratio is now local to each image,
+       not a global setting. Can be controlled individually via menu and
+       initially via the option <KBD>-aspect</KBD>.
+  <LI> Fixed options for width and height of image window.
+  <LI> Added scrollbar to feedback widget.
+  <LI> Added horizontal scrollbar to textual results widget.
+  <LI> Changed flag menu entry label text form <SAMP>128 colors</SAMP> to
+       <SAMP>Reduced colors</SAMP>.
+  <LI> Changed Histogram widget button name from <SAMP>Hist.spec.</SAMP> to
+       <SAMP>Piecewise linear</SAMP>.
+  <LI> Made window name (as displayed by window manager) for the histogram
+       and slice windows dependent on the particular image name.
+  <LI> Added trailing <SAMP>...</SAMP> to submenu entries and the ability to
+       have menu separators.
+</UL>
+
+<LI> Miscellaneous
+<UL>
+  <LI> Cleaned up in command-line options and usage message.
+  <LI> Added warning for "Send image" (in Histogram widget) when image is
+       not unsigned byte.
+  <LI> Fixed bug to avoid some crashes when the number of widgets is high.
+  <LI> Added option <KBD>-ver</KBD> to echo XITE version number.
+</UL>
+
+</UL>
+
+<H3><a NAME="v3.0_fix-non-visual">
+New features and bug fixes for non-visual programs</A></H3>
+
+<H4>biffswap</H4>
+<UL>
+  <LI> Added byte-swapping for complex and double complex pixel types.
+  <LI> Fixed bug in byte-swapping for double pixel type.
+</UL>
+
+<H4>biff2ps</H4>
+Fixed gray level option and added more gray level choices.
+
+<H4>biff2tiff and tiff2biff</H4>
+<UL>
+  <LI> Added TIFF palette (BIFF pseudocolor) images.
+  <LI> Added several extra image/pixel type conversions.
+</UL>
+
+<H4>histo2ps</H4>
+<UL>
+  <LI> Removed rotation and translation code (better done by e.g.
+       LaTeX or Framemaker).
+  <LI> Fixed BoundingBox.
+  <LI> Added option <KBD>-ps</KBD> to choose between EPSF and plain PS.
+  <LI> Added some PostScript Document Structuring comments.
+</UL>
+
+<H4>makepseudo</H4>
+New name for makergb.
+
+<H4>makergb</H4>
+Changed name to makepseudo.
+
+<H4>mct</H4>
+Made possible the use of <KBD>-</KBD>, <KBD>-0</KBD> and <KBD>-1</KBD> for
+file names.
+
+<H4>pixel_mapper</H4>
+Standard XITE file naming now works.
+
+<H4>pyramid</H4>
+<UL>
+  <LI> The ordering of the levels in the pyramid is changed.
+       Level one is now the original image.
+  <LI> Gaussian pyramid is included and a switch for number of levels
+       wanted.
+</UL>
+
+<H4>rainbow</H4>
+Added the outfile argument.
+
+<H4>regionAnalyse</H4>
+Added option <KBD>-cursor</KBD>.
+
+<H4>scale</H4>
+Special treatment for rounding of negative bytes, shorts and ints.
+
+<H3><a NAME="v3.0_code">Code improvements</A></H3>
+<UL>
+  <LI> All the source code has been prototyped to enable type checking of
+       parameters as described by the ANSI standard. Traditional compilers
+       (K&amp;R code) can still be used, except for building the TIFF
+       converters.
+  <LI> XITE now also runs on 64-bit architectures (tested on Dec Alpha
+       under OSF1).
+  <LI> Platform-specific includes are handled by special header files, to
+       isolate such dependencies.
+  <LI> XITE has been compiled with different compilers. Some parts
+       (like the TIFF converters and the file browser widgets) may prefer
+       an ANSI compiler, like the GNU compiler gcc.
+</UL>
+
+<H3><a NAME="v3.0_tools">New tools for programmers</A></H3>
+<EM>cxite</EM>, a script for compiling and linking code
+which uses the XITE library and possibly X libraries.
+
+<H3><a NAME="v3.0_installation">Installation etc.</A></H3>
+<UL>
+  <LI> An improved installation procedure in general.
+  <LI> Script for rebuilding XITE (<EM>makexite</EM>).
+  <LI> Utiltiy scripts to get a more automatic and robust installation
+       procedure.
+</UL>
+
+<HR>
+
+<ADDRESS> 
+Updated by Svein Bøe.
+</ADDRESS>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,376 @@
+#!/bin/sh
+
+# $Id$
+
+if_test () {
+# $1: First operand
+# $2: Operator
+# $3: Second operand
+
+    op1=$1; operator=$2; op2=$3;
+
+    if test "$XITE_HOSTTYPE" != "NT4"; then
+	echo "       -@if test $op1 $operator $op2; then \\"
+    else
+	if test "$operator" = "="; then
+	    operator="NEQ"
+	else
+	    operator="EQU"
+	fi
+	echo "       -@IF $op1 $operator $op2 goto EOF"
+    fi
+}
+
+end_if () {
+    if test "$XITE_HOSTTYPE" != "NT4"; then
+	echo "       fi"
+    fi
+}
+
+unix_only_tab () {
+    if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+	echo "	     $*"
+    fi
+}
+
+unix_only () {
+    if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+	echo "$*"
+    fi
+}
+
+win_only () {
+    if [ "$XITE_HOSTTYPE" = "NT4" ]; then
+	echo "$*"
+    fi
+}
+
+cd_and_make () {
+    # $1: Target to update in subdirectory makefile
+    # $2: Directory to process
+    if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+	echo "	cd $2; \$(MAKE) $1; cd ..;"
+    else
+	echo "	cd $2 & \$(MAKE) /nologo /\$(MAKEFLAGS) $1 & cd .."
+    fi
+}
+
+for_loop () {
+    # $1: Target to update in subdirectory makefile
+    # $2: List of directories to process
+    if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+	echo "	for d in $2; do \\"
+	echo "	  if [ -d \$\$d ]; then \\"
+	echo "	    cd \$\$d; \$(MAKE) $1; cd ..; \\"
+	echo "	  fi \\"
+	echo "	done"
+    else
+	echo "	FOR /D %%d IN ($2) DO \\"
+	echo "	  cd %%d & \$(MAKE) /nologo /\$(MAKEFLAGS) $1 & cd .."
+    fi
+}
+
+dir_target () {
+    # $1: Name of target
+    # $2: List of directory dependencies
+
+    $echoNl "${1}: "
+    for d in $2; do
+    	echo " \\"
+	$echoNl "	${d}_$1"
+    done
+    echo ""
+    for d in $2; do
+	echo "${d}_$1: ${d}${DIR_SEP}Makefile"
+	cd_and_make "$1" "$d"
+    done
+
+} # dir_target()
+
+makefile_target () {
+    # $1: Directory to make
+
+    echo "$1${DIR_SEP}Makefile: \$(XITE_HOME)${DIR_SEP}etc${DIR_SEP}Makefile.$XITE_HOSTTYPE"
+    if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+	echo "	-cd $1; \\"
+	echo "	if [ -f Makefile.defs ]; then \\"
+	echo "	    \$(RM) Makefile; \\"
+	echo "	    \$(LINK) \$(XITE_HOME)${DIR_SEP}etc${DIR_SEP}Makefile.$XITE_HOSTTYPE Makefile; \\"
+    else
+	echo "	-cd $1 & \\"
+	echo "	IF EXIST Makefile.defs \\"
+	echo "	    \$(RM) Makefile & \\"
+	echo "	IF EXIST Makefile.defs \\"
+	echo "	    \$(LINK) \$(XITE_HOME)${DIR_SEP}etc${DIR_SEP}Makefile.$XITE_HOSTTYPE Makefile & \\"
+    fi
+    if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+	echo "	fi; \\"
+    fi
+    echo "	cd .."
+}
+
+prog=`basename $0`
+
+tmpHosttype=""; help=0
+while test "$#" -gt 0
+do
+    case $1 in
+    -p)
+	    if test $# -le 1; then
+	      echo "Argument missing for option $1." 1>&2; help=1; break
+	    fi
+	    shift
+	    tmpHosttype="$1"
+	    ;;
+    -h|-help)
+	    help=1; break
+	    ;;
+    -x)
+	    if test $# -le 1; then
+	      echo "Argument missing for option $1." 1>&2; help=1; break
+	    fi
+	    shift
+	    XITE_HOME=$1
+	    ;;
+    *)
+	    echo "Unknown argument $1." 1>&2;
+	    help=1; break
+	    ;;
+    esac
+    shift
+done
+
+if test -z "$XITE_HOME"
+then
+    echo "$prog: XITE home directory is not known." 1>&2
+    echo "Aborting $prog." 1>&2
+    help=1
+fi
+
+if test "$help" -eq 1
+then
+    echo "usage: $prog [-x <XITE home-directory>] [-p <platform>] [-h(elp)]" \
+	1>&2
+    echo "       where default <platform> is the one you're using now" 1>&2
+    echo "       and default XITE home-directory is given by the" 1>&2
+    echo "       environment variable XITE_HOME." 1>&2
+    exit 1
+fi
+
+utildir=$XITE_HOME/etc/.install
+getPlatform=$utildir/getPlatform
+echoNl=$utildir/echonl
+
+if test -z "$tmpHosttype" -a -n "$XITE_HOSTTYPE"
+then
+    tmpHosttype=$XITE_HOSTTYPE
+fi
+
+XITE_HOSTTYPE=`$getPlatform "$tmpHosttype" "$utildir" stderr`
+
+#############################################################################
+#
+# Start to generate Makefile.
+#
+#############################################################################
+
+echo "# Main makefile for XITE software
+"
+
+unix_only "SHELL         = /bin/sh"
+unix_only "MAKE          = make"
+win_only  "MAKE          = nmake"
+unix_only "RM            = rm"
+win_only  "RM            = del"
+unix_only "LINK          = ln -s"
+win_only  "LINK          = copy"
+echo      "XITE_HOME     = $XITE_HOME"
+echo      "XITE_HOSTTYPE = $XITE_HOSTTYPE"
+
+if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+
+    X_SRC="Image fwf ximage xpm xshow"
+    MATLAB=matlab
+    SUN=sunraster
+    DIR_SEP="/"
+
+    echo ""
+    $echoNl X_SRC = 
+
+    for f in $X_SRC; do
+	echo " \\"
+	$echoNl "	$f"
+    done
+    echo ""
+
+    echo ""
+    echo "MATLAB        = $MATLAB"
+    echo "SUN           = $SUN"
+else
+    DIR_SEP="\\"
+fi
+
+PNM=pnm
+TIFF=tiff
+echo "PNM           = $PNM"
+echo "TIFF          = $TIFF"
+
+if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+
+    IFI_ONLY="cdb compression jpeg"
+
+    echo ""
+    $echoNl "IFI_ONLY    ="
+    for f in $IFI_ONLY; do
+	echo " \\"
+	$echoNl "	$f"
+    done
+    echo ""
+fi
+
+INDEPENDENT="PostScript \
+arithmetic \
+biff \
+binarize \
+canny \
+cdoc \
+classification \
+color \
+combine \
+contour \
+convert \
+convolve \
+copy \
+dither \
+draw \
+extrema \
+fft \
+fht \
+fractal \
+geometry \
+gradInv \
+haar \
+histo \
+hough \
+ideal \
+ihs \
+kncn \
+knn \
+median \
+minmax \
+morph \
+negate \
+noise \
+principal \
+pyramid \
+region \
+resample \
+scatter \
+scripts \
+segmentation \
+sigma \
+snn \
+statistics \
+stdiff \
+texture \
+thin \
+thresMl \
+threshold \
+utils \
+zernike"
+#topogr \
+
+echo ""
+$echoNl "INDEPENDENT = "
+for f in $INDEPENDENT; do
+    echo " \\"
+    $echoNl "	$f"
+done
+echo ""
+
+if [ "$XITE_HOSTTYPE" = "NT4" ]; then
+	ALL="$INDEPENDENT $PNM $TIFF"
+	echo ""
+	echo "ALL =   \$(INDEPENDENT) \\
+        \$(PNM) \$(TIFF)
+"
+else
+	ALL="$INDEPENDENT $MATLAB $PNM $SUN $TIFF $X_SRC $IFI_ONLY"
+cat <<\EOF_ALL
+
+ALL =	$(INDEPENDENT)	\
+	$(MATLAB)	\
+	$(SUN)		\
+	$(PNM)		\
+	$(TIFF)		\
+	$(X_SRC)	\
+	$(IFI_ONLY)
+
+EOF_ALL
+fi
+
+echo "
+all:	include lib dso program doc"
+
+dir_target "include" "$ALL"; echo ""
+dir_target "object"  "$ALL"; echo ""
+dir_target "lib"     "$ALL"; echo ""
+dir_target "dso"     "$ALL"; echo ""
+dir_target "program" "$ALL"; echo ""
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( dir_target "xprog" "$ALL"; echo "")
+dir_target "doc"     "$ALL"; echo ""
+dir_target "clean"   "$ALL"; echo ""
+
+if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+    echo ""
+    echo "independent: \$(INDEPENDENT)"
+    for_loop "" "\$(INDEPENDENT)"
+fi
+
+for f in $INDEPENDENT; do
+    echo ""
+    echo "${f}: $f${DIR_SEP}Makefile"
+    cd_and_make "" "$f"
+    makefile_target "$f"
+done
+
+echo ""
+echo "pnm: \$(PNM)${DIR_SEP}Makefile"
+cd_and_make "" "\$(PNM)"
+makefile_target "\$(PNM)"
+
+echo ""
+echo "tiff: \$(TIFF)${DIR_SEP}Makefile"
+cd_and_make "" "\$(TIFF)"
+makefile_target "\$(TIFF)"
+
+if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+    echo ""
+    echo "matlab: \$(MATLAB)/Makefile"
+    cd_and_make "" "\$(MATLAB)"
+    makefile_target "\$(MATLAB)"
+
+    echo "X_SRC:	\$(X_SRC)"
+
+    for f in $X_SRC; do
+	echo ""
+	echo "${f}: $f/Makefile"
+	cd_and_make "" "$f"
+	makefile_target "$f"
+    done
+
+    echo ""
+    echo "sun: \$(SUN)"
+    cd_and_make "" "\$(SUN)"
+    makefile_target "\$(SUN)"
+
+    echo ""
+    echo "ifi_only: \$(IFI_ONLY)"
+
+    for f in $IFI_ONLY; do
+	echo ""
+	echo "${f}: $f/Makefile"
+	cd_and_make "" "$f"
+	makefile_target "$f"
+    done
+fi

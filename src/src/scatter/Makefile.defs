@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for scatter
+#
+OBJ   = scatter.o
+PROG  = scatter
+MANP  = scatter.m
+CINCL =  scatter.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

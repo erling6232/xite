@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for hough
+#
+OBJ   = houghCircle.o houghLine.o
+PROG  = houghCircle houghLine
+MANP  = houghCircle.m houghLine.m
+CINCL =  hough.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

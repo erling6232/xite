@@ -1,0 +1,19 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Image window (popup child of toplevel application shell widget)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*ImageForm.defaultDistance:			0
+*ImageForm*Background:				Gray80
+*ImageForm*Foreground:				Gray20
+
+*Image.Menubar:					on
+*Image.left:                  			chainleft
+*Image.right:                 			chainright
+*Image.top:                   			chaintop
+*Image.bottom:                			chainbottom
+*Image.Font:		-*-courier-bold-r-normal--??-100-*-iso8859-1
+*Image.Font1:		-*-courier-bold-r-normal--?-80-*-iso8859-1
+*Image.Font2:		-*-courier-bold-r-normal--??-120-*-iso8859-1
+*Image.Font3:		-*-courier-bold-r-normal--??-180-*-iso8859-1

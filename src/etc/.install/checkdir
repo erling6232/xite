@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# $Id$
+
+# SYNOPSIS:
+#    checkdir [<protection>] <dir> ...
+# OUTPUTS:
+#    String with the names of the directories which don't exist and cannot
+#    be created.
+# RETURN VALUE:
+#    0 : Everything OK
+#    1 : Failure in creating directory
+#    2 : Illegal octal protection code
+# INPUTS:
+#    Octal protection mode for each directory argument
+#    Directories, full paths
+# DESCRIPTION:
+#    Check for existence of directories. Create if they don't exist.
+#    If protection is given, set it for all the directories. Directories which
+#    need to be created on the path down to the given directories also get
+#    the given protection.
+#    
+
+prot="$1"
+
+# Check whether $prot is a number
+
+expr "$prot" + 1 > /dev/null 2>&1
+
+if test "$?" -eq 0
+then
+    # $prot is number, must be protection. Check if legal
+
+    len=`expr "$prot" : '.*'`
+    if test "$len" -lt 3 -o "$len" -gt 4 -o "$prot" -lt 0 -o "$prot" -gt 7777
+    then
+	exit 2
+    fi
+
+    # $prog is legal protection
+    shift
+else
+    prot=""
+fi
+
+dirFail=""
+
+for dir in $*
+do
+
+    IFS='/'
+    parent=""
+
+    for part in $dir
+    do
+	IFS=" "
+
+	if test -z "$parent"
+	then
+	    parent="/$part"
+	else
+	    parent="$parent/$part"
+	fi
+
+	if test ! -d $parent
+	then
+	    mkdir $parent > /dev/null 2>&1
+
+	    if test $? -ne 0
+	    then
+		if test -z "$dirFail"
+		then
+		    dirFail="$parent"
+		else
+		    dirFail="$dirFail $parent"
+		fi
+	    fi
+	fi
+
+	if test -n "$prot"
+	then
+	    chmod $prot $parent > /dev/null 2>&1
+	fi
+
+	IFS='/'
+    done
+
+    IFS=" "
+
+done
+
+if test -n "$dirFail"
+then
+    echo "$dirFail"
+    exit 1
+else
+    exit 0
+fi
+
+
+

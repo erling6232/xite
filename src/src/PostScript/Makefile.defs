@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for PostScript
+#
+PROG  = biff2ps histo2ps
+MANP  = biff2ps.m histo2ps.m
+
+include:
+object: 
+lib:    
+dso:
+program:cprog
+doc:    manpage
+xprog:  
+

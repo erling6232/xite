@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# $Id$
+
+paramOutFile=$TMPDIR/params; export paramOutFile
+$saveParameters
+
+VERSION=$XITE_HOME/etc/.install/VERSION
+xite_site_info=$TMPDIR/xite_site_info
+
+echo "Report from installation of XITE" > $xite_site_info 2>&1
+
+hostname=`hostname`
+if test -n "$hostname"
+then
+  echo ""                     >> $xite_site_info 2>&1
+  echo "hostname: $hostname"  >> $xite_site_info 2>&1
+  echo ""                     >> $xite_site_info 2>&1
+  echo "host -t hinfo:"       >> $xite_site_info 2>&1
+  path=`which host`
+  if test -n "$path"; then
+    host -t hinfo "$hostname" >> $xite_site_info 2>&1
+  else
+    echo "Not available"      >> $xite_site_info 2>&1
+  fi
+fi
+
+echo ""       >> $xite_site_info 2>&1
+echo "uname:" >> $xite_site_info 2>&1
+uname -a      >> $xite_site_info 2>&1
+
+echo ""       >> $xite_site_info 2>&1
+echo "date:"  >> $xite_site_info 2>&1
+date          >> $xite_site_info 2>&1
+
+if test -f "$VERSION"
+then
+  echo ""              >> $xite_site_info 2>&1
+  echo "XITE VERSION:" >> $xite_site_info 2>&1
+  cat $VERSION         >> $xite_site_info
+fi
+
+if test -f $paramOutFile
+then
+  echo ""           >> $xite_site_info 2>&1
+  cat $paramOutFile >> $xite_site_info
+fi
+
+if test -f "$xite_site_info"
+then
+  path=`which mail`
+  if test -n "$path"
+  then
+    mail xite-register@ifi.uio.no < $xite_site_info > /dev/null 2>&1
+  fi
+fi

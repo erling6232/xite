@@ -1,0 +1,25 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XHistogram.XiteResourceVersion:			3.4
+
+*TopLevelShell.baseTranslations:                #override               \n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+! Vertical and horizontal distance between children of Box widgets.
+*Box.VSpace:					4
+*Box.HSpace:					4
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Histogram window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteHisto"
+#include "xitePrompt"

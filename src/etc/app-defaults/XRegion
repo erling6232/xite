@@ -1,0 +1,220 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XRegion.ZoomAll:				False
+XRegion.XiteResourceVersion:			3.4
+XRegion.allowShellResize:			True
+XRegion.Layout:					separate
+XRegion.AdjustWidth:				True
+XRegion.PanelContainer:				Form
+XRegion.WidgetSet:				Xfwf
+XRegion.baseTranslations:			#override	\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+*TopLevelShell.baseTranslations:		#override	\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!! General appearance !!!!!!!!!!!
+
+*topContainer*Background:			Gray80
+*topContainer*Foreground:			Gray20
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*topContainer.BorderWidth:			0
+*topContainer.defaultDistance:			2
+
+! *topContainer*XfwfButton.ShrinkToFit:           True
+*topContainer*XfwfButton.FrameType:             raised
+*topContainer*XfwfButton.FrameWidth:            2
+*topContainer*XfwfButton.TopShadowColor:        Gray95
+*topContainer*XfwfButton.BottomShadowColor:     Gray20
+*topContainer*XfwfButton.ShadowScheme:          color
+
+*topContainer*XfwfButton.width:			120
+*topContainer*XfwfButton.height:		30
+
+! *topContainer*XfwfToggle.ShrinkToFit:           True
+*topContainer*XfwfToggle.FrameType:             raised
+*topContainer*XfwfToggle.FrameWidth:            2
+*topContainer*XfwfToggle.TopShadowColor:        Gray95
+*topContainer*XfwfToggle.BottomShadowColor:     Gray20
+*topContainer*XfwfToggle.ShadowScheme:          color
+
+*topContainer*XfwfToggle.width:			120
+*topContainer*XfwfToggle.height:		30
+
+*Label*BorderWidth:				0
+*topContainer*Label.width:			150
+*topContainer*XfwfLabel.width:			150
+*XfwfLabel.height:				30
+*Label.Justify:					left
+*XfwfLabel.Alignment:				left
+
+!!!!!!!!!!! Geometry !!!!!!!!!!!
+
+! Buttons for region drawing, first line
+
+*Draw commands*Label:				---- Region Drawing (1) ---- 
+*topContainer*Draw commands.width: 		730
+*Draw commands.Justify:				center
+*Draw commands.Alignment:			center
+*topContainer*Draw commands.Background:		White
+
+*topContainer*Prev.fromVert:			Draw commands
+*topContainer*Next.fromVert:			Draw commands
+*topContainer*Next.fromHoriz:			Prev
+*topContainer*Clear.fromVert:			Draw commands
+*topContainer*Clear.fromHoriz:			Next
+*topContainer*Read mask.fromVert:		Draw commands
+*topContainer*Read mask.fromHoriz:		Clear
+*topContainer*Save mask.fromVert:		Draw commands
+*topContainer*Save mask.fromHoriz:		Read mask
+*topContainer*Save gray.fromVert:		Draw commands
+*topContainer*Save gray.fromHoriz:		Save mask
+
+! Buttons for region drawing, second line
+
+*topContainer*Set class.fromVert:		Save gray
+*topContainer*Close path.fromVert:		Save gray
+*topContainer*Close path.fromHoriz:		Set class
+*topContainer*Fill regions.fromVert:		Save gray
+*topContainer*Fill regions.fromHoriz:		Close path
+*topContainer*Checkpoint.fromVert:		Save gray
+*topContainer*Checkpoint.fromHoriz:		Fill regions
+*topContainer*Undo.fromVert:			Save gray
+*topContainer*Undo.fromHoriz:			Checkpoint
+*topContainer*Graphics.fromVert:		Save gray
+*topContainer*Graphics.fromHoriz:		Undo
+*Graphics*State:				True
+*Graphics*On:					True
+
+! Heading for parameters
+
+*topContainer*Parameters.fromVert:		Graphics
+*Parameters*Label:				---- Parameters ---- 
+*topContainer*Parameters.width: 		730
+*Parameters.Justify:				center
+*Parameters.Alignment:				center
+*topContainer*Parameters.Background:		White
+
+! Buttons for behaviour parameters, first line
+
+*topContainer*Behaviour.fromVert:		Parameters
+*Behaviour.Label:				Behaviour:
+
+*topContainer*Header.fromVert:			Parameters
+*topContainer*Header.fromHoriz:			Behaviour
+*Header*State:					True
+*Header*On:					True
+*topContainer*Nc.fromVert:			Parameters
+*topContainer*Nc.fromHoriz:			Header
+*Nc*State:					True
+*Nc*On:						True
+*Nc*Label:					nc = 8
+*topContainer*Sort.fromVert:			Parameters
+*topContainer*Sort.fromHoriz:			Nc
+*topContainer*Split.fromVert:			Parameters
+*topContainer*Split.fromHoriz:			Sort
+
+! Buttons for overlay properties, first line
+
+*topContainer*Overlay properties.fromVert:	Split
+*Overlay properties.Label:			Overlay properties:
+
+*topContainer*Objnr.fromVert:			Split
+*topContainer*Objnr.fromHoriz:			Overlay properties
+*Objnr*State:					True
+*Objnr*On:					True
+*topContainer*Regnr.fromVert:			Split
+*topContainer*Regnr.fromHoriz:			Objnr
+*Regnr*State:					True
+*Regnr*On:					True
+*Regnr*area:					True
+*topContainer*Area.fromVert:			Split
+*topContainer*Area.fromHoriz:			Regnr
+*topContainer*Perimeter.fromVert:		Split
+*topContainer*Perimeter.fromHoriz:		Area
+
+! Buttons for overlay properties, second line
+
+*topContainer*Minmax.fromVert:			Perimeter
+*topContainer*Minmax.horizDistance:		155
+*topContainer*Height.fromVert:			Perimeter
+*topContainer*Height.fromHoriz:			Minmax
+*topContainer*Width.fromVert:			Perimeter
+*topContainer*Width.fromHoriz:			Height
+*topContainer*Point.fromVert:			Perimeter
+*topContainer*Point.fromHoriz:			Width
+
+! Buttons for image properties, first line
+
+*topContainer*Image properties.fromVert:	Point
+*Image properties.Label:			Image properties:
+
+*topContainer*Minmaxpix.fromVert:		Point
+*topContainer*Minmaxpix.fromHoriz:		Image properties
+*topContainer*Xymean.fromVert:			Point
+*topContainer*Xymean.fromHoriz:			Minmaxpix
+*topContainer*Volume.fromVert:			Point
+*topContainer*Volume.fromHoriz:			Xymean
+*topContainer*Mean.fromVert:			Point
+*topContainer*Mean.fromHoriz:			Volume
+
+! Buttons for image properties, second line
+
+*topContainer*Median.fromVert:			Mean
+*topContainer*Median.horizDistance:		155
+*topContainer*Stdev.fromVert:			Mean
+*topContainer*Stdev.fromHoriz:			Median
+
+! Buttons for commands
+
+*topContainer*Commands.fromVert:		Stdev
+*Commands.Label:				---- Commands ----
+*Commands.Justify:				center
+*Commands.Alignment:				center
+*topContainer*Commands.width:			730
+*topContainer*Commands.Background:		White
+*topContainer*Region analyse.fromVert:		Commands
+*topContainer*Statistics.fromVert:		Commands
+*topContainer*Statistics.fromHoriz:		Region analyse
+*topContainer*Quit.fromVert:			Commands
+*topContainer*Quit.fromHoriz:			Statistics
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteImageOverlay"
+
+! Redefine the translations from the above included file
+*ImageOverlay.baseTranslations: 		#override	\n\
+  None <Btn1Up>:         draw(line) draw(origo)			\n\
+  None <Btn1Down>:       draw(origo,on) draw(point)		\n\
+  None <Btn1Motion>:     draw(line) draw(origo)			
+
+!  <MouseMoved>:	         nop()					
+
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteFileSel"
+#include "xiteTerm"
+#include "xitePopup"
+#include "xitePrompt"

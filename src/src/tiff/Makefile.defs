@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for tiff
+
+TIFFOBJ  = biff2tiff.o tiff2biff.o
+TIFFPROG = biff2tiff tiff2biff
+MANP     = biff2tiff.m tiff2biff.m
+CINCL    = tiff.i
+
+include:cincl
+object: tiffobj
+lib:    tifflib
+dso:    xite_tiff_dso
+program:tiffprog
+doc:    manpage
+xprog:  
+

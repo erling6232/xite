@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# $Id$
+
+if test "$quiet" -eq 0
+then
+  echo "Editing xiteEcho." 1>&2
+fi
+
+cp $XITE_HOME/src/scripts/xiteEcho.sh xiteEcho.tmpl
+
+if test -f xiteEcho
+then
+  echo "Moving existing xiteEcho to xiteEcho.${XITE_HOSTTYPE}.old." 1>&2
+  mv xiteEcho xiteEcho.${XITE_HOSTTYPE}.old
+fi
+
+awk -f $edxiteEcho home=$XITE_HOME hosttype=$XITE_HOSTTYPE \
+  xiteEcho.tmpl > xiteEcho
+
+if test $? -ne 0
+then
+  echo "ERROR:" 1>&2
+  echo "Editing xiteEcho failed." 1>&2
+  rm xiteEcho > /dev/null 2>&1
+  echo "" 1>&2
+  $paramMessage 1>&2
+
+  exit 1
+fi
+
+mv xiteEcho $XITE_BIN_DEST
+chmod a+rx $XITE_BIN_DEST/xiteEcho
+
+exit 0

@@ -1,0 +1,10 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! XTerm window (popup child of toplevel control window)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*termShell*Background:				Gray80
+*termShell*Foreground:				Gray20
+*termShell*Font:		-*-courier-bold-r-normal--??-100-*-iso8859-1

@@ -1,0 +1,143 @@
+
+# $Id$
+
+{
+
+	if ( $1 == "CC" ) {
+		print $1 "              " $2 " " cc
+		printed = 1
+	}
+
+	if ( $1 == "XITE_BIN_DEST" ) {
+		print $1 "   " $2 " " bin
+		printed = 1
+	}
+
+	if ( $1 == "XITE_LIB_DEST" ) {
+		print $1 "   " $2 " " lib
+		printed = 1
+	}
+
+	if ( $1 == "XITE_INC_DEST" ) {
+		print $1 "   " $2 " " inc
+		printed = 1
+	}
+
+	if ( $1 == "XITE_MAN_DEST" ) {
+		print $1 "   " $2 " " man
+		printed = 1
+	}
+
+	if ( $1 == "XITE_DOC_DEST" ) {
+		print $1 "   " $2 " " doc "/ReferenceManual"
+		printed = 1
+	}
+
+	if ( $1 == "MATLAB_INC" ) {
+		print $1 "      " $2 " " matinc
+		printed = 1
+	}
+
+	if ( $1 == "MATLAB_LIB" ) {
+		print $1 "      " $2 " " matlib
+		printed = 1
+	}
+
+	if ( $1 == "MATLAB_MEX_DEST" ) {
+		print $1 " " $2 " " matmex
+		printed = 1
+	}
+
+	if ( $1 == "X_INC_DIR" ) {
+		print $1 "       " $2 " " xinc
+		printed = 1
+	}
+
+	if ( $1 == "X_LIB_DIR" ) {
+		print $1 "       " $2 " " xlib
+		printed = 1
+	}
+
+	if ( $1 == "TIFF_INC_DIR" ) {
+		print $1 "    " $2 " " tiffinc
+		printed = 1
+	}
+
+	if ( $1 == "TIFF_LIB_DIR" ) {
+		print $1 "    " $2 " " tifflib
+		printed = 1
+	}
+
+	if ( $1 == "PNM_INC_DIR" ) {
+		print $1 "     " $2 " " pnminc
+		printed = 1
+	}
+
+	if ( $1 == "PNM_LIB_DIR" ) {
+		print $1 "     " $2 " " pnmlib
+		printed = 1
+	}
+
+	if ( $1 == "MATLAB_HOSTTYPE" ) {
+		print $1 " " $2 " " matlab_hosttype
+		printed = 1
+	}
+
+	if ( $1 == "CFLAGS" ) {
+		if (cc == "gcc") {
+			print $1 "          " $2 " $(CFLAGS_PROD_GCC)"
+		} else {
+			print $1 "          " $2 " $(CFLAGS_PROD_CC)"
+		}
+		printed = 1
+	}
+
+	if ( $1 == "DSO_FLAGS" ) {
+		if (cc == "gcc") {
+			print $1 "       " $2 " $(GCC_DSO_FLAGS)"
+		} else {
+			print $1 "       " $2 " $(CC_DSO_FLAGS)"
+		}
+		printed = 1
+	}
+
+	if ( $1 == "LD" ) {
+		if (cc == "gcc") {
+			print $1 "             " $2 " $(GNU_LD)"
+		} else {
+			print $1 "             " $2 " $(CC_LD)"
+		}
+		printed = 1
+	}
+
+	if ( $1 == "DSO_NAME_FLAGS" ) {
+		if (cc == "gcc") {
+			print $1 "  " $2 " $(GNU_DSO_NAME_FLAGS)"
+		} else {
+			print $1 "  " $2 " $(CC_DSO_NAME_FLAGS)"
+		}
+		printed = 1
+	}
+
+	if ( $1 == "LD_FLAGS" ) {
+		if (cc == "gcc") {
+			print $1 "        " $2 " $(GNU_LD_FLAGS)"
+		} else {
+			print $1 "        " $2 " $(CC_LD_FLAGS)"
+		}
+		printed = 1
+	}
+
+	if ( $1 == "REGEX" ) {
+		print $1 "           " $2 " " regex
+		printed = 1
+	}
+
+	if ( $1 == "DIRENT" ) {
+		print $1 "          " $2 " " dirent
+		printed = 1
+	}
+
+	if (! printed) print $0
+	else printed = 0
+}

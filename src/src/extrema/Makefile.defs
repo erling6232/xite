@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for kncn
+#
+OBJ   = extrema1.o extrema2.o minima.o maxima.o
+PROG  = extrema1   extrema2   minima   maxima
+MANP  = extrema1.m extrema2.m minima.m maxima.m
+CINCL =  extrema.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

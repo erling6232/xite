@@ -1,0 +1,116 @@
+#! /bin/csh -f
+
+set XITE_HOSTTYPE = \
+	`$XITE_HOME/etc/.install/getPlatform "" $XITE_HOME/etc/.install stderr`
+
+set path = (/bin /usr/bin $XITE_HOME/bin $XITE_HOME/bin/$XITE_HOSTTYPE)
+
+set bg = ""
+while ($#argv > 0)
+  switch($1)
+    case "-b":
+      set bg = "&"
+      breaksw
+    case "-h*":
+      echo "Usage: $0 [<input-directory>] [<output-directory>] [-b]"
+      echo "                 -b : Run all commands in the background"
+      exit 1
+    default:
+      if (! $?inDir) then
+	set inDir = $1
+      else if (! $?outDir) then
+	set outDir = $1
+      endif
+      breaksw
+  endsw
+
+  shift
+end
+
+if (! $?inDir) set inDir = $XITE_HOME/data/img
+if (! $?outDir) set outDir = .
+
+# Generate float and double images to be used later
+
+biffConvert $inDir/mona.img  $outDir/mona_float.img 8
+biffConvert $inDir/mona.img  $outDir/mona_double.img 10
+
+if ($bg == "") then
+  echo "convolution 3x3:"
+  eval time conv3x3 -s 0.1 $inDir/mona.img $outDir/mona_conv3x3.img \
+	  1 2 1  2 4 2  1 2 1 $bg
+
+  echo "convolution 7x7:"
+  eval time eval convolve -s 0.1 $inDir/mona.img $outDir/mona_conv7x7.img \
+					      7 7  1 2 3 4 3 2 1  \
+					      2 3 4 5 4 3 2  \
+					      3 4 5 6 5 4 3  \
+					      4 5 6 7 6 5 4  \
+					      3 4 5 6 5 4 3  \
+					      2 3 4 5 4 3 2  \
+					      1 2 3 4 3 2 1 $bg
+  echo "sobel magnitude:"
+  eval time eval sobel -magnitude $inDir/mona.img $outDir/mona_sobel.img $bg
+
+  echo "median 3x3:"
+  eval time eval median  $inDir/mona.img $outDir/mona_median3x3.img 3 $bg
+
+  echo "median 11x11:"
+  eval time median  $inDir/mona.img $outDir/mona_median11x11.img 11 $bg
+
+  echo "mean 3x3:"
+  eval time mean  $inDir/mona.img $outDir/mona_mean3x3.img 3 $bg
+
+  echo "mean 11x11:"
+  eval time mean  $inDir/mona.img $outDir/mona_mean11x11.img 11 $bg
+
+  echo "minarea 11x11:"
+  eval time minarea  $inDir/mona.img $outDir/mona_minarea11x11.img 11 $bg
+
+  echo "fft2d float:"
+  eval time fft2d $outDir/mona_float.img $outDir/mona_float_fft2d.img $bg
+
+  echo "fft2d double:"
+  eval time fft2d $outDir/mona_double.img $outDir/mona_double_fft2d.img $bg
+
+else
+  echo "convolution 3x3:"
+  eval conv3x3 -s 0.1 $inDir/mona.img $outDir/mona_conv3x3.img \
+	  1 2 1  2 4 2  1 2 1 $bg
+
+  echo "convolution 7x7:"
+  eval convolve -s 0.1 $inDir/mona.img $outDir/mona_conv7x7.img \
+					      7 7  1 2 3 4 3 2 1  \
+					      2 3 4 5 4 3 2  \
+					      3 4 5 6 5 4 3  \
+					      4 5 6 7 6 5 4  \
+					      3 4 5 6 5 4 3  \
+					      2 3 4 5 4 3 2  \
+					      1 2 3 4 3 2 1 $bg
+  echo "sobel magnitude:"
+  eval sobel -magnitude $inDir/mona.img $outDir/mona_sobel.img $bg
+
+  echo "median 3x3:"
+  eval median  $inDir/mona.img $outDir/mona_median3x3.img 3 $bg
+
+  echo "median 11x11:"
+  eval median  $inDir/mona.img $outDir/mona_median11x11.img 11 $bg
+
+  echo "mean 3x3:"
+  eval mean  $inDir/mona.img $outDir/mona_mean3x3.img 3 $bg
+
+  echo "mean 11x11:"
+  eval mean  $inDir/mona.img $outDir/mona_mean11x11.img 11 $bg
+
+  echo "minarea 11x11:"
+  eval minarea  $inDir/mona.img $outDir/mona_minarea11x11.img 11 $bg
+
+  echo "fft2d float:"
+  eval fft2d $outDir/mona_float.img $outDir/mona_float_fft2d.img $bg
+
+  echo "fft2d double:"
+  eval fft2d $outDir/mona_double.img $outDir/mona_double_fft2d.img $bg
+
+  wait
+
+endif

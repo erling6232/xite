@@ -1,0 +1,18 @@
+#
+#   Makefile definitions for color
+#
+OBJ     = colorfile.o color2ascii.o
+PROG    = colorquant mct saturmod color2ascii
+MANP    = colorfile.m colorquant.m mct.m saturmod.m color2ascii.m
+MANP_SH = makepseudo.m
+CINCL   = color.i
+SCRIPTS = makepseudo
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog scripts
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,35 @@
+To: xite-register@ifi.uio.no
+Subject: Register XITE copy
+
+[Please complete as many of the items below as possible.]
+[Remove all the explanatory text in brackets before mailing.]
+[Send to xite-register@ifi.uio.no]
+
+NAME OF INSTITUTION:
+
+
+ADDRESS OF INSTITUTION:
+
+
+WHAT WE WILL USE XITE FOR:
+    [e.g. teaching in graduate-level introductory image processing,
+     research on ..., ...]
+
+WHAT PARTS OF XITE SEEM MOST USEFUL TO US:
+
+XITE VERSION:
+    3.4, patchlevel 4
+
+CLIENT MACHINE and OPERATING SYSTEM:
+    [e.g. Sparc/SunOS 5.5.1, SGI Indy/IRIX 6.2, Pentium II/Windows NT 4.0,... ]
+     Name of operating system on a UNIX host can be found from the file
+     /etc/motd or by running the program "uname -a".]
+
+DISPLAY TYPE:
+    [e.g. Sun GX, 8-bit framebuffer, IBM APA16, ...]
+
+WINDOW MANAGER:
+    [e.g. mwm, fvwm, twm, gwm, olwm, mwm, 4Dwm, ...]
+
+COMPILER:
+    [e.g. native cc, native ANSI cc, gcc 2.7.0, ...]

@@ -1,0 +1,22 @@
+OBJ	= \
+	thn_har.o \
+	thn_lc.o \
+	thn_zs.o
+PROG	= \
+	thn_har \
+	thn_zs \
+	thn_lc
+MANP	= \
+	thn_har.m \
+	thn_lc.m \
+	thn_zs.m 
+CINCL    = thin.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# $Id$
+
+########## Unpack ##########
+
+umask 022
+
+#### Unpacking
+
+if test "$quiet" -eq 0
+then
+	echo "Unpacking the tar-file..." 1>&2
+fi
+
+if test "$ztarfile" != ""
+then
+	if test "$verbose" -ne 0
+	then
+		tar vxf $tarfile
+	else
+		tar xf $tarfile
+	fi
+
+	if test $? -ne 0
+	then
+		echo "ERROR:" 1>&2
+		echo "Unpacking of tar-file failed." 1>&2
+		echo "Installation is interrupted here." 1>&2
+		echo "" 1>&2
+		$paramMessage 1>&2
+		exit 1
+	fi
+
+	chmod -R 755 $XITE_HOME/data         > /dev/null 2>&1
+	chmod    444 $XITE_HOME/data/img/*   > /dev/null 2>&1
+	chmod    444 $XITE_HOME/data/xshow/* > /dev/null 2>&1
+	chmod -R 755 $XITE_HOME/doc          > /dev/null 2>&1
+	chmod -R 755 $XITE_HOME/etc          > /dev/null 2>&1
+	chmod -R 755 $XITE_HOME/include      > /dev/null 2>&1
+	chmod -R 755 $XITE_HOME/src          > /dev/null 2>&1
+	if test $? -ne 0
+	then
+		echo "ERROR:" 1>&2
+		echo "Failed to set protection on the unpacked XITE." 1>&2
+		echo "Installation is interrupted here." 1>&2
+		echo "" 1>&2
+		$paramMessage 1>&2
+		exit 1
+	fi
+else
+	echo "ERROR:No tarfile specified." 1>&2
+	exit 1
+fi
+
+exit 0

@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# $Id$
+
+cd $XITE_HOME
+here=`pwd`
+
+echo "" 1>&2
+echo "" 1>&2
+
+echo "The following command will be executed in Bourne shell (sh):" 1>&2
+echo "" 1>&2
+
+echo "$makexite_command" 1>&2
+echo "" 1>&2
+echo "The command output is saved in the file" 1>&2
+echo "    $log_file." 1>&2
+
+echo "" 1>&2
+echo "After the installation is finished, we'll try to start xshow." 1>&2
+
+if test "$confirm" -eq 1
+then
+  echo "" 1>&2
+  echo "Hit the \"Return\" key to continue." 1>&2
+
+  read continue
+else
+  continue="y"
+fi
+
+if test -z "$continue" -o "$continue" = "y" -o "$continue" = "Y" -o \
+  "$continue" = "yes" -o "$continue" = "YES" -o "$continue" = "Yes"
+then
+  exit 0
+else
+  exit 1
+fi

@@ -1,0 +1,2280 @@
+!
+!  $Id$
+!
+!####################################################################
+!
+! Special menufile codes for command-line:
+!
+!    <infile>   : Read input from image indicated with mouse button press
+!                 in xshow.
+!    <outfile>  : Send image output to xshow.
+!    <xterm>    : Send textual output to a separate text window. The program
+!                 must be able to interpret "-1" as meaning stdout.
+!
+! Menufile format for dialogs:
+!
+!    ?dialogname
+!    <Dialog help-text available from help-button>
+!    <Dialog form>
+!
+!    <Dialog form>:
+!      # <Leading text for input field> # <option> # <prompt type> # <default>
+!
+!      <prompt type>:
+!        d :  Input should be integer
+!        f :  Input should be float (or double)
+!        s :  Input should be string
+!        b :  Input should be boolean (toggle button is used)
+!        r0:  Specification is part of radio-group (of which exactly one
+!             member must be chosen). Members of the same radio-group must have
+!             the same leading text. Return default only if member is chosen.
+!
+!             This member will initially be off.
+!        r1:  Same as "r0", but this member will initially be on.
+!        r0-: Same as "r0", but don't return default value (use only as visible
+!             label).
+!        r1-: Same as "r1", but don't return default value (use only as visible
+!             label).
+!        m0:  Field is part of multiple-choice group (of which none, one or
+!             several may be chosen). Members of the same multiple-choice group
+!             must have the same leading text.
+!
+!             This member will initially be off.
+!        m1:  Same as "m0", but this member will initially be on.
+!        m0-: Same as "m0", but don't return default value (use only as
+!             visible label).
+!        m1-: Same as "m1", but don't return default value (use only as
+!             visible label).
+!
+!###################################################################
+!
+!
+!  Main menu - Xshow
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 0 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Xshow
++File
++Image information
++Format conversions
++Color
++Histogram
++Image representation
++Arithmetic/logical
++Local operators
++Global operators
++Filter design
++Image analysis
++System
++Site-specific programs
++My programs
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:File
+ Save image	         ; biffcopy <infile> ?writeBIFFfile
+ Read image	         ; biffcopy ?readBIFFfile <outfile>
+ Read bands of image     ; biffcopy ?dialog:readBands ?readBIFFfile <outfile>
+ Copy image	         ; biffcopy <infile> <outfile>
+ Copy bands of image     ; biffcopy ?dialog:readBands <infile> <outfile>
+ Make new image          ; mkImg ?dialog:mkImg <outfile>
+ Read colortable	 ; biffcopy ?readColortabfile <outfile>
++Format conversions
+!
+!
+?readBands
+ Select band(s) or give complex band specification. \
+ \
+ Example of complex band specification for bands 1, 3, 4, 7, 9, 8, 7, 6 \
+ (in this order) is  1:3-4:7:9-6
+ # Band               # -band # m1 # 1 \
+ # Band               # -band # m0 # 2 \
+ # Band               # -band # m0 # 3 \
+ # Band               # -band # m0 # 4 \
+ # Band               # -band # m0 # 5 \
+ # Band               # -band # m0 # 6 \
+ # Band               # -band # m0 # 7 \
+ # Band               # -band # m0 # 8 \
+ # Band               # -band # m0 # 9 \
+ # Band               # -band # m0 # 10 \
+ # Band-specification # -band # s  # 
+!
+?mkImg
+ Make an image with specified size, pixeltype and value. \
+ Legal pixeltypes are: \
+ ub => convert to unsigned byte\
+ sb => convert to signed byte\
+ us => convert to unsigned short\
+ ss => convert to signed short\
+ i  => convert to integer\
+ r  => convert to real\
+ c  => convert to complex\
+ d  => convert to double\
+ dc => convert to double complex 
+ # Horizontal size       # -xsize  # d  # 512 \
+ # Vertical size         # -ysize  # d  # 512 \
+ # Xstart                # -xstart # d  # 1 \
+ # Ystart                # -ystart # d  # 1 \
+ # Number of bands       # -nbands # d  # 1 \
+ # Image title           # -title  # s  # new-image \
+ # Pixeltype             # -pt     # r1 # ub \
+ # Pixeltype             # -pt     # r0 # sb \
+ # Pixeltype             # -pt     # r0 # us \
+ # Pixeltype             # -pt     # r0 # ss \
+ # Pixeltype             # -pt     # r0 # i  \
+ # Pixeltype             # -pt     # r0 # r  \
+ # Pixeltype             # -pt     # r0 # d  \
+ # Pixeltype             # -pt     # r0 # c  \
+ # Pixeltype             # -pt     # r0 # dc \
+ # Pixel value           # -pv     # f  # 0  \
+ # Imaginary pixel value # -impv   # f  # 0
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Image information
+-Get BIFF information
+ Image info    		 ; biffinfo <infile>
+ List image files	 ; biffinfo -f .
+-Change BIFF information
+ Append text line	 ; bifftext ?readBIFFfile ?dialog:append
+ Edit text		 ; bifftext ?readBIFFfile
+ Change image title	 ; newtitle ?readBIFFfile ?dialog:title
+-Get numeric information
++Statistics
++Profile
++Format conversions
+!
+?append
+ 
+ # Text line # # s #
+!
+?title
+ Maximum 32 characters
+ # New image title # # s #
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Format conversions
+-To
+ To BIFF	   ; biffConvert <infile> <outfile> ?dialog:biffConvert
+ To pbm/pgm/ppm    ; biff2pnm ?dialog:biff2pnm <infile> ?writefile
+ To raw binary 	   ; biff2raw ?dialog:biff2raw <infile> ?writefile
+ To ascii	   ; biff2ascii ?dialog:biff2ascii <infile> ?writefile
+ To PostScript 	   ; biff2ps ?dialog:biff2ps <infile> ?writePSfile
+ To Sunraster  	   ; biff2sunraster ?dialog:biff2sunraster <infile> ?writefile
+ To Sunraster w/colortable ; biff2sunraster ?dialog:biff2sunraster <infile> ?writefile ?readColortabfile
+ To MATLAB	   ; biff2matlab <infile> ?writeMATfile
+ To TIFF grayscale ; biff2tiff ?dialog:biff2tiff_gray <infile> ?writeTIFFfile
+ To TIFF palette   ; biff2tiff ?dialog:biff2tiff_pal -p <infile> ?readColortabfile ?writeTIFFfile
+ To TIFF rgb       ; biff2tiff -rgb ?dialog:biff2tiff_gray <infile> ?writeTIFFfile
+-From 
+ From pbm/pgm/ppm  ; pnm2biff ?dialog:pnm2biff ?readfile <outfile>
+ From raw binary   ; raw2biff ?readfile <outfile> ?dialog:raw2biff
+ From ascii        ; ascii2biff ?dialog:ascii2biff ?readfile <outfile>
+ From Sunraster    ; sunraster2biff ?readfile <outfile> <outfile>
+ From MATLAB       ; matlab2biff ?dialog:matlab2biff ?readMATfile <outfile>
+ From TIFF gray or rgb ; tiff2biff ?readTIFFfile <outfile>
+ From TIFF palette ; tiff2biff ?readTIFFfile <outfile> <outfile>
+!
+?biff2tiff_gray
+ The conversion is according to TIFF specification 6.0 \
+ and uses the libtiff library by Sam Leffler. This library \
+ must exist on your system, it is not supplied with XITE. \
+ If you get problems with exchanging TIFF images with other\
+ applications, make sure those applications are also TIFF 6.0 \
+ compliant. \
+ \
+ Choose compression algorithm \
+   none     : no compression \
+   lzw      : Lempel-Ziv & Welch \
+   packbits : packbits compression \
+   huff     : CCITT 1D Huffman compression \
+   fax3     : CCITT Group 3 Facsimile compression \
+   fax4     : CCITT Group 4 Facsimile compression
+ # Compression algorithm # -c # r1 # none \
+ # Compression algorithm # -c # r0 # lzw \
+ # Compression algorithm # -c # r0 # packbits \
+ # Compression algorithm # -c # r0 # huff \
+ # Compression algorithm # -c # r0 # fax3 \
+ # Compression algorithm # -c # r0 # fax4
+!
+?biff2tiff_pal
+ The conversion is according to TIFF specification 6.0 \
+ and uses the libtiff library by Sam Leffler. This library \
+ must exist on your system, it is not supplied with XITE. \
+ If you get problems with exchanging TIFF images with other\
+ applications, make sure those applications are also TIFF 6.0 \
+ compliant. \
+ \
+ Choose compression algorithm \
+   none     : no compression \
+   lzw      : Lempel-Ziv & Welch \
+   packbits : packbits compression \
+   huff     : CCITT 1D Huffman compression \
+   fax3     : CCITT Group 3 Facsimile compression \
+   fax4     : CCITT Group 4 Facsimile compression
+ # Compression algorithm # -c # r1 # none \
+ # Compression algorithm # -c # r0 # lzw \
+ # Compression algorithm # -c # r0 # packbits \
+ # Compression algorithm # -c # r0 # huff \
+ # Compression algorithm # -c # r0 # fax3 \
+ # Compression algorithm # -c # r0 # fax4
+!
+?matlab2biff
+ Enter names of matrices to extract 
+ # Matrix name to extract # -s # s # 
+!
+!
+?ascii2biff
+ The file is an ordinary Ascii file. Comments start with a # Or a ; and stop \
+ at end of line. Blank lines or comment lines are ignored. Lines with $ in \
+ coloumn 1 are treated as special arguments. The format is: \
+ \
+ $<keyword> <1 or 2 arguments> \
+ $type   <uns_byte, uns_short, sign_short, integer, real> \
+ $size   <xsize> <ysize> \
+ $xsize  <xsize> \
+ $ysize  <ysize> \
+ $start  <xstart> <ystart> \
+ $xstart <xstart> \
+ $ystart <ystart> \
+ $mag    <xmag> <ymag> \
+ $xmag   <xmag> \
+ $ymag   <ymag> \
+ \
+ The keywords will be used as image band arguments. If the size arguments \
+ are omitted, the size is calculated from the organization of the file. \
+ Default start arguments are -(size/2) and default mag arguments are 1. \
+ \
+ Pixels inside a line are separated by blanks or tabs. Lines are separated by \
+ newline. If pixel type is uns_byte, uns_short, sign_short or integer, the \
+ special value "-" means lowest legal value and "+" means largest legal \
+ value. \
+ Legal pixeltypes are: \
+ ub => convert to unsigned byte \
+ sb => convert to signed byte \
+ us => convert to unsigned short \
+ ss => convert to signed short \
+ i  => convert to integer \
+ r  => convert to real
+ # Biff image title # -title # s  # image-title \
+ # Pixeltype        # -pt    # r1 # ub \
+ # Pixeltype        # -pt    # r0 # sb \
+ # Pixeltype        # -pt    # r0 # us \
+ # Pixeltype        # -pt    # r0 # ss \
+ # Pixeltype        # -pt    # r0 # i  \
+ # Pixeltype        # -pt    # r0 # r
+! 
+?biff2ascii
+ If start, stop as well as size options are given, and inconsistently, the \
+ stop options are ignored. The given sizes are clipped against the band.
+ # Xstart                # -xstart  # d  # 1 \
+ # Ystart                # -ystart  # d  # 1 \
+ # Xsize                 # -xsize   # d  # 65536 \
+ # Ysize                 # -ysize   # d  # 65536 \
+ # Xstop                 # -xstop   # d  # 65536 \
+ # Ystop                 # -ystop   # d  # 65536 \
+ # Add coordinate system # -co      # b  # no
+!
+?raw2biff
+ Beware that a computer with a certain byte-ordering will not be able to \
+ read correctly the output from a computer with a different byte-ordering \
+ when you use a raw image format for images with multi-byte pixels. \
+ Legal pixeltypes for input image: \
+ ub => unsigned byte \
+ sb => signed byte \
+ us => unsigned short \
+ ss => signed short \
+ i  => integer \
+ r  => real \
+ bl => bit - least significant bit first \
+ bm => bit - most  significant bit first
+ # Biff image title                      # -t    # s  # image-title \
+ # Pixeltype                             # -pt   # r1 # ub \
+ # Pixeltype                             # -pt   # r0 # sb \
+ # Pixeltype                             # -pt   # r0 # us \
+ # Pixeltype                             # -pt   # r0 # ss \
+ # Pixeltype                             # -pt   # r0 # i  \
+ # Pixeltype                             # -pt   # r0 # r  \
+ # Pixeltype                             # -pt   # r0 # bl \
+ # Pixeltype                             # -pt   # r0 # bm \
+ # Pixel organization                    # -org  # r1 # bls \
+ # Pixel organization                    # -org  # r0 # lbs \
+ # Pixel organization                    # -org  # r0 # lsb \
+ # Swap byte order on read               # -swap # b  # no \
+ # Number of bytes to skip before image  # -ih   # d  # 0 \
+ # Number of bytes to skip before band   # -bh   # d  # 0 \
+ # Number of bytes to skip after band    # -ba   # d  # 0 \
+ # Number of bytes to skip before line   # -lh   # d  # 0 \
+ # Number of bytes to skip after line    # -la   # d  # 0 \
+ # Number of pixels in each line         #       # d  # 512 \
+ # Number of lines in each band          #       # d  # 512 \
+ # Number of bands in input              #       # d  # 1
+!
+?biff2raw
+ Beware that a computer with a certain byte-ordering will not be able to \
+ read correctly the output from a computer with a different byte-ordering \
+ when you use a raw image format. \
+ If start, stop as well as size options are given, and inconsistently, the \
+ stop options is ignored. The given sizes are clipped against the band.
+ # Xstart   # -xstart # d # 1 \
+ # Ystart   # -ystart # d # 1 \
+ # Xsize    # -xsize  # d # 65536 \
+ # Ysize    # -ysize  # d # 65536 \
+ # Xstop    # -xstop  # d # 65536 \
+ # Ystop    # -ystop  # d # 65536
+!
+?pnm2biff
+ Beware that a computer with a certain byte-ordering will not be able to \
+ read correctly the output from a computer with a different byte-ordering \
+ when you use one of the pnm image formats.
+ # Low pixel-value in case pnm-file is pbm  # -lpv # d # 0 \
+ # High pixel-value in case pnm-file is pbm # -hpv # d # 1 \
+ # Title of resulting BIFF image            # -t   # s # 
+!
+?biff2pnm
+ Beware that a computer with a certain byte-ordering will not be able to \
+ read correctly the output from a computer with a different byte-ordering \
+ when you use one of the pnm image formats.
+ # Interpret three-band image as rgb # -rgb # b # yes \
+ # Print resulting file as ascii     # -a   # b # no
+!
+?biff2ps
+ biff2ps - Convert BIFF image to PostScript
+ # Number of gray levels         # -c   # r0 # 2 \
+ # Number of gray levels         # -c   # r0 # 4 \
+ # Number of gray levels         # -c   # r0 # 8 \
+ # Number of gray levels         # -c   # r0 # 16 \
+ # Number of gray levels         # -c   # r1 # 256 \
+ # Magnification factor          # -m   # f  # 1.0 \
+ # Image width in cm             # -w   # f  # \
+ # Image height in cm            # -h   # f  # \
+ # Left margin in cm             # -x   # f  # \
+ # Bottom margin in cm           # -y   # f  # \
+ # Background pixel value        # -bg  # d  # -1 \
+ # Interpret three bands as rgb  # -rgb # b  # yes
+!
+?biff2sunraster
+ Convert BIFF image to sunraster file
+ # Depth == 1              # -t # b # no \
+ # Threshold if depth == 1 #    # d # 
+!
+?biffConvert
+ biffConvert\
+ \
+ biffConvert reads the input image <inimage>, converts  every\
+ band  to  specified  pixel  type, and writes output image to\
+ <outimage>. First pixel type  specification  is  applied  to\
+ first  band,  second  to  second, etc.  If more bands than\
+ specifications, the last pixel type specification is  applied\
+ to the rest of the bands. Pixel types are specified by a pixel\
+ acronym or type number:\
+ \
+ ub => convert to unsigned byte\
+ sb => convert to signed byte\
+ us => convert to unsigned short\
+ ss => convert to signed short\
+ i  => convert to integer\
+ r  => convert to real\
+ c  => convert to complex\
+ d  => convert to double\
+ dc => convert to double complex
+ # Pixeltype # # r0 # ub \
+ # Pixeltype # # r0 # sb \
+ # Pixeltype # # r0 # us \
+ # Pixeltype # # r0 # ss \
+ # Pixeltype # # r0 # i  \
+ # Pixeltype # # r1 # r  \
+ # Pixeltype # # r0 # c  \
+ # Pixeltype # # r0 # d  \
+ # Pixeltype # # r0 # dc
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Color
+ Gamma correction	  ; gammaAdjust <infile> <outfile> -adjust ?dialog:gamma
+ Dither image		  ; dither <infile> <outfile> ?dialog:dither
+ Read colortable	  ; biffcopy ?readColortabfile <outfile>
+ Color quantization       ; colorquant -esc ?dialog:colorquant <infile> ?writeColormapfile <outfile>
+ Create ihs-based colormap; rainbow <xterm> ?dialog:rainbow
+ Modify saturation        ; saturmod ?dialog:saturmod ?readColormapfile ?writeColormapfile
+ Colortable from histogram equalization; histoEqCol <infile> <outfile> ?dialog:histoEqCol
+-Conversions
+ Rgb --> pseudocolor      ; colorquant -esc ?dialog:colorquant2 -c <infile> <outfile> <outfile>
+ Pseudocolor --> rgb      ; pseudo2rgb <infile> <outfile> ?readColortabfile
+ Ascii colormap --> colortable ; mct ?dialog:mct ?readColormapfile <outfile>
+ Colortable --> Ascii     ; color2ascii ?dialog:color2ascii ?readColortabfile <xterm>
+ IHS --> RGB	          ; ihs2rgb <infile> <outfile>
+ RGB --> IHS              ; rgb2ihs <infile> <outfile>
+!
+?gamma
+ A simple gamma correction to make images darker or brighter.\
+ The adjustment parameter must be in the range -1.0  (much\
+ darker) to 1 (much brighter).  If the parameter equals 0.0, the\
+ band is not changed.
+ # Gamma # # f # 0.3
+!
+?dither
+ Large gives dark image, small gives brighter image
+ # Threshold value # # d # 127
+!
+?colorquant
+ An output pseudocolor image and an Ascii colormap-file are produced. \
+ The values in the output image should be used as indices to the map-table. \
+ If the input image is a true color image (three-band rgb), the Ascii \
+ map-table may be transformed into a colortable by the program mct.
+ # Lowest color in output map  # -b       # d # 0 \
+ # Step between each color     # -s       # d # 2 \
+ # Highest color in output map # -e       # d # 250 \
+ # Title of colormap           # -ct      # s # \
+ # Title of output image       # -t       # s # \
+ # Be verbose                  # -verbose # b # no
+!
+?colorquant2
+ An output pseudocolor image and a BIFF colortable-file are produced. The \
+ values in the output image should be used as indices to the colortable. \
+ Note: Input image must be three-band.
+ # Lowest color in output colortable  # -b       # d # 0 \
+ # Step between each color            # -s       # d # 2 \
+ # Highest color in output colortable # -e       # d # 250 \
+ # Title of colortable                # -ct      # s # \
+ # Title of output image              # -t       # s # \
+ # Print info                         # -verbose # b # no
+!
+?rainbow
+ Creates an Ascii colormap based on IHS-coordinates.
+ # Start value for I              # -ib   # f # 0.5 \
+ # Stop value for I               # -ie   # f # 0.5 \
+ # Start value for H              # -hb   # f # 0.333 \
+ # Stop value for H               # -he   # f # 1.0 \
+ # Start value for S              # -sb   # f # 1.0 \
+ # Stop value for S               # -se   # f # 1.0 \
+ # Length of colormap             # -len  # d # 256
+!
+?histoEqCol
+ Make colortable from histogram equalization.
+ # Number of graylevels #  # d # 256
+!
+?saturmod
+ Modify saturation (S) in color map file. \
+ The saturation can be modified by either: \
+ \
+   - Entering a new saturation value (0.0 <= S <= 1.0) \
+     The new saturation value will be multiplied by 65535. \
+   - Entering a factor >= 0 \
+     S_new = 65535 - (65536 - S_old) / factor
+ # Choose saturation or factor # -s # r1- # saturation \
+ # Choose saturation or factor # -f # r0- # factor \
+ # Enter saturation or factor  #    # f   # 0.5
+!
+?mct
+ Creates a color table from an Ascii colormap file.
+ # Title of colortable # -t # s # Colortable
+!
+?color2ascii
+ Write colortable as Ascii
+ # Write pixel values as hexadecimal numbers # -hex # b # yes
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Histogram
+ Show                               ; xhistogram <infile>
+ Show separate                      ; xhistogram -split <infile>
+ Equalize       	            ; histoEq <infile> <outfile>
+ Normalize       	            ; histoNorm <infile> <outfile>
+ Adjust mean and standard deviation ; histoMeanStd <infile> <outfile> ?dialog:histoMean
+ Make and print histogram           ; mkHisto -header <infile> ?dialog:mkHisto
+ Postscript plot of histogram       ; histo2ps ?dialog:histo2ps <infile> ?writePSfile
+ Postscript plot of histogram w/mask; histo2ps -mimg <infile> ?dialog:histo2psMask <infile> ?writePSfile
+ Colortable from histogram equalization ; histoEqCol <infile> <outfile> ?dialog:histoEqCol
+ Scattergram                        ; scatter <infile> <infile> <outfile>
+!
+?histoMean
+ 
+ # Mean               # # f # 128 \
+ # Standard deviation # # f # 5
+!
+?mkHisto
+ Enter histogram limits (borders of accumulator cells). \
+ The limits must be given in ascending order. The specified limits \
+ are applied to all bands in the image. The limits -Inf and Inf \
+ are always added.
+ # Limit # # d # 0 \
+ # Limit # # d # 128 \
+ # Limit # # d # 255 \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d # \
+ # Limit # # d #
+!
+?histo2ps
+ Make a Postscript plot of a histogram from an image band. \
+ Choose the band with the mouse.
+ # PostScript code           #       # r1- # Encapsulated PostScript \
+ # PostScript code           # -ps   # r0- # Plain PostScript \
+ # Auto-scaling of histogram # -auto # b   # yes \
+ # Cumulative histogram      # -cum  # b   # no \
+ # Header text               # -h    # s   # histogram
+!
+?histo2psMask
+ Make a Postscript plot of a histogram from an image band. \
+ \
+ This program needs two input images. The first one is the image band \
+ for which the histogram will be calculated. The second one is a mask. \
+ For all the mask pixels with a specified value, only count the \
+ corresponding pixels from the first input image when making the \
+ histogram.
+ # PostScript code           #       # r1- # Encapsulated PostScript \
+ # PostScript code           # -ps   # r0- # Plain PostScript \
+ # Mask value                # -mval # d   # 1 \
+ # Auto-scaling of histogram # -auto # b   # yes \
+ # Cumulative histogram      # -cum  # b   # no \
+ # Header text               # -h    # s   # histogram
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Image representation
++Merge and combine
++Profile
+ Extract real part      ; real ?dialog:imag <infile> <outfile>
+ Extract imaginary part ; imag ?dialog:imag <infile> <outfile>
+ Expand image edges     ; expand_edge <infile> <outfile> ?dialog:expand_edge
+ Pyramid		; pyramid <infile> <outfile> ?dialog:pyramid
+ Resample		; resample <infile> <outfile> ?dialog:resample
+ Contour		; contour <infile> <outfile> ?dialog:contour
+ Peanoscan	        ; peanoScan <infile> <outfile> ?dialog:peanoScan
+!
+?imag
+ Choose whether output band should be of type float or double.
+ # Output pixeltype # -f # r1- # float \
+ # Output pixeltype # -d # r0- # double
+!
+?expand_edge
+ Used to avoid some types of edge difficulties.
+ # Width in pixels of expansion at each edge     # -p # d   # 3 \
+ # Value of new pixels                           # -e # r1- # Even expansion\
+ # Value of new pixels                           # -o # r0- # Odd expansion \
+ # Value of new pixels                           # -0 # r0- # Zero \
+ # Value of new pixels                           # -z # r0- # Some integer \
+ # Negative of value for new pixels              #    # d   #
+!
+?pyramid
+ Create a pyramid data structure from the first band of the input image. \
+ \
+ The rank (use only with rank resampling algorithm) determines the n'th \
+ sorted pixel value in the window to be used as resampling result (n = 1..4).
+ # Bottom band edge size         #    # r1- # As original \
+ # Bottom band edge size         # -l # r0- # min(2^n) > min(xsize, ysize) \
+ # Bottom band edge size         # -s # r0- # max(2^n) < min(xsize, ysize) \
+ # Resampling algorithm          #    # r1- # Mean \
+ # Resampling algorithm          # -g # r0- # Gaussian \
+ # Resampling algorithm          #    # r0- # Rank \
+ # Rank (if rank resampling)     # -r # d   # \
+ # All possible levels           #    # b   # yes \
+ # Number of levels (if not all) # -n # d   # 
+!
+?resample
+ Every band in the old image is stretched or compressed to the size \
+ specified. \
+ \
+ The program uses the value found in the nearest pixel in the old image, no \
+ interpolation is performed.
+ # Horizontal size(s) # # d # 100 \
+ # Vertical size(s)   # # d # 100
+!
+?contour
+ Creates a contour map of the input image.
+ # Contour pixel value      # -cpv  # d # 0 \
+ # Background pixel value   # -bpv  # d # 255 \
+ # Contour map equidistance #       # d # 20
+!
+?peanoScan
+ This program will transform an image into a one dimensional signal while \
+ conserving the neighborhood properties. This is done by using the space \
+ filling curve called Peano Curve. An input image will be scanned according \
+ to the Peano curve rules and the pixel values will be written in horizontal \
+ lines in an output image.\
+ \
+ Peano scanning is done over windows of size (2**power)*(2**power).\
+ Default: The maximal square window of size some power of two. \
+ \
+ The default for the height of the output image is a value large enough to \
+ have room for the whole transformation.
+ # Power                  # -p # d # \
+ # Width of output image  # -x # d # 512 \
+ # Height of output image # -y # d #
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Arithmetic/logical
++Logical/relational
++Generate noisy images
+-One image/band
+ Negate                 ; negate <infile> <outfile>
+ Scale			; scale <infile> <outfile> ?dialog:scale
+ Absolute value		; absValue <infile> <outfile> ?dialog:absValue
+ Square			; square <infile> <outfile>
+ Square root		; squareRoot <infile> <outfile>
+ Logarithm		; logarithm ?dialog:logarithm <infile> <outfile>
+ Complex conjugate	; complexConjug <infile> <outfile>
+ Power		 	; power <infile> <outfile>
+ Phase		 	; phase <infile> <outfile> ?dialog:phase
+ Pixel mapping          ; pixel_mapper <infile> <outfile> ?dialog:pixel_mapper
+ Average bands		; average <infile> <outfile> ?dialog:average
+-Two images/bands
+ Absolute difference	; absDiff <infile> <infile> <outfile>
+ Signed difference	; signDiff <infile> <infile> <outfile> ?dialog:signDiff
+ Weighted sum		; addw ?dialog:addw <infile> <infile> <outfile>
+ Multiply		; multiply <infile> <infile> <outfile>
+ Divide                 ; divide <infile> <infile> <outfile>
+ Rms difference         ; rms <infile> <infile>
+ Average 		; average <infile> <infile> <outfile> ?dialog:average
+!
+?scale
+ scale the input image according to the formula\
+ \
+        output(x,y) = scale*input(x,y) + offset
+ # Scale  # -scale  # f # 1.0 \
+ # Offset # -offset # f # 0.0
+!
+?absValue
+ Take the absolute value of each pixel.
+ # Should the output be non-complex if input is complex? # -real # b # yes
+!
+?power
+ Take the squared magnitude of each pixel.
+ # Should the output be non-complex if input is complex? # -real  # b # yes \
+ # Scale                                                 # -scale # f # 1.0
+!
+?logarithm
+ Take the logarithm of the magnitude of the pixels in the input image \
+ in order to make very small pixelvalues visible in the presence of very \
+ large pixelvalues. \
+ \
+    out_pixel = (log(eps + |in_pixel|) + offset) * scale \
+    out_pixel = MAX(out_pixel, minimum) \
+ \
+ Default values: \
+     scale   : 20.0 \
+     eps     : 1 / (10*xsize*ysize) \
+     offset  : -log(eps) \
+     minimum : none \
+ \
+ Legal pixeltypes for output image: \
+ ub => unsigned byte \
+ r  => real \
+ d  => double \
+ \
+ Shifting the result horizontally by xsize/2 and vertically by ysize/2 \
+ is convenient to be able to center the (0,0) frequency of a Fourier \
+ transform image.
+ # Scale                            # -scale  # f  #  \
+ # Eps                              # -eps    # f  #  \
+ # Offset                           # -offset # f  #  \
+ # Lower limit of result            # -min    # f  #  \
+ # Pixeltype of output image        # -pt     # r0 # ub \
+ # Pixeltype of output image        # -pt     # r1 # r  \
+ # Pixeltype of output image        # -pt     # r0 # d  \
+ # Shift band by (xsize/2, ysize/2) # -shift  # b  # no
+!
+?phase
+ Shifting the result horizontally by xsize/2 and vertically by ysize/2 \
+ is convenient to be able to center the (0,0) frequency of a Fourier \
+ transform image.
+ # Shift band by (xsize/2, ysize/2) # -shift  # b  # no
+!
+?pixel_mapper
+ Enter a list of old pixel values and the single new value to replace them.
+ # Old pixelvalues # # s # 0 \
+ # New pixelvalue  # # d # 1
+!
+?signDiff
+ Calulate the signed difference between two input images pixel by pixel.\
+ output = (input1 - input2)*scale + offset
+ # Scale  # -scale  # f # 1.0 \
+ # Offset # -offset # f # 0.0
+!
+?addw
+ addw calculates, pixel by pixel, the weighted sum of input1 and input2.\
+ \
+    output(x,y) = w1*input1(x,y) + w2*input2(x,y) + offset
+ # Weight 1 # -w1     # f # 0.5\
+ # Weight 2 # -w2     # f # 0.5\
+ # Offset   # -offset # f # 0.0
+!
+?average
+ Computes the average image of two or several bands of one or more \
+ images.  Grey  levels  of  the output average image will be \
+ multiplied by a scale factor.
+ # Scale             # -scale # f   # 1.0 \
+ # Output image size # -max   # r1- # maximum \
+ # Output image size # -min   # r0- # minimum
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Local operators
++Local extrema
++General convolutions
++Gradient operators
++Laplace
++Compass
++Median and rank
++Nearest neighbor
+ Canny edge detection    ; canny <infile> <outfile> ?dialog:canny
+ Mean              	 ; mean  <infile> <outfile> ?dialog:size3x3
+ Local information transform ; lit <infile> <outfile> ?dialog:lit
+ Mode			 ; mode <infile> <outfile> ?dialog:mode
+ Sigma			 ; sigma <infile> <outfile> ?dialog:sigma
+ Maximum similarity mean ; maxSimilar3x3 <infile> <outfile>
+ Minimum                 ; minarea <infile> <outfile> ?dialog:size3x3
+ Maximum                 ; maxarea <infile> <outfile> ?dialog:size3x3
+ Closest of min and max  ; closestMinMax <infile> <outfile> ?dialog:size3x3
+ Standard deviation      ; stdev <infile> <outfile> ?dialog:size3x3
+ Local variance		 ; stvar <infile> <outfile> ?dialog:stvar
+ Local variance threshold ; stvar -t <infile> <outfile> ?dialog:stvar
+ Statistical differencing; stdiff <infile> <outfile> ?dialog:stdiff
+!
+?canny
+ canny computes the canny edge strength (magnitude), angle, and/or \
+ laplacian of an input image.  This program uses two separable \
+ filters to implement the Gaussian operator, and therefore is of \
+ the order 2*n, where n is the  filter length.
+ # Sigma for computing the filters         # -s       # f   # 2.0 \
+ # Scale constant for computing filters    # -k       # d   # 450 \
+ # Compute                                 # -m       # m1- # Edge magnitude \
+ # Compute                                 # -a       # m1- # Edge angle \
+ # Compute                                 # -l       # m0- # Laplacian \
+ # Perform thinning on the magnitude image # -t       # b   # yes \
+ # Verbose                                 # -verbose # b # no
+!
+?size3x3
+ Enter window width (of square window) or width and height.
+ # Window width  # # d # 3 \
+ # Window height # # d # 3
+!
+?size
+ Enter window width (of square window) or width and height.
+ # Window width  # # d # \
+ # Window height # # d #
+!
+?lit
+ lit transform with window size (dx * dy), using the histogram \
+ updating technique. lit counts the number of pixels inside \
+ the (dx * dy) filtering window having a pixel value in the \
+ interval [cp-dp..cp+dp], where cp is the value of the center \
+ pixel, and dp is the delta pixel value argument.
+ # Half of pixel interval              # # d # 5 \
+ # Horizontal size of filtering window # # d # 7 \
+ # Vertical size of filtering window   # # d # 11
+!
+?mode
+ mode noise filtering with window size (dx * dy) using histogram \
+ updating technique. The pixel value occurring most frequently \
+ within the window becomes the new pixel value in the window center.
+ # Horizontal size of filtering window # # d # 5 \
+ # Vertical size of filtering window   # # d # 7
+!
+?sigma
+ Supply either Standard deviations or Counts, depending on the choice \
+ of limiting.
+ # Limiting                     # -s # r1- # Std dev. \
+ # Limiting                     # -t # r0- # Counts \
+ # Standard deviations          #    # f   # 1.0 \
+ # Counts                       #    # d   #   \
+ # Window size (side of square) #    # d   # 3
+!
+?stvar
+ Local variable threshold
+ # Local area width             # # d # 3 \
+ # Local area height            # # d # 3 \
+ # Factor on standard deviation # # f # 1.0
+!
+?stdiff
+ Local PixelValue Mapping. \
+ r(x,y) = u(x,y) + s(x,y) \
+ u(x,y) = alpha * m0 + (1-alpha) * bm(x,y) \
+ s(x,y) = (b(x,y)-bm(x,y)) * (beta*s0 / (s0+bs(x,y))) \
+ \
+ r(x,y)  = output image \
+ u(x,y)  = mean component \
+ s(x,y)  = standard deviation component \
+ m0      = The mean to force locally \
+ alpha   = fraction m0 <--> local mean \
+ b(b,y)  = pixel value in (x,y) \
+ bm(x,y) = local mean \
+ bs(x,y) = local standard deviation \
+ s0      = new standard deviation \
+ beta    = parameter to control s0 <--> local standard deviation \
+ \
+ deltax  = Local area width \
+ deltay  = Local area height
+ # Local area width  # # d # 31 \
+ # Local area height # # d # 31 \
+ # alpha             # # f # 0.5 \
+ # beta              # # f # 3.0 \
+ # m0                # # d # 128 \
+ # s0                # # d # 50
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Global operators
++Fft
++Fht
++Haar
++Hough
++Geometric transformations
+ Linear transformation ; linearTrans <infile> <outfile> ?dialog:linearTrans
+ Zernike moments       ; zernike <infile> <outfile> ?dialog:zernike
+?linearTrans
+ Performs  a linear transformation from pixels in the input image to \
+ pixels in the output image, \
+ \
+     Pout = W*Pin \
+ \
+ where W is the weight matrix, which should be of size nbands*nbands, \
+ where nbands is the number of bands in the input and output images.
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f #  \
+ # Weight in linear transformation # # f # 
+!
+?zernike
+ Zernike moment image of a gray scale or binary image.
+ # Moment order                   # -n # d # 0 \
+ # Reconstruct image from moments # -r # b # no \
+ # Image title                    # -t # s # Zernike
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Filter design
++Window functions
+-Fourier-domain result
+ Truncated ideal lowpass filter  ; lowpass  <outfile> ?dialog:filter
+ Truncated ideal highpass filter ; highpass <outfile> ?dialog:filter
+ Truncated ideal bandpass filter ; bandpass <outfile> ?dialog:filter2
+ Truncated ideal bandstop filter ; bandstop <outfile> ?dialog:filter2
+ Butterworth lowpass filter      ; butterworth <outfile> ?dialog:butterworth
+ Exponential lowpass filter      ; exponential <outfile> ?dialog:exponential
+ Ideal lowpass filter            ; lowpassIdeal <outfile> ?dialog:lowpassIdeal
+-Spatial-domain result
+ Truncated ideal lowpass filter  ; lowpass  <outfile> -s ?dialog:filterS
+ Truncated ideal highpass filter ; highpass <outfile> -s ?dialog:filterS
+ Truncated ideal bandpass filter ; bandpass <outfile> -s ?dialog:filter2S
+ Truncated ideal bandstop filter ; bandstop <outfile> -s ?dialog:filter2S
+ Butterworth lowpass filter   ; butterworth <outfile> -s ?dialog:butterworthS
+ Exponential lowpass filter   ; exponential <outfile> -s ?dialog:exponentialS
+ Ideal lowpass filter         ; lowpassIdeal <outfile> -s ?dialog:lowpassIdealS
+!
+?filter
+ Generate a Fourier domain representation of an ideal filter which is\
+ truncated in the image domain by a circularly symmetric window. \
+ Legal window functions: \
+ r  => Rectangle \
+ b  => Bartlett \
+ t  => Triangle \
+ hm => Hamming \
+ hn => Hanning
+ # Width of filter image                            # -x # d  # 512 \
+ # Height of filter image                           # -y # d  # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c # f  # 0.2 \
+ # Diameter of image domain window function         # -f # d  # 41 \
+ # Window function                                  # -w # r0 # r \
+ # Window function                                  # -w # r0 # b \
+ # Window function                                  # -w # r0 # t \
+ # Window function                                  # -w # r1 # hm \
+ # Window function                                  # -w # r0 # hn \
+ # Title of filter image                            # -t # s  # filter
+!
+?filter2
+ Generate a Fourier domain representation of an ideal filter which is\
+ truncated in the image domain by a circularly symmetric window. \
+ Legal window functions: \
+ r  => Rectangle \
+ b  => Bartlett \
+ t  => Triangle \
+ hm => Hamming \
+ hn => Hanning
+ # Width of filter image                                  # -x # d  # 512 \
+ # Height of filter image                                 # -y # d  # 512 \
+ # Lower cutoff frequency (fraction of Nyquist frequency) # -l # f  # 0.2 \
+ # Upper cutoff frequency (fraction of Nyquist frequency) # -h # f  # 0.7 \
+ # Diameter of image domain window function               # -f # d  # 41 \
+ # Window function                                        # -w # r0 # r \
+ # Window function                                        # -w # r0 # b \
+ # Window function                                        # -w # r0 # t \
+ # Window function                                        # -w # r1 # hm \
+ # Window function                                        # -w # r0 # hn \
+ # Title of filter image                                  # -t # s  # filter
+!
+?filterS
+ Generate a spatial domain representation of an ideal filter which is\
+ truncated in the image domain by a circularly symmetric window. \
+ Legal window functions: \
+ r  => Rectangle \
+ b  => Bartlett \
+ t  => Triangle \
+ hm => Hamming \
+ hn => Hanning \
+ Legal pixeltypes for filter: \
+ r  => real \
+ d  => double \
+ c  => complex \
+ dc => double complex
+ # Width of filter image                            # -x  # d  # 512 \
+ # Height of filter image                           # -y  # d  # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c  # f  # 0.2 \
+ # Diameter of image domain window function         # -f  # d  # 41 \
+ # Window function                                  # -w  # r0 # r \
+ # Window function                                  # -w  # r0 # b \
+ # Window function                                  # -w  # r0 # t \
+ # Window function                                  # -w  # r1 # hm \
+ # Window function                                  # -w  # r0 # hn \
+ # Pixeltype of filter                              # -pt # r1 # r  \
+ # Pixeltype of filter                              # -pt # r0 # d \
+ # Pixeltype of filter                              # -pt # r0 # c  \
+ # Pixeltype of filter                              # -pt # r0 # dc  \
+ # Title of filter image                            # -t  # s  # filter
+!
+?filter2S
+ Generate a spatial domain representation of an ideal filter which is\
+ truncated in the image domain by a circularly symmetric window. \
+ Legal window functions: \
+ r  => Rectangle \
+ b  => Bartlett \
+ t  => Triangle \
+ hm => Hamming \
+ hn => Hanning \
+ Legal pixeltypes for filter: \
+ r  => real \
+ d  => double \
+ c  => complex \
+ dc => double complex
+ # Width of filter image                                  # -x  # d  # 512 \
+ # Height of filter image                                 # -y  # d  # 512 \
+ # Lower cutoff frequency (fraction of Nyquist frequency) # -l  # f  # 0.2 \
+ # Upper cutoff frequency (fraction of Nyquist frequency) # -h  # f  # 0.7 \
+ # Diameter of image domain window function               # -f  # d  # 41 \
+ # Window function                                        # -w  # r0 # r \
+ # Window function                                        # -w  # r0 # b \
+ # Window function                                        # -w  # r0 # t \
+ # Window function                                        # -w  # r1 # hm \
+ # Window function                                        # -w  # r0 # hn \
+ # Pixeltype of filter                                    # -pt # r1 # r  \
+ # Pixeltype of filter                                    # -pt # r0 # d \
+ # Pixeltype of filter                                    # -pt # r0 # c  \
+ # Pixeltype of filter                                    # -pt # r0 # dc  \
+ # Title of filter image                                  # -t  # s  # filter
+!
+?butterworth
+ Generate a Fourier domain representation of a Butterworth filter.
+ # Width of filter image                            # -x # d # 512 \
+ # Height of filter image                           # -y # d # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c # f # 0.2 \
+ # Filter order                                     # -f # d # 5 \
+ # Title of filter image                            # -t # s # Butterworth
+!
+?butterworthS
+ Generate a spatial domain representation of a Butterworth filter. \
+ Legal pixeltypes for filter: \
+ r  => real \
+ d  => double \
+ c  => complex \
+ dc => double complex
+ # Width of filter image                            # -x  # d  # 512 \
+ # Height of filter image                           # -y  # d  # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c  # f  # 0.2 \
+ # Filter order                                     # -f  # d  # 5 \
+ # Pixeltype of filter                              # -pt # r1 # r  \
+ # Pixeltype of filter                              # -pt # r0 # d \
+ # Pixeltype of filter                              # -pt # r0 # c  \
+ # Pixeltype of filter                              # -pt # r0 # dc  \
+ # Title of filter image                            # -t  # s # Butterworth
+!
+?exponential
+ Generate a Fourier domain representation of an exponential filter.
+ # Width of filter image                            # -x # d # 512 \
+ # Height of filter image                           # -y # d # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c # f # 0.2 \
+ # Filter order                                     # -f # d # 5 \
+ # Title of filter image                            # -t # s # Exponential
+!
+?exponentialS
+ Generate a spatial domain representation of an exponential filter. \
+ Legal pixeltypes for filter: \
+ r  => real \
+ d  => double \
+ c  => complex \
+ dc => double complex
+ # Width of filter image                            # -x  # d  # 512 \
+ # Height of filter image                           # -y  # d  # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c  # f  # 0.2 \
+ # Filter order                                     # -f  # d  # 5 \
+ # Pixeltype of filter                              # -pt # r0 # r  \
+ # Pixeltype of filter                              # -pt # r0 # d \
+ # Pixeltype of filter                              # -pt # r1 # c  \
+ # Pixeltype of filter                              # -pt # r0 # dc  \
+ # Title of filter image                            # -t  # s  # Exponential
+!
+?lowpassIdeal
+ Generate a Fourier domain representation of an "ideal" lowpass filter.
+ # Width of filter image                            # -x # d # 512 \
+ # Height of filter image                           # -y # d # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c # f # 0.2 \
+ # Title of filter image                            # -t # s # Ideal
+!
+?lowpassIdealS
+ Generate a spatial domain representation of an "ideal" lowpass filter. \
+ Legal pixeltypes for filter: \
+ r  => real \
+ d  => double \
+ c  => complex \
+ dc => double complex
+ # Width of filter image                            # -x  # d  # 512 \
+ # Height of filter image                           # -y  # d  # 512 \
+ # Cutoff frequency (fraction of Nyquist frequency) # -c  # f  # 0.2 \
+ # Pixeltype of filter                              # -pt # r0 # r  \
+ # Pixeltype of filter                              # -pt # r0 # d \
+ # Pixeltype of filter                              # -pt # r1 # c  \
+ # Pixeltype of filter                              # -pt # r0 # dc  \
+ # Title of filter image                            # -t  # s  # Ideal
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:Image analysis
++Texture
++Thresholding
++Morphological operations
++Binary thinning
+ Convex Hulls of Regions	; regionConvexHull <infile> <outfile> ?dialog:convexHull
+ Draw 2 regions, random border  ; segmRandom <outfile> ?dialog:segmRandom
+ Spann and Wilson segmentation	; segmSpannWilson <infile> <outfile> ?dialog:spannWilson
+ kMeans clustering              ; kMeansCluster <infile> <outfile> ?dialog:kMeansCluster
+ ISODATA clustering             ; isoCluster <infile> <outfile> ?dialog:isoCluster
+ Laplace crossing               ; lapZeroCross <infile> <outfile> ?dialog:lapZeroCross
+ Find crossing                  ; crossing ?dialog:crossing <infile> <outfile>
+ Gradient inverse noise reduction ; gradInv <infile> <outfile> ?dialog:size
+!
+?convexHull
+ Finds the convex hull of all regions in the input image with pixel value \
+ LARGER than 0, and draws these convex regions into the output image. These \
+ regions may naturally overlap, and the result may thus (apparently) contain \
+ non-convex regions.
+ # Neighbor connectedness         # -nc    # r1  # 4 \
+ # Neighbor connectedness         # -nc    # r0  # 8 \
+ # Sort regions on object number  # -sort  # b   # no \
+ # Split objects                  # -split # b   # no \
+ # Initialize background in ouput # -bg    # d   # 0 \
+ # Region pixelvalue              # -orn   # r1- # Region number \
+ # Region pixelvalue              # -oon   # r0- # Object number \
+ # Region pixelvalue              # -opv   # r0- # Custom \
+ # Chosen pixelvalue (if "custom" above) # # d   # 
+!
+?segmRandom
+ An image is created with two regions, value <lpv> (left pixel value) on the \
+ left side, and <rpv> on the right side of a border. The border separating \
+ the regions is made with a kind of random walk, or 2. order Markov process,\
+ starting in the center of the upper row. In each step, the walk may go\
+ down-left (l), down (d) or down-right (r).\
+ \
+ The probablities for going in each of the two directions down-left and \
+ down-right given the prevous direction, are given by the options -ll, -rl, \
+ -ld, -rd, -lr and -rr. The probability for going down is computed, because \
+ the total probability is always equal to one.
+ # Horizontal image size  # -xsize # d # 256 \
+ # Vertical images size   # -ysize # d # 256 \
+ # Left side pixel value  # -lpv   # d # 0 \
+ # Right side pixel value # -rpv   # d # 1 \
+ # Down-left, down-left   # -ll    # f # 0.3333 \
+ # Down-right, down-left  # -rl    # f # 0.3333 \
+ # Down-left, down        # -ld    # f # 0.3333 \
+ # Down-right, down       # -rd    # f # 0.3333 \
+ # Down-left, down-right  # -lr    # f # 0.3333 \
+ # Down-right, down-right # -rr    # f # 0.3333
+!
+?spannWilson
+ The  algorithm  has three steps, quad-tree smoothing, local centroid \
+ clustering and boundary estimation.
+ # Quad-tree levels                                # -n      # d   # 4 \
+ # Histogram window size (give m where size=2*m+1) # -m      # d   # 10 \
+ # Move histogram mass to local                    # -mean   # r1- # mean \
+ # Move histogram mass to local                    # -median # r0- # median
+!
+?kMeansCluster
+ Classifies  the  multi band input image iteratively to the nearest \
+ cluster mean.
+ # Number of classes (2..100) #   # d   # 2 \
+ # Metric                     # 1 # r1- # Euclidian distance \
+ # Metric                     # 2 # r0- # City block distance \
+ # Metric                     # 3 # r0- # Chess distance
+!
+?isoCluster
+ Classifies the multi band input image iteratively to the nearest cluster \
+ mean. The program asks the user for initial mean vectors.
+ # Initial number of classes                 #   # d   # 2 \
+ # Minimum distance between two class means  #   # f   # 10.0 \
+ # Maximum standard deviation within a class #   # f   # 30.0 \
+ # Minimum number of pixels in one class     #   # d   # 500 \
+ # Metric                                    # 1 # r1- # Euclidian distance \
+ # Metric                                    # 2 # r0- # City block distance \
+ # Metric                                    # 3 # r0- # Chess distance
+!
+?lapZeroCross
+ Finds the zero crossing of the laplacian of the input image. Starts by \
+ performing the laplace operator, followed by calling the crossing routine.
+ # Laplace weight in 8-neighbors              # -a       # d # 0 \
+ # Laplace weight in 4-neighbors              # -b       # d # -1 \
+ # Laplace weight in center                   # -c       # d # 4 \
+ # Laplace output scaling factor              # -scale   # f # 1.0 \
+ # Laplace output offset and crossing level   # -offset  # f # 127.0 \
+ # Verbose, report under/overflows in laplace # -verbose # b # yes
+!
+?crossing
+ 
+ # Crossing level # -t # d # 127
+!
+!
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Sub menu level 1 !!!!!!!!!!!!!!!!!!!!!!!!!
+:System
+ ls                      ; ls -altr
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image information)
+:Statistics
+ Statistics		; statistics <infile>
+ Statistics w/mask      ; statistics -r <infile> ?dialog:statMask <infile> 
+!
+?statMask
+ This program needs two input images. The first one is a mask. \
+ For all the mask pixels with a certain value, calculate the statistics \
+ for the second input image pixels at the same coordinates. \
+ \
+ If a single mask value is selected, the statistics will only be calculated \
+ for this value. Otherwise, it will be done for all the values in the mask.
+ # Mask value # -p # d #
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image information)
+:Profile
+ Profile	 	; profile ?dialog:profile <infile>
++Row/column extraction
+!
+?profile
+ Calculates the pixel values along a line from "(x,y)" in the direction \
+ "dir" or between "(x,y)" and "(ex,ey)".
+ # Horizontal start coordinate # -x  # d # 1 \
+ # Vertical start coordinate   # -y  # d # 1 \
+ # Horizontal end coordinate   # -ex # d # 512 \
+ # Vertical end coordinate     # -ey # d # 512 \
+ # Direction (in radians)      # -d  # f # 0.7854 \
+ # Sampling step               # -s  # f # 1 \
+ # Output file (or window)     # -o  # s # 
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Profile)
+:Row/column extraction
+-Row/horizontal
+ Extract row	       ; crossSection -x <infile> <outfile> ?dialog:rowExtr
+ Extract row minima    ; crossSection -x -m <infile> <outfile> ?dialog:extrExtr
+ Extract row maxima    ; crossSection -x -M <infile> <outfile> ?dialog:extrExtr
+-Column/vertical
+ Extract column        ; crossSection -y <infile> <outfile> ?dialog:colExtr
+ Extract column minima ; crossSection -y -m <infile> <outfile> ?dialog:extrExtr
+ Extract column maxima ; crossSection -y -M <infile> <outfile> ?dialog:extrExtr
+!
+?rowExtr
+ Options
+ # Pick row number          # -n   # d # 1 \
+ # Height of resulting band # -h   # d # 512 \
+ # Pixel value on curve     # -cur # f # 255 \
+ # Pixel value below curve  # -fg  # f # 255 \
+ # Pixel value above curve  # -bg  # f # 0 \
+ # Scale for curve height   # -s   # f # 0.95 \
+ # Print curve values       # -a   # b # yes \
+ # Title of output image    # -t   # s #
+!
+?extrExtr
+ Options
+ # Height of resulting band # -h   # d # 512 \
+ # Pixel value on curve     # -cur # f # 255 \
+ # Pixel value below curve  # -fg  # f # 255 \
+ # Pixel value above curve  # -bg  # f # 0 \
+ # Scale for curve height   # -s   # f # 0.95 \
+ # Print curve values       # -a   # b # yes \
+ # Title of output image    # -t   # s #
+!
+?colExtr
+ Options
+ # Pick column number       # -n   # d # 1 \
+ # Height of resulting band # -h   # d # 512 \
+ # Pixel value on curve     # -cur # f # 255 \
+ # Pixel value below curve  # -fg  # f # 255 \
+ # Pixel value above curve  # -bg  # f # 0 \
+ # Scale for curve height   # -s   # f # 0.95 \
+ # Print curve values       # -a   # b # yes \
+ # Title of output image    # -t   # s #
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image representation)
+:Merge and combine
+ Copy image	     ; biffcopy <infile> <outfile>
+ Copy bands of image ; biffcopy ?dialog:readBands <infile> <outfile>
+ Copy part of image  ; subcopy <infile> <outfile> ?dialog:subcopy
+ Find overlap        ; overlap <infile> <infile> <outfile> <outfile>
+-Merge
+ Two bands	 ; biffmerge <infile> <infile> <outfile>
+ Three bands	 ; biffmerge <infile> <infile> <infile> <outfile>
+ Four bands	 ; biffmerge <infile> <infile> <infile> <infile> <outfile>
+ Five bands	 ; biffmerge <infile> <infile> <infile> <infile> <infile> <outfile>
+ Six bands	 ; biffmerge <infile> <infile> <infile> <infile> <infile> <infile> <outfile>
+-Combine
+ Two images	 ; mosaic -auto <infile> <infile> <outfile> ?dialog:mosaic
+ Three images	 ; mosaic -auto <infile> <infile> <infile> <outfile> ?dialog:mosaic
+ Four images     ; mosaic -auto <infile> <infile> <infile> <infile> <outfile> ?dialog:mosaic
+ Five images	 ; mosaic -auto <infile> <infile>  <infile> <infile> <infile> <outfile> ?dialog:mosaic
+ Six images	 ; mosaic -auto <infile> <infile> <infile> <infile> <infile> <infile> <outfile> ?dialog:mosaic
+!
+?subcopy
+ Copy part of an image into a new image (the result is clipped against the \
+ limits of the input image).
+ # Xstart                           # -xstart  # d # 1 \
+ # Xsize                            # -xsize   # d # 65536 \
+ # Xstop                            # -xstop   # d # 65536 \
+ # Ystart                           # -ystart  # d # 1 \
+ # Ysize                            # -ysize   # d # 65536 \
+ # Ystop                            # -ystop   # d # 65536 \
+ # Bands                            # -band    # s # 1 \
+ # Title                            # -title   # s # image-title \
+ # Local start and stop coordinates # -l       # b # no
+!
+?mosaic
+ Default size: Just as large as necessary. \
+ \
+ If not all input images are visible in the output image, they are \
+ overlapping. For manual placement of each component in the ouput, \
+ run "mosaic" manually from the operating system command-line.
+ # Background pixel value                      # -bg    # d # 0 \
+ # Minimum horizontal size of new band         # -xsize # d # \
+ # Minimum vertical size of new band           # -ysize # d # \
+ # Preserve multi-bands                        # -multi # b # no
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Arithmetic/logical)
+:Logical/relational
+ Combine  	     ; combine <infile> <infile> <outfile> ?dialog:combine
+ Mask (set 0 when input2 == 0); logical -mask <infile> <infile> <outfile>
++Pixelwise extremum
++Logical
++Relational
++Bitwise shift
+!
+?combine
+ Combines two images into a new image according to the following algorithm: \
+ \
+ for (every pixel) { \
+   if (expr1 RELOP expr2) \
+     output = expr3; \
+   else output = expr4; \
+ } \
+ \
+ expr1, expr2, expr3, expr4 - one of the values: \
+   -1:     inputimage1[y][x] \
+   -2:     inputimage2[y][x] \
+   0..255: a constant value
+ # Expression 1        #    # d   # -1 \
+ # Expression 2        #    # d   # -2 \
+ # Expression 3        #    # d   # 50 \
+ # Expression 4        #    # d   # 25 \
+ # Relational operator # EQ # r1- # == \
+ # Relational operator # NE # r0- # != \
+ # Relational operator # LT # r0- # < \
+ # Relational operator # LE # r0- # <= \
+ # Relational operator # GT # r0- # > \
+ # Relational operator # GE # r0- # >=
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Arithmetic/logical)
+:Generate noisy images
+ Make gaussian noise image	; mkGauss <outfile> ?dialog:mkGauss
+ Add gaussian noise		; addGauss <infile> <outfile> ?dialog:addGauss
+ Multiply with gaussian noise   ; multGauss <infile> <outfile> ?dialog:addGauss
+ Make Poisson noise image	; mkPoisson <outfile> ?dialog:mkPoisson
+ Add Poisson noise		; addPoisson <infile> <outfile>
+!
+?mkGauss
+ 
+ # Expected value        # # f # 0.0  \
+ # Standard deviation    # # f # 20.0 \
+ # Horizontal image size # # d # 512  \
+ # Vertical image size   # # d # 512
+!
+?addGauss
+ 
+ # Expected value                     # # f # 0.0 \
+ # Standard deviation of distribution # # f # 20.0
+!
+?mkPoisson
+ 
+ # Expected value        # # f # 2.0 \
+ # Horizontal image size # # d # 512 \
+ # Vertical image size   # # d # 512
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:Local extrema
+ Maxima			; maxima <infile> <outfile> ?dialog:maxima
+ Minima			; minima <infile> <outfile> ?dialog:minima
+ Extrema1		; extrema1 <infile> <outfile> ?dialog:fgbg
+ Extrema2		; extrema2 <infile> <outfile> ?dialog:maximini
+!
+?maxima
+ Detection of local maxima. \
+ Enter pixel values to represent maxima and background
+ # Pixel value for maxima     # -fg # d # 255 \
+ # Pixel value for background # -bg # d # 0
+!
+?minima
+ Detection of local minima. \
+ Enter pixel values to represent minima and background
+ # Pixel value for minima     # -fg # d # 255 \
+ # Pixel value for background # -bg # d # 0
+!
+?fgbg
+ Detection of local minima and maxima. \
+ Enter pixel values to represent extrema and background
+ # Pixel value for extrema    # -fg # d # 255 \
+ # Pixel value for background # -bg # d # 0
+!
+?maximini
+ Detection of local minima and maxima separately. \
+ Enter pixel values to represent minima, maxima and background
+ # Pixel value for minima     # -min # d # 0 \
+ # Pixel value for maxima     # -max # d # 255 \
+ # Pixel value for background # -bg  # d # 128
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:General convolutions
+ Convolve images ; convolve <infile> <infile> <outfile> ?dialog:convolve
+-Ascii file kernel
+ Convolve 3x3 ; conv3x3  -conv ?readfile <infile> <outfile>
+ Convolve 5x5 ; convolve -conv ?readfile <infile> <outfile> ?dialog:convolve
+ Convolve 7x7 ; convolve -conv ?readfile <infile> <outfile> ?dialog:convolve
+ Convolve 9x9 ; convolve -conv ?readfile <infile> <outfile> ?dialog:convolve
+-Dialog kernel
+ Convolve 3x3 ; conv3x3 <infile> <outfile> ?dialog:conv3x3
+ Convolve 5x5 ; convolve <infile> <outfile> 5 5 ?dialog:conv5x5
+!
+?conv3x3
+ Specify each element of the convolution kernel. \
+ Use Scale = 0.0 for autoscaling.
+ # Scale                            # -scale   # f # 0.0 \
+ # Offset                           # -offset  # f # 0.0 \
+ # Kernel value, top row, left      #          # d # 1   \
+ # Kernel value, top row, middle    #          # d # 1   \
+ # Kernel value, top row, right     #          # d # 1   \
+ # Kernel value, middle row, left   #          # d # 1   \
+ # Kernel value, middle row, middle #          # d # 1   \
+ # Kernel value, middle row, right  #          # d # 1   \
+ # Kernel value, bottom row, left   #          # d # 1   \
+ # Kernel value, bottom row, middle #          # d # 1   \
+ # Kernel value, bottom row, right  #          # d # 1   \
+ # Verbose                          # -verbose # b # yes
+!
+?conv5x5
+ Specify each element of the convolution kernel. \
+ Use Scale = 0.0 for autoscaling.
+ # Scale                                   # -scale  # f   # 0.0 \
+ # Offset                                  # -offset # f   # 0.0 \
+ # Kernel value, first row, first column   #         # d   # 1   \
+ # Kernel value, first row, second column  #         # d   # 1   \
+ # Kernel value, first row, third column   #         # d   # 1   \
+ # Kernel value, first row, fourth column  #         # d   # 1   \
+ # Kernel value, first row, fifth column   #         # d   # 1   \
+ # Kernel value, second row, first column  #         # d   # 1   \
+ # Kernel value, second row, second column #         # d   # 1   \
+ # Kernel value, second row, third column  #         # d   # 1   \
+ # Kernel value, second row, fourth column #         # d   # 1   \
+ # Kernel value, second row, fifth column  #         # d   # 1   \
+ # Kernel value, third row, first column   #         # d   # 1   \
+ # Kernel value, third row, second column  #         # d   # 1   \
+ # Kernel value, third row, third column   #         # d   # 1   \
+ # Kernel value, third row, fourth column  #         # d   # 1   \
+ # Kernel value, third row, fifth column   #         # d   # 1   \
+ # Kernel value, fourth row, first column  #         # d   # 1   \
+ # Kernel value, fourth row, second column #         # d   # 1   \
+ # Kernel value, fourth row, third column  #         # d   # 1   \
+ # Kernel value, fourth row, fourth column #         # d   # 1   \
+ # Kernel value, fourth row, fifth column  #         # d   # 1   \
+ # Kernel value, fifth row, first column   #         # d   # 1   \
+ # Kernel value, fifth row, second column  #         # d   # 1   \
+ # Kernel value, fifth row, third column   #         # d   # 1   \
+ # Kernel value, fifth row, fourth column  #         # d   # 1   \
+ # Kernel value, fifth row, fifth column   #         # d   # 1   \
+ # Pixeltype of output image               # -byte   # r1- # ub  \
+ # Pixeltype of output image               # -word   # r0- # ss  \
+ # Pixeltype of output image               #         # r0- # As input \
+ # Verbose                                 # -verbose# b   # yes
+!
+?convolve
+ Give kernel image first, then input image.
+ # Pixeltype of output image               # -byte   # r1- # ub  \
+ # Pixeltype of output image               # -word   # r0- # ss  \
+ # Pixeltype of output image               #         # r0- # As input \
+ # Verbose                                 # -verbose# b   # yes
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:Gradient operators
+ General gradient ; gradient <infile> <outfile> ?readfile ?readfile ?dialog:gradient
+ Roberts  ; roberts <infile> <outfile> ?dialog:gradient2
+ Sobel    ; sobel <infile> <outfile> ?dialog:gradient2
+ Prewitt  ; prewitt <infile> <outfile> ?dialog:gradient2
+!
+?gradient
+ Use scale = 0.0 for autoscaling.
+ # Horizontal/vertical combination # -magnitude # m1- # Magnitude \
+ # Horizontal/vertical combination # -angle     # m0- # Angle \
+ # Horizontal/vertical combination # -pseudo    # m0- # Pseudo \
+ # Xscale                          # -xscale    # f   # 0.0 \
+ # Yscale                          # -yscale    # f   # 0.0 \
+ # Image title                     # -title     # s   # \
+ # Verbose                         # -verbose   # b   # yes
+!
+?gradient2
+ 
+ # Horizontal/vertical combination # -magnitude # m1- # Magnitude \
+ # Horizontal/vertical combination # -angle     # m0- # Angle \
+ # Horizontal/vertical combination # -pseudo    # m0- # Pseudo \
+ # Verbose                         # -verbose   # b   # yes
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:Laplace
+ Laplace( 1, 1, 1)       ; conv3x3 -scale 0.109             -conv $XSHOWPATH/glatt    <infile> <outfile> 
+ Laplace( 4, 2, 1)       ; conv3x3 -scale 0.062             -conv $XSHOWPATH/laplace2 <infile> <outfile>
+ Laplace( 4,-1, 0)       ; conv3x3 -scale 0.211 -offset 128 -conv $XSHOWPATH/laplace  <infile> <outfile>
+ Laplace( 5,-1, 0)       ; conv3x3 -scale 0.211 -offset 100 -conv $XSHOWPATH/laplace5 <infile> <outfile>
+ Laplace( 8,-1,-1)       ; conv3x3 -scale 0.094 -offset 128 -conv $XSHOWPATH/laplace8 <infile> <outfile>
+ Laplace( 9,-1,-1)       ; conv3x3 -scale 0.086 -offset 116 -conv $XSHOWPATH/laplace9 <infile> <outfile>
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:Compass
+ North                   ; conv3x3 -scale 0.164 -offset 128 -conv $XSHOWPATH/comp_n   <infile> <outfile>
+ North-East              ; conv3x3 -scale 0.125 -offset 128 -conv $XSHOWPATH/comp_ne  <infile> <outfile>
+ East                    ; conv3x3 -scale 0.164 -offset 128 -conv $XSHOWPATH/comp_e   <infile> <outfile>
+ South-East              ; conv3x3 -scale 0.125 -offset 128 -conv $XSHOWPATH/comp_se  <infile> <outfile>
+ South                   ; conv3x3 -scale 0.164 -offset 128 -conv $XSHOWPATH/comp_s   <infile> <outfile>
+ South-West              ; conv3x3 -scale 0.125 -offset 128 -conv $XSHOWPATH/comp_sw  <infile> <outfile>
+ West                    ; conv3x3 -scale 0.164 -offset 128 -conv $XSHOWPATH/comp_w   <infile> <outfile>
+ North-West              ; conv3x3 -scale 0.125 -offset 128 -conv $XSHOWPATH/comp_nw  <infile> <outfile>
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:Median and rank
+ Median 	 ; median <infile> <outfile> ?dialog:size
+ Pseudomedian	 ; pseudomedian3x3 <infile> <outfile>
+ Fractile	 ; median <infile> <outfile> ?dialog:fractile
+ Fractile w/mask ; median -mask ?readfile <infile> <outfile> ?dialog:fractileMask
+ Rank		 ; rank <infile> <outfile> ?dialog:rank
+!
+?fractile
+ Fractile noise filtering with window of size (dx * dy). \
+ Sort all pixels within the window and pick the fractile pixel. \
+ fractile = 1/dx/dy gives min-filter, fractile = 0.5 gives median \
+ filter and fractile = 1.0-1/dx/dy gives max-filter.
+ # Fractile [0..1] # -frac # f # 0.5 \
+ # Window width    #       # d # 3 \
+ # Window height   #       # d # 3
+!
+?fractileMask
+ Fractile noise filtering with a mask read from an ascii file. \
+ fractile = 1/dx/dy gives min-filter, fractile = 0.5 gives median \
+ filter and fractile = 1.0-1/dx/dy gives max-filter.
+ # Fractile [0..1] # -frac   # f # 0.5 \
+ # Mirror the mask # -mirror # b # no
+!
+?rank
+ Rank noise filtering with window size (dx * dy) using the histogram update \
+ technique. Every input pixel is replaced by the rank-th pixel in a sorted \
+ vector containing all pixels in the (dx * dy) window. rank=1 gives the min \
+ filter, rank=dx*dy/2 gives the median filter, and rank=dx*dy gives the max \
+ filter.
+ # Rank          # # d # 35 \
+ # Window width  # # d # 7 \
+ # Window height # # d # 5
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Local operators)
+:Nearest neighbor
+ Kncn			 ; kncn <infile> <outfile> ?dialog:kncn
+ Mbkncn			 ; mbkncn <infile> <outfile> ?dialog:mbkncn
+ Knn			 ; knn <infile> <outfile> ?dialog:knn
+ Mbknn			 ; mbknn <infile> <outfile> ?dialog:mbknn
+ Symmetric nearest neighbor ; snn <infile> <outfile> ?dialog:snn
+!
+?kncn
+ k nearest connected neighbor noise reduction (larger "k" => larger effect).
+ # k # # d # 8
+!
+?mbkncn
+ Multi band k nearest connected neighbor noise reduction \
+ (larger "k" => larger effect).
+ # k # # d # 8
+!
+?knn
+ k nearest neighbor noise reduction.
+ # Window edge size # # d # 5 \
+ # k                # # d # 9
+!
+?mbknn
+ Multi band k nearest neighbor noise reduction. \
+ Window edge size can be at most 31 and is forced to be odd.
+ # Window edge size # # d # 5 \
+ # k                # # d # 9
+!
+?snn
+ 
+ # Horizontal window size # # d # 3 \
+ # Vertical window size   # # d # 3
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Global operators)
+:Fft
+-2D Forward
+ Complex result		   ; fft2d -r <infile> <outfile> ?dialog:scaleFft
+ Log(magnitude) and phase  ; fftMagPhase -r <infile> <outfile> <outfile> ?dialog:fftMagPhase
+ Log(magnitude)            ; fftMagPhase -r -m <infile> <outfile> ?dialog:fftMagPhase
+ Magnitude only		   ; fftMagPhase -r -m -lin <infile> <outfile> ?dialog:scaleFft
+ Phase only		   ; fftMagPhase -r -p <infile> <outfile> ?dialog:scaleFft
+-2D inverse
+ Complex result		   ; fft2d -i -r <infile> <outfile> ?dialog:scaleFft
+!
+?fftMagPhase
+ 2D Fourier transform of BIFF image followed by conversion to linear \
+ or logarithmic (decibels) magnitude and/or phase in radians. The \
+ logarithmic mapping will tend to make very small pixelvalues  visible \
+ in the presence of very large pixelvalues. \
+ \
+ The logarithmic mapping of magnitude is \
+ \
+    log_magnitude = (log(eps + |in_pixel|) + offset) * scale \
+    log_magnitude = MAX(log_magnitude, minimum) \
+ \
+ Default values: \
+     scale   : 20.0 \
+     eps     : 1 / (10*xsize*ysize) \
+     offset  : -log(eps) \
+     minimum : none \
+ \
+ Default FFT scaling is 1/(xsize*ysize) for forward transform and 1.0 for \
+ inverse transform.
+ # Scale          # -scale    # f # \
+ # Eps            # -eps      # f # \
+ # Offset         # -offset   # f # \
+ # Minimum        # -min      # f # \
+ # Scaling of FFT # -fftscale # f #
+!
+?scaleFft
+ Default scaling is 1/(xsize*ysize) for forward transform and 1.0 for \
+ inverse transform.
+ # Scaling of FFT # -fftscale # f #
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Global operators)
+:Fht
+ 2D forward		 ; fht2d <infile> <outfile>
+ 2D inverse		 ; fht2d -i <infile> <outfile> ?dialog:fht2d
+ Hartley to phase	 ; fhtPhase <infile> <outfile>
+ Hartley to power	 ; fhtPower <infile> <outfile>
+ Hartley to Fourier	 ; ht2ft <infile> <outfile>
+ Fourier to Hartley	 ; ft2ht <infile> <outfile>
+!
+?fht2d
+ 
+ # Pixel-type of result #    # r1- # r \
+ # Pixel-type of result # -b # r0- # ub
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Global operators)
+:Haar
+ 2D forward     	 ; haar2d <infile> <outfile>
+ 2D inverse     	 ; haar2d -i -b <infile> <outfile>
+ Haar texture		 ; haarTexture <infile> <outfile> ?dialog:haarTexture
+!
+?haarTexture
+ The input is assumed to be the result of a forward 2D haar transform, \
+ haar2d. Only the first band of the input image is used. \
+ \
+ Enter pairs of "xp" and "yp" between 1 (high-frequency information) and \
+ log(size) + 1, where size is xsize (horizontal) or ysize (vertical).
+ # xp # # d # 4 \
+ # yp # # d # 4 \
+ # xp # # d #  \
+ # yp # # d #  \
+ # xp # # d #  \
+ # yp # # d #  \
+ # xp # # d #  \
+ # yp # # d #  \
+ # xp # # d #  \
+ # yp # # d # 
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Global operators)
+:Hough
+ Circle ; houghCircle <infile> -tf <outfile> -rf <outfile> ?dialog:houghCircle
+ Line   ; houghLine <infile> -tf <outfile> -rf <outfile> ?dialog:houghLine
+!
+?houghCircle
+ Hough transform to detect circles.
+ # Print list of maxima # -list # b # No \
+ # Transform title      # -tt   # s # Hough Circle Transform \
+ # Reconstruction title # -rt   # s # Hough Circle Reconstruction \
+ # Update limit         # -ul   # f # 0.5 \
+ # Window size          # -ws   # d # 7 \
+ # Minimum radius       #       # d # 3 \
+ # Maximum radius       #       # d # 5
+!
+?houghLine
+ Hough transform to detect lines.
+ # Print list of maxima # -list # b # No \
+ # Transform title      # -tt   # s # Hough Line Transform \
+ # Reconstruction title # -rt   # s # Hough Line Reconstruction \
+ # Update limit         # -ul   # f # 0.1 \
+ # Window size          # -ws   # d # 7
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Global operators)
+:Geometric transformations
+ Warp                      ; warp ?dialog:warp -cp ?readfile <infile> <outfile>
+ Affine			   ; affine <infile> <outfile> ?dialog:affine
+ Quadratic		   ; quadratic <infile> <outfile> ?dialog:quadratic
+ Shift image		   ; shift_img <infile> <outfile> ?dialog:shift_img
+ Transpose image	   ; transpose_img <infile> <outfile>
+ Identity transform        ; reorganize -n <infile> <outfile>
+-Rotate
+ Around global coordinates ; rotate <infile> <outfile> ?dialog:rotate
+ Left                      ; reorganize -l <infile> <outfile>
+ Right                     ; reorganize -r <infile> <outfile>
+ 180 degrees               ; reorganize -u <infile> <outfile>
+-Mirror
+ Around horizontal         ; reorganize -h <infile> <outfile>
+ Around vertical           ; reorganize -v <infile> <outfile>
+ Around main diagonal      ; reorganize -t <infile> <outfile>
+ Around bidiagonal         ; reorganize -b <infile> <outfile>
+!
+?warp
+ Polynomial control point mapping. \
+ The interpolation can be chosen as \
+   - Nearest neighbor \
+   - Bilinear interpolation \
+       g(x) = bi(f(x), f(x+1), d) \
+       bi(x, y, d) = x(1-d) + yd \
+   - Cubic interpolation \
+       g(x) = cc(f(x-1), f(x), f(x+1), f(x+2), d) \
+       cc(x, y, z, v, d) = y + d((-x+z) + \
+                           d((2x-2y+z-v) + d(-x+y-z+v))) \
+ \
+ The program requires the name of a control point ascii file.
+ # Interpolation method                 # -ip 0   # r0- # Nearest neighbor \
+ # Interpolation method                 # -ip 1   # r1- # Bilinear \
+ # Interpolation method                 # -ip 3   # r0- # Cubic \
+ # Polynomial degree                    # -p      # d   # 1 \
+ # Calculate residuals                  # -rss    # b   # yes \
+ # Output xstart                        # -xstart # d   # 1 \
+ # Output xsize                         # -xsize  # d   # 65536 \
+ # Output xstop                         # -xstop  # d   # 65536 \
+ # Output ystart                        # -ystart # d   # 1 \
+ # Output ysize                         # -ysize  # d   # 65536 \
+ # Output ystop                         # -ystop  # d   # 65536 \
+ # Background pixel value               # -bg     # d   # 0 \
+ # Print mapping coefficients (q and r) # -qr     # b   # yes
+!
+?affine
+ affine performs a linear transformation of the coordinate system \
+ (x, y) to another coordinate system (u, v). All coordinates are \
+ adjusted acording to (xstart, ystart). \
+ The interpolation method is one of \
+   - Nearest neighbor \
+   - Bilinear interpolation \
+       g(x) = bi(f(x), f(x+1), d) \
+       bi(x, y, d) = x(1-d) + yd \
+   - Cubic interpolation \
+       g(x) = cc(f(x-1), f(x), f(x+1), f(x+2), d) \
+       cc(x, y, z, v, d) = y + d((-x+z) + \
+                           d((2x-2y+z-v) + d(-x+y-z+v))) \
+ \
+ outimage(x,y) = inimage(u,v) \
+ \
+   u = x0 + x1 * x + x2 * y \
+   v = y0 + y1 * x + y2 * y
+ # Interpolation method # -ip 0 # r0- # Nearest neighbor \
+ # Interpolation method # -ip 1 # r1- # Bilinear \
+ # Interpolation method # -ip 3 # r0- # Cubic \
+ # x0                   #       # f   # 0 \
+ # x1                   #       # f   # 0 \
+ # x2                   #       # f   # 0 \
+ # y0                   #       # f   # 0 \
+ # y1                   #       # f   # 0 \
+ # y2                   #       # f   # 0
+!
+?quadratic
+ quadratic performs a quadratic transform of the coordinate system\
+ (x, y) to another coordinate system (u,v). All coordinates\
+ are adjusted acording to (xstart, ystart).\
+ The interpolation method is one of\
+   - Nearest neighbor \
+   - Bilinear interpolation\
+       g(x) = bi(f(x), f(x+1), d) \
+       bi(x, y, d) = x(1-d) + yd \
+   - Cubic interpolation \
+       g(x) = cc(f(x-1), f(x), f(x+1), f(x+2), d) \
+       cc(x, y, z, v, d) = y + d((-x+z) + \
+                           d((2x-2y+z-v) + d(-x+y-z+v))) \
+ \
+ outimage(x,y) = inimage(u,v) \
+        u = x0 + x1 * x + x2 * y \
+          + x3 * x * x + x4 * x * y + x5 * y * y \
+        v = y0 + y1 * x + y2 * y \
+          + y3 * x * x + y4 * x * y + y5 * y * y
+ # Interpolation method   # -ip 0 # r0- # Nearest neighbor \
+ # Interpolation method   # -ip 1 # r1- # Bilinear \
+ # Interpolation method   # -ip 3 # r0- # Cubic \
+ # Background pixel value # -bg   # d   # 0 \
+ # x0                     #       # f   # 0 \
+ # x1                     #       # f   # 0 \
+ # x2                     #       # f   # 0 \
+ # x3                     #       # f   # 0 \
+ # x4                     #       # f   # 0 \
+ # x5                     #       # f   # 0 \
+ # y0                     #       # f   # 0 \
+ # y1                     #       # f   # 0 \
+ # y2                     #       # f   # 0 \
+ # y3                     #       # f   # 0 \
+ # y4                     #       # f   # 0 \
+ # y5                     #       # f   # 0
+!
+?shift_img
+ Set new origo on an image. Pixels outside the new coordinate system \
+ are wrapped around. Works on all pixel types.
+ # Shift horizontal direction # # d # 0 \
+ # Shift vertical direction   # # d # 0
+!
+?rotate
+ The input image is rotated around the point (rx, ry) in the \
+ global coordinate system. Thus, an image of size 25x25 with \
+ xstart=ystart=100 should have rx=ry=112 to be rotated around \
+ its center. If xstart=ystart=1, global coordinates equal local \
+ coordinates.\
+ The interpolation method is one of\
+   - Nearest neighbor \
+   - Bilinear interpolation\
+       g(x) = bi(f(x), f(x+1), d) \
+       bi(x, y, d) = x(1-d) + yd \
+   - Cubic interpolation \
+       g(x) = cc(f(x-1), f(x), f(x+1), f(x+2), d) \
+       cc(x, y, z, v, d) = y + d((-x+z) + \
+                           d((2x-2y+z-v) + d(-x+y-z+v))) \
+ \
+ outimage (x,y) = inimage (u,v) \
+ u = cos(theta) *  x - sin(theta) *  y \
+   - cos(theta) * rx + sin(theta) * ry + rx \
+ v = sin(theta) *  x + cos(theta) *  y \
+   - sin(theta) * rx - cos(theta) * ry + ry
+ # Interpolation method                       # -ip 0 # r0- # Nearest neighbor \
+ # Interpolation method                       # -ip 1 # r1- # Bilinear \
+ # Interpolation method                       # -ip 3 # r0- # Cubic \
+ # Specify theta in degrees (not radians)     # -deg  # b   # no \
+ # Theta                                      #       # f   # 0 \
+ # Horizontal coordinate for center of rotation #     # f   # 0 \
+ # Vertical coordinate for center of rotation #       # f   # 0 \
+ # Background pixel value                     # -bg   # d   # 0
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Filter design)
+:Window functions
+ Bartlett         ; window -w b ?dialog:window <outfile>
+ Hamming          ; window -w hm ?dialog:window <outfile>
+ Hanning          ; window -w hn ?dialog:window <outfile>
+ Rectangular      ; window -w r ?dialog:window <outfile>
+ Triangular       ; window -w t ?dialog:window <outfile>
+!
+?window
+ Window function
+ # Horizontal size of image    # -x # d # 512 \
+ # Vertical size of image      # -y # d # 512 \
+ # Diameter of window function # -s # d # 41  \
+ # Title of image              # -t # s # window
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image analysis)
+:Texture
+ Maximum histogram	  ; maxHisto <infile> <outfile> ?dialog:maxHisto
+ Local information transform and symmetric nearest neighbor ; litSnn <infile> <outfile> ?dialog:litSnnSize
+ Min-max filters     	  ; minmaxTexture <infile> <outfile> ?dialog:minmaxTexture
+ Local standard deviation ; stdev <infile> <outfile> ?dialog:stdev
+ Fractal Brownian motion  ; mkFractalSra <outfile> ?dialog:mkFractal
+ Gray value run lengths   ; glRunLength <infile> <outfile> -o <outfile> ?dialog:glRunLength
+ Glcm			  ; glcm <infile> <outfile> ?dialog:glcm
+ Glcm parameters from image; glcmParameter -mkglcm <infile> ?dialog:glcm ?dialog:glcmParameter
+ Glcm parameters from glcm matrix ; glcmParameter <infile> ?dialog:glcmParameter
+ Haar texture		  ; haarTexture <infile> <outfile> ?dialog:haarTexture
+!
+?maxHisto
+ Filters the input image into the output image using a local filter. \
+ The number of occurrences of the pixel value occurring most frequently \
+ in the (odd-size) filter window becomes the new center value. \
+ \
+ Enter filter window width (of square window) or width and height.
+ # Window width  # # d # \
+ # Window height # # d #
+!
+?litSnnSize
+ Combination of lit (local information transform) and snn (symmetric \
+ nearest neighbour). Only those pixels selected by the snn filter are \
+ included in the counting of pixels within the pixel value interval. \
+ The output pixel value is the number of such pixels within the window.
+ # Maximum pixel value deviation # # d # 5 \
+ # Window width                  # # d # 3 \
+ # Window height                 # # d # 3
+!
+?minmaxTexture
+ Multi-scale MIN-MAX operators to characterize the local texture \
+ on different geometric scales. The number of output bands equals \
+ the number of window/texture sizes.
+ # Window size # # d # 5 \
+ # Window size # # d # 9 \
+ # Window size # # d # 15 \
+ # Window size # # d # \
+ # Window size # # d # \
+ # Window size # # d # \
+ # Window size # # d # \
+ # Window size # # d # \
+ # Window size # # d # 
+!
+?stdev
+ Calculates and returns the standard deviation in a local window.
+ # Window width  # # d # \
+ # Window height # # d #
+!
+?mkFractal
+ Generates an image with fractal Brownian motion noise with fractal \
+ dimension D. The algorithm is known as "Successive Random Addition".
+ # Mean pixel value for corners                # -mean # f # 128.0 \
+ # Standard deviation for corners              # -cstd # f # 5.0   \
+ # Initial standard deviation for other pixels # -std  # f # 25.0  \
+ # Fractal dimension [2..3]                    #       # f # 2.0   \
+ # Width of synthesized image                  #       # d # 512   \
+ # Height of synthesize image                  #       # d # 512
+!
+?glRunLength
+ The run length statistics can be used to extract texture information \
+ of an image from its grey level runs. Consecutive pixels of the same \
+ grey value, in a given direction (either horizontal or vertical), \
+ constitute a run.
+ # Features                      # -sre  # m1- # Short Run emphasis \
+ # Features                      # -lre  # m1- # Long Run emphasis \
+ # Features                      # -gln  # m1- # Grey Level Nonuniformity \
+ # Features                      # -rln  # m1- # Run Length Nonuniformity \
+ # Features                      # -rp   # m1- # Run Percentage \
+ # Features                      # -sgre # m1- # Low Grey Level Run emphasis \
+ # Features                      # -lgre # m1- # High Grey Level Run emphasis \
+ # Direction                     # -hori # r1- # Horizontal \
+ # Direction                     # -vert # r0- # Vertical \
+ # Direction                     # -aver # r0- # Both (and average) \
+ # Number of quantization_levels # -qlevels # d # 256 \
+ # Header for the output         # -h    # b   # no \
+ # Histogram equalization of input# -heq # b   # no
+!
+?glcm
+ Computes Grey Level Co-occurrence Matrix. \
+ The angle and the displacement will be computed from the horizontal and \
+ vertical distances, which may be negative. \
+ \
+ The output image (or gray level cooccurrence matrix) will be of size \
+ ("number of graylevels") x ("number of graylevels"). All the graylevel \
+ values (< "number of graylevels") on the input image will be increased by \
+ one on the output image coordinate system. It means that if there is a \
+ graylevel combination (0,1) on the input image, then the index (1,2) on \
+ the output image will be increased. \
+ \
+ Pixels less than "number of graylevels" will be considered. With histogram \
+ equalization performed on the input image, the number of gray levels will \
+ be set to "number of graylevels".
+ # Equalize histogram            # -heq # b # no \
+ # Horizontal distance [-50..50] #      # d # 0 \
+ # Vertical distance   [-50..50] #      # d # 0 \
+ # Number of graylevels          #      # d # 256
+!
+?glcmParameter
+ Compute different features from the Grey Level Co-occurrence Matrix (GLCM).
+ # Features              # -asm    # m1- # Angular Second Moment \
+ # Features              # -cont   # m1- # Contrast \
+ # Features              # -corr   # m1- # Correlation \
+ # Features              # -idm    # m1- # Inverse Difference Moment \
+ # Features              # -entrop # m1- # Entropy \
+ # Features              # -var    # m1- # Variance \
+ # Features              # -prom   # m1- # Cluster Prominence \
+ # Features              # -shade  # m1- # Cluster Shade \
+ # Features              # -diag   # m1- # Diagonal Moment \
+ # Header for the output # -h      # b   # no
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image analysis)
+:Thresholding
++Multi-level, global
++Single-level, global
++Single-level, locally adaptive
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image analysis)
+:Morphological operations
+ Make structuring element ; mkMorph <outfile> ?dialog:mkMorph
+ Close  ; morphClose <infile> <outfile> -b <infile>
+ Dilate ; morphDilate <infile> -b <infile> <outfile>
+ Erode  ; morphErode <infile> <outfile> -b <infile>
+ Open   ; morphOpen <infile> <outfile> -b <infile>
+ Haralick and Shapiro binary thinning ; thn_har <infile> <outfile> ?dialog:Haralick&Shapiro
+!
+?mkMorph
+ Make structuring element. The resulting image is square with an edge which \
+ is equal to the length of the diagonal of the minimum square enclosing the \
+ structuring element base.
+ # Horizontal size of structuring element base #        # d   # 10 \
+ # Vertical size of structuring element base   #        # d   # 10 \
+ # Angle of rotation of base shape (radians)   # -angle # f   # 0.0 \
+ # Base shape of structuring element           # -sqr   # r1- # Square \
+ # Base shape of structuring element           # -cir   # r0- # Circle \
+ # Base shape of structuring element           # -ell   # r0- # Ellipsis \
+ # Base shape of structuring element           # -lin   # r0- # Line \
+ # Base shape of structuring element           # -rec   # r0- # Rectangle \
+ # Initial height of profile                   # -zsize # d   # 10000 \
+ # Adjust profile to get maximum equal to zero # -neg   # b   # yes \
+ # Height profile of structuring element       # -zell  # r0- # Elliptic \
+ # Height profile of structuring element       # -zlin  # r0- # Linear \
+ # Height profile of structuring element       # -zrec  # r0- # Rectangular \
+ # Height profile of structuring element       # -zpar  # r0- # Parabolic \
+ # Height profile of structuring element       # -zcon  # r0- # Conic
+!
+?Haralick&Shapiro
+ Morphological thinning.
+ # Verbose # -verbose # b # no
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 2 (Image analysis)
+:Binary thinning
+ Haralick and Shapiro ; thn_har <infile> <outfile> ?dialog:Haralick&Shapiro
+ Lee and Chen         ; thn_lc ?dialog:thn_lc <infile> <outfile>
+ Zhang and Suen       ; thn_zs ?dialog:thn_lc <infile> <outfile>
+!
+?thn_lc
+ Thinning of binary image.
+ # Be verbose # -verbose # b # no
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Arithmetic/logical, logical/relational)
+:Pixelwise extremum
+ Min(input1, input2) ; logical -and <infile> <infile> <outfile>
+ Max(input1, input2) ; logical -or  <infile> <infile> <outfile>
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Arithmetic/logical, logical/relational)
+:Logical
+ Input1 xor input2   ; logical -xor    <infile> <infile> <outfile>
+ Not input           ; logical -not    <infile> <outfile>
+-Bitwise logical
+ Input1 and input2   ; logical -band   <infile> <infile> <outfile>
+ Input1 or input2    ; logical -bor    <infile> <infile> <outfile>
+ Input1 xor input2   ; logical -bxor   <infile> <infile> <outfile>
+ Not                 ; logical -bnot   <infile> <outfile>
+-Bitwise logical with constant
+ And                 ; logical -bandc  <infile> <outfile> ?dialog:const
+ Or                  ; logical -borc   <infile> <outfile> ?dialog:const
+ Xor                 ; logical -bxorc  <infile> <outfile> ?dialog:const
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Arithmetic/logical, logical/relational)
+:Relational
+-Between images/bands
+ Input1 == input2    ; logical -eq     <infile> <infile> <outfile>
+ Input1 <> input2    ; logical -ne     <infile> <infile> <outfile>
+ Input1 <  input2    ; logical -lt     <infile> <infile> <outfile>
+ Input1 <= input2    ; logical -le     <infile> <infile> <outfile>
+ Input1 >  input2    ; logical -gt     <infile> <infile> <outfile>
+ Input1 >= input2    ; logical -ge     <infile> <infile> <outfile>
+-With constant
+ Input == constant   ; logical -eqc    <infile> <outfile> ?dialog:const
+ Input <> constant   ; logical -nec    <infile> <outfile> ?dialog:const
+ Input <  constant   ; logical -ltc    <infile> <outfile> ?dialog:const
+ Input <= constant   ; logical -lec    <infile> <outfile> ?dialog:const
+ Input >  constant   ; logical -gtc    <infile> <outfile> ?dialog:const
+ Input >= constant   ; logical -gec    <infile> <outfile> ?dialog:const
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Arithmetic/logical, logical/relational)
+:Bitwise shift
+ Left                ; logical -lshift <infile> <outfile> ?dialog:bits
+ Right               ; logical -rshift <infile> <outfile> ?dialog:bits
+!
+?const
+ 
+ # Constant # # d # 1
+!
+?bits
+ 
+ # Number of bits to shift input # # d # 1
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Image analysis, Thresholding)
+:Multi-level, global
+ Supervised              ; thresMl <infile> <outfile> ?dialog:thresMl
+ Local centroid method   ; thresMlCentroid <infile> <outfile> ?dialog:thresMlCentroid
+ Reddi et al.           ; thresMlReddi <infile> <outfile> ?dialog:thresMlReddi
+ Reddi et al., complexity curve ; thresMlComCur <infile> <outfile> ?dialog:thresMlComCur
+ Wang & Haralick         ; thresMlWaHa <infile> <outfile> -edge <outfile> -tri <outfile> ?dialog:thresMlWaHa
+!
+?thresMl
+ Performs multi level thresholding at the specified thresholds. You may \
+ specify one or more thresholds.
+ # Treatment of pixels between thresholds  # -mean  # r1- # mean \
+ # Treatment of pixels between thresholds  # -med   # r0- # median \
+ # Treatment of pixels between thresholds  # -scale # r0- # scale \
+ # Scale (if scale treatment chosen above) #        # f   # \
+ # Threshold                               #        # d   # 128 \
+ # Threshold                               #        # d   # \
+ # Threshold                               #        # d   # \
+ # Threshold                               #        # d   # \
+ # Threshold                               #        # d   # \
+ # Threshold                               #        # d   # \
+ # Threshold                               #        # d   # \
+ # Threshold                               #        # d   # 
+!
+?thresMlCentroid
+ If no size is given, a loop over the m-values 5, 10, 15, 20, 25, 30, \
+ 35, 40, 45 and 50 is performed, exiting if two consecutive runs give \
+ the same thresholding result.
+ # Size of histogram window (give m in size=2*m+1) # -m      # d   # \
+ # Move histogram mass to                          # -mean   # r1- # Mean \
+ # Move histogram mass to                          # -median # r0- # Median \
+ # Distribute output pixel values                  # -eq     # b   # no \
+ # Scale                                           # -s      # f   # 1.0
+!
+?thresMlReddi
+ By default, the different areas are labeled from 0 up to \
+ "number of thresholds.
+ # Number of thresholds                         # -nt # d   # 2 \
+ # Distance between thresholds                  # -eq # r1- # Equidistant \
+ # Distance between thresholds                  # -eq # r0- # Specified \
+ # Specified threshold distance (scale)         # -s  # f   # 
+!
+?thresMlComCur
+ Use only one of mean, median and scale.
+ # Treatment of pixels between thresholds        # -mean  # r1- # mean \
+ # Treatment of pixels between thresholds        # -med   # r0- # median \
+ # Treatment of pixels between thresholds        #        # r0- # scale \
+ # Scale value (if scale treatment chosen above) # -scale # f   # \
+ # Desired number of thresholds                  # -nt    # d   # 1
+!
+?thresMlWaHa
+ Specify only one of "Number of thresholds" and "Minimum population".
+ # Adjustment for number of edge pixels # -n       # d # 3 \
+ # Edge threshold                       # -et      # d # 100 \
+ # Number of thresholds                 # -nt      # d #  \
+ # Minimum population                   # -p       # d # 100 \
+ # Image title                          # -t       # s # \
+ # Verbose                              # -verbose # b # yes
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Image analysis, Thresholding)
+:Single-level, global
+ Otsu                    ; thresOtsu <infile> <outfile> ?dialog:thresOtsu
+ Kittler & Illingworth   ; binarize -m KI <infile> <outfile>
+ Kapur et al.            ; binarize -m KSW <infile> <outfile>
+ Ridler and Calvard      ; thresRidCal <infile> <outfile> ?dialog:thresRidCal
+ Abutaleb                ; binarize -m Ab <infile> <outfile>
+ Lloyd                   ; thresLloyd <infile> <outfile> ?dialog:thresLloyd
+ Minimum error           ; thresMinErr <infile> <outfile> ?dialog:thresMinErr
+ At specified percentage ; thresPtile <infile> <outfile> ?dialog:thresPtile
+ Fraction of standard deviation ; thresSigma <infile> <outfile> ?dialog:thresSigma
+ Uniform error           ; thresUniErr <infile> <outfile> ?dialog:thresUniErr
+ Specified threshold     ; threshold <infile> <outfile> ?dialog:threshold
+!
+?thresOtsu
+ Attempts to maximize the between-class variance between the class of \
+ pixels above the threshold and the class of pixels below.
+ # Output for low pixels (below threshold)  # -l # d # 0 \
+ # Output for high pixels (above threshold) # -h # d # 255
+!
+?thresRidCal
+ 
+ # Output for low pixels (below threshold)  # -l # d # 0 \
+ # Output for high pixels (above threshold) # -h # d # 255
+!
+?thresLloyd
+ 
+ # Output for low pixels (below threshold)  # -l # d # 0 \
+ # Output for high pixels (above threshold) # -h # d # 255
+!
+?thresUniErr
+ 
+ # Output for low pixels (below threshold)  # -lpv # d # 0 \
+ # Output for high pixels (above threshold) # -hpv # d # 255
+!
+?thresMinErr
+ Specify only one of mean, Ridler and Calvard and numeric value for initial \
+ threshold.
+ # Method                                   # -iter    # r1- # Iterative \
+ # Method                                   # -crit    # r0- # Criterion function\
+ # Method                                   # -eqVar   # r0- # Equal variances \
+ # Initial threshold                        # -mean    # r1- # mean \
+ # Initial threshold                       # -ridcal   # r0- # Ridler and Calvard\
+ # Initial threshold                        #          # r0- # Numeric value \
+ # Numeric value                            # -t       # d   # 127 \
+ # Output for low pixels (below threshold)  # -l       # d   # 0 \
+ # Output for high pixels (below threshold) # -h       # d   # 255 \
+ # Verbose                                  # -verbose # b   # no
+!
+?thresPtile
+ 
+ # Output for low pixels (below threshold)  # -l # d # 0 \
+ # Output for high pixels (above threshold) # -h # d # 255 \
+ # Ptile (ptile percent below threshold)    #    # f # 50   
+!
+?thresSigma
+ Threshold t = mu + (x * sigma)
+ # Output for low pixels (below threshold)  # -l # d # 0 \
+ # Output for high pixels (above threshold) # -h # d # 255 \
+ # Fraction of standard deviation (x)       # -x # f # 0
+!
+?threshold
+ 
+ # Output for low pixels (below threshold)  # -l # d # 0 \
+ # Output for high pixels (above threshold) # -h # d # 255 \
+ # Threshold value                          #    # d # 128
+!
+!
+!!!!!!!!!!!!!!! Sub menu level 3 (Image analysis, Thresholding)
+:Single-level, locally adaptive
+ Bernsen                ; thresBernsen <infile> <outfile> ?dialog:thresBernsen
+ Eikvil et al.          ; binarize -m ETM ?dialog:Eikvil <infile> <outfile>
+ Mardia & Hainsworth    ; binarize -m MH ?dialog:Mardia&Hainsworth <infile> <outfile>
+ Nakagawa & Rosenfeld   ; binarize -m NR ?dialog:Nakagawa&Rosenfeld <infile> <outfile>
+ Niblack                ; binarize -m Ni ?dialog:Niblack <infile> <outfile>
+ Parker                 ; binarize -m Pa ?dialog:Parker <infile> <outfile>
+ Taxt et al.            ; binarize -m TFJ ?dialog:Taxt <infile> <outfile>
+ White & Rohrer 1 (DTA) ; binarize -m WR1 ?dialog:White&Rohrer1 <infile> <outfile>
+ White & Rohrer 2 (IFA) ; binarize -m WR2 ?dialog:White&Rohrer2 <infile> <outfile>
+ Improved White & Rohrer 2 ; binarize -m IWR ?dialog:ImprovedWhite&Rohrer2 <infile> <outfile>
+ Yanowitz & Bruckstein  ; binarize -m YB ?dialog:Yanowitz&Bruckstein <infile> <outfile> 
+!
+?Taxt
+ 
+ # Region size               # -r # d # 15 \
+ # Small window size         # -s # d # 4 \
+ # Training set size         # -t # d # 50 \
+ # Validation step threshold # -v # d # 0
+!
+?Parker
+ 
+ # Region size               # -r # d # 15 \
+ # Validation step threshold # -v # d # 0
+!
+?Niblack
+ 
+ # Region size               # -r # d # 15 \
+ # Weight                    # -k # f # 0.2 \
+ # Validation step threshold # -v # d # 0
+!
+?thresBernsen
+ Low contrast threshold must always be supplied.
+ # Low pixel value                          # -lpv # d # 0 \
+ # High pixel value                         # -hpv # d # 255 \
+ # Homogenous areas assumed below threshold # -low # b # no \
+ # Local contrast threshold                 #      # d # 100 \
+ # Local window width                       #      # d # 3 \
+ # Local window height                      #      # d # 3
+!
+?Eikvil
+ 
+ # Region size                      # -r  # d # 15 \
+ # Small window size                # -s  # d # 3 \
+ # Mean difference limit            # -l  # f # 15.0 \
+ # Weight for updating              # -w  # f # 0.90 \
+ # Global minimum for preprocessing # -mi # d # 0 \
+ # Global maximum for preprocessing # -ma # d # 255 \
+ # Validation step threshold        # -v  # d # 0
+!
+?Mardia&Hainsworth
+ 
+ # Use the semivariogram based algorithm # -s # b # no \
+ # Difference limit                      # -d # f # 1
+!
+?Nakagawa&Rosenfeld
+ 
+ # Region size                      # -r   # d # 32 \
+ # Mean difference limit            # -m   # f # 24 \
+ # Minimum standard deviation ratio # -mi  # f # 0.10 \
+ # Maximum standard deviation ratio # -ma  # f # 10.0 \
+ # Standard deviation limit         # -s   # f # 16 \
+ # Valley-to-peak ratio limit       # -vtp # f # 0.80
+!
+?White&Rohrer1
+ 
+ # Lookahead in x direction  # -lx # d # 8 \
+ # Lookahead in y direction  # -ly # d # 8 \
+ # Bias mode                 # -m  # d # 0 \
+ # Bias factor               # -b  # d # 100 \
+ # F-factor                  # -f  # d # 100 \
+ # G-factor                  # -g  # d # 100 \
+ # Validation step threshold # -v  # d # 0
+!
+?White&Rohrer2
+ 
+ # Activity threshold, automatically set if < 0    # -a      # d   # 20 \
+ # Maximum activity threshold if automatically set # -ma     # d   # 255 \
+ # Mean filter size                                # -m      # d   # 5 \
+ # Search vector length                            # -s      # d   # 128 \
+ # Lower bound on distance between edges           # -l      # f   # 4 \
+ # Maximum spot size in label image                # -sl     # d   # 1 \
+ # Use the additional diagonal search vectors      # -d      # b   # no \
+ # Search vectors in each direction                # -single # r1- # single \
+ # Search vectors in each direction                # -double # r0- # double \
+ # Validation step threshold                       # -v      # d   # 0
+!
+?ImprovedWhite&Rohrer2
+ 
+ # Activity threshold, automatically set if < 0    # -a  # d # 20 \
+ # Maximum activity threshold if automatically set # -ma # d # 255 \
+ # Mean filter size                                # -m  # d # 5 \
+ # Maximum spot size in label image                # -sl # d # 1 \
+ # Validation step threshold                       # -v  # d # 0
+!
+?Yanowitz&Bruckstein
+ 
+ # Relaxation parameter                                # -b # f # 1.00 \
+ # Maximum number of iterations                        # -m # d # 50 \
+ # Threshold for gradient image, comp. autom. if eq. 0 # -t # d # 0 \
+ # Validation step threshold                           # -v # d # 0
+!

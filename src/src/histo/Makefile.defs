@@ -1,0 +1,20 @@
+#
+#   Makefile definitions for histo
+#
+OBJ   = combineTransf.o histo.o histoEq.o histoEqCol.o histoNorm.o \
+	histoSpecify.o gammaAdjust.o histoTransf.o invertHisto.o \
+	mkCumHisto.o mkHisto.o scaleHisto.o scaled2col.o
+PROG  = mkHisto histoEq histoEqCol histoNorm pixel_mapper gammaAdjust
+MANP  = combineTransf.m histo.m histoEq.m histoEqCol.m histoNorm.m \
+	histoSpecify.m histoTransf.m invertHisto.m mkCumHisto.m mkHisto.m \
+	scaleHisto.m scaled2col.m pixel_mapper.m gammaAdjust.m
+CINCL  = histo.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

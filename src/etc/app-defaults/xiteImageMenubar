@@ -1,0 +1,60 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Image window menubar (child of image window).
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*ImageForm*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*ImageForm*colors.Label:   			Colors
+*ImageForm*overlays.Label:   			OverlayColors
+*ImageForm*tools.Label:  			Tools
+*ImageForm*options.Label: 			Options
+*ImageForm*visuals.Label: 			Visuals
+
+*ImageForm*colors*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*ImageForm*XfwfMenuBar.TraversalOn:		off
+*ImageForm*XfwfMenuBar.Height:			30
+*ImageForm*XfwfMenuBar.vertDistance:  		0
+*ImageForm*XfwfMenuBar.horizDistance: 		0
+*ImageForm*XfwfMenuBar.left:          		chainleft
+*ImageForm*XfwfMenuBar.right:         		chainright
+*ImageForm*XfwfMenuBar.top:           		chaintop
+*ImageForm*XfwfMenuBar.bottom:        		chaintop
+*ImageForm*XfwfMenuBar.FrameType:		raised
+*ImageForm*XfwfMenuBar.FrameWidth:		2
+*ImageForm*XfwfMenuBar.ShadowScheme:		color
+*ImageForm*XfwfMenuBar.TopShadowColor:		Gray95
+*ImageForm*XfwfMenuBar.BottomShadowColor:	Gray20
+
+*ImageForm*XfwfPullDown.baseTranslations: 	#override		\n\
+ <Btn1Down>:     prepare() PopupMenu() open_menu() 			\n\
+ Button1<Enter>: prepare() open_menu() 					\n\
+ <Key>Return:    prepare() open_menu() 					\n\
+ <Btn1Up>:       popdown_maybe()
+
+*ImageForm*colors.popup: colorsmenu
+*ImageForm*colors.baseTranslations:  		#override 		\n\
+ <Btn1Down>:     prepare() ColorsHook() PopupMenu() open_menu() 	\n\
+ Button1<Enter>: prepare() ColorsHook() open_menu() 			\n\
+ <Key>Return:    prepare() ColorsHook() open_menu()			\n\
+ <Btn1Up>:       popdown_maybe()
+
+*ImageForm*overlays.baseTranslations:  		#override 		\n\
+ <Btn1Down>:     prepare() OverlaysHook() PopupMenu() open_menu()	\n\
+ Button1<Enter>: prepare() OverlaysHook() open_menu() 			\n\
+ <Key>Return:    prepare() OverlaysHook() open_menu() 			\n\
+ <Btn1Up>:       popdown_maybe()
+
+*ImageForm*options.baseTranslations:  		#override 		\n\
+ <Btn1Down>:     prepare() OptionsHook() PopupMenu() open_menu() 	\n\
+ Button1<Enter>: prepare() OptionsHook() open_menu() 			\n\
+ <Key>Return:    prepare() OptionsHook() open_menu() 			\n\
+ <Btn1Up>:       popdown_maybe()
+
+*ImageForm*visuals.baseTranslations:  		#override 		\n\
+ <Btn1Down>:     prepare() VisualsHook() PopupMenu() open_menu()	\n\
+ Button1<Enter>: prepare() VisualsHook() open_menu() 			\n\
+ <Key>Return:    prepare() VisualsHook() open_menu() 			\n\
+ <Btn1Up>:       popdown_maybe()

@@ -1,0 +1,136 @@
+#!/local/bin/perl -w
+
+# $Id$
+
+eval "exec /local/bin/perl -S $0 $*"
+    if $running_under_some_shell;
+			# this emulates #! processing on NIH machines.
+			# (remove #! line above if indigestible)
+
+eval '$'.$1.'$2;' while $ARGV[0] =~ /^([A-Za-z_0-9]+=)(.*)/ && shift;
+			# process any FOO=bar switches
+
+# perl script
+#
+# DESCRIPTION:
+#   Extract preprocessor directives, macro definitions, external variables,
+#   comments, blank lines or typedefs from old headerfile, if any, or from
+#   C source files.
+# AUTHOR: 
+#   Svein Bøe, BLAB, Ifi, UiO, may 1994
+#
+$, = ' ';		# set output field separator
+$\ = "\n";		# set output record separator
+
+$dc = 0;
+$tc = 0;
+$p = 0;
+# dc: Continued macro definition
+# tc: Continued typedef
+# p: Brace in typedef (struct)
+
+line: while (<>) {
+    chop;	# strip record separator
+    if (/^\/\*/) {
+	# Comment line?
+	if ($_ =~ /\*\/ *$/ && $com == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^# *define /) {
+	if ($_ =~ /\\$/) {
+	    $dc = 1;
+	}
+	if ($def == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^# *ifdef /) {
+	if ($ifdef == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^# *ifndef /) {
+	if ($ifndef == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^# *endif/) {
+	if ($endif == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^# *else/) {
+	if ($els == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^ *extern /) {
+	# Not extern functions, only extern variables
+	if ($_ !~ /\(/ && $extern == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    if (/^$/) {
+	# Blank lines
+	if ($blank == 1) {
+	    print $_;
+	}
+	next line;
+    }
+
+    if (/^# *include /) {
+	if ($include == 1) {
+	    print $_;
+	}
+	next line;
+    }
+
+    if (/^ *typedef /) {
+	if ($_ =~ /\{/) {
+	    $p = 1;
+	}
+	if ($_ =~ /}/) {
+	    $p = 0;
+	}
+	if ($_ !~ /;$/ && $_ !~ /\*\//) {
+	    $tc = 1;
+	}
+	if ($typedef == 1) {
+	    print $_;
+	}
+	next line;
+    }
+
+    if ($dc == 1) {
+	if ($_ !~ /\\$/) {
+	    $dc = 0;
+	}
+	if ($def == 1) {
+	    print $_;
+	}
+	next line;
+    }
+    elsif ($tc == 1) {
+	if ($_ =~ /\{/) {
+	    $p = 1;
+	}
+	if ($_ =~ /}/) {
+	    $p = 0;
+	}
+	if ($_ =~ /;$/ && $p == 0) {
+	    $tc = 0;
+	}
+	if ($typedef == 1) {
+	    print $_;
+	}
+	next line;
+    }
+}

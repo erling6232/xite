@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/MultiList
+#
+FWFOBJ  = MultiList.o
+FWFINCL = MultiList.i MultiListP.i
+ROFF3   = XfwfMultiList.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  

@@ -1,0 +1,996 @@
+#!/bin/sh
+
+# $Id$
+
+############################################################################
+#
+# This script will install the XITE software from scratch or just rebuild
+# the library, executables and manual pages for a different computer
+# platform.
+#
+# For usage, execute
+#
+#       sh install_xite -help
+#
+############################################################################
+#
+# The script depends on several parameters. The following may be given as
+# command-line parameters, from a file or else interactively when running
+# the script. (XITE_HOME may also be given as an environment variable.)
+#
+#       XITE_HOME       : Home directory for XITE (e.g. /usr/local/xite)
+#       XITE_HOSTTYPE   : One of a set of predefined hosttype/platform names
+#       XITE_BIN_DEST   : Directory for storage of XITE executables
+#       XITE_LIB_DEST   : Directory for storage of XITE libraries
+#       XITE_INC_DEST   : Directory for storage of XITE-supplied header files
+#       XITE_MAN_DEST   : Directory for storage of XITE manual pages
+#       XITE_DOC_DEST   : Directory for storage of XITE html files and
+#                         PostScript manuals
+#       X_INC_DIR       : Directory where X header-files are found
+#       X_LIB_DIR       : Directory where X libraries are found
+#       TIFF_INC_DIR    : Directory where header-files for Sam Leffler's
+#                         TIFF library libtiff are found
+#       TIFF_LIB_DIR    : Directory where Sam Leffler's TIFF library is found
+#       PNM_INC_DIR     : Directory where header-files for the pnm (including
+#                         pbm, pgm and ppm) file format are found
+#       PNM_LIB_DIR     : Directory where pnm (including pbm, pgm and ppm)
+#                         libraries are found
+#       MATLAB          : Home directory for MATLAB
+#       MATLAB_LIB      : Directory where MATLAB libraries are found
+#       MATLAB_INC      : Directory where MATLAB header-files are found
+#       MATLAB_MEX_DEST : Directory for storage of MATLAB mex-files
+#       CC              : Name of C compiler
+#
+# The precedence order in determining the above variables is (starting with
+# the highest precedence):
+#
+#       - Command line option
+#       - From file (option -f)
+#       - Interactively
+#
+# Also, the name of the tar file (which may be gzip'ed or compressed)
+# containing the software must be given as a command-line parameter or else
+# interactively, if a complete installation is desired. The environment
+# variable TMPDIR (default /tmp/xite) determines where temporary files are
+# placed.
+#
+# Author: Svein Bøe, email: svein@ifi.uio.no or blab@ifi.uio.no
+#
+############################################################################
+
+if test -z "$TMPDIR"
+then
+	TMPDIR=/tmp/xite
+fi
+
+startDir=`pwd`
+paramOutFile=$startDir/xite_params
+paramInFile=""
+exceptionDirs=""
+
+
+help=0; verbose=0; quiet=0; buildOnly=0; confirm=1; stop=0; local=0;
+dso="-dso"; nomail=0
+
+
+########## Process input arguments ##########
+
+while test $# -gt 0
+do
+	case $1 in
+		-b)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_BIN_DESTopt=$1
+			;;
+		-c)
+			confirm=0
+			;;
+		-dso)
+                        dso=""
+                        ;;
+		-d)
+			buildOnly=1
+			;;
+		-e)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_DOC_DESTopt=$1
+			;;
+		-f)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			paramInFile=$1
+			;;
+		-cc)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			CCopt=$1
+			;;
+		-h|-help)
+			help=1
+			break
+			;;
+		-i)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_INC_DESTopt=$1
+			;;
+		-l)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_LIB_DESTopt=$1
+			;;
+		-loc)
+			local=1
+			;;
+		-m)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_MAN_DESTopt=$1
+			;;
+		-mh)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			MATLABopt=$1
+			;;
+		-mi)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			MATLAB_INCopt=$1
+			;;
+		-ml)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			MATLAB_LIBopt=$1
+			;;
+		-mm)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			MATLAB_MEX_DESTopt=$1
+			;;
+		-nomail)
+			nomail=1
+			;;
+
+		-o)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			paramOutFile=$1
+			;;
+		-p)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_HOSTTYPEopt=$1  # Check later
+			;;
+		-q)
+			quiet=1
+			;;
+		-s)
+			stop=1
+			;;
+		-t)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			ztarfile=$1
+			;;
+		-ti)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			TIFF_INC_DIRopt=$1
+			;;
+		-tl)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			TIFF_LIB_DIRopt=$1
+			;;
+		-pi)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			PNM_INC_DIRopt=$1
+			;;
+		-pl)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			PNM_LIB_DIRopt=$1
+			;;
+		-x)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			XITE_HOMEopt=$1
+			;;
+		-xi)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			X_INC_DIRopt=$1
+			;;
+		-xl)
+			if test $# -le 1; then
+					echo "Argument missing for option $1."; help=1; break
+			fi
+			shift
+			X_LIB_DIRopt=$1
+			;;
+		-v)
+			verbose=1
+			;;
+	*)
+			help=1
+			break
+			;;
+	esac
+	shift
+done
+
+if test $help -eq 1
+then
+
+cat <<EOF 1>&2
+usage: $0 [<dirOption>...] [-p <platform>] [-t <tarfile>]
+		    [<option>...]
+<dirOption> is chosen from (use "-" for TIFF, pbm and MATLAB directories
+for those which do not apply).
+ -x <xite home> : Main directory for XITE software.
+		  Default: Given by the environment variable
+		  XITE_HOME if it exists.
+ -b <bin>       : Directory for XITE executables.
+ -l <lib>       : Directory for XITE library.
+ -i <inc>       : Directory for XITE include files.
+ -m <man>       : Directory for XITE manual pages.
+ -e <doc>       : Directory for XITE html doc-files.
+
+ -xi <dir>      : Directory for X Window System include files.
+ -xl <dir>      : Directory for X Window System libraries.
+
+ -ti <dir>      : Directory for libtiff TIFF include files.
+ -tl <dir>      : Directory for libtiff TIFF library.
+ -pi <dir>      : Directory for pbm, pgm, ppm and pnm include files.
+ -pl <dir>      : Directory for pbm, pgm, ppm and pnm libraries.
+ -mh <dir>      : Home directory for MATLAB.
+ -mi <dir>      : Directory for MATLAB include files
+		  (where applicable).
+ -ml <dir>      : Directory for MATLAB library
+		  (where applicable).
+ -mm <dir>      : Directory for MATLAB mex files
+		  (where applicable).
+
+<platform> is one of
+     - AIX        (IBM RS 6000 AIX 4.1.3)
+     - IRIX       (Silicon Graphics IRIX 5.x)
+     - IRIX64     (Silicon Graphics IRIX 6.x, 64-bit architecture)
+     - Linux      (For ix86 PC)
+     - OSF1       (Dec alpha AXP OSF/1 V4.0)
+     - SunOS5     (Solaris 2.x, x >= 5)
+     - SunOS      (SunOS 4.1.3)
+     - NT4        (Windows NT 4.0 and Windows 95)
+     - CYGWIN32   (Cygnus GNU-Win32, release beta 18, for Windows NT 4)
+     - Other      (Choose this if none of the above fits)
+
+<tarfile>       : Name of tarfile (or gzip'ed or compressed) tarfile
+		  (default xite.tar, xite.tar.gz or xite.tar.Z).
+
+<option> is chosen from
+ -c             : Don't ask for confirmation on progress.
+ -cc <cc>       : Name of compiler (GNU gcc is default).
+ -dso           : Do not build dynamic shared objects (dynamic-link libraries).
+ -d             : Don't install completely, just build library and
+                  executables for a different platform.
+                  Update scripts. The sources and scripts are
+                  assumed to be located below the XITE home directory.
+ -f <file>      : Read directory options variables from <file>.
+ -loc           : Leave object files in platform dependent subdirectory.
+                  Allows parallel installation on several hosts.
+ -nomail        : Do not derive host information and send it to
+                  xite-register@ifi.uio.no.
+ -o <file>      : Store directory options variables on <file>, default
+                  is the file $paramOutFile.
+ -q             : Run the installation quietly.
+ -s             : Stop after updating scripts etc., before compiling.
+ -v             : Verbose. Show progress of installation.
+ -h             : Print this message.
+EOF
+
+	exit 1
+fi
+
+# Check for and remember environment variables
+# This possibility has been removed (except for XITE_HOME and MATLAB) to avoid
+# confusion if some variable happened to exist by accident.
+
+if test -n "$XITE_HOME"
+then
+	XITE_HOMEenv=$XITE_HOME
+fi
+#if test -n "$XITE_BIN_DEST"
+#then
+	XITE_BIN_DESTenv=""
+#fi
+#if test -n "$XITE_LIB_DEST"
+#then
+	XITE_LIB_DESTenv=""
+#fi
+#if test -n "$XITE_INC_DEST"
+#then
+	XITE_INC_DESTenv=""
+#fi
+#if test -n "$XITE_MAN_DEST"
+#then
+	XITE_MAN_DESTenv=""
+#fi
+#if test -n "$XITE_DOC_DEST"
+#then
+	XITE_DOC_DESTenv=""
+#fi
+#if test -n "$X_INC_DIR"
+#then
+	X_INC_DIRenv=""
+#fi
+#if test -n "$X_LIB_DIR"
+#then
+	X_LIB_DIRenv=""
+#fi
+#if test -n "$TIFF_INC_DIR"
+#then
+	TIFF_INC_DIRenv=""
+#fi
+#if test -n "$TIFF_LIB_DIR"
+#then
+	TIFF_LIB_DIRenv=""
+#fi
+#if test -n "$PNM_INC_DIR"
+#then
+	PNM_INC_DIRenv=""
+#fi
+#if test -n "$PNM_LIB_DIR"
+#then
+	PNM_LIB_DIRenv=""
+#fi
+if test -n "$MATLAB"
+then
+	MATLABenv=$MATLAB
+else
+	MATLABenv=""
+fi
+#if test -n "$MATLAB_INC"
+#then
+	MATLAB_INCenv=""
+#fi
+#if test -n "$MATLAB_LIB"
+#then
+	MATLAB_LIBenv=""
+#fi
+#if test -n "$MATLAB_MEX_DEST"
+#then
+	MATLAB_MEX_DESTenv=""
+#fi
+#if test -n "$XITE_HOSTTYPE"
+#then
+	XITE_HOSTTYPEenv=""
+#fi
+#if test -n "$CC"
+#then
+	CCenv=""
+#fi
+
+if test -n "$paramInFile" -a ! -f "$paramInFile"
+then
+	echo "ERROR:" 1>&2
+	echo "Parameter file $paramInFile does not exist. Try again with" 1>&2
+	echo "new file name or give the parameters interactively." 1>&2
+	echo "Aborting." 1>&2
+	exit 1
+elif test -n "$paramInFile"
+then
+  # Read variables from file.
+
+	PATH="`pwd` $PATH"    # Needed on IRIX 4.0
+	. ./$paramInFile      # "./" necessary on IRIX 4.0
+fi
+
+# Let options take the highest precedence, followed by environment variables
+# and parameter file variables
+
+if test -n "$XITE_HOMEopt"; then
+	XITE_HOME=$XITE_HOMEopt
+elif test -n "$XITE_HOMEenv"; then
+	XITE_HOME=$XITE_HOMEenv
+fi
+if test -n "$XITE_BIN_DESTopt"; then
+	XITE_BIN_DEST=$XITE_BIN_DESTopt
+elif test -n "$XITE_BIN_DESTenv"; then
+	XITE_BIN_DEST=$XITE_BIN_DESTenv
+fi
+if test -n "$XITE_LIB_DESTopt"; then
+	XITE_LIB_DEST=$XITE_LIB_DESTopt
+elif test -n "$XITE_LIB_DESTenv"; then
+	XITE_LIB_DEST=$XITE_LIB_DESTenv
+fi
+if test -n "$XITE_INC_DESTopt"; then
+	XITE_INC_DEST=$XITE_INC_DESTopt
+elif test -n "$XITE_INC_DESTenv"; then
+	XITE_INC_DEST=$XITE_INC_DESTenv
+fi
+if test -n "$XITE_MAN_DESTopt"; then
+	XITE_MAN_DEST=$XITE_MAN_DESTopt
+elif test -n "$XITE_MAN_DESTenv"; then
+	XITE_MAN_DEST=$XITE_MAN_DESTenv
+fi
+if test -n "$XITE_DOC_DESTopt"; then
+	XITE_DOC_DEST=$XITE_DOC_DESTopt
+elif test -n "$XITE_DOC_DESTenv"; then
+	XITE_DOC_DEST=$XITE_DOC_DESTenv
+fi
+if test -n "$X_LIB_DIRopt"; then
+	X_LIB_DIR=$X_LIB_DIRopt
+elif test -n "$X_LIB_DIRenv"; then
+	X_LIB_DIR=$X_LIB_DIRenv
+fi
+if test -n "$X_INC_DIRopt"; then
+	X_INC_DIR=$X_INC_DIRopt
+elif test -n "$X_INC_DIRenv"; then
+	X_INC_DIR=$X_INC_DIRenv
+fi
+if test -n "$TIFF_LIB_DIRopt"; then
+	TIFF_LIB_DIR=$TIFF_LIB_DIRopt
+elif test -n "$TIFF_LIB_DIRenv"; then
+	TIFF_LIB_DIR=$TIFF_LIB_DIRenv
+fi
+if test -n "$TIFF_INC_DIRopt"; then
+	TIFF_INC_DIR=$TIFF_INC_DIRopt
+elif test -n "$TIFF_INC_DIRenv"; then
+	TIFF_INC_DIR=$TIFF_INC_DIRenv
+fi
+if test -n "$PNM_LIB_DIRopt"; then
+	PNM_LIB_DIR=$PNM_LIB_DIRopt
+elif test -n "$PNM_LIB_DIRenv"; then
+	PNM_LIB_DIR=$PNM_LIB_DIRenv
+fi
+if test -n "$PNM_INC_DIRopt"; then
+	PNM_INC_DIR=$PNM_INC_DIRopt
+elif test -n "$PNM_INC_DIRenv"; then
+	PNM_INC_DIR=$PNM_INC_DIRenv
+fi
+if test -n "$MATLABopt"; then
+	MATLAB=$MATLABopt
+elif test -n "$MATLABenv"; then
+	MATLAB=$MATLABenv
+fi
+if test -n "$MATLAB_INCopt"; then
+	MATLAB_INC=$MATLAB_INCopt
+elif test -n "$MATLAB_INCenv"; then
+	MATLAB_INC=$MATLAB_INCenv
+fi
+if test -n "$MATLAB_LIBopt"; then
+	MATLAB_LIB=$MATLAB_LIBopt
+elif test -n "$MATLAB_LIBenv"; then
+	MATLAB_LIB=$MATLAB_LIBenv
+fi
+if test -n "$MATLAB_MEX_DESTopt"; then
+	MATLAB_MEX_DEST=$MATLAB_MEX_DESTopt
+elif test -n "$MATLAB_MEX_DESTenv"; then
+	MATLAB_MEX_DEST=$MATLAB_MEX_DESTenv
+fi
+if test -n "$XITE_HOSTTYPEopt"; then
+	XITE_HOSTTYPE=$XITE_HOSTTYPEopt
+elif test -n "$XITE_HOSTTYPEenv"; then
+	XITE_HOSTTYPE=$XITE_HOSTTYPEenv
+fi
+if test -n "$CCopt"; then
+	CC=$CCopt
+elif test -n "$CCenv"; then
+	CC=$CCenv
+fi
+
+ 
+if test "$buildOnly" -eq 0
+then
+
+cat <<EOF
+
+=======================================================================
+!                                                                     !
+!        XITE (X-based Image Processing Tools and Environment)        !
+!                                                                     !
+!          Image Processing Laboratory                                !
+!          Department of Informatics                                  !
+!          University of Oslo                                         !
+!                                                                     !
+!   email: xite-register@ifi.uio.no  (register your copy)             !
+!          xite-bugs@ifi.uio.no      (report bugs)                    !
+!          xite-request@ifi.uio.no   (join/leave mailing-list)        !
+!          xite@ifi.uio.no           (international mailing-list)     !
+!          blab@ifi.uio.no           (other)                          !
+!                                                                     !
+!   WWW:   http://www.ifi.uio.no/~blab/Software/Xite                  !
+!   ftp:   ftp.ifi.uio.no in pub/blab/xite                            !
+!                                                                     !
+!---------------------------------------------------------------------!
+!                                                                     !
+!   This is the first part of the installation of XITE.               !
+!   For HELP, run this script with the option -h.                     !
+!                                                                     !
+!   When the installation procedure expects you to type an answer,    !
+!   any default answer is shown in square brackets. This means that   !
+!   just typing carriage return has the same effect as typing the     !
+!   text in brackets.                                                 !
+!                                                                     !
+!   Be sure to type your replies with the correct capitalization.     !
+!                                                                     !
+!   Your replies will be saved to a file, which you may load if you   !
+!   need to rerun this installation script. It will save you some     !
+!   typing.                                                           !
+!                                                                     !
+!   If you encounter difficulties, please email xite-bugs@ifi.uio.no. !
+!                                                                     !
+!---------------------------------------------------------------------!
+!                                                                     !
+!   XITE is free software, but we would like to know who are using it !
+!   and what it is used for.                                          !
+!                                                                     !
+!   Unless you use the option '-nomail', this installation script     !
+!   will try to derive some information about your site and send this !
+!   automatically via mail to xite-register@ifi.uio.no.               !
+!                                                                     !
+!   Even with the automatic registration of your copy, please         !
+!   register by filling in the requested information in the file      !
+!   REGISTER. You will find the file in the ftp directory together    !
+!   with this installation script. It can also be found in the file   !
+!          \$XITE_HOME/etc/.install/REGISTER                           !
+!   after installation.                                               !
+!                                                                     !
+!   Mail the REGISTER file to xite-register@ifi.uio.no                !
+!                                                                     !
+=======================================================================
+
+EOF
+
+else # $buildOnly
+
+cat <<EOF
+
+=======================================================================
+!                                                                     !
+!         XITE (X-based Image Processing Tools and Environment)       !
+!                                                                     !
+!           Image Processing Laboratory                               !
+!           Department of Informatics                                 !
+!           University of Oslo                                        !
+!           email: blab@ifi.uio.no                                    !
+!                                                                     !
+!         Building of library and executables on a platform.          !
+!                                                                     !
+! For HELP, run this script with the option -h.                       !
+!                                                                     !
+=======================================================================
+
+EOF
+
+	if test -z "$XITE_HOME"
+	then
+
+cat <<EOF 1>&2
+ERROR:
+The environment variable XITE_HOME must be set to the XITE home
+directory, i.e. to the directory above the XITE src-directory.
+This is done in csh or tcsh with the command
+    setenv XITE_HOME directory
+or in sh with the command
+    XITE_HOME=dir; export XITE_HOME
+Aborting.
+EOF
+
+		exit 1
+	fi
+
+	if test ! -d "$XITE_HOME"
+	then
+		echo "ERROR:" 1>&2
+		echo "The XITE home directory, $XITE_HOME, does not exist." 1>&2
+		echo "Aborting." 1>&2
+		exit 1
+	fi
+
+	if test ! -d "$XITE_HOME/etc"
+	then
+		echo "ERROR:" 1>&2
+		echo "The directory $XITE_HOME/etc does not exist." 1>&2
+		echo "Make a complete XITE installation with $0." 1>&2
+		echo "Aborting." 1>&2
+		exit 1
+	fi
+
+	if test ! -d "$XITE_HOME/etc/.install"
+	then
+		echo "ERROR:" 1>&2
+		echo "The directory $XITE_HOME/etc/.install does not exist." 1>&2
+		echo "Make a complete XITE installation $0." 1>&2
+		echo "Aborting." 1>&2
+		exit 1
+	fi
+
+fi # $buildOnly
+
+if test "$buildOnly" -ne 0
+then
+	TMPDIR=$XITE_HOME
+fi
+
+if test ! -d $TMPDIR
+then
+		mkdir $TMPDIR
+fi
+
+TMP_INSTALL=$TMPDIR/etc/.install
+checkdir=$TMP_INSTALL/checkdir
+checkExist=$TMP_INSTALL/checkExist
+checkLibInc=$TMP_INSTALL/checkLibInc
+chooseCompiler=$TMP_INSTALL/chooseCompiler
+confirmParameters=$TMP_INSTALL/confirmParameters
+echoNl=$TMP_INSTALL/echonl
+getDir=$TMP_INSTALL/getDir
+getMATLABDirs=$TMP_INSTALL/getMATLABDirs
+getPath=$TMP_INSTALL/getPath
+getPlatform=$TMP_INSTALL/getPlatform
+getPNMDirs=$TMP_INSTALL/getPNMDirs
+getTIFFDirs=$TMP_INSTALL/getTIFFDirs
+getXDirs=$TMP_INSTALL/getXDirs
+getXITE_HOME=$TMP_INSTALL/getXITE_HOME
+getXITEDirs=$TMP_INSTALL/getXITEDirs
+matlab_hosttype=$TMP_INSTALL/matlab_hosttype
+paramMessage=$TMP_INSTALL/paramMessage
+saveParameters=$TMP_INSTALL/saveParameters
+testPlatform=$TMP_INSTALL/testPlatform
+typePlatform=$TMP_INSTALL/typePlatform
+unpackAll=$TMP_INSTALL/unpackAll
+
+if test "$buildOnly" -eq 0
+then
+
+########## Determine tar-file and extract utility scripts ##########
+
+	ok=0
+	while test $ok -ne 1
+	do
+		if test -z "$ztarfile"
+		then
+			if test -n "`echo -n`"
+			then
+				echo "Name of (gzip'ed or compressed) tarfile: [xite.tar.gz] \c"
+			else
+				echo -n "Name of (gzip'ed or compressed) tarfile: [xite.tar.gz] "
+			fi
+
+			read ztarfile
+			if test -z "$ztarfile"
+			then
+				ztarfile=xite.tar.gz
+			fi
+		fi
+
+		if test -n "$ztarfile"
+		then
+			if test -f "$ztarfile"
+			then
+				ok=1
+			else
+				echo "The file $ztarfile does not exist."
+
+				ztarfile2=`expr "$ztarfile" : '\(.*\)\.gz'`
+				if test -z "$ztarfile2"
+				then
+					ztarfile2=`expr "$ztarfile" : '\(.*\)\.Z'`
+				fi
+				ztarfile="$ztarfile2"
+
+				if test -f "$ztarfile"
+				then
+					if test -n "`echo -n`"
+					then
+						echo "$ztarfile exists. Use this instead? ([y]/n) \c"
+					else
+						echo -n "$ztarfile exists. Use this instead? ([y]/n) "
+					fi # echo
+
+					if test "$confirm" -eq 1
+					then
+						read answer
+					else
+						answer="y"
+					fi # $confirm
+
+					if test "$answer" = "n"
+					then
+						ztarfile=""
+					else
+						ok=1
+					fi # $answer
+				fi # -f $ztarfile
+			fi # -f $ztarfile
+		fi # -n $ztarfile
+	done # $ok
+
+	if test -n "`expr $ztarfile : '\(.*\)\.gz'`"
+	then
+		uncompr="gunzip"
+		tarfile=`echo $ztarfile | sed 's/\.gz$//'`
+	elif test -n "`expr $ztarfile : '\(.*\)\.Z'`"
+	then
+		uncompr="uncompress"
+		tarfile=`echo $ztarfile | sed 's/\.Z$//'`
+	else
+		uncompr=""
+		tarfile="$ztarfile"
+	fi
+
+	if test "$tarfile" != "$ztarfile"
+	then
+
+		path=`which $uncompr`
+		if test -z "$path"
+		then
+			echo "ERROR: Can't find the uncompressing utility $uncompr." 1>&2
+			echo "Make sure it is in your PATH and restart installation." 1>&2
+			echo "Aborting." 1>&2
+			exit 1
+		fi
+
+		if test "$quiet" -eq 0
+		then
+			echo "Uncompressing tar file. Wait..."
+		fi
+		$uncompr $ztarfile
+	fi
+
+	if test "$quiet" -eq 0
+	then
+		echo "Extracting installation utility scripts. Wait..."
+	fi
+
+	found=`tar tf $tarfile ./etc/.install/checkdir 2>/dev/null`
+
+	if test -n "$found"
+	then
+		# Some hosts (like Sun) need file arguments including initial "./"
+		initPath="./"
+	else
+		# Some hosts (like Silicon Graphics (IRIX 5.*)) don't want initial "./"
+		initPath=""
+	fi
+
+	prePath="${initPath}etc/.install"
+	utils="$prePath/checkdir $prePath/checkExist $prePath/checkLibInc"
+	utils="$utils $prePath/chooseCompiler $prePath/confirmParameters"
+	utils="$utils $prePath/echonl $prePath/getDir $prePath/getMATLABDirs"
+	utils="$utils $prePath/getPath $prePath/getPlatform $prePath/getPNMDirs"
+	utils="$utils $prePath/getTIFFDirs $prePath/getXDirs $prePath/getXITE_HOME"
+	utils="$utils $prePath/getXITEDirs"
+	utils="$utils $prePath/matlab_hosttype $prePath/paramMessage"
+	utils="$utils $prePath/saveParameters"
+	utils="$utils $prePath/testPlatform $prePath/typePlatform $prePath/unpackAll"
+
+	cd $TMPDIR
+	tar xf $startDir/$tarfile $utils
+	cd $startDir
+
+	chmod u+rx $checkdir $checkExist $checkLibInc $chooseCompiler \
+		$confirmParameters $echonl $getDir $getMATLABDirs $getPath $getPlatform \
+		$getPNMDirs $getTIFFDirs $getXDirs $getXITE_HOME $getXITEDirs \
+		$matlab_hosttype $paramMessage $saveParameters \
+		$testPlatform $typePlatform $unpackAll
+fi
+
+if test "$buildOnly" -eq 0
+then
+	# Is tarfile relative or absolute?
+	tarfile=`$getPath $tarfile`
+fi
+
+
+########## Determine XITE_HOSTTYPE ##########
+
+XITE_HOSTTYPE=`$getPlatform "$XITE_HOSTTYPE" $TMP_INSTALL stderr`
+
+########## Determine directory parameters ##########
+
+echo ""
+
+# Get XITE_HOME, either by checking a non-empty/unblank XITE_HOME (which
+# may have been given as a command-line parameter, as an environment
+# variable or from a file) or interactively. Validate the existence of the
+# resulting directory.
+
+XITE_HOME=`$getXITE_HOME "$XITE_HOME" $TMP_INSTALL 1`
+
+# Export directory variables
+export XITE_HOME XITE_HOSTTYPE TMP_INSTALL TMPDIR \
+	XITE_BIN_DEST XITE_LIB_DEST XITE_INC_DEST XITE_MAN_DEST XITE_DOC_DEST \
+	X_INC_DIR X_LIB_DIR MATLAB MATLAB_LIB MATLAB_INC MATLAB_MEX_DEST \
+	TIFF_INC_DIR TIFF_LIB_DIR PNM_INC_DIR PNM_LIB_DIR
+
+# Export script names
+export checkdir checkExist echoNl getDir matlab_hosttype paramMessage
+
+# Export auxiliary variables
+export buildOnly CC confirm paramOutFile quiet saveParameters tarfile \
+	verbose ztarfile
+
+eval "`$getXITEDirs`"
+[ "$XITE_HOSTTYPE" != "NT4" ] && eval "`$getXDirs`"
+eval "`$getTIFFDirs`"
+eval "`$getPNMDirs`"
+eval "`$getMATLABDirs`"
+eval "`$chooseCompiler`"
+$saveParameters
+eval "`$confirmParameters`"
+eval "`$checkLibInc`"
+
+umask 022
+
+cd $XITE_INC_DEST
+if test ! -d Xfwf
+then
+	mkdir Xfwf
+fi
+if test ! -d xpm
+then
+	mkdir xpm
+fi
+
+if test "$buildOnly" -eq 0
+then
+	cd $XITE_HOME
+	$unpackAll || exit 1
+else
+	if test "$XITE_INC_DEST" != "$XITE_HOME/include"
+	then
+		cd $XITE_HOME/include/xite && \
+		  cp blab.h includes.h dummy.h patchlevel.h xite_*.h \
+			$XITE_INC_DEST/xite
+		cd $XITE_HOME
+	fi
+fi # $buildOnly
+
+if test "$XITE_HOME/doc" != "$XITE_DOC_DEST"
+then
+	echo "Copying all the documentation..."
+
+	cd $XITE_HOME/doc
+
+	cp -r * $XITE_DOC_DEST
+
+	chmod a+r $XITE_DOC_DEST/*
+	chmod a+rx $XITE_DOC_DEST/ReferenceManual
+
+	chmod a+r $XITE_DOC_DEST/*/*
+fi
+
+cd $XITE_HOME/etc
+cp mandesc $XITE_MAN_DEST
+
+TMP_INSTALL=$XITE_HOME/etc/.install
+askConfirm=$TMP_INSTALL/askConfirm
+confirmMakexite=$TMP_INSTALL/confirmMakexite
+edcshrc=$TMP_INSTALL/edcshrc
+edcxite=$TMP_INSTALL/edcxite
+edmakefile=$TMP_INSTALL/edmakefile
+edmakexite=$TMP_INSTALL/edmakexite
+edprofile=$TMP_INSTALL/edprofile
+edxiteEcho=$TMP_INSTALL/edxiteEcho
+extractPlatforms=$TMP_INSTALL/extractPlatforms
+installCshrc=$TMP_INSTALL/installCshrc
+installCxite=$TMP_INSTALL/installCxite
+installMakefiles=$TMP_INSTALL/installMakefiles
+installMakexite=$TMP_INSTALL/installMakexite
+installProfile=$TMP_INSTALL/installProfile
+installXiteEcho=$TMP_INSTALL/installXiteEcho
+log_file=$XITE_HOME/xite_log.$XITE_HOSTTYPE
+makeMakefile=$TMP_INSTALL/makeMakefile
+makeSrcMakefile=$TMP_INSTALL/makeSrcMakefile
+makexite=$XITE_HOME/etc/makexite
+sendInfo=$TMP_INSTALL/sendInfo
+getDirent=$TMP_INSTALL/getDirent
+getRegex=$TMP_INSTALL/getRegex
+
+export edcshrc edprofile edcxite edmakefile edmakexite extractPlatforms \
+	log_file makeMakefile makeSrcMakefile makexite edxiteEcho
+
+eval "`$getDirent`"
+eval "`$getRegex`"
+
+$installMakefiles || exit 1
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( $installCshrc      || exit 1 )
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( $installProfile    || exit 1 )
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( $installMakexite   || exit 1 )
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( $installCxite      || exit 1 )
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( $installXiteEcho   || exit 1 )
+[ "$XITE_HOSTTYPE" != "NT4" ] && ( $installXiteStdOpt || exit 1 )
+
+if test "$stop" -eq 1
+then
+	exit 0
+fi
+
+$askConfirm       || exit 1
+$sendInfo
+
+local_opt=""
+if test "$local" -eq 1
+then
+	local_opt="-p"
+fi
+
+[ "$XITE_HOSTTYPE" = "NT4" ] && \
+    (echo "Use a Windows system to build XITE."; exit 1)
+
+if test "$buildOnly" -eq 0
+then
+	makexite_command="$makexite -v $local_opt -xite $XITE_HOME"
+else
+	# Don't rebuild documentation (man pages and hypertext)
+	if test "$XITE_HOSTTYPE" != "NT4"; then
+		makexite_command="$makexite -v -c -i -l $dso -e $local_opt -xite $XITE_HOME"
+	else
+		makexite_command="$makexite -v -c -a $XITE_HOSTTYPE -xite $XITE_HOME"
+	fi
+fi
+export makexite_command
+
+$confirmMakexite  || exit 1
+
+$makexite_command 2>&1 | tee $log_file
+status=$?
+
+if test "$status" -eq 0 -a "$XITE_HOSTTYPE" != "NT4"
+then
+	echo "Trying to start xshow."
+
+	PATH=${XITE_BIN_DEST}:$PATH
+	XSHOWPATH=${XITE_HOME}/data/xshow
+	export PATH XSHOWPATH
+
+	$XITE_BIN_DEST/xshow \
+		-m  $XSHOWPATH/xshow_menues \
+		-cl $XSHOWPATH/xshow_colortabs \
+		-ct $XITE_HOME/data/img/mona.col \
+		$XITE_HOME/data/img/mona.img &
+fi

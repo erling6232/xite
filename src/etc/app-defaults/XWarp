@@ -1,0 +1,205 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XWarp.ZoomAll:						False
+XWarp.XiteResourceVersion:				3.4
+XWarp.Layout:						separate
+XWarp.AdjustWidth:					True
+XWarp.PanelContainer:					Form
+XWarp.WidgetSet:					Xaw
+
+*TopLevelShell.baseTranslations:			#override	\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+*topContainer*Background:				Gray80
+*topContainer*Foreground:				Gray20
+
+*topContainer.BorderWidth:				0
+*topContainer.defaultDistance:				2
+
+*xwarp-label.width:					785
+*xwarp-label.borderWidth:				1
+*xwarp-label.Justify:					center
+*xwarp-label.height:					25
+*xwarp-label.Label:					xwarp, ver. 1.4
+
+*info.width:						785
+*info.borderWidth:					1
+*info.Justify:						center
+*info.height:						25
+*info.fromVert:						xwarp-label
+
+*mode-lab.Label:					Drawing mode:
+*mode-lab.borderWidth:					0
+*mode-lab.Justify:					left
+*mode-lab.Alignment:					left
+*mode-lab.width:					115
+*mode-lab.height:					30
+*mode-lab.fromVert:					info
+
+*ctrl-pts.Label:					Ctrl points
+*ctrl-pts.fromHoriz:					mode-lab
+*ctrl-pts.fromVert:					info
+
+*gray-area.Label:					Gray level region
+*gray-area.fromVert:					info
+*gray-area.fromHoriz:					ctrl-pts
+
+*analyse-area.Label:					Analysis region
+*analyse-area.fromVert:					info
+*analyse-area.fromHoriz:				gray-area
+
+*line-area.Label:					Linelength
+*line-area.fromVert:					info
+*line-area.fromHoriz:					analyse-area
+
+*do-lab.Label:						Action:
+*do-lab.borderWidth:					0
+*do-lab.Justify:					left
+*do-lab.Alignment:					left
+*do-lab.width:						115
+*do-lab.height:						30
+*do-lab.fromVert:					mode-lab
+
+*warp.Label:						Warp
+*warp.fromVert:						mode-lab
+*warp.fromHoriz:					do-lab
+
+*gray-nonpar.Label:					Gray nonpar.
+*gray-nonpar.fromHoriz:					warp
+*gray-nonpar.fromVert:					mode-lab
+
+*gray-parametric.Label:					Gray par.
+*gray-parametric.fromHoriz:				gray-nonpar
+*gray-parametric.fromVert:				mode-lab
+
+*analyse.Label:						Analysis
+*analyse.fromHoriz:					gray-parametric
+*analyse.fromVert:					mode-lab
+
+*clear.Label:						Clear
+*clear.fromHoriz:					analyse
+*clear.fromVert:					mode-lab
+
+*disp-lab.Label:					Display mode:
+*disp-lab.borderWidth:					0
+*disp-lab.Justify:					left
+*disp-lab.Alignment:					left
+*disp-lab.width:					115
+*disp-lab.height:					30
+*disp-lab.fromVert:					do-lab
+
+*add-2.Label:						Image 1 + 2
+*add-2.fromHoriz:					disp-lab
+*add-2.fromVert:					do-lab
+
+*image-1.Label:						Image 1
+*image-1.fromHoriz:					add-2
+*image-1.fromVert:					do-lab
+
+*image-2.Label:						Image 2
+*image-2.fromHoriz:					image-1
+*image-2.fromVert:					do-lab
+
+*sub-2.Label:						Image 1 - 2
+*sub-2.fromHoriz:					image-2
+*sub-2.fromVert:					do-lab
+
+*misc-lab.Label:					Misc:
+*misc-lab.borderWidth:					0
+*misc-lab.Justify:					left
+*misc-lab.Alignment:					left
+*misc-lab.width:					115
+*misc-lab.height:					30
+*misc-lab.fromVert:					disp-lab
+
+*prev.Label:						Previous
+*prev.fromHoriz:					misc-lab
+*prev.fromVert:						disp-lab
+
+*next.Label:						Next
+*next.fromHoriz:					prev
+*next.fromVert:						disp-lab
+
+*save.Label:						Save
+*save.fromHoriz:					next
+*save.fromVert:						disp-lab
+
+*quit.Label:						Quit
+*quit.fromHoriz:					save
+*quit.fromVert:						disp-lab
+
+! *topContainer*XfwfButton.ShrinkToFit:			True
+*topContainer*XfwfButton.width:				130
+*topContainer*XfwfButton.height:			30
+*topContainer*XfwfButton.FrameType:			raised
+*topContainer*XfwfButton.FrameWidth:			2
+*topContainer*XfwfButton.TopShadowColor:		Gray95
+*topContainer*XfwfButton.BottomShadowColor:		Gray20
+*topContainer*XfwfButton.ShadowScheme:			color
+
+*topContainer*Command.width:				130
+*topContainer*Command.height:				30
+
+! *topContainer*XfwfToggle.ShrinkToFit:			True
+*topContainer*XfwfToggle.width:				130
+*topContainer*XfwfToggle.height:			30
+*topContainer*XfwfToggle.FrameType:			raised
+*topContainer*XfwfToggle.FrameWidth:			2
+*topContainer*XfwfToggle.TopShadowColor:		Gray95
+*topContainer*XfwfToggle.BottomShadowColor:		Gray20
+*topContainer*XfwfToggle.ShadowScheme:			color
+
+*topContainer*Toggle.width:				130
+*topContainer*Toggle.height:				30
+*topContainer*Toggle.Translations:			#override	\n\
+	<EnterWindow>:       highlight(Always)				\n\
+	<LeaveWindow>:       unhighlight()				\n\
+	<Btn1Down>,<Btn1Up>: set() notify()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteImageOverlay"
+
+! Redefine the translations from the above included file
+*left.baseTranslations:					#override	\n\
+	None <Btn1Up>:      draw(point,5) draw(color)			\n\
+	<MouseMoved>:       notify()
+*right.baseTranslations:				#override	\n\
+	None <Btn1Up>:      draw(point,5) draw(color)			\n\
+	<MouseMoved>:       notify()
+*image.baseTranslations:				#override	\n\
+	None <Btn1Down>:    draw(point) draw(line) draw(origo,on) 	\n\
+	None <Btn1Motion>:  draw(line) draw(origo) notify()		\n\
+	None <Btn2Down>:    draw(line,close) draw(origo,off)		\n\
+	None <Btn3Down>:    draw(point) draw(origo,on)			\n\
+	None <Btn3Up>:      draw(line) draw(origo, off)			\n\
+	<MouseMoved>:       notify()					\n\
+	<Key>C:             nop()
+
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteFileSel"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteTerm"
+#include "xitePopup"
+#include "xitePrompt"

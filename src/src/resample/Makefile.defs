@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for resample
+#
+OBJ   = resample.o
+PROG  = resample
+MANP  = resample.m
+CINCL =  resample.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# $Id$
+
+# Determine the X Window System directory parameters (without validation)
+
+makefile=$XITE_HOME/etc/Makefile.$XITE_HOSTTYPE
+
+if [ -f $makefile ]
+then
+  x_inc_dir_def=`egrep '^ *X_INC_DIR *= *' $makefile | awk '{print $3}'`
+  x_lib_dir_def=`egrep '^ *X_LIB_DIR *= *' $makefile | awk '{print $3}'`
+elif test "$XITE_HOSTTYPE" = "SunOS5"
+then
+  x_inc_dir_def=/usr/openwin/include
+  x_lib_dir_def=/usr/openwin/lib
+else
+  x_inc_dir_def=/usr/include
+  x_lib_dir_def=/usr/lib
+fi
+
+X_INC_DIR=\
+`$getDir "$X_INC_DIR" "$x_inc_dir_def" 'Directory for X Window System include files' "$TMP_INSTALL" "stderr" 1`
+
+X_LIB_DIR=\
+`$getDir "$X_LIB_DIR" "$x_lib_dir_def" 'Directory for X Window System libraries' "$TMP_INSTALL" "stderr" 1`
+
+echo "X_INC_DIR=$X_INC_DIR; X_LIB_DIR=$X_LIB_DIR"
+echo "export X_INC_DIR X_LIB_DIR"

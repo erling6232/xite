@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for sunraster
+#
+OBJ   = biff2sunraster.o sunraster2biff.o
+PROG  = biff2sunraster sunraster2biff
+MANP  = biff2sunraster.m sunraster2biff.m
+CINCL =  sunraster.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

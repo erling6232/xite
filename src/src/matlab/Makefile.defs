@@ -1,0 +1,18 @@
+#
+#   Makefile definitions for convert
+
+MATOBJ  = biff2matlab.o matlab2biff.o             # Objects using MATLAB lib
+MATPROG = biff2matlab matlab2biff                 # Programs using MATLAB lib
+MATMEX  = loadBiff saveBiff                       # MATLAB mex-files
+MATHELP = loadBiff.m saveBiff.m                   # MATLAB .m help-file
+CINCL	= matlab.i
+MANP	= biff2matlab.m matlab2biff.m
+
+include:cincl
+object: matobj
+lib:    matlib
+dso:    xite_matlab_dso
+program:matprog matmex
+doc:    manpage mathelp
+xprog:  
+

@@ -1,0 +1,62 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XImageExample.XiteResourceVersion:			3.4
+XImageExample.Layout:					separate
+XImageExample.AdjustWidth:				True
+XImageExample.PanelContainer:				Form
+XImageExample.WidgetSet:				Xfwf
+
+*TopLevelShell.baseTranslations:			#override	\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+*topContainer*Background:				Gray80
+*topContainer*Foreground:				Gray20
+
+*topContainer.BorderWidth:				0
+*topContainer.defaultDistance:				2
+
+*topContainer*XfwfButton.ShrinkToFit:			True
+*topContainer*XfwfButton.FrameType:			raised
+*topContainer*XfwfButton.FrameWidth:			2
+*topContainer*XfwfButton.TopShadowColor:		Gray95
+*topContainer*XfwfButton.BottomShadowColor:		Gray20
+*topContainer*XfwfButton.ShadowScheme:			color
+
+*menu.fromVert:						Image Example
+*list.fromVert:						Image Example
+*list.fromHoriz:					menu
+*Quit.fromVert:						menu
+*Read file.fromVert:					menu
+*Read file.fromHoriz:					Quit
+*Negate.fromVert:					menu
+*Negate.fromHoriz:					Read file
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteImage"
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteFileSel"
+#include "xitePopup"
+#include "xitePrompt"

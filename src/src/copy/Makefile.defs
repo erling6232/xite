@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for copy
+#
+OBJ   = copyBand.o overlap.o
+PROG  = biffDump mosaic overlap subcopy
+MANP  = biffDump.m copyBand.m mosaic.m overlap.m subcopy.m
+CINCL =  copy.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

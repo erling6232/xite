@@ -1,0 +1,99 @@
+#
+# $Id$
+#
+# cshrc for xite-users
+#
+# This file is executed when starting a new shell (csh),
+# also non-interactive ones.
+#
+# Specify the location of the main XITE directory.
+# Automatically edited in by the script install_xite.
+# You may need to change this.
+#
+
+if (! $?XITE_HOME) then
+ setenv XITE_HOME
+endif
+
+set platform = \
+  `$XITE_HOME/etc/.install/getPlatform "" $XITE_HOME/etc/.install 1 1`
+
+# Specify the location of XITE executables. Automatically edited in by the
+# script install_xite. You may need to change the variable assignment.
+
+switch ($platform)
+  default:
+    if (! $?XITE_BIN_DEST) then
+      set xite_bin = $XITE_HOME/bin
+    else
+      set xite_bin = $XITE_BIN_DEST
+    endif
+    breaksw
+endsw
+
+# Specify the location of XITE man pages. Automatically edited in by the
+# script install_xite. You may need to change this.
+#
+if (! $?XITE_MAN_DEST) then
+ set xite_man = 
+else
+ set xite_man = $XITE_MAN_DEST
+endif
+setenv XITE_MAN "$xite_man"
+
+if (! $?MANPATH) then
+  setenv MANPATH "${xite_man}:/usr/local/man:/usr/man"
+else
+  echo $MANPATH | grep "$xite_man" > /dev/null
+  if ($status != 0) setenv MANPATH ${xite_man}:$MANPATH
+endif
+
+# Specify the location of XITE documentation, like the online hypertext
+# reference manual. Automatically edited in by the script install_xite
+#
+if (! $?XITE_DOC) then
+  setenv XITE_DOC
+endif
+
+# Specify colon-separated list of man programs and/or WWW browsers which will
+# be started by pushing the "help" button in the xshow control window.
+# This list can also be set with an X11 application resource for xshow
+# (xiteHelper). Setting the environment variable will override the resource
+# setting.
+# Uncomment the following if-statement and change setting at will.
+#
+#if (! $?XITE_HELPER) then
+#  setenv XITE_HELPER netscape:Mosaic:lynx:man:xman
+#endif
+
+# Specify options for XITE_HELPER. Overrides an X11 application resource for
+# xshow (xiteHelperOption).
+# Uncomment the following if-statement and change setting at will.
+#
+#if (! $?XITE_HELPER_OPTION) then
+#  setenv XITE_HELPER_OPTION ""
+#endif
+
+# Specify the location of XITE xshow configuration data.
+# You may need to change this.
+#
+setenv XSHOWPATH $XITE_HOME/data/xshow
+
+# Set path
+#
+if ($?path) then
+  echo $path | grep "$XITE_HOME/bin" > /dev/null
+  if ($status != 0) set path = ($path $XITE_HOME/bin)
+
+  echo $path | grep "$xite_bin" > /dev/null
+  if ($status != 0) set path = ($path $xite_bin)
+else
+  if ($XITE_HOME/bin == $xite_bin) then
+    set path = $xite_bin
+  else
+    set path = ($XITE_HOME/bin $xite_bin)
+  endif
+endif
+
+echo $path | grep "$XITE_HOME/etc" > /dev/null
+if ($status != 0) set path = ($path $XITE_HOME/etc)

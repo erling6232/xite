@@ -1,0 +1,90 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XPyramid.ZoomAll:				False
+XPyramid.XiteResourceVersion:			3.4
+XPyramid.allowShellResize:			True
+XPyramid.Layout:				separate
+XPyramid.AdjustWidth:				True
+XPyramid.PanelContainer:			Form
+XPyramid.WidgetSet:				Xfwf
+XPyramid.ImageMenu:				False
+XPyramid.colorsMenu:				True
+XPyramid.ColorList:				
+XPyramid.baseTranslations:			#override		\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+*TopLevelShell.baseTranslations:		#override		\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Class "Width" includes internalWidth in Label and List widgets, so use
+! "width" instead.
+
+*topContainer*Background:                       Gray80
+*topContainer*Foreground:                       Gray20
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*topContainer.BorderWidth:			0
+*topContainer.defaultDistance:			10
+
+*topContainer*labelspace.fromVert:		label
+*topContainer*listspace.fromVert:		labelspace
+*topContainer*labelcolor.fromVert:		listspace
+*topContainer*listcolor.fromVert:		labelcolor
+*topContainer*kill.fromVert:			listcolor
+
+*topContainer*Label.BorderWidth:		1
+*topContainer*Label.width:			270
+*topContainer*XfwfLabel.BorderWidth:		1
+*topContainer*XfwfLabel.width:			270
+
+*topContainer*label.BorderWidth:		0
+*labelspace.Label:				Space
+*labelcolor.Label:				Colors
+
+*topContainer*List.width:			270
+*topContainer*List.BorderWidth:			1
+*topContainer*List.vertDistance:		0
+*topContainer*List*Font:	-*-courier-bold-r-normal--??-100-*-iso8859-1
+*topContainer*List.defaultColumns:		1
+*topContainer*List.longest: 			270
+
+*topContainer*Command.Label:			Quit
+*topContainer*Command.width:			270
+*topContainer*Command.BorderWidth:		3
+*topContainer*Command.vertDistance:		20
+
+! *topContainer*XfwfButton.ShrinkToFit:		True
+*topContainer*XfwfButton.FrameType:		raised
+*topContainer*XfwfButton.FrameWidth:		2
+*topContainer*XfwfButton.TopShadowColor:	Gray95
+*topContainer*XfwfButton.BottomShadowColor:	Gray20
+*topContainer*XfwfButton.ShadowScheme:		color
+*topContainer*XfwfButton.Label:			Quit
+*topContainer*XfwfButton.width:			270
+*topContainer*XfwfButton.Height:		30
+*topContainer*XfwfButton.vertDistance:		20
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "xiteImage"
+*Image.menubar: False
+#include "xiteImagePopup"
+#include "xitePrompt"

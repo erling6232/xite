@@ -1,0 +1,25 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Image window popup menus (these are also attached to the menubar).
+!
+! Popup menus are children of toplevel application shell.
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*SimpleMenu*Background:				Gray80
+*SimpleMenu*Foreground:				Gray20
+
+*SimpleMenu*menuLabel.Foreground:  		White
+*optionsmenuheader*Justify:			center
+*SimpleMenu*optionsmenuheader*Foreground:	Black
+*SimpleMenu*optionsmenuheader*Sensitive:	False
+*SmeBSB.Font:		-*-courier-bold-r-normal--??-100-*-iso8859-1
+*SimpleMenu.baseTranslations: 			#override		\n\
+ <BtnDown>: highlight()                                    		\n\
+ <BtnUp>:   MenuPopdown() notify() unhighlight() PopupExit() 		\n\
+ <Leave>:   unhighlight() MenuPopdown()
+*colorsmenu.Label:           			Colors menu
+*overlaysmenu.Label:				OverlayColors menu
+*toolsmenu.Label: 				Tools menu
+*optionsmenu.Label: 				Options menu
+*visualsmenu.Label:				Visuals menu

@@ -1,0 +1,19 @@
+#
+#   Makefile definitions for xshow
+#
+XOBJ   = Image.o ImageFormat.o ImageBytePix.o ImageSignedBytePix.o \
+	 ImageShortPix.o ImageUnsignedShortPix.o ImageLongPix.o \
+	 ImageFloatPix.o ImageDoublePix.o ImageOverlay.o \
+	 ImageOverlayPix.o ImageComplexPix.o ImageDoubleComplexPix.o
+MANP   = Image.m ImageProtoPix.m ImageFormat.m ImageOverlay.m
+CINCL  = Image.i ImageP.i ImageOverlay.i ImageFormat.i ImageOverlayP.i
+
+include:cincl
+object: xobj
+lib:    xlib
+dso:    xiteX_dso
+program:
+doc:    manpage
+xprog:  
+
+

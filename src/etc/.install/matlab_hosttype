@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# $Id$
+
+# Return MATLAB hosttype for the incoming XITE hosttype.
+
+# SYNOPSIS:
+#    matlab_hosttype <XITE hosttype>
+# OUTPUTS:
+#    String with the name of a MATLAB hosttype
+# RETURN VALUE:
+#    0 : Everything OK
+#    1 : Unknown XITE hosttype
+# INPUTS:
+#    XITE hosttype name string
+# DESCRIPTION:
+#    Determine the correct MATLAB hosttype for the incoming XITE hosttype
+
+xiteh="$1"
+mh=""
+
+if test "$xiteh" = "SunOS"
+then
+	mh=sun4
+elif test "$xiteh" = "SunOS5"
+then
+	mh=sol2
+elif test "$xiteh" = "ULTRIX"
+then
+	mh=dec_risc
+elif test "$xiteh" = "IRIX"
+then
+	mh=sgi
+elif test "$xiteh" = "IRIX64"
+then
+	mh=sgi64
+elif test "$xiteh" = "OSF1"
+then
+	mh=alpha
+elif test "$xiteh" = "AIX"
+then
+	mh=ibm_rs
+elif test "$xiteh" = "Linux"
+then
+	mh=lnx86
+fi
+
+if test -z "$mh"
+then
+	echo "$xiteh"
+	exit 1
+else
+	echo "$mh"
+	exit 0
+fi

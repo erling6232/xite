@@ -1,0 +1,13 @@
+#
+#   Makefile definitions for scripts
+#
+MANP_SH = cxite.m xiteStdOpt.m
+SCRIPTS = startProg xiteStdOpt
+
+include:
+object: 
+lib:    
+dso:
+program:scripts
+doc:    manpage
+xprog:  

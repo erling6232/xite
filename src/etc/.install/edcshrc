@@ -1,0 +1,51 @@
+
+# $Id$
+
+BEGIN {
+  homeline = 0;
+  binline = 0;
+  manline = 0;
+  docline = 0;
+}
+
+$1 == "setenv" && $2 == "XITE_HOME" {
+	homeline=NR
+	print " " $1 " " $2 " " home
+	next
+}
+
+/^switch /, / *default:/ {
+	if (binline != 0) {
+		print
+		next;
+	}
+	if ( $1 == "case" && $2 == xite_hosttype ":" ) {
+		binline=NR;
+		print
+		next;
+	}
+}
+
+$1 == "set" && $2 ~ /xite_man/ {
+	if ( $4 != "$XITE_MAN_DEST" ) {
+		manline=NR
+		print " " $1 " " $2 " " $3 " " man
+		next
+	}
+}
+
+$1 == "setenv" && $2 == "XITE_DOC" {
+	docline=NR
+	print " " $1 " " $2 " " doc
+	next
+}
+
+{
+	if ($1 == "default:" && binline == 0) {
+		print "  case " xite_hosttype ":"
+		print "    set xite_bin = " bin
+		print "    breaksw"
+	}
+
+	print $0
+}

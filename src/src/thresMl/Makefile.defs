@@ -1,0 +1,19 @@
+#
+#   Makefile definitions for thresMl - multi level thresholding
+#
+OBJ   = thresMlReddi.o thresMlWaHa.o thresMlCentroid.o thresMlApply.o \
+	thresMlComCur.o
+PROG  = thresMlReddi   thresMlWaHa   thresMlCentroid   thresMl        \
+	thresMlComCur
+MANP  = thresMlReddi.m thresMlWaHa.m thresMlCentroid.m thresMl.m \
+	thresMlApply.m thresMlComCur.m
+CINCL =  thresMl.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,33 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Histogram window (popup child of image window or of toplevel xhistogram
+! application shell widget)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*histogramForm.Background:				Gray80
+*histogramForm.Foreground:				Gray20
+*histogramForm.Label.Background:			Gray80
+*histogramForm.Label.Foreground:			Gray20
+*histogramForm*Form*Background:				Gray80
+*histogramForm*Form*Foreground:				Gray20
+
+*histogramForm*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*histogramForm*Form*histogramModeLabel*Background: 	White
+*histogramForm*Form*histogramModeLabel*Foreground: 	Black
+*histogramForm*Form*histogramActionsLabel*Background:	White
+*histogramForm*Form*histogramActionsLabel*Foreground:	Black
+*histogramForm*XfwfMultiList.baseTranslations: 		#replace	\n\
+ <Btn1Down>: Select() 							\n\
+ <Btn1Up>:   Notify()
+*histogramForm*Colormap.left:				chainleft
+*histogramForm*Colormap.right:				chainleft
+*histogramForm*Colormap.top:				chaintop
+*histogramForm*Colormap.bottom:				chaintop
+*histogramForm*Histogram.left:				chainleft
+*histogramForm*Histogram.right:				chainleft
+*histogramForm*Histogram.top:				chaintop
+*histogramForm*Histogram.bottom:			chaintop
+*histogramForm*histogramLabel.top:			chaintop
+*histogramForm*histogramLabel.bottom:			chaintop

@@ -1,0 +1,15 @@
+#
+#   Makefile definitions for pnm
+
+PNMOBJ  = biff2pnm.o pnm2biff.o
+PNMPROG = biff2pnm pnm2biff
+MANP    = biff2pnm.m pnm2biff.m
+CINCL   = xite_pnm.i
+
+include:cincl
+object: pnmobj
+lib:    pnmlib
+dso:    xite_pnm_dso
+program:pnmprog
+doc:    manpage
+xprog:  

@@ -1,0 +1,979 @@
+
+This is a list of one-line manual page summaries for XITE.
+
+XITE programs (man section 1):
+
+absDiff (1)              - absolute difference between two images
+absValue (1)             - Take the absolute value of an image
+addGauss (1)             - add gaussian random noise to an image
+addPoisson (1)           - add Poisson noise to the output image
+addw (1)                 - add two bands pixel by pixel, with weights
+affine (1)               - affine geometric transform
+ascii2biff (1)           - convert an ascii file to BIFF format
+average (1)              - computes the average of several bands in an input
+                           image
+bandpass (1)             - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+bandstop (1)             - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+bdf2biff (1)             - converts a Bitmap Distribution Format font file to a
+                           BIFF file
+biff2ascii (1)           - dump part of an image in ascii format
+biff2pnm (1)             - Convert a BIFF image to pnm (ppm, pgm or pbm) format
+biff2ps (1)              - convert BIFF image to PostScript
+biff2raw (1)             - write part of an image as raw, binary data
+biff2sunraster (1)       - convert BIFF image to Sun rasterfile
+biff2tiff (1)            - Convert an image from BIFF to TIFF format
+biffConvert (1)          - convert image between different pixel types
+biffDump (1)             - dump a part of an image to stdout or file
+biffcopy (1)             - copy a biff file
+biffinfo (1)             - extract information from BIFF file
+biffmerge (1)            - merge several images into one image
+biffswap (1)             - swap byte order for bands in biff-file
+bifftext (1)             - append a text line or edit text on image
+biffwrite (1)            - write text on a biff image
+butterworth (1)          - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+canny (1)                - detect edges in image using Canny operator
+cdoc (1)                 - Extract documentation from comments in c-programs.
+closestMinMax (1)        - closest of minimum and maximum, noise reduction
+color2ascii (1)          - dump a colortable in ascii format
+colorquant (1)           - qolor quantization and rgb to pseudocolor conversion
+combine (1)              - combine two images
+complexConjug (1)        - Take the complex conjugate value of an image
+contour (1)              - make a contour map
+conv3x3 (1)              - convolution between image and 3x3 matrix
+convolve (1)             - perform an n x m convolution
+crossSection (1)         - Find cross sections, row or column of image
+crossing (1)             - find zero crossing or any other crossing
+dither (1)               - create a dithering image
+divide (1)               - divide two images pixel by pixel
+exponential (1)          - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+extrema1 (1)             - detection of local minima and maxima
+extrema2 (1)             - detection of local minima and maxima
+fft2d (1)                - Two dimensional Fourier Transform
+fftAmp (1)               - Take the absolute value of an image
+fftDisplay (1)           - Take logarithm of BIFF band (compress dynamic range)
+fftImag (1)              - extract imaginary part of complex band
+fftMagPhase (1)          - 2D Fourier transform and conversion into magnitude
+                           and phase
+fftMakeBp (1)            - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+fftMakeBs (1)            - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+fftMakeHp (1)            - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+fftMakeLp (1)            - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+fftMult (1)              - multiply two bands pixel by pixel
+fftPhase (1)             - phase of complex image
+fftPower (1)             - take the power of each pixel value
+fftReal (1)              - extract real part of complex band
+fht2d (1)                - 2 dimensional fast Hartley transform
+fhtPhase (1)             - find Fourier transform phase from Hartley transform
+fhtPower (1)             - calculate power spectrum from Hartley transform
+fork_xshow (1)           - an example of how to pass data to xshow
+fractile (1)             - noise reduction filtering
+ft2ht (1)                - 2d fourier to hartley conversion
+gammaAdjust (1)          - Simple gamma correction
+glRunLength (1)          - Grey value distribution of run lengths
+glcm (1)                 - Computes Grey Level Cooccurrence Matrix
+glcmParameter (1)        - Computes different features from the Grey Level
+                           Co-occurrence Matrix (GLCM)
+grad (1)                 - gradient like operators
+gradInv (1)              - gradient invers noise reduction
+gradient (1)             - gradient like operators
+haar (1)                 - Two dimensional forward or inverse Haar transform
+haar2d (1)               - Two dimensional forward or inverse Haar transform
+haarTexture (1)          - texture extraction from 2D Haar transform
+highpass (1)             - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+histo2ps (1)             - make a Postscript plot of a histogram
+histoEq (1)              - histogram equalization
+histoEqCol (1)           - histogram equalization color table
+histoMeanStd (1)         - linear scaling to desired mean and std.
+histoNorm (1)            - histogram normalization
+houghCircle (1)          - Hough transform to detect circles
+houghLine (1)            - Hough transform for line detection
+ht2ft (1)                - 2d hartley to fourier conversion
+ihs2rgb (1)              - Convert from IHS to RGB
+imag (1)                 - extract imaginary part of complex band
+image_minmax (1)         - find minimum and maximum in an image
+isoCluster (1)           - ISODATA clustering, unsupervised classification
+kMeansCluster (1)        - Kmeans clustering
+kncn (1)                 - k nearest connected neighbour noise reduction
+knn (1)                  - k nearest neighbour noise reduction
+lapZeroCross (1)         - find zero crossing of lapacian
+laplace (1)              - edge and line detection
+linearTrans (1)          - linear image to image transformation
+lit (1)                  - Local Information Transform texture measure
+litSnn (1)               - texture measure, combination of lit and snn
+logarithm (1)            - Take logarithm of BIFF band (compress dynamic range)
+logical (1)              - logical pixel by pixel operations
+lowpass (1)              - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+lowpassIdeal (1)         - make an "ideal", truncated, lowpass filter in the
+                           spatial or Fourier domain
+makepseudo (1)           - Make a pseudocolor image with corresponding
+                           colortable from rgb color image
+maxHisto (1)             - texture measure
+maxSimilar3x3 (1)        - maximum similarity 3x3 noise reduction
+maxarea (1)              - max operator over a local window
+maxima (1)               - detection of local maxima
+mbkncn (1)               - multi band k nearest connected neighbour noise
+                           reduction
+mbknn (1)                - multi band k nearest neighbour noise reduction
+mct (1)                  - Create a color table from ascii data.
+mean (1)                 - compute local mean
+median (1)               - noise reduction filtering
+minarea (1)              - min operator over a local window
+minima (1)               - detection of local minima
+minmaxTexture (1)        - Min-Max filters for texture measurement
+mkFractalSra (1)         - make fractal brownian motion noise
+mkGauss (1)              - make an image with gaussian random noise
+mkHisto (1)              - make and print a histogram
+mkImg (1)                - make an image with specified size, pixel type and
+                           value
+mkMorph (1)              - make a morphological structuring element
+mkPoisson (1)            - make an image with Poisson random noise.
+mode (1)                 - noise removal and edge sharpening
+morphClose (1)           - morphological grayscale operations on an image
+morphDilate (1)          - morphological grayscale operations on an image
+morphErode (1)           - morphological grayscale operations on an image
+morphOpen (1)            - morphological grayscale operations on an image
+mosaic (1)               - combine several images to a new one band image
+multGauss (1)            - multiply image with random gaussian noise
+multiply (1)             - multiply two bands pixel by pixel
+negate (1)               - negate an image
+newtitle (1)             - insert new title into an image
+overlap (1)              - calculate overlapping band areas
+peanoScan (1)            - scan an image in "peano" order
+phase (1)                - phase of complex image
+pixel_mapper (1)         - map pixel values into new value
+pnm2biff (1)             - Convert a pnm (ppm, pgm or pbm) image to BIFF format
+power (1)                - take the power of each pixel value
+prewitt (1)              - gradient like operators
+profile (1)              - Calculate pixel values along a line
+pseudo2rgb (1)           - convert 1band image + colortable to rgb image
+pseudomedian3x3 (1)      - median like noise reduction filtering
+pyramid (1)              - create a pyramid data structure
+quadratic (1)            - quadratic geometric transform
+rainbow (1)              - create a color map based on ihs
+rank (1)                 - noise reduction filter
+raw2biff (1)             - convert raw data to BIFF file
+real (1)                 - extract real part of complex band
+regionAnalyse (1)        - split BIFF image into regions and describe regions
+regionConvexHull (1)     - find the convex hull of regions
+reorganize (1)           - rotate, mirror or transpose an image
+resample (1)             - stretch or compress an image
+rgb2ihs (1)              - Convert from RGB to IHS
+rms (1)                  - root mean square difference between two images
+roberts (1)              - gradient like operators
+rotate (1)               - rotate an image
+saturmod (1)             - modify saturation in color map file
+scale (1)                - linear scaling of pixel values
+scatter (1)              - make a scatterplot
+segmRandom (1)           - Create image with two regions, random border.
+segmSpannWilson (1)      - segmentation by the Spann and Wilson method
+shift_img (1)            - Set new origo on a BIFF image
+sigma (1)                - noise reduction filtering
+signDiff (1)             - signed difference between two images
+snn (1)                  - symmetric nearest neighbour noise reduction
+sobel (1)                - gradient like operators
+square (1)               - take the square of each pixel value
+squareRoot (1)           - take the square root of each pixel value
+statistics (1)           - extract statistical information from an image
+stdev (1)                - calculation of local standard deviation
+stdiff (1)               - local statistical differencing
+stvar (1)                - local variance
+subcopy (1)              - copy a part of an image into a new image
+sunraster2biff (1)       - convert Sun rasterfile to BIFF-file
+thresBernsen (1)         - local variable treshold by the method of Bernsen.
+thresLloyd (1)           - threshold by the method of Lloyd
+thresMinErr (1)          - minimum error threshold.
+thresMl (1)              - multi level supervised thresholding
+thresMlCentroid (1)      - multi level thresholding by local centroid method
+thresMlComCur (1)        - multi-level thresholding by Reddi using complexity
+                           curve
+thresMlReddi (1)         - multi-level thresholding by Reddi et al.
+thresMlWaHa (1)          - Finds multiple thresholds by Wang & Haralick method
+thresOtsu (1)            - threshold by the method of Otsu
+thresPtile (1)           - threshold at specified percentage
+thresRidCal (1)          - threshold by the Ridler and Calvard method
+thresSigma (1)           - threshold at fraction of standard deviation
+thresUniErr (1)          - Uniform Error Threshold
+threshold (1)            - threshold an image with specified threshold
+tiff2biff (1)            - Convert an image from TIFF to BIFF format.
+transpose_img (1)        - transpose every band of a BIFF image
+warp (1)                 - polynomial control point mapping
+window (1)               - Make a BIFF image containing a window function
+xadd (1)                 - add two BIFF images and display under X11
+xfft (1)                 - X based interactive 2D fourier transform and display
+xfilter (1)              - filter image and display power spectra
+xhistogram (1)           - Show the histogram of an image in XITE.
+ximage_example (1)       - example application for the XITE ximage toolkit
+xiteStdOpt (1)           - process standard XITE options
+xmovie (1)               - X-based animation (movie) program for BIFF images in
+                           XITE
+xpyramid (1)             - pyramid representation of image
+xregion (1)              - interactively draw regions in an XITE overlay image
+xshow (1)                - XITE X11 displayprogram for images and GUI for image
+                           processing
+xwarp (1)                - compare two images
+zernike (1)              - zernike moment image of a gray scale or binary image
+
+XITE functions (man section 3):
+
+AddAction (3)            - XITE shell widgets.
+AddColormapCopy (3)      - XITE color routines
+Add_entry_layout (3)     - toolkit for creating X11 applications in XITE
+Color_add (3)            - XITE color routines
+Color_exit (3)           - XITE color routines
+Color_map (3)            - XITE color routines
+Color_map2 (3)           - XITE color routines
+Color_max (3)            - XITE color routines
+Color_ovl_add (3)        - XITE color routines
+Color_ovl_max (3)        - XITE color routines
+Color_ovl_read (3)       - XITE color routines
+Color_ovl_set (3)        - XITE color routines
+Color_read (3)           - XITE color routines
+Color_set (3)            - XITE color routines
+ColormapCopy (3)         - XITE module for initializing X11 colormaps.
+ColormapStd (3)          - XITE module for initializing X11 colormaps.
+ColorsMenuInit (3)       - XITE color routines
+ColortabName (3)         - XITE color routines
+ConfirmationBox (3)      - Popup dialog widgets
+CreateAppShell (3)       - XITE shell widgets.
+CreateDialog (3)         - Popup dialog widgets
+CreatePopOver (3)        - XITE shell widgets.
+CreatePopTopShell (3)    - XITE shell widgets.
+CreatePopupShell (3)     - XITE shell widgets.
+CreateTopLevelShell (3)  - XITE shell widgets.
+DefaultMessage (3)       - print error/warning/info/usage messages
+DefaultNoMessage (3)     - print error/warning/info/usage messages
+DepthOfVisual (3)        - XITE module for handling X11 display visuals.
+DepthToReducedPlanes (3) - XITE module for handling X11 display visuals.
+Direct24VisualInfo (3)   - XITE module for handling X11 display visuals.
+Error (3)                - print error/warning/info/usage messages
+ExitOnError (3)          - print error/warning/info/usage messages
+FilenamePart (3)         - Return only the filename part of a path.
+Fmatrix_1d (3)           - allocates memory for various purposes
+Fmatrix_2d (3)           - allocates memory for various purposes
+Fmatrix_3d (3)           - allocates memory for various purposes
+FormDialog (3)           - Popup dialog widgets
+GetImageColormap (3)     - XITE module for initializing X11 colormaps.
+Has_changeable_map (3)   - XITE color routines
+Histogram (3)            - Widget class for histograms in XITE programs
+Image (3)                - XITE X11 image widget
+ImageAddress (3)         - Format dependent module for XITE Image Widget
+ImageByteResize (3)      - Resize XITE Image (pixeltype-specific routines)
+ImageCopyImagePart (3)   - XITE X11 image widget
+ImageCopyResources (3)   - XITE X11 image widget
+ImageDoubleResize (3)    - Resize XITE Image (pixeltype-specific routines)
+ImageError (3)           - XITE X11 image widget
+ImageFloatResize (3)     - Resize XITE Image (pixeltype-specific routines)
+ImageFormat (3)          - Format dependent module for XITE Image Widget
+ImageFromMenu (3)        - XITE shell widgets.
+ImageGetImageResources (3) - XITE X11 image widget
+ImageGetResources (3)    - XITE X11 image widget
+ImageGetZoom (3)         - XITE X11 image widget
+ImageGetZoomAll (3)      - XITE X11 image widget
+ImageHasColormap (3)     - XITE X11 image widget
+ImageHeight (3)          - Format dependent module for XITE Image Widget
+ImageHeightToScreen (3)  - XITE X11 image widget
+ImageInstallPixelType (3) - XITE X11 image widget
+ImageKill (3)            - XITE X11 image widget
+ImageLineLength (3)      - Format dependent module for XITE Image Widget
+ImageLongResize (3)      - Resize XITE Image (pixeltype-specific routines)
+ImageOverlay (3)         - XITE X11 image overlay widget
+ImageOverlayColor (3)    - XITE X11 image overlay widget
+ImageOverlayCopyImageOverlayPart (3) - XITE X11 image overlay widget
+ImageOverlayCopyImagePart (3) - XITE X11 image overlay widget
+ImageOverlayCopyResources (3) - XITE X11 image overlay widget
+ImageOverlayDisplay (3)  - XITE X11 image overlay widget
+ImageOverlayDrawBox (3)  - XITE X11 image overlay widget
+ImageOverlayDrawLine (3) - XITE X11 image overlay widget
+ImageOverlayDrawOrigo (3) - XITE X11 image overlay widget
+ImageOverlayDrawPoint (3) - XITE X11 image overlay widget
+ImageOverlayDrawRectangle (3) - XITE X11 image overlay widget
+ImageOverlayFill (3)     - XITE X11 image overlay widget
+ImageOverlayGetResources (3) - XITE X11 image overlay widget
+ImageOverlayPosXYtoAdr (3) - XITE X11 image overlay widget
+ImageOverlayProtect (3)  - XITE X11 image overlay widget
+ImageOverlayRedisplay (3) - XITE X11 image overlay widget
+ImageOverlayResize (3)   - Resize XITE Image (pixeltype-specific routines)
+ImageOverlayScreenXYtoAdr (3) - XITE X11 image overlay widget
+ImagePixName (3)         - Format dependent module for XITE Image Widget
+ImagePixNameToBIFFPixTyp (3) - Format dependent module for XITE Image Widget
+ImagePixPrintFormat (3)  - Format dependent module for XITE Image Widget
+ImagePosXYtoAdr (3)      - XITE X11 image widget
+ImagePosXtoScreen (3)    - XITE X11 image widget
+ImagePosYtoScreen (3)    - XITE X11 image widget
+ImageRedisplay (3)       - XITE X11 image widget
+ImageRedisplayArea (3)   - XITE X11 image widget
+ImageRedisplayScreen (3) - XITE X11 image widget
+ImageResize (3)          - Resize XITE Image (pixeltype-specific routines)
+ImageScreenToHeight (3)  - XITE X11 image widget
+ImageScreenToWidth (3)   - XITE X11 image widget
+ImageScreenXYtoAdr (3)   - XITE X11 image widget
+ImageScreenXtoPos (3)    - XITE X11 image widget
+ImageScreenYtoPos (3)    - XITE X11 image widget
+ImageSetZoom (3)         - XITE X11 image widget
+ImageSetZoomAll (3)      - XITE X11 image widget
+ImageShortResize (3)     - Resize XITE Image (pixeltype-specific routines)
+ImageSignedByteResize (3) - Resize XITE Image (pixeltype-specific routines)
+ImageTitle (3)           - Format dependent module for XITE Image Widget
+ImageTranslateZoomPanArgs (3) - XITE X11 image widget
+ImageUnsignedShortResize (3) - Resize XITE Image (pixeltype-specific routines)
+ImageUpdateMinMax (3)    - XITE X11 image widget
+ImageWidth (3)           - Format dependent module for XITE Image Widget
+ImageWidthToScreen (3)   - XITE X11 image widget
+ImageXstart (3)          - Format dependent module for XITE Image Widget
+ImageYstart (3)          - Format dependent module for XITE Image Widget
+Info (3)                 - print error/warning/info/usage messages
+InformationBox (3)       - Popup dialog widgets
+InitColortableGray (3)   - XITE module for initializing X11 colormaps.
+InitColortableGrayPart (3) - XITE module for initializing X11 colormaps.
+InitColortablePixels (3) - XITE module for initializing X11 colormaps.
+InitMessage (3)          - print error/warning/info/usage messages
+InitializeVisual (3)     - XITE shell widgets.
+InitializeVisualInfos (3) - XITE module for handling X11 display visuals.
+LastMessage (3)          - print error/warning/info/usage messages
+LogPosition (3)          - toolkit for creating X11 applications in XITE
+LogPositionCallback (3)  - toolkit for creating X11 applications in XITE
+Make_command_layout (3)  - toolkit for creating X11 applications in XITE
+Make_entry_layout (3)    - toolkit for creating X11 applications in XITE
+Make_image_layout (3)    - toolkit for creating X11 applications in XITE
+Make_label_layout (3)    - toolkit for creating X11 applications in XITE
+Make_list_layout (3)     - toolkit for creating X11 applications in XITE
+Make_menu_layout (3)     - toolkit for creating X11 applications in XITE
+Make_prompt_layout (3)   - toolkit for creating X11 applications in XITE
+Make_scroll_layout (3)   - toolkit for creating X11 applications in XITE
+MallocFloatP (3)         - Allocate memory for a number and return pointer
+MallocIntP (3)           - Allocate memory for a number and return pointer
+Message (3)              - print error/warning/info/usage messages
+MessageStream (3)        - print error/warning/info/usage messages
+Mmatrix_1d (3)           - allocates memory for various purposes
+Mmatrix_2d (3)           - allocates memory for various purposes
+Mmatrix_3d (3)           - allocates memory for various purposes
+MorphScale (3)           - raise or lower morphological structuring element to
+                           get maximum or minimum equal to zero
+NextFilename (3)         - extract next string in a ":"-separated list of
+                           strings.
+OverlaysMenuInit (3)     - XITE color routines
+OvltabName (3)           - XITE color routines
+PlanesToDepth (3)        - XITE module for handling X11 display visuals.
+PopMessage (3)           - print error/warning/info/usage messages
+PopupAdd (3)             - XITE shell widgets.
+PopupExit (3)            - XITE shell widgets.
+PopupInit (3)            - XITE shell widgets.
+PopupLine (3)            - XITE shell widgets.
+PopupMenu (3)            - XITE shell widgets.
+PopupWidget (3)          - XITE shell widgets.
+Popup_add (3)            - XITE shell widgets.
+PrintColormap (3)        - XITE module for initializing X11 colormaps.
+PrintColortable (3)      - Read, write and create colortables and colormaps
+PrintWidgetColormap (3)  - XITE module for initializing X11 colormaps.
+Pseudo8VisualInfo (3)    - XITE module for handling X11 display visuals.
+PushMessage (3)          - print error/warning/info/usage messages
+RGBPixel (3)             - XITE module for initializing X11 colormaps.
+RequestedImageVisual (3) - XITE module for handling X11 display visuals.
+RequestedImageVisualAndColormap (3) - XITE shell widgets.
+RequestedPlanes (3)      - XITE module for handling X11 display visuals.
+SelectReadFile (3)       - Popup dialog widgets
+SelectWriteFile (3)      - Popup dialog widgets
+SimpleDialog (3)         - Popup dialog widgets
+SpreadGray (3)           - XITE module for initializing X11 colormaps.
+TopLevelWidget (3)       - XITE shell widgets.
+True24VisualInfo (3)     - XITE module for handling X11 display visuals.
+Usage (3)                - print error/warning/info/usage messages
+Verbose (3)              - print error/warning/info/usage messages
+Visual (3)               - XITE module for handling X11 display visuals.
+VisualInfoFromClass (3)  - XITE module for handling X11 display visuals.
+Warning (3)              - print error/warning/info/usage messages
+Xcolor_deftab (3)        - XITE color routines
+XfwfBoard (3)            - Free Widget Foundation Board widget
+XfwfButton (3)           - Free Widget Foundation Button widget
+XfwfCommon (3)           - Free Widget Foundation Common widget
+XfwfFileSelector (3)     - Free Widget Foundation FileSelector widget
+XfwfFrame (3)            - Free Widget Foundation Frame widget
+XfwfGroup (3)            - Free Widget Foundation Group widget
+XfwfLabel (3)            - Free Widget Foundation Label widget
+XfwfMenuBar (3)          - Free Widget Foundation MenuBar widget
+XfwfMultiList (3)        - Free Widget Foundation MultiList widget
+XfwfOptionButton (3)     - Free Widget Foundation OptionButton widget
+XfwfPrompt (3)           - Free Widget Foundation Prompt widget
+XfwfPullDown (3)         - Free Widget Foundation PullDown widget
+XfwfRowCol (3)           - Free Widget Foundation RowCol widget
+XfwfRows (3)             - Free Widget Foundation Rows widget
+XfwfScrolledList (3)     - Free Widget Foundation ScrolledList widget
+XfwfTextMenu (3)         - Free Widget Foundation TextMenu widget
+XfwfToggle (3)           - Free Widget Foundation Toggle widget
+XptyClose (3)            - Start and stop child process to execute jobs
+XptyInit (3)             - Start and stop child process to execute jobs
+XptyJobs (3)             - Start and stop child process to execute jobs
+XptyKill (3)             - Start and stop child process to execute jobs
+XptyList (3)             - Start and stop child process to execute jobs
+XptyMessage (3)          - Start and stop child process to execute jobs
+XptyStartProgram (3)     - Start and stop child process to execute jobs
+absDiff (3)              - absolute difference between two bands
+absValue (3)             - take the absolute value of a band
+addGauss (3)             - add gaussian random noise to a band
+addPoisson (3)           - add Poisson noise to the output band
+add_callback_first (3)   - toolkit for creating X11 applications in XITE
+add_callback_last (3)    - toolkit for creating X11 applications in XITE
+add_callback_to_image (3) - toolkit for creating X11 applications in XITE
+add_callback_to_image_layout (3) - toolkit for creating X11 applications in XITE
+add_to_image_callbacks (3) - toolkit for creating X11 applications in XITE
+addw (3)                 - add two bands pixel by pixel, with weights
+affine (3)               - affine geometric transform
+argvOptions (3)          - Concatenate all the command-line options and
+                           arguments in one string.
+ascii2biff (3)           - convert an ascii file to BIFF format
+average (3)              - computes the average of several bands in an input
+                           image
+band_minmax (3)          - find minimum and maximum in a BIFF image band
+band_minmax_disp (3)     - find minimum and maximum in a BIFF image band
+bandpass (3)             - "Ideal" filters truncated with window function in the
+                           spatial domain
+bandpassf (3)            - make a filter in the Fourier domain
+bandstop (3)             - "Ideal" filters truncated with window function in the
+                           spatial domain
+bandstopf (3)            - make a filter in the Fourier domain
+bartlett (3)             - circularly symmetric window functions for filters and
+                           parsing of window function name
+bdf2biff (3)             - converts a Bitmap Distribution Format font file into
+                           a BIFF image of at least 255 bands
+biff2ascii (3)           - write a biff band to an ascii data file
+biff2pnm (3)             - Convert a BIFF image to pnm (ppm, pgm or pbm) format
+biff2pnmc (3)            - Convert a BIFF image to pnm (ppm, pgm or pbm) format
+biff2pnmg (3)            - Convert a BIFF image to pnm (ppm, pgm or pbm) format
+biff2raw (3)             - write a biff band to a raw data file
+biff2tiff (3)            - Convert a BIFF image to TIFF
+biff2tiff1 (3)           - Convert a BIFF image to TIFF
+biff2tiff16 (3)          - Convert a BIFF image to TIFF
+biff2tiff16c (3)         - Convert a BIFF image to TIFF
+biff2tiff16s (3)         - Convert a BIFF image to TIFF
+biff2tiff16sc (3)        - Convert a BIFF image to TIFF
+biff2tiff32fp (3)        - Convert a BIFF image to TIFF
+biff2tiff32fpc (3)       - Convert a BIFF image to TIFF
+biff2tiff32i (3)         - Convert a BIFF image to TIFF
+biff2tiff32ic (3)        - Convert a BIFF image to TIFF
+biff2tiff64 (3)          - Convert a BIFF image to TIFF
+biff2tiff64c (3)         - Convert a BIFF image to TIFF
+biff2tiff8 (3)           - Convert a BIFF image to TIFF
+biff2tiff8c (3)          - Convert a BIFF image to TIFF
+biff2tiff8p (3)          - Convert a BIFF image to TIFF
+biff2tiff8s (3)          - Convert a BIFF image to TIFF
+biff2tiff8sc (3)         - Convert a BIFF image to TIFF
+biff_swap (3)            - swap byte order in biff-band
+butterworthf (3)         - make a filter in the Fourier domain
+canny (3)                - detect edges in image using Canny operator
+canny_filters (3)        - detect edges in image using Canny operator
+canny_scale (3)          - detect edges in image using Canny operator
+classMeans (3)           - calculate class means
+classifyNearest (3)      - classify to nearest class
+closestMinMax (3)        - closest of minimum and maximum, noise reduction
+cmapOfVisual (3)         - XITE module for initializing X11 colormaps.
+cmapOfVisualClass (3)    - XITE module for initializing X11 colormaps.
+colMax (3)               - Maximum and minimum of BIFF band row or column
+colMaxArr (3)            - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+colMaxArrBand (3)        - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+colMaxBand (3)           - Maximum and minimum of BIFF band row or column
+colMin (3)               - Maximum and minimum of BIFF band row or column
+colMinArr (3)            - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+colMinArrBand (3)        - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+colMinBand (3)           - Maximum and minimum of BIFF band row or column
+color2ascii (3)          - write a biff band to an ascii data file
+color_convertfromimg (3) - Read, write and create colortables and colormaps
+color_create (3)         - Read, write and create colortables and colormaps
+color_read (3)           - Read, write and create colortables and colormaps
+color_write (3)          - Read, write and create colortables and colormaps
+colorbar_image (3)       - Mix image colors in a palette
+colorbar_widget (3)      - Mix image colors in a palette
+colorfile (3)            - Read, write and create colortables and colormaps
+column (3)               - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+columnBand (3)           - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+combine (3)              - combine two bands
+combineTransf (3)        - combine two histo. transformations to one
+complexConjug (3)        - take the complex conjugate of a band
+compute (3)              - Simple calculator.
+compute_answer (3)       - Simple calculator.
+compute_define (3)       - Simple calculator.
+compute_error (3)        - Simple calculator.
+compute_line (3)         - Simple calculator.
+contour (3)              - create a contour map
+conv3x3 (3)              - convolution between band and 3x3 matrix
+convertBand (3)          - convert a band to another pixel type
+convolve (3)             - perform an n x m convolution
+copyBand (3)             - copy a band
+crossSection (3)         - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+crossSectionBand (3)     - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+crossing (3)             - find zero crossing or any other crossing
+cstatistic (3)           - extract statistical information from a band
+curveToBand (3)          - Make BIFF image band visualize 1-D curve
+dither (3)               - create a dithering band
+divide (3)               - divide two bands pixel by pixel
+drawBand (3)             - draw constant value into a whole band
+drawCircle (3)           - draw a circle in a BIFF image band
+drawLine (3)             - draw a line in a BIFF image band
+enter_function_debug (3) - Handle debug printouts in XITE
+envfindfile (3)          - search for file in an environment path
+envfindfilemulti (3)     - search for file in an environment path
+exponentialf (3)         - make a filter in the Fourier domain
+extrema1 (3)             - detection of local minima and maxima
+extrema2 (3)             - detection of local minima and maxima
+fft (3)                  - Two dimensional Fourier Transform
+fft2d (3)                - Two dimensional Fourier Transform
+fftAmp (3)               - take the absolute value of a band
+fftDisplay (3)           - Take logarithm of BIFF band (compress dynamic range)
+fftImag (3)              - extract imaginary part of complex band
+fftMakeBp (3)            - make a filter in the Fourier domain
+fftMakeBs (3)            - make a filter in the Fourier domain
+fftMakeHp (3)            - make a filter in the Fourier domain
+fftMakeLp (3)            - make a filter in the Fourier domain
+fftMult (3)              - multiply two bands pixel by pixel
+fftPhase (3)             - phase of complex image band
+fftPower (3)             - take the power of each pixel value
+fftReal (3)              - extract real part of complex band
+fht1d (3)                - 1 dimensional fast Hartley transform
+fht2d (3)                - 2 dimensional fast Hartley transform
+fhtInitTables (3)        - initialize tables for fast Hartley transform
+fhtPhase (3)             - find Fourier transform phase from Hartley transform
+fhtPower (3)             - calculate power specter from Hartley transform
+fractile (3)             - noise reduction filtering
+fractile_mask (3)        - noise reduction filtering
+ft2ht (3)                - 2d fourier to hartley conversion
+gammaAdjust (3)          - Simple gamma correction
+gaussRandom (3)          - random function with gaussian distribution
+glRunLength (3)          - create the Grey level run length matrix
+glcm (3)                 - Computes Grey Level Cooccurrence Matrix
+glcmAsm (3)              - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmCont (3)             - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmCorr (3)             - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmDiagmoment (3)       - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmEntropy (3)          - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmIdm (3)              - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmInertia (3)          - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmParameter (3)        - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmProm (3)             - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmShade (3)            - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glcmVar (3)              - Computes features from the Grey Level Co-occurrence
+                           Matrix (GLCM)
+glrlGln (3)              - extract grey level run length parameters
+glrlLgre (3)             - extract grey level run length parameters
+glrlLre (3)              - extract grey level run length parameters
+glrlParameters (3)       - extract grey level run length parameters
+glrlRln (3)              - extract grey level run length parameters
+glrlRp (3)               - extract grey level run length parameters
+glrlSgre (3)             - extract grey level run length parameters
+glrlSre (3)              - extract grey level run length parameters
+grad (3)                 - gradient operator for edge detection
+gradInv (3)              - gradient invers noise reduction
+gradient (3)             - gradient operator for edge detection
+haar (3)                 - 1D and 2D forward and inverse Haar Transform
+haar1d (3)               - 1D and 2D forward and inverse Haar Transform
+haar2d (3)               - 1D and 2D forward and inverse Haar Transform
+haarTexture (3)          - texture extraction from 2D Haar transform
+haari1d (3)              - 1D and 2D forward and inverse Haar Transform
+haari2d (3)              - 1D and 2D forward and inverse Haar Transform
+hamming (3)              - circularly symmetric window functions for filters and
+                           parsing of window function name
+hanning (3)              - circularly symmetric window functions for filters and
+                           parsing of window function name
+highpass (3)             - "Ideal" filters truncated with window function in the
+                           spatial domain
+highpassf (3)            - make a filter in the Fourier domain
+histo (3)                - Functions for histogram transformations
+histoCentroid (3)        - move histogram mass to local centroid iteratively
+histoEq (3)              - histogram equalization
+histoEqCol (3)           - histogram equalization color table
+histoMeanStd (3)         - linear scaling to desired mean and std.
+histoNorm (3)            - histogram normalization
+histoSpecify (3)         - histo transformation to specified function
+histoTransf (3)          - perform general histogram transformation
+houghCircle (3)          - Hough transform for circle detection
+houghCircles (3)         - Hough transform for circle detection
+houghLine (3)            - Hough transform for line detection
+hstatistics (3)          - extract statistical information from a band
+ht2ft (3)                - 2d hartley to fourier conversion
+ihs (3)                  - Convert between RGB and IHS
+ihs2rgb (3)              - Convert between RGB and IHS
+ihs2rgb_byte (3)         - Convert between RGB and IHS
+ihs2rgb_img (3)          - Convert image from IHS to RGB
+ihs2rgb_word (3)         - Convert between RGB and IHS
+imag (3)                 - extract imaginary part of complex band
+init_button_table (3)    - Popup dialog widgets
+init_image_callbacks (3) - toolkit for creating X11 applications in XITE
+invertHisto (3)          - invert a histogram transformation
+kncn (3)                 - k nearest connected neighbours noise reduction
+knn (3)                  - k nearest neighbour noise reduction
+lapZeroCross (3)         - find zero crossing of lapacian
+laplace (3)              - edge and line detection
+leave_function_debug (3) - Handle debug printouts in XITE
+linearTrans (3)          - Linear image to image transformation
+lit (3)                  - Local Information Transform texture measure
+litSnn (3)               - texture measure, combination of lit and snn
+logarithm (3)            - Take logarithm of BIFF band (compress dynamic range)
+logical (3)              - logical operators on bands
+logical_and (3)          - logical operators on bands
+logical_band (3)         - logical operators on bands
+logical_bandc (3)        - logical operators on bands
+logical_bnot (3)         - logical operators on bands
+logical_bor (3)          - logical operators on bands
+logical_borc (3)         - logical operators on bands
+logical_bxor (3)         - logical operators on bands
+logical_bxorc (3)        - logical operators on bands
+logical_eq (3)           - logical operators on bands
+logical_eqc (3)          - logical operators on bands
+logical_ge (3)           - logical operators on bands
+logical_gec (3)          - logical operators on bands
+logical_gt (3)           - logical operators on bands
+logical_gtc (3)          - logical operators on bands
+logical_le (3)           - logical operators on bands
+logical_lec (3)          - logical operators on bands
+logical_lshift (3)       - logical operators on bands
+logical_lt (3)           - logical operators on bands
+logical_ltc (3)          - logical operators on bands
+logical_mask (3)         - logical operators on bands
+logical_ne (3)           - logical operators on bands
+logical_nec (3)          - logical operators on bands
+logical_not (3)          - logical operators on bands
+logical_or (3)           - logical operators on bands
+logical_rshift (3)       - logical operators on bands
+logical_xor (3)          - logical operators on bands
+lowpass (3)              - "Ideal" filters truncated with window function in the
+                           spatial domain
+lowpassIdealf (3)        - make a filter in the Fourier domain
+lowpassf (3)             - make a filter in the Fourier domain
+lowpassu (3)             - "Ideal" filters truncated with window function in the
+                           spatial domain
+maxHisto (3)             - texture measure
+maxSimilar3x3 (3)        - maximum similarity 3x3 noise reduction
+maxarea (3)              - max operator over a local window
+maxima (3)               - detection of local maxima
+mbkncn (3)               - multi band k nearest connected neighbour noise
+                           reduction
+mbknn (3)                - multi band k nearest neighbour noise removal
+mean (3)                 - compute local mean
+median (3)               - noise reduction filtering
+message (3)              - print error/warning/info/usage messages
+minarea (3)              - min operator over a local window
+minima (3)               - detection of local minima
+mkComCur (3)             - make complexity curve for a band
+mkConvertBand (3)        - convert a band to another pixel type
+mkCumHisto (3)           - make a cumulative histogram
+mkDhistogram (3)         - make a histogram
+mkFractalSra (3)         - make fractal brownian motion noise
+mkGauss (3)              - make a band with gaussian random noise
+mkHisto (3)              - make a histogram
+mkIhistogram (3)         - make a histogram
+mkMorphForm (3)          - make a flat morphological structuring element
+mkMorphHeight (3)        - make a height on a morphological structuring element
+mkPoisson (3)            - make a band with Poisson random noise.
+mkPyramidAver2 (3)       - create a pyramidal raster data structure
+mkPyramidGauss5 (3)      - create a pyramidal raster data structure
+mkPyramidRank2 (3)       - create a pyramidal raster data structure
+mode (3)                 - noise removal and edge sharpening
+morphClose (3)           - morphological grayscale operations
+morphDilate (3)          - morphological grayscale operations
+morphErode (3)           - morphological grayscale operations
+morphOpen (3)            - morphological grayscale operations
+multGauss (3)            - multiply band with random gaussian noise
+multiply (3)             - multiply two bands pixel by pixel
+negate (3)               - negate a band
+noiseStDev (3)           - noise reduction filtering
+oiWarpMapping (3)        - polynomial control point mapping
+overlap (3)              - calculate overlapping area of two bands
+parseFilterTypeName (3)  - make a filter in the Fourier domain
+parseWindowName (3)      - circularly symmetric window functions for filters and
+                           parsing of window function name
+peanoScan (3)            - scan a band in "peano" order
+phase (3)                - phase of complex image band
+pnm2biff (3)             - Convert a pnm (ppm, pgm or pbm) image to BIFF format
+power (3)                - take the power of each pixel value
+prepend_debug_blanks (3) - Handle debug printouts in XITE
+prewitt (3)              - gradient operator for edge detection
+profile (3)              - Calculate pixel values along a line.
+pseudo2rgb (3)           - convert band + colortable to rgb image
+pseudomedian3x3 (3)      - median like noise reduction filtering
+pyramid (3)              - create a pyramidal raster data structure
+pyramidAver2 (3)         - create a pyramidal raster data structure
+pyramidGauss5 (3)        - create a pyramidal raster data structure
+pyramidRank2 (3)         - create a pyramidal raster data structure
+quadratic (3)            - quadratic geometric transform
+rank (3)                 - noise reduction filter
+read_bswitch (3)         - read switches from command line
+read_colormap (3)        - Read, write and create colortables and colormaps
+read_dswitch (3)         - read switches from command line
+read_iswitch (3)         - read switches from command line
+read_sunraster (3)       - read Sun rasterfile to BIFF image
+read_switch (3)          - read switches from command line
+real (3)                 - extract real part of complex band
+realloc_string (3)       - Reallocate string to ensure enough memory is
+                           available for an extension.
+reclassifyBoundary (3)   - reclassify the boundary pixels
+rectangle (3)            - circularly symmetric window functions for filters and
+                           parsing of window function name
+regionArea (3)           - find the area of one or more regions
+regionCMoment (3)        - the moment of one or more regions
+regionConvexHull (3)     - find the convex hull of a region
+regionCopy (3)           - create a copy of a region
+regionCreate (3)         - create a new region
+regionDeleteYline (3)    - delete yline from a region
+regionDraw (3)           - draw one or more y-line regions in a band
+regionEndInsert (3)      - clean up region at end of yline insertion
+regionFree (3)           - free the memory occupied by a region
+regionHisto (3)          - make a histogram of pixels in a region
+regionHistoUpdate (3)    - make a histogram of pixels in a region
+regionImoment (3)        - compute invariant moments
+regionInsertYline (3)    - insert yline into newly created region
+regionIsPoint (3)        - Is (x, y) a point in the region/list
+regionMean (3)           - calculate xmean or ymean of one or more regions
+regionMinMax (3)         - calc xmin, ymin, xmax, ymax of a region(s)
+regionMoment (3)         - the moment of one or more regions
+regionNeighbor (3)       - are two regions neighbors?
+regionOverlap (3)        - do two regions overlap?
+regionPMoment (3)        - the moment of one or more regions
+regionPerform (3)        - perform any procedure for each point in region
+regionPerimeter (3)      - find the perimeter of one or more regions
+regionPoint (3)          - return a point (x, y) in the region
+regionSearch (3)         - search through and create a region
+regionSort (3)           - sort regions according to object number
+regionUnion (3)          - calculate the union of two regions
+regionVolume (3)         - find the volume under one or more regions
+regionXmax (3)           - calc xmin, ymin, xmax, ymax of a region(s)
+regionXmean (3)          - calculate xmean or ymean of one or more regions
+regionXmin (3)           - calc xmin, ymin, xmax, ymax of a region(s)
+regionYline (3)          - split an image into homogenous regions
+regionYmax (3)           - calc xmin, ymin, xmax, ymax of a region(s)
+regionYmean (3)          - calculate xmean or ymean of one or more regions
+regionYmin (3)           - calc xmin, ymin, xmax, ymax of a region(s)
+resample (3)             - stretch or compress a band
+rgb2ihs (3)              - Convert between RGB and IHS
+rgb2ihs_byte (3)         - Convert between RGB and IHS
+rgb2ihs_img (3)          - Convert image from RGB to IHS
+rgb2ihs_word (3)         - Convert between RGB and IHS
+rms (3)                  - root mean square difference between two bands
+roberts (3)              - gradient operator for edge detection
+rotate (3)               - rotate transform
+row (3)                  - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+rowBand (3)              - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+rowMax (3)               - Maximum and minimum of BIFF band row or column
+rowMaxArr (3)            - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+rowMaxArrBand (3)        - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+rowMaxBand (3)           - Maximum and minimum of BIFF band row or column
+rowMin (3)               - Maximum and minimum of BIFF band row or column
+rowMinArr (3)            - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+rowMinArrBand (3)        - Horizontal and vertical cross-sections, row or column
+                           of BIFF band
+rowMinBand (3)           - Maximum and minimum of BIFF band row or column
+scale (3)                - linear scaling of pixel values
+scaleHisto (3)           - scale a cumulative histogram
+scaled2col (3)           - convert scaled cumulative histogram
+scatter (3)              - make a scatterplot
+segmRandom (3)           - draw two regions, random border
+segmSpannWilson (3)      - segmentation by the Spann and Wilson method
+set_init_color (3)       - toolkit for creating X11 applications in XITE
+set_init_ovl_color (3)   - toolkit for creating X11 applications in XITE
+shift_band (3)           - Set new origo on a band.
+sigma (3)                - noise reduction filtering
+sigmat (3)               - noise reduction filtering
+signDiff (3)             - signed difference between two bands
+snn (3)                  - symmetric nearest neighbour noise reduction
+sobel (3)                - gradient operator for edge detection
+split_cmd_line (3)       - split command line into words
+square (3)               - take the square of each pixel value
+squareRoot (3)           - take the square root of each pixel value
+start_xshow (3)          - start xshow
+statistic (3)            - extract statistical information from a band
+statisticMask (3)        - extract statistical information from a band
+statisticMasks (3)       - extract statistical information from a band
+statistics (3)           - extract statistical information from a band
+stdev (3)                - calculation of local standard deviation
+stdiff (3)               - local statistical differencing
+stvar (3)                - local variance
+thresBernsen (3)         - local treshold by the method of Bernsen.
+thresLloyd (3)           - threshold by the method of Lloyd
+thresMinErrCrit (3)      - minimum error threshold, criterion function method
+thresMinErrEqVar (3)     - minimum error thresholding with equal variances.
+thresMinErrIter (3)      - minimum error threshold, iteration method
+thresMlAppMean (3)       - routines that applies ml-thresholds.
+thresMlAppMedian (3)     - routines that applies ml-thresholds.
+thresMlAppScale (3)      - routines that applies ml-thresholds.
+thresMlApply (3)         - routines that applies ml-thresholds.
+thresMlCentroid (3)      - multi level thresholding by local centroid method
+thresMlComCur (3)        - multi-level threshold using complexity curve
+thresMlReddi (3)         - multi-level thresholding by Reddi et al.
+thresMlWaHa (3)          - Finds multiple thresholds by Wang & Haralick method.
+thresOtsu (3)            - threshold by the method of Otsu
+thresPtile (3)           - threshold at specified percentage
+thresRidCal (3)          - threshold by the Ridler and Calvard method
+thresSigma (3)           - threshold at fraction of standard deviation
+thresUniErr (3)          - Uniform Error Threshold
+threshold (3)            - threshold a band with specified threshold
+thresholdSpOut (3)       - threshold a band with specified threshold
+tiff2biff (3)            - Convert a TIFF image to a BIFF image
+tiff2biff1 (3)           - Convert a TIFF image to a BIFF image
+tiff2biff16 (3)          - Convert a TIFF image to a BIFF image
+tiff2biff16c (3)         - Convert a TIFF image to a BIFF image
+tiff2biff1p (3)          - Convert a TIFF image to a BIFF image
+tiff2biff2 (3)           - Convert a TIFF image to a BIFF image
+tiff2biff2p (3)          - Convert a TIFF image to a BIFF image
+tiff2biff32fp (3)        - Convert a TIFF image to a BIFF image
+tiff2biff32fpc (3)       - Convert a TIFF image to a BIFF image
+tiff2biff32i (3)         - Convert a TIFF image to a BIFF image
+tiff2biff32ic (3)        - Convert a TIFF image to a BIFF image
+tiff2biff4 (3)           - Convert a TIFF image to a BIFF image
+tiff2biff4p (3)          - Convert a TIFF image to a BIFF image
+tiff2biff64 (3)          - Convert a TIFF image to a BIFF image
+tiff2biff64c (3)         - Convert a TIFF image to a BIFF image
+tiff2biff8 (3)           - Convert a TIFF image to a BIFF image
+tiff2biff8c (3)          - Convert a TIFF image to a BIFF image
+tiff2biff8p (3)          - Convert a TIFF image to a BIFF image
+tilde_expand (3)         - handle filenames in XITE
+transpose_band (3)       - transpose a BIFF image band
+triangle (3)             - circularly symmetric window functions for filters and
+                           parsing of window function name
+utl_malloc (3)           - allocates memory for various purposes
+vectorPeak (3)           - Maximum and minimum of BIFF band row or column
+visualClassToName (3)    - XITE module for handling X11 display visuals.
+visualFromClass (3)      - XITE module for handling X11 display visuals.
+visualFromName (3)       - XITE module for handling X11 display visuals.
+visualNameToClass (3)    - XITE module for handling X11 display visuals.
+warp (3)                 - polynomial control point mapping
+warp_resample (3)        - polynomial control point mapping
+window (3)               - Insert a window-function in a BIFF band.
+write_sunraster (3)      - write BIFF image to Sun rasterfile
+writepnm (3)             - Convert a BIFF image to pnm (ppm, pgm or pbm) format
+xhistogram (3)           - show the histogram of an image.
+ximage (3)               - toolkit for creating X11 applications in XITE
+ximageInit (3)           - toolkit for creating X11 applications in XITE
+ximageLayout (3)         - toolkit for creating X11 applications in XITE
+ximage_app_options (3)   - toolkit for creating X11 applications in XITE
+ximage_app_resources (3) - toolkit for creating X11 applications in XITE
+ximage_app_usage_text (3) - toolkit for creating X11 applications in XITE
+ximage_colorbar (3)      - toolkit for creating X11 applications in XITE
+ximage_display (3)       - toolkit for creating X11 applications in XITE
+ximage_exit (3)          - toolkit for creating X11 applications in XITE
+ximage_histogram (3)     - toolkit for creating X11 applications in XITE
+ximage_info (3)          - toolkit for creating X11 applications in XITE
+ximage_init (3)          - toolkit for creating X11 applications in XITE
+ximage_layout (3)        - toolkit for creating X11 applications in XITE
+ximage_mainloop (3)      - toolkit for creating X11 applications in XITE
+ximage_slice (3)         - toolkit for creating X11 applications in XITE
+ximage_usage_text (3)    - toolkit for creating X11 applications in XITE
+xiteFilenameType (3)     - handle filenames in XITE
+xite_app_std_usage_text (3) - print error/warning/info/usage messages
+xite_pipe_filedes (3)    - handle filenames in XITE
+xite_standard_options_usage_text (3) - print error/warning/info/usage messages
+xslice (3)               - Mix image colors in a palette
+zer_con (3)              - Zernike moments
+zer_mom (3)              - Zernike moments
+zer_pol (3)              - Zernike moments
+zer_rec (3)              - Zernike moments
+
+XITE BIFF file format (man section 5):
+
+Iappend_line (5)         - append a line to BIFF image text field
+Iband_status (5)         - return the status of a BIFF band
+Ibandsize (5)            - Return BIFF band size in bytes
+Iclearbit (5)            - clear a single bit in a byte band
+Iclose_image (5)         - close a BIFF image file
+Icopy_band (5)           - copy a BIFF band
+Icopy_init (5)           - Create BIFF image with equal size as old
+Icopy_text (5)           - copy textfield from one BIFF image to another
+Idel_band (5)            - delete a BIFF band
+Idel_band_pix (5)        - delete the pixels of a BIFF band
+Idel_image (5)           - delete a BIFF image
+Idel_text (5)            - delete some text in the BIFF image textfield
+Iedit_text (5)           - edit the text in the BIFF image textfield
+Iend_of_text (5)         - return TRUE if at end of BIFF image text field
+Ierr_action (5)          - perform error handling
+Ierr_message (5)         - return BIFF format error message
+Ifilename_part (5)       - interpret/parse file name and band specification
+Iget_line (5)            - read a line from BIFF image text field
+Iget_param (5)           - get a parameter from the BIFF image
+Iget_roi (5)             - return Region Of Interest of BIFF band
+Igetbit (5)              - get a single bit from a byte band
+Igetchar (5)             - read a character from BIFF image text field
+Igetpos (5)              - return character position in BIFF image text field
+Ihistory (5)             - append a history line in the BIFF image text field
+Imake_band (5)           - create a new BIFF band
+Imake_bands (5)          - create all bands of a BIFF image
+Imake_image (5)          - Create the whole BIFF image data structure
+Imake_subband (5)        - define subband of existing BIFF band
+Inbands (5)              - return the number of bands in the BIFF image
+Inchars (5)              - Report number of characters in text field
+Inegbit (5)              - negate a single bit in a byte band
+Init_band (5)            - initiate a BIFF band
+Init_bands (5)           - initialize all bands of a BIFF image
+Init_image (5)           - initialize a BIFF image
+Iopen_image (5)          - open a BIFF-file
+IparsePixtyp (5)         - return the BIFF pixeltype from a string
+                           representation
+Iparse_band_spec (5)     - interpret/parse file name and band specification
+Iparse_filename (5)      - interpret/parse file name and band specification
+IpixPrintFormat (5)      - return the pixeltype name of a BIFF pixel type, and
+                           the format string for printing pixel values
+Ipixname (5)             - return the pixeltype name of a BIFF pixel type, and
+                           the format string for printing pixel values
+Ipixsize (5)             - return the BIFF pixel size in bits
+Ipixtyp (5)              - return the pixel type of the BIFF band
+Iput_text (5)            - insert text at current position of BIFF image text
+                           field
+Iputchar (5)             - insert character at current position in BIFF image
+                           text field
+Iread_band (5)           - read BIFF band from file
+Iread_block (5)          - read a block from a BIFF image file
+Iread_image (5)          - read (parts of ) a BIFF image from file
+Iread_image_bands (5)    - read (parts of ) a BIFF image from file
+Iread_text (5)           - read text field from file into BIFF image
+Iset_abort (5)           - turn BIFF error abort on/off
+Iset_mag (5)             - set the magnification attributes of BIFF band
+Iset_message (5)         - turn BIFF error messaging on/off
+Iset_nbands (5)          - change number of bands in the BIFF image
+Iset_overwrite (5)       - turn BIFF image file overwrite on/off
+Iset_param (5)           - assign new value to BIFF image parameter
+Iset_roi (5)             - set new Region Of Interest values for BIFF band
+Iset_start (5)           - set the xstart and ystart attributes of BIFF band
+Iset_title (5)           - assign a new title to the BIFF image
+Isetbit (5)              - set a single bit in a byte band
+Isetpos (5)              - set new character position in BIFF image text field
+Istatus (5)              - return the BIFF image status
+Ititle (5)               - Return the title of the BIFF image
+Itype_text (5)           - send all text in BIFF image textfield to a file
+Iwrite_band (5)          - Write a BIFF band to file
+Iwrite_block (5)         - write a block to BIFF image file
+Iwrite_image (5)         - write a BIFF image to file
+Iwrite_text (5)          - write text field from BIFF image to file
+Ixmag (5)                - return the horizontal magnification of BIFF band
+Ixsize (5)               - return horizontal BIFF band size
+Ixstart (5)              - return horizontal starting point of BIFF band
+Iymag (5)                - return the vertical magnification of BIFF band
+Iysize (5)               - return vertical BIFF band size
+Iystart (5)              - return vertical starting point of BIFF band

@@ -1,0 +1,482 @@
+
+; $Id$
+
+;===============================================================
+;
+;        Header types for blab
+;
+; ==============================================================
+
+(defun make-cursor-line-top()
+"Make cursor line top of window"
+  (interactive)
+  (recenter 0))
+
+(defun insert-CVS_IdKeyword()
+"Insert CVS Id keyword (which cannot appear here, to avoid updates from CVS)"
+  (search-backward "CVS_IdKeyword")
+  (kill-word 2)
+  (insert "\$")
+  (insert "Id")
+  (insert "\$"))
+
+; ==============================================================
+
+(defun blab-header-H(name)
+  "Blab-header H"
+  (insert "
+
+#include <xite/includes.h>
+#include <xite/message.h>
+#include <xite/readarg.h>
+#include <xite/biff.h>
+
+"))
+
+; ==============================================================
+
+(defun blab-header-P(name)
+  "Blab-header-P"
+  (interactive "sProgram name: ") 
+  (insert "
+/*P:" name "*
+
+________________________________________________________________
+
+		" name "
+________________________________________________________________
+
+Name:		" name " - 
+
+Syntax:		
+
+Description:	
+
+Restrictions:	
+
+Options:	
+
+Diagnostics:	
+Return value:	
+See also:	
+References:     
+Files:		
+Author:		
+Examples:	
+Id: 		CVS_IdKeyword
+________________________________________________________________
+
+*/
+
+#ifdef MAIN
+
+#ifndef FUNCPROTO
+void main(argc, argv)
+int argc;
+char **argv;
+#else /* FUNCPROTO */
+void main(int argc, char **argv)
+#endif /* FUNCPROTO */
+{
+  char *args;    /* To hold command-line arguments. */
+  char *outFile; /* To hold output filename. */
+  IMAGE in_img;  /* Input image. */
+  IMAGE out_img; /* Output image. */
+
+
+  /* Automatic error message display in BIFF format routines: on  */
+  Iset_message(1);
+
+  /* Automatic job abortion on error in BIFF format routines: off */
+  Iset_abort(0);
+
+  /* Install usage message (end multiple lines with \\n\\)
+   * xite_app_std_usage_text() will append a description of standard XITE
+   * options. Replace xite_app_std_usage_text by ximage_app_usage_text
+   * if the application uses the ximage toolkit.
+   */
+  InitMessage(&argc, argv, xite_app_std_usage_text(
+    \"Usage: %s <required option> [<optional option>]\\n\\
+	     <inimage> <outimage>\\n\"));
+
+  /* Give usage message if no command-line arguments are given. */
+  if (argc == 1) Usage(1, NULL);
+
+  /* Save command-line arguments before processing the command-line with
+   * read_switch() function calls.
+   */
+  args = argvOptions(argc, argv);
+
+  /* Process input options */
+  /* Boolean: b=read_bswitch(&argc, argv, \"option-name\"); */
+  /* Integer: i=read_iswitch(&argc, argv, \"option-name\", default-value); */
+  /* Double:  d=read_dswitch(&argc, argv, \"option-name\", default-value); */
+  /* Text:    t=read_switch (&argc, argv, \"option-name\",1, \"default-value\"); */
+
+  /* Give usage message if arguments are missing. */
+  if (argc != ) Usage(2, \"Illegal number of arguments.\\n\");
+
+  /* Copy text field (image history) from input image to output image. */
+  Icopy_text(in_img, out_img);
+
+  /* Append description of current processing to image history. */
+  Ihistory(out_img, argv[0], options);
+
+  /* Write result to file */
+  Iwrite_image(out_img, outFile);
+  
+  return(0);
+}
+
+#endif
+
+")
+  (insert-CVS_IdKeyword)
+  (previous-line 17)
+  (end-of-line))
+
+; ==============================================================
+
+(defun blab-header-S(name)
+  "Blab-header-S"
+  (interactive "sProgram name: ") 
+  (insert "
+#/*P:" name "*
+#
+#________________________________________________________________
+#
+#		" name "
+#________________________________________________________________
+#
+#Name:		" name " - 
+#
+#Syntax:		
+#
+#Description:	
+#
+#Restrictions:	
+#
+#Options:	
+#
+#Diagnostics:	
+#Return value:	
+#See also:	
+#References:    
+#Files:		
+#Author:		
+#Examples:	
+#Id: 		CVS_IdKeyword
+#________________________________________________________________
+#
+#*/
+
+")
+  (insert-CVS_IdKeyword)
+  (previous-line 17)
+  (end-of-line))
+
+
+; ==============================================================
+
+(defun blab-header-F(name)
+  "Blab-header F"
+  (interactive "sFunction name: ") 
+  (insert "
+
+
+/*F:" name "*
+
+________________________________________________________________
+
+		" name "
+________________________________________________________________
+
+Name:		" name " - 
+
+Syntax:		| #include <xite/>
+		| 
+		| 
+
+Description:	
+
+Restrictions:	
+
+Diagnostics:	
+Return value:	
+See also:	
+References:     
+Files:		
+Author:		
+Id: 		CVS_IdKeyword
+________________________________________________________________
+
+*/
+
+
+#ifndef FUNCPROTO
+" name "()
+#else /* FUNCPROTO */
+" name "()
+#endif /* FUNCPROTO */
+{
+
+}
+
+
+")
+  (insert-CVS_IdKeyword)
+  (previous-line 16)
+  (end-of-line))
+
+; ==============================================================
+
+(defun blab-header-I()
+  "Blab-header I"
+  (insert "
+
+
+/*I*
+
+________________________________________________________________
+
+		Include files and definitions
+________________________________________________________________
+
+*/
+
+#ifndef Header-file-symbol
+#define Header-file-symbol
+
+_XITE_CPLUSPLUS_BEGIN
+
+_XITE_CPLUSPLUS_END
+
+#endif /* Header-file-symbol */
+
+")
+  (previous-line 9)
+  (end-of-line))
+
+; ==============================================================
+
+(defun blab-header-C(name)
+  "Blab-header C"
+  (interactive "sFunction name: ") 
+  (insert "
+
+/*C*
+
+________________________________________________________________
+
+        " name "
+        CVS_IdKeyword
+        Copyright 1994, Blab, UiO
+        Image processing lab, Department of Informatics
+        University of Oslo
+        E-mail: blab@ifi.uio.no
+________________________________________________________________
+  
+  Permission to use, copy, modify and distribute this software and its
+  documentation for any purpose and without fee is hereby granted, 
+  provided that this copyright notice appear in all copies and that 
+  both that copyright notice and this permission notice appear in supporting
+  documentation and that the name of B-lab, Department of Informatics or
+  University of Oslo not be used in advertising or publicity pertaining 
+  to distribution of the software without specific, written prior permission.
+
+  B-LAB DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL B-LAB
+  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN 
+  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ 
+
+*/
+
+static char *Id = \"CVS_IdKeyword, Blab, UiO\";
+
+")
+
+  (insert-CVS_IdKeyword)
+  (insert-CVS_IdKeyword))
+
+; ==============================================================
+
+(defun blab-header-D()
+  "Blab-header D"
+  (insert "
+
+
+/*D*
+
+________________________________________________________________
+
+		Global data structure
+________________________________________________________________
+
+*/
+
+"))
+
+; ==============================================================
+
+(defun blab-header-L(name)
+  "Blab-header L"
+  (interactive "sName: ") 
+  (insert "
+
+
+/*L:" name "*
+
+________________________________________________________________
+
+		" name "
+________________________________________________________________
+
+Name:		" name " - 
+
+Syntax:		
+
+Description:	
+
+Restrictions:	
+
+Diagnostics:	
+Return value:	
+See also:	
+References:     
+Files:		
+Author:		
+Examples:	
+Id: 		CVS_IdKeyword
+________________________________________________________________
+
+*/
+
+
+#ifndef FUNCPROTO
+static " name "()
+#else /* FUNCPROTO */
+static " name "()
+#endif /* FUNCPROTO */
+{
+
+}
+
+
+")
+  (insert-CVS_IdKeyword)
+  (previous-line 15)
+  (end-of-line))
+
+
+(defun insert-header(type name)
+  "Write a c-header"
+  (interactive "sModule type: \nsModule name: ")
+  (make-cursor-line-top)
+  (cond ((string= type "H")
+	 (blab-header-H))
+	 ((string= type "P")
+	 (blab-header-P name))
+	 ((string= type "S")
+	 (blab-header-S name))
+	 ((string= type "F")
+	 (blab-header-F name))
+	 ((string= type "I")
+	 (blab-header-I))
+	 ((string= type "D")
+	 (blab-header-D))
+	 ((string= type "C")
+	 (blab-header-C name))
+         (t
+         (blab-header-L name))))
+
+; ==============================================================
+
+(defun switch-pixtyp(band1 band2 pt bnd1 bnd2)
+  "switch among pixeltypes"
+  (interactive "sFirst input band argument: \nsSecond input band argument: \nsPixeltype variabel: \nsFirst local band variable: \nsSecond local band variable: ")
+  (insert "
+
+  switch ((int) " pt ") {
+  case Iu_byte_typ: {
+    IUB_BAND " bnd1 " = (IUB_BAND) " band1 ";
+    IUB_BAND " bnd2 " = (IUB_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Is_byte_typ: {
+    ISB_BAND " bnd1 " = (ISB_BAND) " band1 ";
+    ISB_BAND " bnd2 " = (ISB_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Iu_short_typ: {
+    IUS_BAND " bnd1 " = (IUS_BAND) " band1 ";
+    IUS_BAND " bnd2 " = (IUS_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Is_short_typ: {
+    ISS_BAND " bnd1 " = (ISS_BAND) " band1 ";
+    ISS_BAND " bnd2 " = (ISS_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Integer_typ: {
+    II_BAND " bnd1 " = (II_BAND) " band1 ";
+    II_BAND " bnd2 " = (II_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Ireal_typ: {
+    IR_BAND " bnd1 " = (IR_BAND) " band1 ";
+    IR_BAND " bnd2 " = (IR_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Idouble_typ: {
+    ID_BAND " bnd1 " = (ID_BAND) " band1 ";
+    ID_BAND " bnd2 " = (ID_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Icomplex_typ: {
+    IC_BAND " bnd1 " = (IC_BAND) " band1 ";
+    IC_BAND " bnd2 " = (IC_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  case Id_complex_typ: {
+    IDC_BAND " bnd1 " = (IDC_BAND) " band1 ";
+    IDC_BAND " bnd2 " = (IDC_BAND) " band2 ";
+
+    
+  }
+    break;
+
+  default: return(Error(1, \"Unknown pixeltype.\\n\"));
+    break;
+
+  } /* switch */
+
+")
+  (previous-line 73)
+  (end-of-line))

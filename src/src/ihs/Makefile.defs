@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for ihs
+#
+OBJ   = ihs.o ihs2rgb.o rgb2ihs.o
+PROG  = ihs2rgb rainbow rgb2ihs
+MANP  = ihs.m ihs2rgb.m rainbow.m rgb2ihs.m
+CINCL =  ihs.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,47 @@
+#!/local/bin/perl -w
+
+# Find names of C source-files corresponding to MANP targets in Makefile.defs.
+
+# $Id$
+
+while (<>) {
+    if ($n=/^ *MANP *=/ ... /^[\S]/) {
+
+        if ($n !~ m/E0$/) {
+            @_ = split;
+            for ($i = 0; $i <= $#_; $i++) {
+	        ($Word, $dum) = ($_[$i] =~ /(.+)\.m/);
+
+	        if ($Word) {
+                    ($Dir, $dum) = ($ARGV =~ /([\w\.\/].*)\/[\w\.]+$/g);
+                    if ($Dir) {
+                        push(@Names, "$Dir/" . "$Word" . ".c");
+                    } else {
+                        push(@Names, "$Word" . ".c");
+                    }
+                }
+	    }
+        }
+    }
+
+    if ($m=/^ *MANP_SH *=/ ... /^[\S]/) {
+
+        if ($m !~ m/E0$/) {
+            @_ = split;
+            for ($i = 0; $i <= $#_; $i++) {
+	        ($Word, $dum) = ($_[$i] =~ /(.+)\.m/);
+
+	        if ($Word) {
+                    ($Dir, $dum) = ($ARGV =~ /([\w\.\/].*)\/[\w\.]+$/g);
+                    if ($Dir) {
+                        push(@Names, "$Dir/" . "$Word" . ".sh");
+                    } else {
+                        push(@Names, "$Word" . ".sh");
+                    }
+                }
+	    }
+        }
+    }
+}
+
+print STDOUT "@Names";

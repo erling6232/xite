@@ -1,0 +1,13 @@
+#
+#   Makefile definitions for fwf/tabstring
+#
+FWFOBJ  = DrawImageString.o DrawString.o Tablist2Tabs.o TextWidth.o strnchr.o
+FWFINCL = TabString.i
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    
+xprog:  

@@ -1,0 +1,93 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Application resources
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XFft.ZoomAll:					False
+XFft.XiteResourceVersion:			3.4
+XFft.Layout:					separate
+XFft.AdjustWidth:				True
+XFft.PanelContainer:				Form
+XFft.WidgetSet:					Xfwf
+XFft.baseTranslations:				#override		\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+*TopLevelShell.baseTranslations:		#override		\n\
+  <ClientMessage>WM_PROTOCOLS: CloseShell()
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Button window
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*topContainer*Background:			Gray80
+*topContainer*Foreground:			Gray20
+*topContainer*Font:		-*-helvetica-bold-r-normal--??-100-*-iso8859-1
+
+*topContainer*resizable:			True
+
+*topContainer.BorderWidth:			0
+*topContainer.defaultDistance:			2
+
+! The following resources are in case topContainer is class Form, not Box.
+*expand.fromHoriz:				quit
+*shrink.fromHoriz:				expand
+*save.fromHoriz:				shrink
+*info.fromHoriz:				save
+
+*quit.Label:					Quit
+*expand.Label:					Expand
+*shrink.Label:					Shrink
+*save.Label:					Save
+*info.Label:					Info
+
+! *topContainer*XfwfButton.ShrinkToFit:		True
+*topContainer*XfwfButton.width:			100
+*topContainer*XfwfButton.height:		30
+*topContainer*XfwfButton.FrameType:		raised
+*topContainer*XfwfButton.FrameWidth:		2
+*topContainer*XfwfButton.TopShadowColor:	Gray95
+*topContainer*XfwfButton.BottomShadowColor:	Gray20
+*topContainer*XfwfButton.ShadowScheme:		color
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Other windows
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Image window Fourier domain
+#include "xiteImage"
+
+*Image.Width:					256
+*Image.Height:					256
+
+! Image window spatial domain
+#include "xiteImageOverlay"
+
+XFft*ImageOverlay.RoiZoomPan:			True
+XFft*ImageOverlay.roiX:				0
+XFft*ImageOverlay.roiY:				0
+XFft*ImageOverlay.roiWidth:			32
+XFft*ImageOverlay.roiHeight:			32
+XFft*ImageOverlay.roiActivated:			1
+XFft*ImageOverlay.roiDisplay:			1
+XFft*ImageOverlay.roiPermanent:			1
+XFft*ImageOverlay.baseTranslations:		#override		\n\
+  None <Btn1Down>:    roi(StartMove) roi(Move)				\n\
+  None <Btn1Motion>:  roi(Move)						\n\
+  None <Btn1Up>:      roi(StopMove)					
+
+#include "xiteImageMenubar"
+#include "xiteImagePopup"
+#include "xiteHisto"
+#include "xiteSlice"
+#include "xiteFileSel"
+#include "xitePopup"
+#include "xitePrompt"

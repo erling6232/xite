@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for noise
+#
+OBJ   = mkGauss.o addGauss.o multGauss.o mkPoisson.o addPoisson.o
+PROG  = mkGauss addGauss multGauss mkPoisson addPoisson
+MANP  = mkGauss.m addGauss.m multGauss.m mkPoisson.m addPoisson.m
+CINCL =  noise.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for convolutions
+#
+OBJ   = convolve.o conv3x3.o gradient.o laplace.o prewitt.o roberts.o sobel.o grad.o crossing.o lapZeroCross.o
+PROG  = convolve conv3x3 gradient laplace prewitt roberts sobel grad crossing lapZeroCross
+MANP  = convolve.m conv3x3.m gradient_op.m laplace.m crossing.m lapZeroCross.m
+CINCL =  convolve.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for stdiff
+#
+OBJ   = maxSimilar3x3.o mean.o stdev.o stdiff.o stvar.o
+PROG  = maxSimilar3x3 mean stdev stdiff stvar
+MANP  = maxSimilar3x3.m mean.m stdev.m stdiff.m stvar.m
+CINCL =  stdiff.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

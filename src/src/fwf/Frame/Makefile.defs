@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/Frame
+#
+FWFOBJ  = Frame.o
+FWFINCL = Frame.i FrameP.i stip4.i
+ROFF3   = XfwfFrame.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  

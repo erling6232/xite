@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# $Id$
+
+if test "$quiet" -eq 0
+then
+  echo "Editing cxite." 1>&2
+fi
+
+cp $XITE_HOME/src/scripts/cxite.sh cxite.tmpl
+
+if test -f cxite
+then
+  echo "Moving existing cxite to cxite.${XITE_HOSTTYPE}.old." 1>&2
+  mv cxite cxite.${XITE_HOSTTYPE}.old
+fi
+
+awk -f $edcxite home=$XITE_HOME hosttype=$XITE_HOSTTYPE \
+  inc=$XITE_INC_DEST lib=$XITE_LIB_DEST xinc=$X_INC_DIR \
+  xlib=$X_LIB_DIR matinc=$MATLAB_INC matlib=$MATLAB_LIB \
+  tiffinc=$TIFF_INC_DIR tifflib=$TIFF_LIB_DIR regex=$regex dirent=$dirent \
+  cxite.tmpl > cxite
+
+if test $? -ne 0
+then
+  echo "ERROR:" 1>&2
+  echo "Editing cxite failed." 1>&2
+  rm cxite > /dev/null 2>&1
+  echo "" 1>&2
+  $paramMessage 1>&2
+
+  exit 1
+fi
+
+mv cxite $XITE_BIN_DEST
+chmod a+rx $XITE_BIN_DEST/cxite
+
+exit 0

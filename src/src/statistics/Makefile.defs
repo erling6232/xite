@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for statistics
+#
+OBJ   = statistics.o band_minmax.o histoMeanStd.o
+PROG  = statistics image_minmax histoMeanStd
+MANP  = statistics.m band_minmax.m histoMeanStd.m
+CINCL =  statistics.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,52 @@
+
+                              Known bugs in XITE
+                                       
+     _________________________________________________________________
+                                      
+Known bugs in version 3.4
+
+     * Some algorithms only work for images with pixel type UNS_BYTE.
+     * Choosing send image from the histogram window works properly only
+       for UNS_BYTE images.
+     * Manipulation of the histogram is not reflected in the image when
+       the histogram is made via the xshow menu on platforms with
+       multiple hardware colormaps (such as Silicon Graphics Indy). This
+       is not serious, since a histogram can also be generated from using
+       the mouse button (Shift-MB2) in the image window. In this latter
+       case, manipulation of the histogram is reflected.
+     * The scrollbars in the slice window do not influence each other
+       when the application is run on a Silicon Graphics Indy.
+     * When a very narrow image is displayed, the actual image may only
+       occupy a vertical strip on the left side of the window. The rest
+       of the window will be shown in the window background color
+       (typically gray). This happens when the following conditions are
+       met.
+          + The window width is smaller than the width of the window
+            manager decoration (window title above the image).
+          + The window is displayed with fixed aspect ratio.
+       To solve this, either start _xshow_ with the option "-aspect" (to
+       use variable aspect ratio) or turn off the fixed aspect ratio of
+       the particular window as soon as it has come up (via a menu entry
+       in the Options image menu), or remove the window manager
+       decoration (see the manual page for your choice of window manager
+       or look for a decoration resource in the window manager's
+       application defaults file).
+     * If you have problems building shared libraries on an IRIX64 host,
+       add the option -check_registry /usr/lib/so_locations to the ld
+       command. You can do it in the makefile for the IRIX64 platform (in
+       XITE's etc directory) or with these steps:
+
+       cd $XITE_HOME/src/Image
+       make -r dso DSO_NAME_OPT='-check_registry /usr/lib64/so_locations -sonam
+e'
+
+   If XITE was compiled in platform-dependent subdirectories, replace the
+       above cd command with the following
+
+       cd $XITE_HOME/src/Image/IRIX64
+
+
+     _________________________________________________________________
+                                      
+   
+    Updated by Svein Bøe.

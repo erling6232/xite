@@ -1,0 +1,16 @@
+#
+#   Makefile definitions for snn
+#
+OBJ   = litSnn.o snn.o
+PROG  = litSnn snn
+MANP  = litSnn.m snn.m
+CINCL =  snn.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

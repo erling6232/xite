@@ -1,0 +1,17 @@
+#
+#   Makefile definitions for biff
+#
+OBJ   = biff.o
+PROG  = biffcopy biffinfo biffmerge newtitle bifftext
+MANP  = biff.m biffcopy.m biffinfo.m biffmerge.m newtitle.m\
+	biffdoc.m bifftext.m
+CINCL = biff.i
+
+include:cincl
+object: cobj
+lib:    clib
+dso:    xite_dso
+program:cprog
+doc:    manpage
+xprog:  
+

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# $Id$
+# First parameter non-empty if output should go to stderr.
+
+if test "$#" -lt 1
+then
+    dest=""
+else
+    dest="1>&2"
+fi
+
+eval "echo '     - AIX        (IBM RS 6000 AIX 4.1.3)'" $dest
+eval "echo '     - IRIX       (Silicon Graphics IRIX 5.x)'" $dest
+eval "echo '     - IRIX64     (Silicon Graphics IRIX 6.x, 64-bit architecture)'" $dest
+eval "echo '     - Linux      (For ix86 PC)'" $dest
+eval "echo '     - OSF1       (Dec alpha AXP OSF/1 V4.0)'" $dest
+eval "echo '     - SunOS5     (Solaris 2.x, x >= 5)'" $dest
+eval "echo '     - SunOS      (SunOS 4.1.3)'" $dest
+eval "echo '     - NT4        (Windows NT 4.0 and Windows 95)'" $dest
+eval "echo '     - CYGWIN32   (Cygnus GNU-Win32, release beta 18, for Windows NT 4)'" $dest
+eval "echo '     - Other      (Choose this if none of the above fits)'" $dest
+
+exit 0

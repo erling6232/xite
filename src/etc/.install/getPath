@@ -1,0 +1,116 @@
+#!/bin/sh
+
+# $Id$
+#
+# Find absolute path of directory name corresponding to input argument.
+# Default: `pwd`
+# Examples of legal directory specifications:
+#
+#	~
+#	~/xxxx
+#	.
+#	./xxxx
+#       ..
+#	../../../xxxx
+
+
+if test "$1" = "/"
+then
+	# Special treatment to avoid problems with expr.
+	echo "$1"
+	exit 0
+fi
+
+# Return first non-blank word.
+string=`expr "$1" : '[ ]*\([^ ]*\)'`
+
+if test -z "$string"
+then
+	echo "`pwd`"
+	exit 0
+fi
+
+# Look for initial '/'
+expr "$string" : '\/' > /dev/null 2>&1
+
+if test $? -ne 0
+then
+	# string is relative, did not start with "/".
+	# Find absolute path.
+
+	ok=0
+	startDir=`pwd`
+	startDirLen=`expr "$string" : '.*'`
+
+	# Relative to present user's home?
+	if test "$string" = "~"
+	then
+		string=$HOME
+		ok=1
+	elif test `expr "$string" : '~\/'` -ge 2
+	then
+		# Below $HOME
+		string=$HOME/`expr "$string" : '~\/\(.*\)'`
+		ok=1
+	fi
+
+	# string starts with ..?
+	while test $ok -ne 1 -a `expr "$string" : '\.\.'` -eq 2
+	do
+		dir=`dirname \`pwd\``
+		cd ..
+
+		string=`expr "$string" : '\.\.\/\(.*\)'`
+	done
+
+	# string did start with parent directory?
+	if test $ok -ne 1 -a `expr "$string" : '.*'` -ne $startDirLen
+	then
+		string=$dir/$string
+		ok=1
+	fi
+	cd $startDir
+
+	# string starts with this directory or dot-named subdirectory?
+	if test $ok -ne 1 -a `expr "$string" : '\.'` -ne 0
+	then
+		if test "$startDirLen" -eq 1
+		then
+			# This directory (.)
+			string=`pwd`
+			ok=1
+		else
+			s=`expr "$string" : '\.\/\(.*\)'`
+			if test -n "$s"
+			then
+				# Starts with "./"
+				string=`pwd`/"$s"
+				ok=1
+			else
+				# Sub-directory
+				string=`pwd`/"$string"
+				ok=1
+			fi
+		fi
+	fi
+
+	# string starts as a local filename?
+	if test $ok -ne 1
+	then
+		string=`pwd`/$string
+		ok=1
+	fi
+
+	if test "$ok" -eq 0
+	then
+		exit 1
+	fi
+fi
+
+if test "`expr "$string" : '.*\/$'`" -gt 1
+then
+    string=`expr "$string" : '\(.*\)\/$'`
+fi
+echo $string
+
+exit 0

@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/RowCol
+#
+FWFOBJ  = RowCol.o
+FWFINCL = RowCol.i RowColP.i
+ROFF3   = XfwfRowCol.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  

@@ -1,0 +1,16 @@
+#!/local/bin/perl -wi.bak
+
+# $Id$
+
+# Split blab comment line so that CVS Id string and Copyright date are
+# placed on separate lines in the Copyright comment.
+while (<>) {
+  if (/Id.*Copyright/) {
+    split(/, Copyright/);
+    print "@_[0]\n        Copyright@_[1]";
+    next;
+  }
+  print
+}
+
+
