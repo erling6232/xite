@@ -220,7 +220,7 @@ static char *matrixName(char *name, IMAGE img, char *matFileName, long bandNo)
 
     legalChars =
       "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-    if (strspn(imgName, legalChars) < 1) imgName[1] = 'a';
+    if (strspn(imgName, legalChars) < 1) imgName[0] = 'a';
 
     legalChars =
       "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ0123456789_";

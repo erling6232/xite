@@ -32,8 +32,13 @@ if test "$pnm_install" = "y"
 then
   $checkExist f $PNM_LIB_DIR 'the library' 2 libpbm libpgm libppm libpnm || \
     abort=1
-  $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
-    pbmplus.h || abort=1
+  if test "$XITE_HOSTTYPE" != "IRIX"; then
+    $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
+      pbmplus.h || abort=1
+  else
+    $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
+      || abort=1
+  fi
 fi
 
 if test "$matlab_install" = "y"

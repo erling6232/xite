@@ -969,7 +969,7 @@ then
 else
 	# Don't rebuild documentation (man pages and hypertext)
 	if test "$XITE_HOSTTYPE" != "NT4"; then
-		makexite_command="$makexite -v -c -i -l $dso -e $local_opt -xite $XITE_HOME"
+		makexite_command="$makexite -v -c -a $XITE_HOSTTYPE -i -l $dso -e $local_opt -xite $XITE_HOME"
 	else
 		makexite_command="$makexite -v -c -a $XITE_HOSTTYPE -xite $XITE_HOME"
 	fi
