@@ -116,6 +116,9 @@ mkdir -p /usr/share/doc/packages/xite
 # Do not use -rpath when linking
 patch -p0 < debian/makeMakefile_no_rpath.patch
 
+# Compile using DEBUG flag
+#patch -p0 < debian/makeMakefile_debug.patch
+
 # Modified startProg.sh script to define XSHOWPATH
 patch -p0 < debian/startProg.patch
 
