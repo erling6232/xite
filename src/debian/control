@@ -47,6 +47,7 @@ Package: libxite-dev
 Section: devel
 Architecture: any
 Depends: libxite (= ${Source-Version}), xlibs-dev, libxaw7-dev
+Recommends: libfwf-dev
 Suggests: xite-doc
 Description: Development libraries and header files
  This development package contains the static libraries and header files for the XITE
