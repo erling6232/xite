@@ -1297,6 +1297,11 @@ then
 
 	echo "WLIB            = -lXaw -lXmu -lXt -lXext -lX11"
 
+elif test "$XITE_HOSTTYPE" = "Debian"
+then
+
+	echo "WLIB            = -L/usr/X11R6/lib -lXaw -lXmu -lXt -lXext -lX11"
+
 elif test "$XITE_HOSTTYPE" != "NT4"
 then
 
