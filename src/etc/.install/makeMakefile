@@ -932,7 +932,6 @@ EOF_LFLAGS
 
 elif test "$XITE_HOSTTYPE" = "Linux"
 then
-
 	cat <<\EOF_LFLAGS
 LFLAGS          = $(LFLAGS_XITE)
 LFLAGS_CMEX     = -L$(XITE_LIB_DEST)
