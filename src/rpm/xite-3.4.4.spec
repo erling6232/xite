@@ -121,6 +121,7 @@ patch -p0 < debian/startProg.patch
 
 LD_LIBRARY_PATH=`pwd`/lib\:$LD_LIBRARY_PATH ./install_xite_rpm -p Linux -f xite_params -nomail -d -c
 
+rm -rf /usr/share/doc/packages/xite/ReferenceManual/CVS
 rm -rf data/xshow/CVS etc/app-defaults/CVS
 install -m 644 data/xshow/* /etc/xite
 install -m 644 etc/app-defaults/* /usr/X11R6/lib/X11/app-defaults
