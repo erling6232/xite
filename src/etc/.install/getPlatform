@@ -58,9 +58,10 @@ do
 	    fine=1; ok=1
 	elif test "$XITE_HOSTTYPE" = "Linux"
 	then
-	    fine=1; ok=1
-	elif test "$XITE_HOSTTYPE" = "Debian"
-	then
+	    if test -d /var/lib/dpkg
+	    then
+		XITE_HOSTTYPE="Debian"
+	    fi
 	    fine=1; ok=1
         elif test "$XITE_HOSTTYPE" = "CYGWIN32/NT"
 	then
