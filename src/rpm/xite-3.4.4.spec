@@ -119,7 +119,7 @@ patch -p0 < debian/makeMakefile_no_rpath.patch
 # Modified startProg.sh script to define XSHOWPATH
 patch -p0 < debian/startProg.patch
 
-./install_xite_rpm -p Linux -f xite_params -nomail -d -c
+LD_LIBRARY_PATH=`pwd`/lib\:$LD_LIBRARY_PATH ./install_xite_rpm -p Linux -f xite_params -nomail -d -c
 
 rm -rf data/xshow/CVS etc/app-defaults/CVS
 install -m 644 data/xshow/* /etc/xite
@@ -134,6 +134,7 @@ rm -rf libfwf.tmp
 (cd /usr/lib; \
 rm -f libfwf.so; \
 ln -s libfwf.so.3.4 libfwf.so)
+cp lib/libfwf.a /usr/lib
 
 # Re-build libxite.so without -rpath
 mkdir libxite.tmp
@@ -144,6 +145,7 @@ rm -rf libxite.tmp
 (cd /usr/lib; \
 rm -f libxite.so; \
 ln -s libxite.so.3.4 libxite.so)
+cp lib/libxite.a /usr/lib
 
 # Re-build libxite_pnm.so without -rpath
 mkdir libxite_pnm.tmp
@@ -154,6 +156,7 @@ rm -rf libxite_pnm.tmp
 (cd /usr/lib; \
 rm -f libxite_pnm.so; \
 ln -s libxite_pnm.so.3.4 libxite_pnm.so)
+cp lib/libxite_pnm.a /usr/lib
 
 # Re-build libxite_tiff.so without -rpath
 mkdir libxite_tiff.tmp
@@ -164,6 +167,7 @@ rm -rf libxite_tiff.tmp
 (cd /usr/lib; \
 rm -f libxite_tiff.so; \
 ln -s libxite_tiff.so.3.4 libxite_tiff.so)
+cp lib/libxite_tiff.a /usr/lib
 
 # Re-build libxiteX.so without -rpath
 mkdir libxiteX.tmp
@@ -174,6 +178,7 @@ rm -rf libxiteX.tmp
 (cd /usr/lib; \
 rm -f libxiteX.so; \
 ln -s libxiteX.so.3.4 libxiteX.so)
+cp lib/libxiteX.a /usr/lib
 
 # Re-build libxpm.so without -rpath
 mkdir libxpm.tmp
@@ -184,6 +189,7 @@ rm -rf libxpm.tmp
 (cd /usr/lib; \
 rm -f libxpm.so; \
 ln -s libxpm.so.3.4 libxpm.so)
+cp lib/libxpm.a /usr/lib
 
 %files -n xite
 /usr/bin/ReadMenuList

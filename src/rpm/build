@@ -219,7 +219,7 @@ for SPECFILE in $SPECFILES ; do
 
     USEDFORBUILD=`grep "^#.*usedforbuild" $SPECFILE`
     if [ -z "$USEDFORBUILD" ] ; then
-      USEDFORBUILD="fillup attr acl aaa_base filesystem aaa_version autoconf automake bash bind9-utils binutils bison bzip2 cpio cpp cracklib cyrus-sasl2 db devs diffutils e2fsprogs file findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib m4 make man mktemp modutils ncurses ncurses-devel net-tools pam pam-devel pam-modules patch perl permissions ps rcs readline rpm sed sendmail shadow strace syslogd sysvinit tar texinfo timezone unzip util-linux vim zlib-devel XFree86-devel XFree86-libs libnetpbm libtiff"
+      USEDFORBUILD="fillup attr acl aaa_base filesystem aaa_version autoconf automake bash bind9-utils binutils bison bzip2 cpio cpp cracklib cyrus-sasl2 db devs diffutils e2fsprogs file findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib m4 make man mktemp modutils ncurses ncurses-devel net-tools pam pam-devel pam-modules patch perl permissions ps rcs readline rpm sed sendmail shadow strace syslogd sysvinit tar texinfo timezone unzip util-linux vim zlib-devel XFree86-devel XFree86-libs libnetpbm libtiff libjpeg"
 # fileutils netcfg sh-utils textutils
     fi
     for i in $USEDFORBUILD ; do
