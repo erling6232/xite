@@ -411,6 +411,7 @@ cp lib/libxpm.a /usr/lib
 /usr/bin/xwarp
 /usr/bin/xwarp.bin
 /usr/bin/zernike
+/usr/share/man/man1
 /usr/X11R6/lib/X11/app-defaults/XAdd
 /usr/X11R6/lib/X11/app-defaults/XFft
 /usr/X11R6/lib/X11/app-defaults/XFilter
@@ -598,6 +599,8 @@ cp lib/libxpm.a /usr/lib
 /usr/lib/libxite_tiff.so
 /usr/lib/libxpm.a
 /usr/lib/libxpm.so
+/usr/share/man/man3
+/usr/share/man/man5
 
 %files -n libxite
 /usr/lib/libxite.so.3.4
