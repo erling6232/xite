@@ -261,6 +261,9 @@ elif [ "$XITE_HOSTTYPE" = "SunOS5" ]; then
 elif [ "$XITE_HOSTTYPE" = "Linux" ]; then
 	echo "RPATH_OPT       = -Xlinker -rpath -Xlinker"
 	RPATH_OPT="yes"
+elif [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "RPATH_OPT       ="
+	RPATH_OPT=""
 else
 	echo "RPATH_OPT       ="
 	RPATH_OPT=""
@@ -337,7 +340,7 @@ else
 	echo "CC              = cl"
 fi
 
-if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+if [ "$XITE_HOSTTYPE" != "NT4" -a "$XITE_HOSTTYPE" != "Debian" ]; then
 
 	cat <<\EOF_X
 
@@ -357,7 +360,7 @@ EOF_X
 	else
 		echo "LFLAGS_X        = -L\$(X_LIB_DIR)"
 	fi
-fi # !NT4
+fi # !NT4 -a !Debian
 
 echo "
 # 4) Set XITE_BIN_DEST to determine where the XITE executables will
@@ -371,19 +374,29 @@ else
 	echo "#TOP            = c:"
 fi # !NT4
 
-echo "TOP             = \$\$XITE_HOME
-#XITE_BIN_DEST   = .
-#XITE_BIN_DEST   = \$(TOP)${DIR_SEP}bin
-XITE_BIN_DEST   = \$(TOP)${DIR_SEP}bin${DIR_SEP}\$(XITE_HOSTTYPE)
+echo "TOP             = \$\$XITE_HOME"
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "XITE_BIN_DEST   = \$\$DESTDIR${DIR_SEP}usr${DIR_SEP}bin"
+else
+	echo "#XITE_BIN_DEST   = ."
+	echo "#XITE_BIN_DEST   = \$(TOP)${DIR_SEP}bin"
+	echo "XITE_BIN_DEST   = \$(TOP)${DIR_SEP}bin${DIR_SEP}\$(XITE_HOSTTYPE)"
+fi # Debian
 
-
+echo "
 # 5) Set XITE_LIB_DEST to determine where the XITE object library will be
 #    placed
-#
-#XITE_LIB_DEST   = .
-#XITE_LIB_DEST   = \$(TOP)${DIR_SEP}lib
-XITE_LIB_DEST   = \$(TOP)${DIR_SEP}lib${DIR_SEP}\$(XITE_HOSTTYPE)
-XITE            = xite"
+#"
+
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "XITE_LIB_DEST   = \$\$DESTDIR${DIR_SEP}usr${DIR_SEP}lib"
+	echo "XITE            = xite"
+else
+	echo "#XITE_LIB_DEST   = ."
+	echo "#XITE_LIB_DEST   = \$(TOP)${DIR_SEP}lib"
+	echo "XITE_LIB_DEST   = \$(TOP)${DIR_SEP}lib${DIR_SEP}\$(XITE_HOSTTYPE)"
+	echo "XITE            = xite"
+fi # Debian
 
 if [ "$XITE_HOSTTYPE" != "NT4" ]; then
 echo "XITE_LIB        = lib\$(XITE).${LIB_EXT}
@@ -421,23 +434,36 @@ fi
 
 echo "
 # 6) Set XITE_INC_DEST to determine where the XITE header files will be put
-#
-#XITE_INC_DEST   = .
-XITE_INC_DEST   = \$(TOP)${DIR_SEP}include
+#"
 
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "XITE_INC_DEST   = \$\$DESTDIR${DIR_SEP}usr${DIR_SEP}include"
+else
+	echo "#XITE_INC_DEST   = ."
+	echo "XITE_INC_DEST   = \$(TOP)${DIR_SEP}include"
+fi
 
+echo "
 # 7) Set XITE_MAN_DEST to determine where the XITE manual files will be put
-#
-#XITE_MAN_DEST   = .
-XITE_MAN_DEST   = \$(TOP)${DIR_SEP}man
+#"
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "XITE_MAN_DEST   = \$\$DESTDIR${DIR_SEP}usr${DIR_SEP}share${DIR_SEP}man"
+else
+	echo "#XITE_MAN_DEST   = ."
+	echo "XITE_MAN_DEST   = \$(TOP)${DIR_SEP}man"
+fi # Debian
 
-
+echo "
 # 8) Set XITE_DOC_DEST to determine where the XITE html files will be put
-#
-#XITE_DOC_DEST   = .
-XITE_DOC_DEST   = \$(TOP)${DIR_SEP}doc
+#"
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "XITE_DOC_DEST   = \$\$DESTDIR${DIR_SEP}usr${DIR_SEP}share${DIR_SEP}doc${DIR_SEP}xite"
+else
+	echo "#XITE_DOC_DEST   = ."
+	echo "XITE_DOC_DEST   = \$(TOP)${DIR_SEP}doc"
+fi # Debian
 
-
+echo "
 # 9) Set CFLAGS
 #
 #DEBUG          = -DDEBUG
@@ -548,6 +574,25 @@ CC_DSO_FLAGS    = -fPIC
 CARCH_OPT       = 
 
 EOF_Linux
+
+elif test "$XITE_HOSTTYPE" = "Debian"
+then
+
+	cat <<\EOF_Debian
+
+REGEX           = -DREGEX
+DIRENT          = 
+
+CFLAGS_ALWAYS   = -DLinux $(DEBUG) -Dinstring=__instring \
+                  $(REGEX) $(DIRENT)
+
+OPTIM           = -O
+OPTIM_GNU       = -O3
+CDEBUG          = -g
+CC_DSO_FLAGS    = -fPIC
+CARCH_OPT       = 
+
+EOF_Debian
 
 elif test "$XITE_HOSTTYPE" = "OSF1"
 then
@@ -902,6 +947,25 @@ CC_LD_FLAGS     =
 XLIB            = 
 EOF_LFLAGS
 
+elif test "$XITE_HOSTTYPE" = "Debian"
+then
+
+	cat <<\EOF_LFLAGS
+LFLAGS          = $(LFLAGS_XITE)
+LFLAGS_CMEX     =
+LFLAGS_MEX      = $(LFLAGS_CMEX) \
+                  LDFLAGS='$$LDFLAGS $(RPATH_OPT) $(XITE_LIB_DEST)'
+
+CC_LD           = $(CC) -shared
+# If archive libraries: --whole-archive
+CC_DSO_NAME_FLAGS = -Xlinker -soname -Xlinker
+CC_LD_FLAGS     = -s
+
+# 11) Set extra libraries
+#
+XLIB            = 
+EOF_LFLAGS
+
 else
 
 	cat <<\EOF_LFLAGS
@@ -1000,7 +1064,9 @@ MATLAB_MEX_DEST   = \$(MATLAB)${DIR_SEP}toolbox${DIR_SEP}local"
 echo "
 # 15) Set TIFF_INC_DIR
 #"
-if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "TIFF_INC_DIR    = ${DIR_SEP}usr${DIR_SEP}include"
+elif [ "$XITE_HOSTTYPE" != "NT4" ]; then
 	echo "TIFF_INC_DIR    = ${DIR_SEP}usr${DIR_SEP}local${DIR_SEP}include"
 else
 	echo "TIFF_INC_DIR    = c:${DIR_SEP}tiff${DIR_SEP}include"
@@ -1010,7 +1076,10 @@ echo "
 # 16) Set TIFF_LIB_DIR
 #"
 
-if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "TIFF_LIB_DIR    = ${DIR_SEP}usr${DIR_SEP}lib"
+	echo "LFLAGS_TIFF     ="
+elif [ "$XITE_HOSTTYPE" != "NT4" ]; then
 	echo "TIFF_LIB_DIR    = ${DIR_SEP}usr${DIR_SEP}local${DIR_SEP}lib"
 	if [ -n "$RPATH_OPT" ]; then
 		echo "LFLAGS_TIFF     = -L\$(TIFF_LIB_DIR) \$(RPATH_OPT) \$(TIFF_LIB_DIR)"
@@ -1054,7 +1123,9 @@ fi
 echo "
 # 17) Set PNM_INC_DIR
 #"
-if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "PNM_INC_DIR    = ${DIR_SEP}usr${DIR_SEP}include"
+elif [ "$XITE_HOSTTYPE" != "NT4" ]; then
 	echo "PNM_INC_DIR    = ${DIR_SEP}usr${DIR_SEP}local${DIR_SEP}include"
 else
 	echo "PNM_INC_DIR    = c:${DIR_SEP}PNM${DIR_SEP}include"
@@ -1063,7 +1134,10 @@ fi
 echo "
 # 18) Set PNM_LIB_DIR
 #"
-if [ "$XITE_HOSTTYPE" != "NT4" ]; then
+if [ "$XITE_HOSTTYPE" = "Debian" ]; then
+	echo "PNM_LIB_DIR    = ${DIR_SEP}usr${DIR_SEP}lib"
+	echo "LFLAGS_PNM     ="
+elif [ "$XITE_HOSTTYPE" != "NT4" ]; then
 	echo "PNM_LIB_DIR    = ${DIR_SEP}usr${DIR_SEP}local${DIR_SEP}lib"
 	if [ -n "$RPATH_OPT" ]; then
 		echo "LFLAGS_PNM     = -L\$(PNM_LIB_DIR) \$(RPATH_OPT) \$(PNM_LIB_DIR)"
@@ -1438,6 +1512,7 @@ else
 	 "$XITE_HOSTTYPE" = "IRIX64" -o \
 	 "$XITE_HOSTTYPE" = "IRIX"   -o \
 	 "$XITE_HOSTTYPE" = "OSF1"   -o \
+	 "$XITE_HOSTTYPE" = "Debian" -o \
 	 "$XITE_HOSTTYPE" = "Linux" ]; then
 
 	dso_target xite_dso "\$(XITE_DSO)" "\$(XITE_LIB_DEST)" \
@@ -1467,6 +1542,7 @@ else
 	     "$XITE_HOSTTYPE" = "IRIX"   -o \
 	     "$XITE_HOSTTYPE" = "IRIX64" -o \
 	     "$XITE_HOSTTYPE" = "OSF1"   -o \
+	     "$XITE_HOSTTYPE" = "Debian" -o \
 	     "$XITE_HOSTTYPE" = "Linux" ];
 	then
 	    dso_target xiteX_dso "\$(XITE_X_DSO)" "\$(XITE_LIB_DEST)" \
