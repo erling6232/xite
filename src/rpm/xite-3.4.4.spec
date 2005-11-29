@@ -8,6 +8,7 @@ Packager: Erling Andersen, Haukeland University Hospital, Bergen, Norway <Erling
 URL: http://www.ifi.uio.no/forskning/grupper/dsb/Programvare/Xite/
 Source: xite3_44.tar.gz
 Vendor: Helse Bergen HF, Bergen, Norway
+BuildRequires: bash binutils bzip2 cpio cpp cracklib db diffutils file findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib m4 make man mktemp ncurses ncurses-devel net-tools pam pam-devel pam-modules patch perl permissions rcs readline rpm sed sendmail strace sysvinit tar texinfo timezone unzip util-linux vim zlib-devel xorg-x11-devel xorg-x11-libs libnetpbm libtiff libjpeg libtiff-devel libjpeg-devel
 
 %description
 XITE consists of display programs with image widget and graphical user
@@ -55,7 +56,7 @@ and PDF format.
 %package -n libxite-devel
 Summary: Development libraries and header files
 Group: Development/Libraries/C and C++
-Requires: libxite, xdevel, xinclude
+Requires: libxite, xorg-x11-devel
 
 %description -n libxite-devel
 This development package contains the static libraries and header files
@@ -64,6 +65,7 @@ for the XITE image processing routines and for the BIFF image file format.
 %package -n libxite
 Summary: Shared libraries for XITE
 Group: System/Libraries
+Requires: xorg-x11-libs
 
 %description -n libxite
 This package contains the shared libraries used by XITE.
@@ -71,6 +73,7 @@ This package contains the shared libraries used by XITE.
 %package -n libfwf
 Summary: Shared libraries for Xfwf widgets
 Group: System/Libraries
+Requires: xorg-x11-libs
 
 %description -n libfwf
 This package contains the shared libraries used by the
@@ -79,7 +82,7 @@ Xfwf Free Widget Foundation widgets.
 %package -n libfwf-devel
 Summary: Development libraries and header files for Xfwf widgets
 Group: Development/Libraries/C and C++
-Requires: libfwf, xdevel, xinclude, libxite-devel
+Requires: libfwf, xorg-x11-devel, libxite-devel
 
 %description -n libfwf-devel
 This development package contains the static libraries and header files
@@ -90,7 +93,7 @@ for the Xfwf Free Widget Foundation widgets.
 %setup -n xite
 tar cf xite.tar *
 
-rm -f /usr/share/man/man1/*
+rm -f /usr/share/man/man?/*
 
 # Modify install_xite to make man pages
 patch -p0 < rpm/install_xite_rpm.patch
@@ -119,7 +122,7 @@ mkdir -p /usr/share/doc/packages/xite
 patch -p0 < debian/makeMakefile_no_rpath.patch
 
 # Compile using DEBUG flag
-patch -p0 < debian/makeMakefile_debug.patch
+#patch -p0 < debian/makeMakefile_debug.patch
 
 # Modified startProg.sh script to define XSHOWPATH
 patch -p0 < debian/startProg.patch
