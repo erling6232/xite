@@ -8,7 +8,7 @@ Packager: Erling Andersen, Haukeland University Hospital, Bergen, Norway <Erling
 URL: http://www.ifi.uio.no/forskning/grupper/dsb/Programvare/Xite/
 Source: xite3_44.tar.gz
 Vendor: Helse Bergen HF, Bergen, Norway
-BuildRequires: bash binutils bzip2 cpio cpp cracklib db diffutils file findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib m4 make man mktemp ncurses ncurses-devel net-tools pam pam-devel pam-modules patch perl permissions rcs readline rpm sed sendmail strace sysvinit tar texinfo timezone unzip util-linux vim zlib-devel xorg-x11-devel xorg-x11-libs libnetpbm libtiff libjpeg libtiff-devel libjpeg-devel
+BuildRequires: bash binutils bzip2 cpio cpp cracklib db diffutils file findutils flex gawk gcc gcc-32bit gettext glibc glibc-32bit glibc-devel glibc-devel-32bit glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib zlib-32bit m4 make man mktemp ncurses net-tools pam pam-modules patch perl permissions rcs readline rpm sed sendmail strace sysvinit tar texinfo timezone unzip util-linux vim zlib-devel zlib-devel-32bit xorg-x11-devel xorg-x11-devel-32bit xorg-x11-libs xorg-x11-libs-32bit libnetpbm libnetpbm-32bit libtiff libtiff-32bit libjpeg libjpeg-32bit libtiff-devel libtiff-devel-32bit libjpeg-devel libjpeg-devel-32bit
 
 %description
 XITE consists of display programs with image widget and graphical user
@@ -138,7 +138,7 @@ install -m 644 etc/app-defaults/* /usr/X11R6/lib/X11/app-defaults
 mkdir libfwf.tmp
 (cd libfwf.tmp; \
 ar -x ../lib/libfwf.a; \
-cc -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o /usr/lib/libfwf.so.3.4)
+cc -m32 -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o /usr/lib/libfwf.so.3.4)
 rm -rf libfwf.tmp
 (cd /usr/lib; \
 rm -f libfwf.so; \
@@ -149,7 +149,7 @@ cp lib/libfwf.a /usr/lib
 mkdir libxite.tmp
 (cd libxite.tmp; \
 ar -x ../lib/libxite.a; \
-cc -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o /usr/lib/libxite.so.3.4)
+cc -m32 -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o /usr/lib/libxite.so.3.4)
 rm -rf libxite.tmp
 (cd /usr/lib; \
 rm -f libxite.so; \
@@ -160,7 +160,7 @@ cp lib/libxite.a /usr/lib
 mkdir libxite_pnm.tmp
 (cd libxite_pnm.tmp; \
 ar -x ../lib/libxite_pnm.a; \
-cc -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o /usr/lib/libxite_pnm.so.3.4)
+cc -m32 -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o /usr/lib/libxite_pnm.so.3.4)
 rm -rf libxite_pnm.tmp
 (cd /usr/lib; \
 rm -f libxite_pnm.so; \
@@ -171,7 +171,7 @@ cp lib/libxite_pnm.a /usr/lib
 mkdir libxite_tiff.tmp
 (cd libxite_tiff.tmp; \
 ar -x ../lib/libxite_tiff.a; \
-cc -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o /usr/lib/libxite_tiff.so.3.4)
+cc -m32 -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o /usr/lib/libxite_tiff.so.3.4)
 rm -rf libxite_tiff.tmp
 (cd /usr/lib; \
 rm -f libxite_tiff.so; \
@@ -182,7 +182,7 @@ cp lib/libxite_tiff.a /usr/lib
 mkdir libxiteX.tmp
 (cd libxiteX.tmp; \
 ar -x ../lib/libxiteX.a; \
-cc -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o /usr/lib/libxiteX.so.3.4)
+cc -m32 -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o /usr/lib/libxiteX.so.3.4)
 rm -rf libxiteX.tmp
 (cd /usr/lib; \
 rm -f libxiteX.so; \
@@ -193,7 +193,7 @@ cp lib/libxiteX.a /usr/lib
 mkdir libxpm.tmp
 (cd libxpm.tmp; \
 ar -x ../lib/libxpm.a; \
-cc -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o /usr/lib/libxpm.so.3.4)
+cc -m32 -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o /usr/lib/libxpm.so.3.4)
 rm -rf libxpm.tmp
 (cd /usr/lib; \
 rm -f libxpm.so; \
