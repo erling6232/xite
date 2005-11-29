@@ -1,0 +1,14 @@
+Building SuSE 10 package
+------------------------
+
+cd ..
+mkdir /tmp/tt
+tar czf /tmp/tt/xite3_44.tar.gz xite
+cp xite/rpm/xite-3.4.4.spec /tmp/tt
+
+# Insert SuSE DVD
+##mount tjener:/cdrom /dev/cdrom
+export BUILD_RPMS=/media/dvdrecorder/suse
+export BUILD_ROOT=/home/build-root
+cd /tmp/tt
+build
