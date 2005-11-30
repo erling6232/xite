@@ -8,7 +8,7 @@ Packager: Erling Andersen, Haukeland University Hospital, Bergen, Norway <Erling
 URL: http://www.ifi.uio.no/forskning/grupper/dsb/Programvare/Xite/
 Source: xite3_44.tar.gz
 Vendor: Helse Bergen HF, Bergen, Norway
-BuildRequires: bash binutils bzip2 cpio cpp cracklib db diffutils file findutils flex gawk gcc gcc-32bit gettext glibc glibc-32bit glibc-devel glibc-devel-32bit glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib zlib-32bit m4 make man mktemp ncurses net-tools pam pam-modules patch perl permissions rcs readline rpm sed sendmail strace sysvinit tar texinfo timezone unzip util-linux vim zlib-devel zlib-devel-32bit xorg-x11-devel xorg-x11-devel-32bit xorg-x11-libs xorg-x11-libs-32bit libnetpbm libnetpbm-32bit libtiff libtiff-32bit libjpeg libjpeg-32bit libtiff-devel libtiff-devel-32bit libjpeg-devel libjpeg-devel-32bit
+BuildRequires: bash binutils bzip2 cpio cpp cracklib db diffutils file findutils flex gawk gcc gettext glibc glibc-devel glibc-locale gpm grep groff gzip kbd less libgcc libstdc++ libtool libxcrypt zlib m4 make man mktemp ncurses net-tools pam pam-modules patch perl permissions rcs readline rpm sed sendmail strace sysvinit tar texinfo timezone unzip util-linux vim zlib-devel xorg-x11-devel xorg-x11-libs libnetpbm libtiff libjpeg libtiff-devel libjpeg-devel
 
 %description
 XITE consists of display programs with image widget and graphical user
