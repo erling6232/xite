@@ -9,3 +9,14 @@
      abort=1
    if test "$XITE_HOSTTYPE" != "IRIX" -a "$XITE_HOSTTYPE" != "Linux"; then
      $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
+--- makeMakefile.orig	2005-11-29 12:12:58.000000000 +0100
++++ makeMakefile	2006-02-20 09:57:45.717638984 +0100
+@@ -282,7 +282,7 @@
+ 	OUT_OPT="-o "
+ 	echo "LIB_TIFF        = -ltiff"
+ 	echo "LIB_MATH        = -lm"
+-	echo "LIB_PNM         = -lpnm -lppm -lpgm -lpbm"
++	echo "LIB_PNM         = -lnetpbm"
+ 	echo "COPY            = cp"
+ 	echo "LINK            = ln -s"
+ 	echo "LINK_F          = ln -f -s"
