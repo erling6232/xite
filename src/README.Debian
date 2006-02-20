@@ -1,0 +1,5 @@
+cd ..
+mv xite xite-3.4.4
+tar czf xite-3.4.4.tar.gz xite-3.4.4
+cd xite-3.4.4
+dpkg-buildpackage -b -rfakeroot -us -uc
