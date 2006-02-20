@@ -36,17 +36,13 @@ configure-stamp:
 	# Add here commands to configure the package.
 
 	# netpbm10 has single library file libnetpbm.so
-	#cp -p etc/.install/checkLibInc etc/.install/checkLibInc.orig
-	#cp -p etc/.install/makeMakefile etc/.install/makeMakefile.orig
 	patch -p0 < debian/netpbm10.patch
 
 	# Pentium 4 patch
 	patch -p0 < debian/pentium4.patch
 
 	# Prepare xite.tar with filenames without leading <package>-<version> path
-	tar xzf ../xite-3.4.4.tar.gz
-	cd xite-3.4.4; tar cf ../xite.tar *
-	rm -rf xite-3.4.4
+	tar cf xite.tar *
 
 	#sed -e 's/tar tf \$tarfile .\/etc\/.install/tar tf \$tarfile .\/xite-3.4.4\/etc\/.install/' \
 	#    -e 's/initPath=""/initPath="xite-3.4.4\/"/' install_xite > install_xite_Debian
