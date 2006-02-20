@@ -1,0 +1,11 @@
+--- checkLibInc.orig	2003-12-08 23:16:52.000000000 +0100
++++ checkLibInc	2006-02-20 09:54:13.071966040 +0100
+@@ -30,7 +30,7 @@
+ 
+ if test "$pnm_install" = "y"
+ then
+-  $checkExist f $PNM_LIB_DIR 'the library' 2 libpbm libpgm libppm libpnm || \
++  $checkExist f $PNM_LIB_DIR 'the library' 2 libnetpbm || \
+     abort=1
+   if test "$XITE_HOSTTYPE" != "IRIX" -a "$XITE_HOSTTYPE" != "Linux"; then
+     $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
