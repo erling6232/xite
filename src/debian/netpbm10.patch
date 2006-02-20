@@ -1,5 +1,5 @@
---- checkLibInc.orig	2003-12-08 23:16:52.000000000 +0100
-+++ checkLibInc	2006-02-20 09:54:13.071966040 +0100
+--- etc/.install/checkLibInc.orig	2003-12-08 23:16:52.000000000 +0100
++++ etc/.install/checkLibInc	2006-02-20 09:54:13.071966040 +0100
 @@ -30,7 +30,7 @@
  
  if test "$pnm_install" = "y"
@@ -9,8 +9,8 @@
      abort=1
    if test "$XITE_HOSTTYPE" != "IRIX" -a "$XITE_HOSTTYPE" != "Linux"; then
      $checkExist f $PNM_INC_DIR 'the header-file' 0 pbm.h pgm.h ppm.h pnm.h \
---- makeMakefile.orig	2005-11-29 12:12:58.000000000 +0100
-+++ makeMakefile	2006-02-20 09:57:45.717638984 +0100
+--- etc/.install/makeMakefile.orig	2005-11-29 12:12:58.000000000 +0100
++++ etc/.install/makeMakefile	2006-02-20 09:57:45.717638984 +0100
 @@ -282,7 +282,7 @@
  	OUT_OPT="-o "
  	echo "LIB_TIFF        = -ltiff"

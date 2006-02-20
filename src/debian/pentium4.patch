@@ -1,5 +1,5 @@
---- makeMakefile.orig	2006-02-20 09:57:45.717638000 +0100
-+++ makeMakefile	2006-02-20 10:01:38.510249128 +0100
+--- etc/.install/makeMakefile.orig	2006-02-20 09:57:45.717638000 +0100
++++ etc/.install/makeMakefile	2006-02-20 10:01:38.510249128 +0100
 @@ -592,7 +592,7 @@
  OPTIM_GNU       = -O3
  CDEBUG          = -g
