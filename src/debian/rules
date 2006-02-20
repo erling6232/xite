@@ -49,6 +49,14 @@ configure-stamp:
 
 	chmod a+rx install_xite_Debian
 
+	# netpbm10 has single library file libnetpbm.so
+	#cp -p etc/.install/checkLibInc etc/.install/checkLibInc.orig
+	#cp -p etc/.install/makeMakefile etc/.install/makeMakefile.orig
+	patch -p0 < debian/netpbm10.patch
+
+	# Pentium 4 patch
+	patch -p0 < debian/pentium4.patch
+
 	# install_xite will not run when some installation directories are missing
 	mkdir -p $(XITE_HOME)/usr/bin
 	mkdir -p $(XITE_LIB)
@@ -60,7 +68,7 @@ configure-stamp:
 	./install_xite_Debian -x $(XITE_HOME) -b $(XITE_HOME)/usr/bin -l $(XITE_LIB) \
 	-i $(XITE_HOME)/usr/include \
 	-m $(XITE_HOME)/usr/share/man -e $(XITE_HOME)/usr/share/doc/xite \
-	-xi /usr/include -xl /usr/X11R6/lib \
+	-xi /usr/include -xl /usr/lib \
 	-ti /usr/include -tl /usr/lib \
 	-pi /usr/include -pl /usr/lib \
 	-mh - -mi - -ml - -mm - \
