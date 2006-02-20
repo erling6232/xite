@@ -35,6 +35,14 @@ configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
 
+	# netpbm10 has single library file libnetpbm.so
+	#cp -p etc/.install/checkLibInc etc/.install/checkLibInc.orig
+	#cp -p etc/.install/makeMakefile etc/.install/makeMakefile.orig
+	patch -p0 < debian/netpbm10.patch
+
+	# Pentium 4 patch
+	patch -p0 < debian/pentium4.patch
+
 	# Prepare xite.tar with filenames without leading <package>-<version> path
 	tar xzf ../xite-3.4.4.tar.gz
 	cd xite-3.4.4; tar cf ../xite.tar *
@@ -48,14 +56,6 @@ configure-stamp:
 	cp install_xite install_xite_Debian
 
 	chmod a+rx install_xite_Debian
-
-	# netpbm10 has single library file libnetpbm.so
-	#cp -p etc/.install/checkLibInc etc/.install/checkLibInc.orig
-	#cp -p etc/.install/makeMakefile etc/.install/makeMakefile.orig
-	patch -p0 < debian/netpbm10.patch
-
-	# Pentium 4 patch
-	patch -p0 < debian/pentium4.patch
 
 	# install_xite will not run when some installation directories are missing
 	mkdir -p $(XITE_HOME)/usr/bin
