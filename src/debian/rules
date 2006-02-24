@@ -58,7 +58,7 @@ configure-stamp:
 	mkdir -p $(XITE_LIB)
 	mkdir -p $(XITE_HOME)/usr/include/xite
 	mkdir -p $(XITE_HOME)/usr/share/man
-	mkdir -p $(XITE_HOME)/usr/share/doc/xite
+	mkdir -p $(XITE_HOME)/usr/share/doc/xite/html
 
 
 	./install_xite_Debian -x $(XITE_HOME) -b $(XITE_HOME)/usr/bin -l $(XITE_LIB) \
