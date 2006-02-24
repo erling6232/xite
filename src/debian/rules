@@ -179,6 +179,7 @@ install: build
 	install -d -m 755 debian/xite/etc/xite
 	install -d -m 755 debian/xite/etc/X11/app-defaults
 	install -d -m 755 debian/xite/usr/share/man/man1
+	install -d -m 755 debian/xite/usr/share/doc/xite/html
 	install -d -m 755 debian/libxite-dev/usr/share/man/man3
 	install -d -m 755 debian/libxite-dev/usr/share/man/man5
 
