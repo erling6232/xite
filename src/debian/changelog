@@ -1,3 +1,10 @@
+xite (3.4.4-4) unstable; urgency=low
+
+  * Compile for Pentium 4 processor.
+  * Create /usr/share/doc/xite/html directory.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Fri, 24 Feb 2006 11:27:14 +0100
+
 xite (3.4.4-3) unstable; urgency=low
 
   * Build on a system using libxaw7-dev instead of libxa6-dev.
