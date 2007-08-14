@@ -46,7 +46,7 @@ Description: Documentation for the xite and libxite packages
 Package: libxite-dev
 Section: devel
 Architecture: any
-Depends: libxite (= ${Source-Version}), xlibs-dev, libxaw7-dev
+Depends: libxite (= ${Source-Version}), libx11-dev, libxaw7-dev
 Recommends: libfwf-dev
 Suggests: xite-doc
 Description: Development libraries and header files
@@ -71,7 +71,7 @@ Description: Shared libraries for Xfwf widgets
 Package: libfwf-dev
 Section: devel
 Architecture: any
-Depends: libfwf (= ${Source-Version}), xlibs-dev, libxite-dev (= ${Source-Version})
+Depends: libfwf (= ${Source-Version}), libx11-dev, libxite-dev (= ${Source-Version})
 Description: Development libraries and header files for Xfwf widgets
  This development package contains the static libraries and header files for the
  Xfwf Free Widget Foundation widgets.
