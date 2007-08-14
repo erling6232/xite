@@ -95,7 +95,7 @@ build-stamp: configure-stamp
 	mkdir libfwf.tmp
 	cd libfwf.tmp; \
 	ar -x $(XITE_LIB)/libfwf.a; \
-	cc -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o $(XITE_LIB)/libfwf.so.3.4
+	cc -m32 -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o $(XITE_LIB)/libfwf.so.3.4
 	rm -rf libfwf.tmp
 	cd $(XITE_LIB); \
 	rm -f libfwf.so; \
@@ -105,7 +105,7 @@ build-stamp: configure-stamp
 	mkdir libxite.tmp
 	cd libxite.tmp; \
 	ar -x $(XITE_LIB)/libxite.a; \
-	cc -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o $(XITE_LIB)/libxite.so.3.4
+	cc -m32 -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o $(XITE_LIB)/libxite.so.3.4
 	rm -rf libxite.tmp
 	cd $(XITE_LIB); \
 	rm -f libxite.so; \
@@ -115,7 +115,7 @@ build-stamp: configure-stamp
 	mkdir libxite_pnm.tmp
 	cd libxite_pnm.tmp; \
 	ar -x $(XITE_LIB)/libxite_pnm.a; \
-	cc -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o $(XITE_LIB)/libxite_pnm.so.3.4
+	cc -m32 -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o $(XITE_LIB)/libxite_pnm.so.3.4
 	rm -rf libxite_pnm.tmp
 	cd $(XITE_LIB); \
 	rm -f libxite_pnm.so; \
@@ -125,7 +125,7 @@ build-stamp: configure-stamp
 	mkdir libxite_tiff.tmp
 	cd libxite_tiff.tmp; \
 	ar -x $(XITE_LIB)/libxite_tiff.a; \
-	cc -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o $(XITE_LIB)/libxite_tiff.so.3.4
+	cc -m32 -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o $(XITE_LIB)/libxite_tiff.so.3.4
 	rm -rf libxite_tiff.tmp
 	cd $(XITE_LIB); \
 	rm -f libxite_tiff.so; \
@@ -135,7 +135,7 @@ build-stamp: configure-stamp
 	mkdir libxiteX.tmp
 	cd libxiteX.tmp; \
 	ar -x $(XITE_LIB)/libxiteX.a; \
-	cc -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o $(XITE_LIB)/libxiteX.so.3.4
+	cc -m32 -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o $(XITE_LIB)/libxiteX.so.3.4
 	rm -rf libxiteX.tmp
 	cd $(XITE_LIB); \
 	rm -f libxiteX.so; \
@@ -145,7 +145,7 @@ build-stamp: configure-stamp
 	mkdir libxpm.tmp
 	cd libxpm.tmp; \
 	ar -x $(XITE_LIB)/libxpm.a; \
-	cc -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o $(XITE_LIB)/libxpm.so.3.4
+	cc -m32 -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o $(XITE_LIB)/libxpm.so.3.4
 	rm -rf libxpm.tmp
 	cd $(XITE_LIB); \
 	rm -f libxpm.so; \
