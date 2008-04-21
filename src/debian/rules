@@ -207,7 +207,7 @@ install: build
 	install -m 644 debian/tmp/usr/share/man/man3/* debian/libxite-dev/usr/share/man/man3
 	install -m 644 debian/tmp/usr/share/man/man5/* debian/libxite-dev/usr/share/man/man5
 
-	dh_movefiles
+	# dh_movefiles
 
 	# Remove symbolic links which use absolute paths
 	cd debian/xite/usr/bin; \
