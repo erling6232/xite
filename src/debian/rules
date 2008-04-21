@@ -57,9 +57,9 @@ configure-stamp:
 	patch -p0 < debian/netpbm10.patch
 
 	# Pentium 4 patch
-	ifeq ($(DEB_HOST_GNU_CPU),i486)
-		patch -p0 < debian/pentium4.patch
-	endif
+ifeq ($(DEB_HOST_GNU_CPU),i486)
+	patch -p0 < debian/pentium4.patch
+endif
 
 	# Prepare xite.tar with filenames without leading <package>-<version> path
 	tar cf xite.tar *
