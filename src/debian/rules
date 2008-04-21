@@ -57,7 +57,9 @@ configure-stamp:
 	patch -p0 < debian/netpbm10.patch
 
 	# Pentium 4 patch
-	patch -p0 < debian/pentium4.patch
+	ifeq ($(DEB_HOST_GNU_CPU),i486)
+		patch -p0 < debian/pentium4.patch
+	endif
 
 	# Prepare xite.tar with filenames without leading <package>-<version> path
 	tar cf xite.tar *
@@ -223,41 +225,44 @@ install: build
 	ln -s startProg xshow; \
 	ln -s startProg xwarp
 
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
+# Must not depend on anything. This is to be called by
+# binary-arch/binary-indep
+# in another 'make' thread.
+binary-common:
 	dh_testdir
 	dh_testroot
-	# dh_clean -k
-
+	dh_installchangelogs 
+	dh_installdocs
+	dh_installexamples
+#	dh_installmenu
 #	dh_installdebconf	
-	dh_installdocs -A
-#	dh_installexamples
-	dh_installmenu
-#	dh_installlogrotate
+#	dh_installlogrotate	
 #	dh_installemacsen
 #	dh_installpam
 #	dh_installmime
+#	dh_python
 #	dh_installinit
 #	dh_installcron
-	dh_installman -A
-	dh_installinfo
-#	dh_undocumented
-	dh_installchangelogs 
+#	dh_installinfo
+	dh_installman
 	dh_link
 	dh_strip
-	dh_compress
+	dh_compress 
 	dh_fixperms
+#	dh_perl
 	dh_makeshlibs
 	dh_installdeb
-#	dh_perl
-	dh_shlibdeps -l$(CURDIR)/debian/libxite/usr/lib
+	dh_shlibdeps -L libxite -L libxite_pnm -L lixite_tiff -L libxiteX -l debian/libxite/usr/lib
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
+# Build architecture independant packages using the common target.
+binary-indep: build-indep install-indep
+	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+# Build architecture dependant packages using the common target.
+binary-arch: build-arch install-arch
+	$(MAKE) -f debian/rules DH_OPTIONS=-s binary-common
+
+binary: binary-arch binary-indep
+.PHONY: build clean binary-indep binary-arch binary install install-indep install-arch configure
