@@ -101,11 +101,13 @@ endif
 	cd debian/tmp; \
 	patch -p0 < debian/startProg.patch
 
-	touch configure-stamp
+	touch $@
 
 
-build: build-stamp
-build-stamp: configure-stamp 
+build: build-arch build-indep
+
+build-arch: build-arch-stamp
+build-arch-stamp: configure-stamp 
 	dh_testdir
 
 	# Add here commands to compile the package.
@@ -171,12 +173,19 @@ build-stamp: configure-stamp
 	rm -f libxpm.so; \
 	ln -s libxpm.so.3.4 libxpm.so
 
-	touch build-stamp
+	touch $@
+
+build-indep: build-indep-stamp
+build-indep-stamp: configure-stamp 
+
+	# Add here commands to compile the indep part of the package.
+	#$(MAKE) doc
+	touch $@
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp configure-stamp
+	rm -f build-arch-stamp build-indep-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
 	#-$(MAKE) clean
@@ -184,24 +193,38 @@ clean:
 
 	dh_clean
 
-install: build
+install: install-indep install-arch
+install-indep: build
 	dh_testdir
 	dh_testroot
-	# dh_clean -k
+	dh_clean -k -i
+	dh_installdirs -i
+
+	# Add here commands to install the indep part of the package into
+	# debian/<package>-doc.
+	#INSTALLDOC#
+
+	dh_install -i
+
+install-arch:
+	dh_testdir
+	dh_testroot
+	dh_clean -k -s
+	dh_installdirs -s --all
 
 	# Add here commands to install the package into debian/tmp
 	# install $(XITE_LIB)/libfwf.so.3.4 
 
 	# dh_installdirs -A usr/bin usr/lib usr/include usr/share/man usr/share/doc/xite
-	install -d -m 755 debian/xite-doc/usr/share/doc/xite/ReferenceManual
-	install -d -m 755 debian/libfwf-dev/usr/include/Xfwf
-	install -d -m 755 debian/libxite-dev/usr/include/xite
-	install -d -m 755 debian/xite/etc/xite
-	install -d -m 755 debian/xite/etc/X11/app-defaults
-	install -d -m 755 debian/xite/usr/share/man/man1
-	install -d -m 755 debian/xite/usr/share/doc/xite/html
-	install -d -m 755 debian/libxite-dev/usr/share/man/man3
-	install -d -m 755 debian/libxite-dev/usr/share/man/man5
+	#install -d -m 755 debian/xite-doc/usr/share/doc/xite/ReferenceManual
+	#install -d -m 755 debian/libfwf-dev/usr/include/Xfwf
+	#install -d -m 755 debian/libxite-dev/usr/include/xite
+	#install -d -m 755 debian/xite/etc/xite
+	#install -d -m 755 debian/xite/etc/X11/app-defaults
+	#install -d -m 755 debian/xite/usr/share/man/man1
+	#install -d -m 755 debian/xite/usr/share/doc/xite/html
+	#install -d -m 755 debian/libxite-dev/usr/share/man/man3
+	#install -d -m 755 debian/libxite-dev/usr/share/man/man5
 
 	install -m 644 data/xshow/* debian/xite/etc/xite
 	install -m 644 etc/app-defaults/* debian/xite/etc/X11/app-defaults
@@ -224,6 +247,8 @@ install: build
 	ln -s startProg xregion; \
 	ln -s startProg xshow; \
 	ln -s startProg xwarp
+
+	dh_install -s
 
 # Must not depend on anything. This is to be called by
 # binary-arch/binary-indep
