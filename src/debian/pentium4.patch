@@ -4,7 +4,7 @@
  DIRENT          = 
  
  CFLAGS_ALWAYS   = -D$(XITE_HOSTTYPE) $(DEBUG) -Dinstring=__instring \
-                   $(REGEX) $(DIRENT) -m32
+                   $(REGEX) $(DIRENT)
  
 -OPTIM           = -O
 +OPTIM           = -O3

@@ -14,7 +14,6 @@ DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_HOST_GNU_CPU    ?= $(shell dpkg-architecture -qDEB_HOST_GNU_CPU)
 DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
-
 CFLAGS = -Wall -g
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -25,8 +24,6 @@ endif
 
 ifeq ($(DEB_HOST_GNU_CPU),i486)
 	CFLAGS += -march=pentium4 -mfpmath=sse -msse2
-else ifeq ($(DEB_HOST_GNU_CPU),x86_64)
-	CFLAGS += -m32
 endif
 
 # This is where install_xite will place its output
@@ -117,7 +114,7 @@ build-arch-stamp: configure-stamp
 	mkdir libfwf.tmp
 	cd libfwf.tmp; \
 	ar -x $(XITE_LIB)/libfwf.a; \
-	cc -m32 -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o $(XITE_LIB)/libfwf.so.3.4
+	cc -shared -Xlinker -soname -Xlinker libfwf.so.3.4 *.o -o $(XITE_LIB)/libfwf.so.3.4
 	rm -rf libfwf.tmp
 	cd $(XITE_LIB); \
 	rm -f libfwf.so; \
@@ -127,7 +124,7 @@ build-arch-stamp: configure-stamp
 	mkdir libxite.tmp
 	cd libxite.tmp; \
 	ar -x $(XITE_LIB)/libxite.a; \
-	cc -m32 -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o $(XITE_LIB)/libxite.so.3.4
+	cc -shared -Xlinker -soname -Xlinker libxite.so.3.4 *.o -o $(XITE_LIB)/libxite.so.3.4
 	rm -rf libxite.tmp
 	cd $(XITE_LIB); \
 	rm -f libxite.so; \
@@ -137,7 +134,7 @@ build-arch-stamp: configure-stamp
 	mkdir libxite_pnm.tmp
 	cd libxite_pnm.tmp; \
 	ar -x $(XITE_LIB)/libxite_pnm.a; \
-	cc -m32 -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o $(XITE_LIB)/libxite_pnm.so.3.4
+	cc -shared -Xlinker -soname -Xlinker libxite_pnm.so.3.4 *.o -o $(XITE_LIB)/libxite_pnm.so.3.4
 	rm -rf libxite_pnm.tmp
 	cd $(XITE_LIB); \
 	rm -f libxite_pnm.so; \
@@ -147,7 +144,7 @@ build-arch-stamp: configure-stamp
 	mkdir libxite_tiff.tmp
 	cd libxite_tiff.tmp; \
 	ar -x $(XITE_LIB)/libxite_tiff.a; \
-	cc -m32 -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o $(XITE_LIB)/libxite_tiff.so.3.4
+	cc -shared -Xlinker -soname -Xlinker libxite_tiff.so.3.4 *.o -o $(XITE_LIB)/libxite_tiff.so.3.4
 	rm -rf libxite_tiff.tmp
 	cd $(XITE_LIB); \
 	rm -f libxite_tiff.so; \
@@ -157,7 +154,7 @@ build-arch-stamp: configure-stamp
 	mkdir libxiteX.tmp
 	cd libxiteX.tmp; \
 	ar -x $(XITE_LIB)/libxiteX.a; \
-	cc -m32 -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o $(XITE_LIB)/libxiteX.so.3.4
+	cc -shared -Xlinker -soname -Xlinker libxiteX.so.3.4 *.o -o $(XITE_LIB)/libxiteX.so.3.4
 	rm -rf libxiteX.tmp
 	cd $(XITE_LIB); \
 	rm -f libxiteX.so; \
@@ -167,7 +164,7 @@ build-arch-stamp: configure-stamp
 	mkdir libxpm.tmp
 	cd libxpm.tmp; \
 	ar -x $(XITE_LIB)/libxpm.a; \
-	cc -m32 -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o $(XITE_LIB)/libxpm.so.3.4
+	cc -shared -Xlinker -soname -Xlinker libxpm.so.3.4 *.o -o $(XITE_LIB)/libxpm.so.3.4
 	rm -rf libxpm.tmp
 	cd $(XITE_LIB); \
 	rm -f libxpm.so; \
@@ -197,7 +194,7 @@ install: install-indep install-arch
 install-indep: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k -i
+	#dh_clean -k -i
 	dh_installdirs -i
 
 	# Add here commands to install the indep part of the package into
@@ -207,24 +204,26 @@ install-indep: build
 	dh_install -i
 
 install-arch:
-	dh_testdir
-	dh_testroot
-	dh_clean -k -s
+	dh_testdir --all
+	dh_testroot --all
+	#dh_clean -k -s --all
 	dh_installdirs -s --all
 
 	# Add here commands to install the package into debian/tmp
 	# install $(XITE_LIB)/libfwf.so.3.4 
 
 	# dh_installdirs -A usr/bin usr/lib usr/include usr/share/man usr/share/doc/xite
-	#install -d -m 755 debian/xite-doc/usr/share/doc/xite/ReferenceManual
-	#install -d -m 755 debian/libfwf-dev/usr/include/Xfwf
-	#install -d -m 755 debian/libxite-dev/usr/include/xite
-	#install -d -m 755 debian/xite/etc/xite
-	#install -d -m 755 debian/xite/etc/X11/app-defaults
-	#install -d -m 755 debian/xite/usr/share/man/man1
-	#install -d -m 755 debian/xite/usr/share/doc/xite/html
-	#install -d -m 755 debian/libxite-dev/usr/share/man/man3
-	#install -d -m 755 debian/libxite-dev/usr/share/man/man5
+	install -d -m 755 debian/xite-doc/usr/share/doc/xite-doc/ReferenceManual
+	install -d -m 755 debian/xite-doc/usr/share/doc/xite-doc/html
+	install -d -m 755 debian/libfwf-dev/usr/include/Xfwf
+	install -d -m 755 debian/libxite-dev/usr/include/xite
+	install -d -m 755 debian/xite/etc/xite
+	install -d -m 755 debian/xite/etc/X11/app-defaults
+	install -d -m 755 debian/xite/usr/bin
+	install -d -m 755 debian/xite/usr/share/doc/xite/html
+	install -d -m 755 debian/xite/usr/share/man/man1
+	install -d -m 755 debian/libxite-dev/usr/share/man/man3
+	install -d -m 755 debian/libxite-dev/usr/share/man/man5
 
 	install -m 644 data/xshow/* debian/xite/etc/xite
 	install -m 644 etc/app-defaults/* debian/xite/etc/X11/app-defaults
@@ -232,7 +231,13 @@ install-arch:
 	install -m 644 debian/tmp/usr/share/man/man3/* debian/libxite-dev/usr/share/man/man3
 	install -m 644 debian/tmp/usr/share/man/man5/* debian/libxite-dev/usr/share/man/man5
 
-	# dh_movefiles
+	install -m 644 debian/tmp/usr/share/doc/xite/*.gz debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/*.html debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/*.jpg debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/BUGS debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/CHANGES debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/ReferenceManual debian/xite-doc/usr/share/doc/xite-doc/ReferenceManual/
+	install -m 644 debian/tmp/usr/share/doc/xite/html/* debian/xite-doc/usr/share/doc/xite-doc/html/
 
 	# Remove symbolic links which use absolute paths
 	cd debian/xite/usr/bin; \
@@ -248,7 +253,7 @@ install-arch:
 	ln -s startProg xshow; \
 	ln -s startProg xwarp
 
-	dh_install -s
+	dh_install -s --all
 
 # Must not depend on anything. This is to be called by
 # binary-arch/binary-indep
