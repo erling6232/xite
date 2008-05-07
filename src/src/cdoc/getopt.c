@@ -88,15 +88,16 @@ int attgetopt(int argc, char **argv, char *opts)
   int c;
   char *cp;
 
-  if(sp == 1)
+  if(sp == 1) {
     if(att_optind >= argc ||
        argv[att_optind][0] != '-' || argv[att_optind][1] == '\0'
-       || (argv[att_optind][1] >= '0' && argv[att_optind][1] <= '9'))
+       || (argv[att_optind][1] >= '0' && argv[att_optind][1] <= '9')) {
       return(EOF);
-    else if(strcmp(argv[att_optind], "--") == (ptrdiff_t) NULL) {
+    } else if(strcmp(argv[att_optind], "--") == (ptrdiff_t) NULL) {
       att_optind++;
       return(EOF);
     }
+  }
   att_optopt = c = argv[att_optind][sp];
   if(c == ':' || (cp=iindex(opts, c)) == NULL) {
     ERR(": illegal option -- ", c);
