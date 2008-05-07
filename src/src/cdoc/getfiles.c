@@ -200,7 +200,7 @@ static int filename_match(char *filename, char *template)
 #endif /* FUNCPROTO */
 {
   int llen, rlen;
-  char tmpNam[80], *pos, *tmp;
+  char tmpNam[MAXPATHLEN], *pos, *tmp;
 
   match_length(template, &llen, &rlen);
 
