@@ -567,9 +567,9 @@ REGEX           = -DREGEX
 DIRENT          = 
 
 CFLAGS_ALWAYS   = -D$(XITE_HOSTTYPE) $(DEBUG) -Dinstring=__instring \
-                  $(REGEX) $(DIRENT) -m32
+                  $(REGEX) $(DIRENT)
 
-OPTIM           = -O
+OPTIM           = -O3 -Wall
 OPTIM_GNU       = -O3
 CDEBUG          = -g
 CC_DSO_FLAGS    = -fPIC
@@ -938,7 +938,7 @@ LFLAGS_CMEX     = -L$(XITE_LIB_DEST)
 LFLAGS_MEX      = $(LFLAGS_CMEX) \
                   LDFLAGS='$$LDFLAGS $(RPATH_OPT) $(XITE_LIB_DEST)'
 
-CC_LD           = $(CC) -shared -m32
+CC_LD           = $(CC) -shared
 # If archive libraries: --whole-archive
 CC_DSO_NAME_FLAGS = -Xlinker -soname -Xlinker
 CC_LD_FLAGS     =
