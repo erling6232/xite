@@ -225,19 +225,39 @@ install-arch:
 	install -d -m 755 debian/libxite-dev/usr/share/man/man3
 	install -d -m 755 debian/libxite-dev/usr/share/man/man5
 
-	install -m 644 data/xshow/* debian/xite/etc/xite
-	install -m 644 etc/app-defaults/* debian/xite/etc/X11/app-defaults
-	install -m 644 debian/tmp/usr/share/man/man1/* debian/xite/usr/share/man/man1
+	# libfwf
+	mv $(CURDIR)/debian/tmp/usr/lib/libfwf.so* $(CURDIR)/debian/libfwf/usr/lib
+
+	# libfwf-dev
+	mv $(CURDIR)/debian/tmp/usr/lib/libfwf.a $(CURDIR)/debian/libfwf-dev/usr/lib
+	mv $(CURDIR)/debian/tmp/usr/include/Xfwf $(CURDIR)/debian/libfwf-dev/usr/include
+
+	# libxite
+	mv $(CURDIR)/debian/tmp/usr/lib/lib*.so* $(CURDIR)/debian/libxite/usr/lib
+	# libxite-dev
+	mv $(CURDIR)/debian/tmp/usr/lib/lib*.a $(CURDIR)/debian/libxite-dev/usr/lib
+	mv $(CURDIR)/debian/tmp/usr/include/xite $(CURDIR)/debian/libxite-dev/usr/include
+	mv $(CURDIR)/debian/tmp/usr/include/xpm $(CURDIR)/debian/libxite-dev/usr/include
 	install -m 644 debian/tmp/usr/share/man/man3/* debian/libxite-dev/usr/share/man/man3
 	install -m 644 debian/tmp/usr/share/man/man5/* debian/libxite-dev/usr/share/man/man5
 
-	# install -m 644 debian/tmp/usr/share/doc/xite/*.gz debian/xite-doc/usr/share/doc/xite-doc
-	# install -m 644 debian/tmp/usr/share/doc/xite/*.html debian/xite-doc/usr/share/doc/xite-doc
-	# install -m 644 debian/tmp/usr/share/doc/xite/*.jpg debian/xite-doc/usr/share/doc/xite-doc
-	# install -m 644 debian/tmp/usr/share/doc/xite/BUGS debian/xite-doc/usr/share/doc/xite-doc
-	# install -m 644 debian/tmp/usr/share/doc/xite/CHANGES debian/xite-doc/usr/share/doc/xite-doc
-	# install -m 644 debian/tmp/usr/share/doc/xite/ReferenceManual debian/xite-doc/usr/share/doc/xite-doc/ReferenceManual/
-	# install -m 644 debian/tmp/usr/share/doc/xite/html/* debian/xite-doc/usr/share/doc/xite-doc/html/
+	# xite
+	install -m 644 debian/tmp/usr/share/man/man1/* debian/xite/usr/share/man/man1
+	install -m 644 data/xshow/* debian/xite/etc/xite
+	install -m 644 etc/app-defaults/* debian/xite/etc/X11/app-defaults
+
+	# xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/ProgrammersManual.p* debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/BUGS debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/CHANGES debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/ReferenceManual/* debian/xite-doc/usr/share/doc/xite-doc/ReferenceManual/
+	install -m 644 debian/tmp/usr/share/doc/xite/html/* debian/xite-doc/usr/share/doc/xite-doc/html/
+	install -m 644 debian/tmp/usr/share/doc/xite/SysAdmManual.p* debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/UsersManual.p* debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/WHAT_IS_XITE* debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/bugs.html debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/changes.html debian/xite-doc/usr/share/doc/xite-doc
+	install -m 644 debian/tmp/usr/share/doc/xite/mona_canny.jpg debian/xite-doc/usr/share/doc/xite-doc
 
 	# Remove symbolic links which use absolute paths
 	cd debian/xite/usr/bin; \
@@ -262,7 +282,7 @@ binary-common:
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs 
-	dh_installdocs --all
+#	dh_installdocs --all
 	dh_installexamples
 #	dh_installmenu
 #	dh_installdebconf	
@@ -274,7 +294,7 @@ binary-common:
 #	dh_installinit
 #	dh_installcron
 #	dh_installinfo
-	dh_installman
+	dh_installman -plibxite-dev
 	dh_link
 	dh_strip
 	dh_compress 
