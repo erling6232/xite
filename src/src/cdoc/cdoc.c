@@ -850,7 +850,7 @@ int main(int argc, char **argv)
   char *symbarr[200];
   char *subsub_header[500];
   char line[512], *lin, *orgarg;
-  char outbuf[512], *ptr, extension[100];
+  char outbuf[512], *ptr, extension[MAXPATHLEN];
   char *infilename, *outfilename;
   doc_type mode = LATEX;
 #ifndef _WIN32
@@ -1291,35 +1291,31 @@ int main(int argc, char **argv)
     if (!written && !linked && outp_s != stdout) unlink(outfilename);
 
     if (written && mode == HTML && outp_s != stdout) {
-      char *tmpfilename, dir[100], buf[512];
+      char buf[512];
       FILE *tmpfp;
 
       /*
       fprintf(stderr, "%s: outp_line_num: %d, num_headers: %d\n",
               outfilename, outp_line_num_s, num_subsub_header);
       */
-      strcpy(dir, getenv("HOME"));
-      tmpfilename = tempnam(dir, "/.doc");
-      tmpfp       = fopen(tmpfilename, "w");
+      tmpfp       = tmpfile();
       outp_s      = fopen(outfilename, "r");
 
       add_html_toc(outp_s, subsub_header, num_subsub_header, tmpfp,
 		   toc && outp_line_num_s > ntoc, 1);
 
-      fclose(tmpfp);
       fclose(outp_s);
 
       unlink(outfilename);
 
-      /* Copy from tmpfilename to outfilename. */
+      /* Copy from tmpfp to outfilename. */
 
-      tmpfp  = fopen(tmpfilename, "r");
+      rewind(tmpfp);
       outp_s = fopen(outfilename, "w");
 
       while (fgets(buf, 512, tmpfp)) fputs(buf, outp_s);
 
       fclose(tmpfp); fclose(outp_s);
-      unlink(tmpfilename);
     }
   } /* for symbnr */
 
