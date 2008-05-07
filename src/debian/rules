@@ -231,13 +231,13 @@ install-arch:
 	install -m 644 debian/tmp/usr/share/man/man3/* debian/libxite-dev/usr/share/man/man3
 	install -m 644 debian/tmp/usr/share/man/man5/* debian/libxite-dev/usr/share/man/man5
 
-	install -m 644 debian/tmp/usr/share/doc/xite/*.gz debian/xite-doc/usr/share/doc/xite-doc
-	install -m 644 debian/tmp/usr/share/doc/xite/*.html debian/xite-doc/usr/share/doc/xite-doc
-	install -m 644 debian/tmp/usr/share/doc/xite/*.jpg debian/xite-doc/usr/share/doc/xite-doc
-	install -m 644 debian/tmp/usr/share/doc/xite/BUGS debian/xite-doc/usr/share/doc/xite-doc
-	install -m 644 debian/tmp/usr/share/doc/xite/CHANGES debian/xite-doc/usr/share/doc/xite-doc
-	install -m 644 debian/tmp/usr/share/doc/xite/ReferenceManual debian/xite-doc/usr/share/doc/xite-doc/ReferenceManual/
-	install -m 644 debian/tmp/usr/share/doc/xite/html/* debian/xite-doc/usr/share/doc/xite-doc/html/
+	# install -m 644 debian/tmp/usr/share/doc/xite/*.gz debian/xite-doc/usr/share/doc/xite-doc
+	# install -m 644 debian/tmp/usr/share/doc/xite/*.html debian/xite-doc/usr/share/doc/xite-doc
+	# install -m 644 debian/tmp/usr/share/doc/xite/*.jpg debian/xite-doc/usr/share/doc/xite-doc
+	# install -m 644 debian/tmp/usr/share/doc/xite/BUGS debian/xite-doc/usr/share/doc/xite-doc
+	# install -m 644 debian/tmp/usr/share/doc/xite/CHANGES debian/xite-doc/usr/share/doc/xite-doc
+	# install -m 644 debian/tmp/usr/share/doc/xite/ReferenceManual debian/xite-doc/usr/share/doc/xite-doc/ReferenceManual/
+	# install -m 644 debian/tmp/usr/share/doc/xite/html/* debian/xite-doc/usr/share/doc/xite-doc/html/
 
 	# Remove symbolic links which use absolute paths
 	cd debian/xite/usr/bin; \
@@ -262,7 +262,7 @@ binary-common:
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs 
-	dh_installdocs
+	dh_installdocs --all
 	dh_installexamples
 #	dh_installmenu
 #	dh_installdebconf	
