@@ -85,8 +85,6 @@ ________________________________________________________________
 #include XITE_STRING_H
 #include XITE_MALLOC_H
 
-#ifdef MAIN
-      
 #ifndef FUNCPROTO
 int main(argc, argv)
 int argc;
@@ -163,5 +161,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
