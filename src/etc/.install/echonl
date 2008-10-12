@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# $Id$
-
-if [ "`echo -n`" != "" ]; then
-    echo "$*\c"
-else
-    echo -n "$*"
-fi
