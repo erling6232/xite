@@ -1,0 +1,22 @@
+#
+#      Makefile.am for src/arithmetic
+#
+
+
+@SET_MAKE@
+
+SHELL = /bin/sh
+configdir = @configdir@
+
+include $(configdir)/@common_makefile@
+
+#
+#   Makefile definitions for arithmetic
+#
+noinst_LTLIBRARIES = libxitearithmetic.la
+
+libxitearithmetic_la_SOURCES = \
+	absDiff.c addw.c average.c crossSection.c divide.c \
+	logical.c multiply.c profile.c rms.c scale.c signDiff.c \
+	square.c squareRoot.c real.c imag.c power.c phase.c \
+	logarithm.c
