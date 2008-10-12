@@ -100,13 +100,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int phase(in_band, out_band)
-IBAND in_band;
-IBAND out_band;
-#else /* FUNCPROTO */
 int phase(IBAND in_band, IBAND out_band)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, y, x;
   IPIXTYP ipt, opt;
@@ -268,13 +262,7 @@ static char *error[]= {
   "Error in shift_band",
 };
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE im1, im2;
   IBAND b1, b2;

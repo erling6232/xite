@@ -109,13 +109,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-double rowMaxBand(band, y)
-IBAND band;
-int y;
-#else /* FUNCPROTO */
 double rowMaxBand(IBAND band, int y)
-#endif /* FUNCPROTO */
 {
   double m = -(DOUBLE_MAX-1), v;
   int i;
@@ -226,13 +220,7 @@ double rowMaxBand(IBAND band, int y)
 
 
 
-#ifndef FUNCPROTO
-double colMaxBand(band, x)
-IBAND band;
-int x;
-#else /* FUNCPROTO */
 double colMaxBand(IBAND band, int x)
-#endif /* FUNCPROTO */
 {
   double m = -(DOUBLE_MAX-1), v;
   int i;
@@ -343,13 +331,7 @@ double colMaxBand(IBAND band, int x)
 
 
 
-#ifndef FUNCPROTO
-double rowMinBand(band, y)
-IBAND band;
-int y;
-#else /* FUNCPROTO */
 double rowMinBand(IBAND band, int y)
-#endif /* FUNCPROTO */
 {
   double m = DOUBLE_MAX, v;
   int i;
@@ -460,13 +442,7 @@ double rowMinBand(IBAND band, int y)
 
 
 
-#ifndef FUNCPROTO
-double colMinBand(band, x)
-IBAND band;
-int x;
-#else /* FUNCPROTO */
 double colMinBand(IBAND band, int x)
-#endif /* FUNCPROTO */
 {
   double m = DOUBLE_MAX, v;
   int i;
@@ -683,14 +659,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int colMaxArrBand(band, vector, size, min, max)
-IBAND band;
-long *size;
-double **vector, *min, *max;
-#else /* FUNCPROTO */
 int colMaxArrBand(IBAND band, double **vector, long int *size, double *min, double *max)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -712,14 +681,7 @@ int colMaxArrBand(IBAND band, double **vector, long int *size, double *min, doub
 
 
 
-#ifndef FUNCPROTO
-int rowMaxArrBand(band, vector, size, min, max)
-IBAND band;
-long *size;
-double **vector, *min, *max;
-#else /* FUNCPROTO */
 int rowMaxArrBand(IBAND band, double **vector, long int *size, double *min, double *max)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -741,14 +703,7 @@ int rowMaxArrBand(IBAND band, double **vector, long int *size, double *min, doub
 
 
 
-#ifndef FUNCPROTO
-int colMinArrBand(band, vector, size, min, max)
-IBAND band;
-long *size;
-double **vector, *min, *max;
-#else /* FUNCPROTO */
 int colMinArrBand(IBAND band, double **vector, long int *size, double *min, double *max)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -770,14 +725,7 @@ int colMinArrBand(IBAND band, double **vector, long int *size, double *min, doub
 
 
 
-#ifndef FUNCPROTO
-int rowMinArrBand(band, vector, size, min, max)
-IBAND band;
-long *size;
-double **vector, *min, *max;
-#else /* FUNCPROTO */
 int rowMinArrBand(IBAND band, double **vector, long int *size, double *min, double *max)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -799,15 +747,7 @@ int rowMinArrBand(IBAND band, double **vector, long int *size, double *min, doub
 
 
 
-#ifndef FUNCPROTO
-int columnBand(band, col, vector, size, min, max)
-IBAND band;
-int col;
-long *size;
-double **vector, *min, *max;
-#else /* FUNCPROTO */
 int columnBand(IBAND band, int col, double **vector, long int *size, double *min, double *max)
-#endif /* FUNCPROTO */
 {
   int i, status = 0;
 
@@ -937,15 +877,7 @@ int columnBand(IBAND band, int col, double **vector, long int *size, double *min
 
 
 
-#ifndef FUNCPROTO
-int rowBand(band, rowno, vector, size, min, max)
-IBAND band;
-int rowno;
-long *size;
-double **vector, *min, *max;
-#else /* FUNCPROTO */
 int rowBand(IBAND band, int rowno, double **vector, long int *size, double *min, double *max)
-#endif /* FUNCPROTO */
 {
   int i, status = 0;
 
@@ -1115,15 +1047,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int curveToBand(band, curve, minval, maxval, scale, cur, fg, bg)
-IBAND band;
-double *curve;
-double cur, fg, bg;
-double minval, maxval, scale;
-#else /* FUNCPROTO */
 int curveToBand(IBAND band, double *curve, double minval, double maxval, double scale, double cur, double fg, double bg)
-#endif /* FUNCPROTO */
 {
   long x, y, curPix, height, width, val;
   IPIXTYP pt;
@@ -1472,13 +1396,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int mini, maxi, xdir, ydir, status, x, num, height, b, ascOut;
   int fieldWidth, nItems;

@@ -81,14 +81,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int average(inimg, outband, Scale)
-IMAGE inimg;
-ID_BAND outband;
-double Scale;
-#else /* FUNCPROTO */
 int average(IMAGE inimg, ID_BAND outband, double Scale)
-#endif /* FUNCPROTO */
 {
   ISB_IMAGE sbb1;
   IUS_IMAGE usb1;
@@ -275,13 +268,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int nbands, bn, xsize, ysize, lxsize, lysize, stat, min, max, i, j;
   double scale;

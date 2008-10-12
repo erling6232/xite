@@ -105,13 +105,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int multiply(band1, band2, output, scale)
-IBAND band1, band2, output;
-double scale;
-#else /* FUNCPROTO */
 int multiply(IBAND band1, IBAND band2, IBAND output, double scale)
-#endif /* FUNCPROTO */
 {
   long x, y, xsize, ysize;
   IPIXTYP pt1, pt2, pto;
@@ -359,13 +353,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2, i3;
   int bands, bn;

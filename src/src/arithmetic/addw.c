@@ -96,14 +96,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int addw(band1, band2, output, w1, w2, offset)
-IBAND band1, band2, output;
-double w1, w2;
-double offset;
-#else /* FUNCPROTO */
 int addw(IBAND band1, IBAND band2, IBAND output, double w1, double w2, double offset)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize, pt;
 
@@ -370,13 +363,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2, i3;
    int bands, bn, stat;

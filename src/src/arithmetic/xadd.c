@@ -59,11 +59,7 @@ static char *outfile_s;
 static float f = 0.5;
 static int neg1_s = 0, neg2_s = 0;
 
-#ifndef FUNCPROTO
-static void nextprev();
-#else /* FUNCPROTO */
 static void nextprev(int diff);
-#endif /* FUNCPROTO */
 
 typedef enum {
 XIMAGE,
@@ -207,14 +203,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   IBAND b1, b2;
   float f1, f2, off;
@@ -292,12 +281,7 @@ static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
   }
 }
 
-#ifndef FUNCPROTO
-static void nextprev(diff)
-int diff;
-#else /* FUNCPROTO */
 static void nextprev(int diff)
-#endif /* FUNCPROTO */
 {
   bandnr_s += diff;
   XtVaSetValues(rwidgets[PREV], XtNsensitive, bandnr_s > 1, NULL);
@@ -324,13 +308,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void checkimg(argv, img1, img2)
-char **argv;
-IMAGE img1, img2;
-#else /* FUNCPROTO */
 static void checkimg(char **argv, IMAGE img1, IMAGE img2)
-#endif /* FUNCPROTO */
 {
   int i, nbands, xsize, ysize;
   if (img1 == NULL || img2 == NULL)
@@ -361,13 +339,7 @@ static void checkimg(char **argv, IMAGE img1, IMAGE img2)
       }
 }
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IBAND b1, b2;  
   Widget toplevel;

@@ -40,15 +40,13 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include <xite/arithmetic.h>
-#include <xite/message.h>
-#include <xite/readarg.h>
+#include <arithmetic.h>
+#include <message.h>
+#include <readarg.h>
 
 #ifndef MIN
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
-
-#ifndef MAIN
 
 /*F:absDiff*
 
@@ -87,12 +85,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int absDiff(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int absDiff(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    ISB_BAND sbb1, sbb2, sbb3;
    IUS_BAND usb1, usb2, usb3;
@@ -236,88 +229,3 @@ int absDiff(IBAND input1, IBAND input2, IBAND output)
      default: return(Error(2, "absDiff(): unknown pixel type.\n"));
    }
 }  /* absDiff() */
-
-#endif /* not MAIN */
-
-
-
-/*P:absDiff*
-
-________________________________________________________________
-
-		absDiff
-________________________________________________________________
-
-Name:		absDiff - absolute difference between two images
-
-Syntax:		absDiff <inimage1> <inimage2> <outimage>
-
-Description:    'absDiff' calulates the absolute value of the grey
-                level difference between two input images, and
-		assigns the result to the output image.
-
-                If the result is outside the pixeltype range, the result is
-                truncated.
-
-See also:	absDiff(3), signDiff(1), addw(1), multiply(1), divide(1)
-
-Restrictions:   Accepts all pixel types, as long as corresponding
-		pairs of bands have the same pixel type.
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Examples:       | absDiff mona1.img mona2.img monaDiff.img
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
-int main(int argc, char **argv)
-#endif /* FUNCPROTO */
-{
-   IMAGE i1, i2, i3;
-   int bands, bn;
-   char *args, buf[100];
-
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <input1> <input2> <output>\n"));
-   Iset_message(1);
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-   if (argc != 4) Usage(2, "Illegal number of arguments.\n");
- 
-   i1    = Iread_image(argv[1]);
-   i2    = Iread_image(argv[2]);
-   i3    = Icopy_init(i1);
-
-   Isetpos(i3, 1); Idel_text(i3);
-   sprintf(buf, "%% %s input one:", argv[0]); Iappend_line(i3, buf);
-   if (Icopy_text(i1, i3) != Iok)
-     Error(3, "Error in copying text field of input one.\n");
-   sprintf(buf, "%% %s input two:", argv[0]); Iappend_line(i3, buf);
-   if (Icopy_text(i2, i3) != Iok)
-     Error(3, "Error in copying text field of input two.\n");
-   sprintf(buf, "%% %s output:", argv[0]);
-   Iappend_line(i3, buf);
-
-   bands = MIN(Inbands(i1),Inbands(i2));
-
-   for (bn=1; bn <= bands; ++bn)
-     absDiff(i1[bn], i2[bn], i3[bn]);
-
-   Ihistory(i3, argv[0], args);
-   Iwrite_image(i3,argv[3]);
-
-   return(0);
-}
-
-#endif /* MAIN */

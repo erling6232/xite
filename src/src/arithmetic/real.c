@@ -88,13 +88,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int real(input, output)
-IBAND input;
-IBAND output;
-#else /* FUNCPROTO */
 int real(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y;
   IPIXTYP ipt, opt;
@@ -198,13 +192,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1, img2;
   int f, d, nbands, bn, ipt, opt, stat;

@@ -96,14 +96,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int signDiff(input1, input2, output, scale, offset)
-IBAND input1, input2, output;
-double scale;
-double offset;
-#else /* FUNCPROTO */
 int signDiff(IBAND input1, IBAND input2, IBAND output, double scale, double offset)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize, pt;
 
@@ -341,13 +334,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2, i3;
    int bands, bn;

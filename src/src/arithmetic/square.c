@@ -89,13 +89,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int square(input, output, scale)
-IBAND input, output;
-double scale;
-#else /* FUNCPROTO */
 int square(IBAND input, IBAND output, double scale)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
    IPIXTYP ipt, opt;
@@ -283,13 +277,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE img;
    int nbands, bn;

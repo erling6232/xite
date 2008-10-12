@@ -87,13 +87,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int scale(input, output, Scale, offset)
-IBAND input, output;
-double Scale, offset;
-#else /* FUNCPROTO */
 int scale(IBAND input, IBAND output, double Scale, double offset)
-#endif /* FUNCPROTO */
 {
   ISB_BAND sbb1, sbb2;
   IUS_BAND usb1, usb2;
@@ -277,13 +271,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
 
    IMAGE img;

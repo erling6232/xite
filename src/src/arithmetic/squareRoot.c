@@ -94,13 +94,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int squareRoot(input, output, scale)
-IBAND input, output;
-double scale;
-#else /* FUNCPROTO */
 int squareRoot(IBAND input, IBAND output, double scale)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double val;
@@ -255,13 +249,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE img;
    int nbands, bn;

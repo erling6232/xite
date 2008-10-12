@@ -220,12 +220,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-int logical_and(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_and(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -247,12 +242,7 @@ int logical_and(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_or(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_or(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -276,12 +266,7 @@ int logical_or(IBAND input1, IBAND input2, IBAND output)
 
 #define XOR(a,b) ((a) ? (! (b)) : (b))
 
-#ifndef FUNCPROTO
-int logical_xor(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_xor(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -303,12 +288,7 @@ int logical_xor(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_not(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 int logical_not(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -328,12 +308,7 @@ int logical_not(IBAND input, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_band(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_band(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -355,12 +330,7 @@ int logical_band(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_bor(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_bor(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -384,12 +354,7 @@ int logical_bor(IBAND input1, IBAND input2, IBAND output)
 
 #define BXOR ^
 
-#ifndef FUNCPROTO
-int logical_bxor(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_bxor(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -411,12 +376,7 @@ int logical_bxor(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_bnot(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 int logical_bnot(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -436,13 +396,7 @@ int logical_bnot(IBAND input, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_lshift(input, output, n)
-IBAND input, output;
-int n;
-#else /* FUNCPROTO */
 int logical_lshift(IBAND input, IBAND output, int n)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -462,13 +416,7 @@ int logical_lshift(IBAND input, IBAND output, int n)
 
 
 
-#ifndef FUNCPROTO
-int logical_rshift(input, output, n)
-IBAND input, output;
-int n;
-#else /* FUNCPROTO */
 int logical_rshift(IBAND input, IBAND output, int n)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -488,12 +436,7 @@ int logical_rshift(IBAND input, IBAND output, int n)
 
 
 
-#ifndef FUNCPROTO
-int logical_eq(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_eq(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -515,12 +458,7 @@ int logical_eq(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_ne(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_ne(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -542,12 +480,7 @@ int logical_ne(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_lt(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_lt(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -569,12 +502,7 @@ int logical_lt(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_le(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_le(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -596,12 +524,7 @@ int logical_le(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_gt(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_gt(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -623,12 +546,7 @@ int logical_gt(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_ge(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_ge(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -650,12 +568,7 @@ int logical_ge(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_mask(input1, input2, output)
-IBAND input1, input2, output;
-#else /* FUNCPROTO */
 int logical_mask(IBAND input1, IBAND input2, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -677,13 +590,7 @@ int logical_mask(IBAND input1, IBAND input2, IBAND output)
 
 
 
-#ifndef FUNCPROTO
-int logical_bandc(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_bandc(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -703,13 +610,7 @@ int logical_bandc(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_borc(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_borc(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -729,13 +630,7 @@ int logical_borc(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_bxorc(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_bxorc(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -755,13 +650,7 @@ int logical_bxorc(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_eqc(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_eqc(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -781,13 +670,7 @@ int logical_eqc(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_nec(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_nec(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -807,13 +690,7 @@ int logical_nec(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_ltc(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_ltc(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -833,13 +710,7 @@ int logical_ltc(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_lec(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_lec(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -859,13 +730,7 @@ int logical_lec(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_gtc(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_gtc(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -885,13 +750,7 @@ int logical_gtc(IBAND input, IBAND output, UNS_BYTE c)
 
 
 
-#ifndef FUNCPROTO
-int logical_gec(input, output, c)
-IBAND input, output;
-UNS_BYTE c;
-#else /* FUNCPROTO */
 int logical_gec(IBAND input, IBAND output, UNS_BYTE c)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
 
@@ -1016,13 +875,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2, i3;
    int bn, nbands, n, sum_sw, binary, xsize, ysize, status, cons;
@@ -1041,13 +894,8 @@ int main(int argc, char **argv)
    if (argc == 1) Usage(1, NULL);
    args = argvOptions(argc, argv);
 
-#ifndef FUNCPROTO
-#define READ_SWITCH(sw) \
-  ((read_switch(&argc, argv, "sw", 0, NULL) != NULL) ? 1 : 0)
-#else /* FUNCPROTO */
 #define READ_SWITCH(sw) \
   ((read_switch(&argc, argv, #sw, 0, NULL) != NULL) ? 1 : 0)
-#endif /* FUNCPROTO */
 
    and_    = READ_SWITCH(-and);
    or_     = READ_SWITCH(-or);

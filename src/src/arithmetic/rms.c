@@ -89,13 +89,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-double rms(band1, band2, edge)
-IBAND band1, band2;
-int edge;
-#else /* FUNCPROTO */
 double rms(IBAND band1, IBAND band2, int edge)
-#endif /* FUNCPROTO */
 {
   long x, y, xstop, ystop, size;
   double sum;
@@ -367,13 +361,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2;
    int bn, edge, maxbn;

@@ -89,13 +89,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int divide(band1, band2, output, scale)
-   IBAND band1, band2, output;
-   double scale;
-#else /* FUNCPROTO */
 int divide(IBAND band1, IBAND band2, IBAND output, double scale)
-#endif /* FUNCPROTO */
 {
    ISB_BAND sbb1, sbb2, sbb3;
    IUS_BAND usb1, usb2, usb3;
@@ -324,13 +318,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2, i3;
    int bands, bn, pt;

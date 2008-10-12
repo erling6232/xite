@@ -81,21 +81,8 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int profile(band, x, y, direction, step, dist, ip, arr, maxlen)
-     IBAND band;
-     double x;
-     double y;
-     double direction;
-     double step;
-     double dist;
-     int ip;
-     double *arr;
-     int maxlen;
-#else /* FUNCPROTO */
 int profile(IBAND band, double x, double y, double direction, double step, 
 	    double dist, int ip, double *arr, int maxlen)
-#endif /* FUNCPROTO */
 {
   IUB_BAND ub_band;
   ISB_BAND sb_band;
@@ -243,13 +230,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
   double x, y, d, ex, ey, dist, step;
   IMAGE img;

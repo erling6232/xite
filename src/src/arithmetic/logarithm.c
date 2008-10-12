@@ -132,73 +132,6 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-#define FUNC_LOG10_ROUND(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
-static void NAME(tab, eps, offset, scale, minimum) \
-OUT_TYPE *tab, minimum; \
-double eps, offset, scale; \
-{ \
-  int i; \
-  double d; \
-  \
-  if (eps != 0.0 && offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = (log10(i + eps) + offset) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10(i + eps) + offset; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10(i + eps) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = (log10((double) i) + offset) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10(i + eps); \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10((double) i) + offset; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10((double) i) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
- \
-  for (i = IN_MINI; i <= IN_MAXI; i++) { \
-    d      = log10((double) i); \
-    *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-  } \
-  return; \
- \
-}
-#else /* FUNCPROTO */
 #define FUNC_LOG10_ROUND(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
 static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYPE minimum) \
 { \
@@ -262,83 +195,7 @@ static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYP
   return; \
  \
 }
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-#define FUNC_LOG10_ROUND_ABS(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
-static void NAME(tab, eps, offset, scale, minimum) \
-OUT_TYPE *tab, minimum; \
-double eps, offset, scale; \
-{ \
-  int i, abs_val; \
-  double d; \
-  \
-  if (eps != 0.0 && offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = (log10(abs_val + eps) + offset) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10(abs_val + eps) + offset; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10(abs_val + eps) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = (log10((double) abs_val) + offset) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10(abs_val + eps); \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10((double) abs_val) + offset; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10((double) abs_val) * scale; \
-      *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
- \
-  for (i = IN_MINI; i <= IN_MAXI; i++) { \
-    abs_val = i >= 0 ? i : -i; \
-    d      = log10((double) abs_val); \
-    *tab++ = CLIP_RANGE_ROUND_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-  } \
-  return; \
- \
-}
-#else /* FUNCPROTO */
 #define FUNC_LOG10_ROUND_ABS(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
 static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYPE minimum) \
 { \
@@ -410,83 +267,7 @@ static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYP
   return; \
  \
 }
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-#define FUNC_LOG10_ABS(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
-static void NAME(tab, eps, offset, scale, minimum) \
-OUT_TYPE *tab, minimum; \
-double eps, offset, scale; \
-{ \
-  int i, abs_val; \
-  double d; \
-  \
-  if (eps != 0.0 && offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = (log10(abs_val + eps) + offset) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10(abs_val + eps) + offset; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10(abs_val + eps) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = (log10((double) abs_val) + offset) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10(abs_val + eps); \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10((double) abs_val) + offset; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      abs_val = i >= 0 ? i : -i; \
-      d      = log10((double) abs_val) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
- \
-  for (i = IN_MINI; i <= IN_MAXI; i++) { \
-    abs_val = i >= 0 ? i : -i; \
-    d      = log10((double) abs_val); \
-    *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-  return; \
- \
-}
-#else /* FUNCPROTO */
 #define FUNC_LOG10_ABS(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
 static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYPE minimum) \
 { \
@@ -558,75 +339,7 @@ static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYP
   return; \
  \
 }
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-#define FUNC_LOG10(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
-static void NAME(tab, eps, offset, scale, minimum) \
-OUT_TYPE *tab, minimum; \
-double eps, offset, scale; \
-{ \
-  int i; \
-  double d; \
-  \
-  if (eps != 0.0 && offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = (log10(i + eps) + offset) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10(i + eps) + offset; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10(i + eps) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0 && scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = (log10((double) i) + offset) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (eps != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10(i + eps); \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (offset != 0.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10((double) i) + offset; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
-  if (scale != 1.0) { \
-    for (i = IN_MINI; i <= IN_MAXI; i++) { \
-      d      = log10((double) i) * scale; \
-      *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-    } \
-    return; \
-  } \
- \
-  for (i = IN_MINI; i <= IN_MAXI; i++) { \
-    d      = log10((double) i); \
-    *tab++ = CLIP_RANGE_CAST(d, minimum, OUT_MAXI, OUT_TYPE); \
-  } \
-  return; \
- \
-}
-#else /* FUNCPROTO */
 #define FUNC_LOG10(NAME, OUT_TYPE, IN_MINI, IN_MAXI, OUT_MAXI) \
 static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYPE minimum) \
 { \
@@ -690,7 +403,6 @@ static void NAME(OUT_TYPE *tab, double eps, double offset, double scale, OUT_TYP
   return; \
  \
 }
-#endif /* FUNCPROTO */
 
 FUNC_LOG10_ROUND(    log10_ub_ub, UNS_BYTE, 0,              UNS_BYTE_MAX,
 		     UNS_BYTE_MAX)
@@ -717,14 +429,7 @@ FUNC_LOG10_ABS(      log10_ss_r,  REAL,     SIGN_SHORT_MIN, SIGN_SHORT_MAX,
 FUNC_LOG10_ABS(      log10_ss_d,  DOUBLE,   SIGN_SHORT_MIN, SIGN_SHORT_MAX,
 		     DOUBLE_MAX)
 
-#ifndef FUNCPROTO
-BiffStatus logarithm(in_band, out_band, eps, offset, scale, minimum)
-IBAND in_band;
-IBAND out_band;
-double eps, offset, scale, minimum;
-#else /* FUNCPROTO */
 BiffStatus logarithm(IBAND in_band, IBAND out_band, double eps, double offset, double scale, double minimum)
-#endif /* FUNCPROTO */
 {
   long    xsize, ysize, y, x;
   IPIXTYP ipixtyp, opixtyp;
@@ -1406,25 +1111,14 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-static void usage(s)
-char* s;
-#else /* FUNCPROTO */
 static void usage(char *s)
-#endif /* FUNCPROTO */
 {
   fprintf(stderr, 
     "Usage: %s [-scale <scale>] <inimage> <outimage>\n", s);
   exit(1);
 }
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1, img2;
   IBAND b1, b2;
