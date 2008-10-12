@@ -79,7 +79,7 @@ AC_SUBST(common_makefile, [Makefile.def])
 
 # Output files
 AC_CONFIG_FILES([
-    config/Makefile.def
+    Makefile.def
     Makefile
     src/Makefile
     src/arithmetic/Makefile
