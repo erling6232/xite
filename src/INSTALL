@@ -1,0 +1,12 @@
+autoreconf --install
+
+# or
+
+aclocal
+autoheader
+automake
+autoconf
+./configure
+make
+make check
+make install
