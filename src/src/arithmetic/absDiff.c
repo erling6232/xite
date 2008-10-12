@@ -40,9 +40,9 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include <arithmetic.h>
-#include <message.h>
-#include <readarg.h>
+#include <xite/arithmetic.h>
+#include <xite/message.h>
+#include <xite/readarg.h>
 
 #ifndef MIN
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
