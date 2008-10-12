@@ -1,6 +1,7 @@
-noinst_LTLIBRARIES = libxitesrc.la
-libxitesrc_la_SOURCES =
-libxitesrc_la_LIBADD = arithmetic/libxitearithmetic.la
+lib_LTLIBRARIES = libxite.la
+libxite_la_SOURCES =
+libxite_la_LIBADD = arithmetic/libxitearithmetic.la
+libxite_la_LIBADD = biff/libxitebiff.la
 
 SUBDIRS = \
 	arithmetic \
