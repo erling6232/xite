@@ -74,7 +74,7 @@ AC_CHECK_FUNCS([random srandom toupper tolower])
 # Checks for library functions
 
 # Common Makefile.def
-AC_SUBST(configdir, [\${top_srcdir}/config])
+AC_SUBST(configdir, [\${top_srcdir}])
 AC_SUBST(common_makefile, [Makefile.def])
 
 # Output files
