@@ -26,9 +26,9 @@ AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([ctype.h fcntl.h float.h io.h limits.h malloc.h math.h stddef.h stdlib.h sys/file.h sys/param.h sys/time.h unistd.h values.h])
+AC_CHECK_HEADERS([ctype.h fcntl.h float.h io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/time.h unistd.h values.h])
 AC_CHECK_HEADER([src/biff/biff.h])
-AC_CHECK_HEADERS([regex.h])
+AC_CHECK_HEADERS([direct.h regex.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -36,7 +36,7 @@ AC_TYPE_MODE_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_HEADER_TIME
-AC_CHECK_TYPES([ptrdiff_t])
+AC_CHECK_TYPES([DIR, ptrdiff_t])
 
 #AM_CFLAGS = -O3 -DSYSTEM_V -DSYSV -Dvfork=fork \
 #                  $(DEBUG) -DDEF_STRCASECMP -DREGEX $(DIRENT)
@@ -62,7 +62,7 @@ AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
 AC_FUNC_WAIT3
 AC_CHECK_FUNCS([dup2 getcwd isascii pow regcomp select sqrt strcasecmp strchr strcspn strerror strrchr strspn strstr strtol])
-AC_CHECK_FUNCS([random srandom toupper tolower])
+AC_CHECK_FUNCS([setmode random srandom toupper tolower])
 
 # define XITE_FCNTL_H      <sys/fcntl.h>
 # define XITE_IO_H         <xite/dummy.h>
@@ -74,14 +74,20 @@ AC_CHECK_FUNCS([random srandom toupper tolower])
 # Checks for library functions
 
 # Common Makefile.def
-AC_SUBST(configdir, [\${top_srcdir}])
+AC_SUBST(configdir, [\${top_builddir}])
 AC_SUBST(common_makefile, [Makefile.def])
 
 # Output files
 AC_CONFIG_FILES([
     Makefile.def
     Makefile
+    include/Makefile
+    include/xite/Makefile
+    lib/Makefile
+    lib/arithmetic/Makefile
+    lib/biff/Makefile
     src/Makefile
     src/arithmetic/Makefile
+    src/biff/Makefile
     ])
 AC_OUTPUT

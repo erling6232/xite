@@ -25,15 +25,10 @@ CINCL = arithmetic.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-noinst_LTLIBRARIES = libxitearithmetic.la
-libxitearithmetic_la_SOURCES = \
-	absDiff.c addw.c average.c crossSection.c divide.c \
-	logical.c multiply.c profile.c rms.c scale.c signDiff.c \
-	square.c squareRoot.c real.c imag.c power.c phase.c \
-	logarithm.c
-# LDADD = ../../lib/libxite.la
+LDADD = libxite.la
 
 absDiff_SOURCES = absDiff_main.c
+absDiff_LDADD = libxite.la
 addw_SOURCES = addw_main.c
 average_SOURCES = average_main.c
 crossSection_SOURCES = crossSection_main.c
