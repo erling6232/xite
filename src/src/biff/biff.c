@@ -49,9 +49,7 @@ static char *Id = "$Id$, Blab, UiO";
 ------------------------------------------------------------------------
 */
 
-#ifndef MAIN
-
-#ifndef _WIN32
+#ifdef HAVE_SYS_WAIT_H
 # include <sys/wait.h>
 #endif
 #include <xite/includes.h>
@@ -136,11 +134,11 @@ static char *pix_print_format[] = {
   "%-4d",    /* sign_byte */
   "%-5d",    /* uns_short */
   "%-6d",    /* sign_short */
-#ifdef XITE_INT_IS_INT
+/*#ifdef XITE_INT_IS_INT*/
   "%-11d",   /* integer */
-#else
-  "%-11ld",   /* integer */
-#endif
+/*#else*/
+  /*"%-11ld",*/   /* integer */
+/*#endif*/
   "%-9.3g",  /* real */
   "%-9.3g",  /* complex */
   "%-10.3g", /* double */
@@ -171,11 +169,7 @@ static char *pixtypname[] =
 ------------------------------------------------------------------------
 */
 
-#ifndef FUNCPROTO
-static int host_little_endian()
-#else /* FUNCPROTO */
 static int host_little_endian(void)
-#endif /* FUNCPROTO */
 {
   int one = 1;
   char* cp = (char*)&one;
@@ -183,11 +177,7 @@ static int host_little_endian(void)
   return(*cp != 0);
 }
 
-#ifndef FUNCPROTO
-int host_byte_order()
-#else /* FUNCPROTO */
 int host_byte_order(void)
-#endif /* FUNCPROTO */
 {
   if (host_little_endian()) return(XITE_LITTLE_ENDIAN);
   else return(XITE_BIG_ENDIAN);
@@ -217,12 +207,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int _Ilittle_endian(b)
-IBAND b;
-#else /* FUNCPROTO */
 static int _Ilittle_endian(IBAND b)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
   if (b EQ NULL) {
@@ -257,12 +242,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static short _Iread_short(buffer)
-  unsigned char *buffer;
-#else /* FUNCPROTO */
 static short _Iread_short(unsigned char *buffer)
-#endif /* FUNCPROTO */
 {
   return(buffer[0]*256 + buffer[1]);
 }   /*   _Iread_short   */
@@ -290,12 +270,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static long _Iread_long(buffer)
-  unsigned char *buffer;
-#else /* FUNCPROTO */
 static long _Iread_long(unsigned char *buffer)
-#endif /* FUNCPROTO */
 {
   long val;
   val = ((buffer[0] BAND 127)*33554432L) + (buffer[1]*65536L)
@@ -328,13 +303,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static long _Iread_val(buffer, blabpos, biffpos, version)
-  unsigned char *buffer;
-  int blabpos, biffpos, version;
-#else /* FUNCPROTO */
 static long _Iread_val(unsigned char *buffer, int blabpos, int biffpos, int version)
-#endif /* FUNCPROTO */
 {
   if (version EQ BLAB) {
     return(_Iread_short(&(buffer[blabpos])));
@@ -367,13 +336,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static BiffStatus _Iwrite_short(buffer, val)
-  unsigned char *buffer;
-  int val;
-#else /* FUNCPROTO */
 static BiffStatus _Iwrite_short(unsigned char *buffer, int val)
-#endif /* FUNCPROTO */
 {
   if ((val GT 65535) OR (val LT 0)) return(Iwriterr);
   buffer[0] = (val / 256);
@@ -404,13 +367,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void _Iwrite_long(buffer,val)
-  unsigned char *buffer;
-  long val;
-#else /* FUNCPROTO */
 static void _Iwrite_long(unsigned char *buffer, long int val)
-#endif /* FUNCPROTO */
 {
   int neg;
   neg = (val < 0);
@@ -450,13 +407,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static BiffStatus _Imove_blks(i,from,to,n)
-  IMAGE i;
-  long from,to,n;
-#else /* FUNCPROTO */
 static BiffStatus _Imove_blks(IMAGE i, long int from, long int to, long int n)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   unsigned char s[512];
@@ -501,14 +452,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int _Iread_(fd, ptr, size)
-int fd;
-unsigned char *ptr;
-unsigned int size;
-#else /* FUNCPROTO */
 static int _Iread_(int fd, unsigned char *ptr, unsigned int size)
-#endif /* FUNCPROTO */
 {
   int blokk, total = 0;
 
@@ -560,14 +504,7 @@ Author:		Tor Lønnestad, BLAB, Ifi, UiO
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static int _Iwrite_(fd, ptr, size)
-int fd;
-unsigned char *ptr;
-unsigned int size;
-#else /* FUNCPROTO */
 static int _Iwrite_(int fd, unsigned char *ptr, unsigned int size)
-#endif /* FUNCPROTO */
 {
   int blokk, total = 0;
 
@@ -623,13 +560,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static BiffStatus _Iread_info(i,info)
-  IMAGE *i;
-  _Info *info;
-#else /* FUNCPROTO */
 static BiffStatus _Iread_info(IMAGE *i, _Info *info)
-#endif /* FUNCPROTO */
 {
   int bandnr, j, version;
   long  nfreechars, count, rest;
@@ -721,12 +652,7 @@ static BiffStatus _Iread_info(IMAGE *i, _Info *info)
   return(Iok);
 }   /*   _Iread_info   */
 
-#ifndef FUNCPROTO
-static long _num_blocks_band(band)
-IBAND band;
-#else /* FUNCPROTO */
 static long _num_blocks_band(IBAND band)
-#endif /* FUNCPROTO */
 {
   long size;
 
@@ -759,12 +685,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static BiffStatus _Iset_info(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 static BiffStatus _Iset_info(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   long bandnr, size;
@@ -821,12 +742,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static BiffStatus _Iwrite_info(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 static BiffStatus _Iwrite_info(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   int j;
@@ -990,13 +906,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iparse_band_spec(spec, bandarray, num_bands)
-char *spec;
-int **bandarray, *num_bands;
-#else /* FUNCPROTO */
 BiffStatus Iparse_band_spec(char *spec, int **bandarray, int *num_bands)
-#endif /* FUNCPROTO */
 {
   int bn, bn1, bn2;
   size_t bandarrsize = 0;
@@ -1062,12 +972,7 @@ BiffStatus Iparse_band_spec(char *spec, int **bandarray, int *num_bands)
 
 } /* Iparse_band_spec() */
 
-#ifndef FUNCPROTO
-char *Ifilename_part(filename)
-char *filename;
-#else /* FUNCPROTO */
 char *Ifilename_part(char *filename)
-#endif /* FUNCPROTO */
 {
   char *fname;
 
@@ -1086,13 +991,7 @@ char *Ifilename_part(char *filename)
   
 } /* Ifilename_part() */
 
-#ifndef FUNCPROTO
-BiffStatus Iparse_filename(filename, bandarray, num_bands)
-char **filename;
-int **bandarray, *num_bands;
-#else /* FUNCPROTO */
 BiffStatus Iparse_filename(char **filename, int **bandarray, int *num_bands)
-#endif /* FUNCPROTO */
 {
   char *fname = NULL;
   BiffStatus status = Iok;
@@ -1192,13 +1091,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IMAGE Iread_image_bands(filename, bandarr, num_bands)
-char *filename;
-int *bandarr, num_bands;
-#else /* FUNCPROTO */
 IMAGE Iread_image_bands(char *filename, int *bandarr, int num_bands)
-#endif /* FUNCPROTO */
 {
   BiffStatus status;
   IMAGE img, new_img = NULL;
@@ -1265,12 +1158,7 @@ IMAGE Iread_image_bands(char *filename, int *bandarr, int num_bands)
 
 } /* Iread_image_bands() */
 
-#ifndef FUNCPROTO
-IMAGE Iread_image(filename)
-char *filename;
-#else /* FUNCPROTO */
 IMAGE Iread_image(char *filename)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int last = 0, *bandarr = NULL;
@@ -1337,13 +1225,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iwrite_image(i,filename)
-  IMAGE i;
-  char *filename;
-#else /* FUNCPROTO */
 BiffStatus Iwrite_image(IMAGE i, char *filename)
-#endif /* FUNCPROTO */
 {
   int bandnr;
   BiffStatus status;
@@ -1434,12 +1316,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int is_channel_name(filename)
-char *filename;
-#else /* FUNCPROTO */
 static int is_channel_name(char *filename)
-#endif /* FUNCPROTO */
 {
   if (!filename ||
       strlen(filename) == 0 ||
@@ -1451,14 +1328,7 @@ static int is_channel_name(char *filename)
 
 } /* is_channel_name() */
 
-#ifndef FUNCPROTO
-BiffStatus Iopen_image(i, filename, acc)
-  IMAGE *i;
-  char *filename;
-  int acc;
-#else /* FUNCPROTO */
 BiffStatus Iopen_image(IMAGE *i, char *filename, int acc)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   int flags, mode = 0, operation, last = 0, *bandarr = NULL;
@@ -1523,7 +1393,7 @@ BiffStatus Iopen_image(IMAGE *i, char *filename, int acc)
     info->maybe_pipe  = 1;
     *(info->filename) = '\0';
     
-# ifdef _WIN32
+# ifdef HAVE_SETMODE
     errno  = 0;
     status = setmode(info->fd, O_BINARY);
     if (status == -1)
@@ -1531,7 +1401,7 @@ BiffStatus Iopen_image(IMAGE *i, char *filename, int acc)
     
     FPRINTF2("    old pipe status: %s\n",
 	     status == O_BINARY ? "O_BINARY" : "O_TEXT");
-# endif /* _WIN32 */
+# endif /* HAVE_SETMODE */
   } else {
     char *fname_exp;
 
@@ -1605,12 +1475,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iclose_image(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 BiffStatus Iclose_image(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
 
@@ -1667,15 +1532,7 @@ Author:		Tor Lønnestad, BLAB, Ifi, UiO
 ________________________________________________________________
 
 */
-#ifndef FUNCPROTO
-IMAGE Imake_image(nbands,title,pt,xsize,ysize)
-  int nbands;
-  char *title;
-  IPIXTYP pt;
-  long xsize,ysize;
-#else /* FUNCPROTO */
 IMAGE Imake_image(int nbands, char *title, IPIXTYP pt, long int xsize, long int ysize)
-#endif /* FUNCPROTO */
 {
   IMAGE ii;
   BiffStatus status;
@@ -1733,12 +1590,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Istatus(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 long Istatus(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   info = (_Info *)i[0];
@@ -1770,12 +1622,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Inbands(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 long Inbands(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   info = (_Info *)i[0];
@@ -1810,12 +1657,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Inchars(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 long Inchars(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   info = (_Info *)i[0];
@@ -1849,12 +1691,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char* Ititle(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 char* Ititle(IMAGE i)
-#endif /* FUNCPROTO */
 {
   char *s;
   _Info *info;
@@ -1888,13 +1725,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iset_title(i, title)
-  IMAGE i;
-  char *title;
-#else /* FUNCPROTO */
 BiffStatus Iset_title(IMAGE i, char *title)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   info = (_Info *)i[0];
@@ -1930,13 +1761,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iset_nbands(i, nbands)
-  IMAGE *i;
-  int nbands;
-#else /* FUNCPROTO */
 BiffStatus Iset_nbands(IMAGE *i, int nbands)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   int bn;
@@ -1987,14 +1812,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iget_param(i, parmnr, parmval)
-  IMAGE i;
-  int parmnr;
-  long *parmval;
-#else /* FUNCPROTO */
 BiffStatus Iget_param(IMAGE i, int parmnr, long int *parmval)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   if (i EQ NULL) return(Ierr_action(Imageerr));
@@ -2031,14 +1849,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iset_param(i, parmnr, parmval)
-  IMAGE i;
-  int parmnr;
-  long parmval;
-#else /* FUNCPROTO */
 BiffStatus Iset_param(IMAGE i, int parmnr, long int parmval)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   info = (_Info *)i[0];
@@ -2078,13 +1889,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IMAGE Init_image(nbands, title)
-  int nbands;
-  char *title;
-#else /* FUNCPROTO */
 IMAGE Init_image(int nbands, char *title)
-#endif /* FUNCPROTO */
 {
   IMAGE i;
   _Info *info;
@@ -2165,13 +1970,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IBAND Init_band(pt, xsize, ysize)
-  IPIXTYP pt;
-  long xsize, ysize;
-#else /* FUNCPROTO */
 IBAND Init_band(IPIXTYP pt, long int xsize, long int ysize)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -2245,14 +2044,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Init_bands(i, pt, xsize, ysize)
-  IMAGE i;
-  IPIXTYP pt;
-  long xsize,ysize;
-#else /* FUNCPROTO */
 BiffStatus Init_bands(IMAGE i, IPIXTYP pt, long int xsize, long int ysize)
-#endif /* FUNCPROTO */
 {
   int bandnr = 1;
 
@@ -2304,12 +2096,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IMAGE Icopy_init(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 IMAGE Icopy_init(IMAGE i)
-#endif /* FUNCPROTO */
 {
   IMAGE newi;
   int bn, n;
@@ -2368,12 +2155,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void Idel_image(ip)
-  IMAGE *ip;
-#else /* FUNCPROTO */
 void Idel_image(IMAGE *ip)
-#endif /* FUNCPROTO */
 {
   int bn;
 
@@ -2442,13 +2224,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IBAND Imake_band(pt, xsize, ysize)
-  IPIXTYP pt;
-  long xsize, ysize;
-#else /* FUNCPROTO */
 IBAND Imake_band(IPIXTYP pt, long int xsize, long int ysize)
-#endif /* FUNCPROTO */
 {
   IBAND band1,band2;
   int line,linesize,pixelsize,pointarrsize,maxpsize;
@@ -2556,14 +2332,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Imake_bands(i, pt, xsize, ysize)
-  IMAGE i;
-  IPIXTYP pt;
-  long xsize, ysize;
-#else /* FUNCPROTO */
 BiffStatus Imake_bands(IMAGE i, IPIXTYP pt, long int xsize, long int ysize)
-#endif /* FUNCPROTO */
 {
   int n;
 
@@ -2618,13 +2387,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IBAND Imake_subband(band, xstart, ystart, xsize, ysize)
-  IBAND band;
-  long xstart,ystart,xsize,ysize;
-#else /* FUNCPROTO */
 IBAND Imake_subband(IBAND band, long int xstart, long int ystart, long int xsize, long int ysize)
-#endif /* FUNCPROTO */
 {
   IPIXTYP pt;
   long line, pixelsize;
@@ -2698,12 +2461,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void Idel_band(band)
-  IBAND *band;
-#else /* FUNCPROTO */
 void Idel_band(IBAND *band)
-#endif /* FUNCPROTO */
 {
   long stat;
 #if defined(MSDOS)
@@ -2767,12 +2525,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void Icopy_band_info(info1, info2)
-_Iband_info *info1, *info2;
-#else /* FUNCPROTO */
 static void Icopy_band_info(_Iband_info *info1, _Iband_info *info2)
-#endif /* FUNCPROTO */
 {
   info2->pixtyp      = info1->pixtyp;
   info2->xsize       = info1->xsize;
@@ -2792,12 +2545,7 @@ static void Icopy_band_info(_Iband_info *info1, _Iband_info *info2)
 
 } /* Icopy_band_info() */
 
-#ifndef FUNCPROTO
-void Idel_band_pix(band)
-  IBAND *band;
-#else /* FUNCPROTO */
 void Idel_band_pix(IBAND *band)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("biff.c: Idel_band_pix");
 
@@ -2869,13 +2617,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iread_band(i,bandnr)
-  IMAGE i;
-  int bandnr;
-#else /* FUNCPROTO */
 BiffStatus Iread_band(IMAGE i, int bandnr)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   _Iband_info *binfo;
@@ -2965,13 +2707,7 @@ BiffStatus Iread_band(IMAGE i, int bandnr)
 
 } /* Iread_band() */
 
-#ifndef FUNCPROTO
-static BiffStatus _Iread_bands(img, new_img, bandarr, num_bands)
-IMAGE img, *new_img;
-int *bandarr, *num_bands;
-#else /* FUNCPROTO */
 static BiffStatus _Iread_bands(IMAGE img, IMAGE *new_img, int *bandarr, int *num_bands)
-#endif /* FUNCPROTO */
 {
   /* This routine does not read the text data. Some bands may be absent
    * upon return. Do not make this routine public. It should only be
@@ -3162,13 +2898,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iwrite_band(i, bandnr)
-  IMAGE i;
-  int bandnr;
-#else /* FUNCPROTO */
 BiffStatus Iwrite_band(IMAGE i, int bandnr)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   long start, size, lsize, bn, y, rest;
@@ -3294,12 +3024,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Iband_status(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Iband_status(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3335,12 +3060,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Ixsize(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Ixsize(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3376,12 +3096,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Iysize(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Iysize(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3418,12 +3133,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Ixstart(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Ixstart(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3461,12 +3171,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Iystart(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Iystart(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3503,12 +3208,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Ixmag(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Ixmag(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3546,12 +3246,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Iymag(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Iymag(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3589,13 +3284,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iset_start(band, xstart, ystart)
-  IBAND band;
-  long xstart,ystart;
-#else /* FUNCPROTO */
 BiffStatus Iset_start(IBAND band, long int xstart, long int ystart)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3635,13 +3324,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iset_mag(band,xmag,ymag)
-  IBAND band;
-  long xmag,ymag;
-#else /* FUNCPROTO */
 BiffStatus Iset_mag(IBAND band, long int xmag, long int ymag)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3681,13 +3364,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iget_roi(band, roi_xstart, roi_ystart, roi_xsize, roi_ysize)
-  IBAND band;
-  long *roi_xstart,*roi_ystart,*roi_xsize,*roi_ysize;
-#else /* FUNCPROTO */
 BiffStatus Iget_roi(IBAND band, long int *roi_xstart, long int *roi_ystart, long int *roi_xsize, long int *roi_ysize)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3729,13 +3406,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iset_roi(band,roi_xstart,roi_ystart,roi_xsize,roi_ysize)
-  IBAND band;
-  long roi_xstart,roi_ystart,roi_xsize,roi_ysize;
-#else /* FUNCPROTO */
 BiffStatus Iset_roi(IBAND band, long int roi_xstart, long int roi_ystart, long int roi_xsize, long int roi_ysize)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3782,12 +3453,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Ibandsize(band)
-  IBAND band;
-#else /* FUNCPROTO */
 long Ibandsize(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
   long bitsize;
@@ -3830,12 +3496,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IPIXTYP Ipixtyp(band)
-  IBAND band;
-#else /* FUNCPROTO */
 IPIXTYP Ipixtyp(IBAND band)
-#endif /* FUNCPROTO */
 {
   _Iband_info *binfo;
 
@@ -3880,12 +3541,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char* Ipixname(pixtyp)
-  IPIXTYP pixtyp;
-#else /* FUNCPROTO */
 char* Ipixname(IPIXTYP pixtyp)
-#endif /* FUNCPROTO */
 {
   pixtyp = pixtyp & Ipixtyp_mask;
   if (pixtyp == Iu_color_typ) return(pixtypname[12]);
@@ -3893,12 +3549,7 @@ char* Ipixname(IPIXTYP pixtyp)
   return(pixtypname[13]); 
 }   /*   Ipixname   */
 
-#ifndef FUNCPROTO
-char* IpixPrintFormat(pixtyp)
-  IPIXTYP pixtyp;
-#else /* FUNCPROTO */
 char* IpixPrintFormat(IPIXTYP pixtyp)
-#endif /* FUNCPROTO */
 {
   pixtyp = pixtyp & Ipixtyp_mask;
   if (pixtyp >= 0 && pixtyp <= 11) return(pix_print_format[pixtyp]);
@@ -3950,12 +3601,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IPIXTYP IparsePixtyp(pixtyp)
-char* pixtyp;
-#else /* FUNCPROTO */
 IPIXTYP IparsePixtyp(char *pixtyp)
-#endif /* FUNCPROTO */
 {
   if (! strcasecmp(pixtyp, "ui"        )) return(Ibit_typ);
   if (! strcmp    (pixtyp, "0"         )) return(Ibit_typ);
@@ -4023,12 +3669,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Ipixsize(pity)
-  IPIXTYP pity;
-#else /* FUNCPROTO */
 long Ipixsize(IPIXTYP pity)
-#endif /* FUNCPROTO */
 {
   long pt;
 
@@ -4083,12 +3724,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Icopy_band(b1, b2)
-IBAND b1, b2;
-#else /* FUNCPROTO */
 BiffStatus Icopy_band(IBAND b1, IBAND b2)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   /* Declaire band pointers for all different pixel SIZES. */
@@ -4189,12 +3825,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iread_text(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 BiffStatus Iread_text(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   long start,size,bufsize, rest;
@@ -4284,12 +3915,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iwrite_text(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 BiffStatus Iwrite_text(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   long start,bufsize,textblk,newblks,blockblk,newblockblk, rest;
@@ -4384,12 +4010,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-long Igetpos(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 long Igetpos(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
 
@@ -4424,13 +4045,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Isetpos(i, pos)
-  IMAGE i;
-  long pos;
-#else /* FUNCPROTO */
 BiffStatus Isetpos(IMAGE i, long int pos)
-#endif /* FUNCPROTO */
 {
   _Info *info;
 
@@ -4470,13 +4085,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Igetchar(i, c)
-  IMAGE i;
-  char *c;
-#else /* FUNCPROTO */
 BiffStatus Igetchar(IMAGE i, char *c)
-#endif /* FUNCPROTO */
 {
   _Info *info;
 
@@ -4519,13 +4128,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iputchar(i, c)
-  IMAGE i;
-  int c;
-#else /* FUNCPROTO */
 BiffStatus Iputchar(IMAGE i, int c)
-#endif /* FUNCPROTO */
 {
   _Info *info;
   char *buf;
@@ -4586,13 +4189,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iput_text(i, s)
-  IMAGE i;
-  char *s;
-#else /* FUNCPROTO */
 BiffStatus Iput_text(IMAGE i, char *s)
-#endif /* FUNCPROTO */
 {
   int status=Iok;
 
@@ -4638,13 +4235,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iget_line(i, s)
-  IMAGE i;
-  char *s;
-#else /* FUNCPROTO */
 BiffStatus Iget_line(IMAGE i, char *s)
-#endif /* FUNCPROTO */
 {
   char c;
   int cp=0;
@@ -4696,13 +4287,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iappend_line(i, s)
-  IMAGE i;
-  char *s;
-#else /* FUNCPROTO */
 BiffStatus Iappend_line(IMAGE i, char *s)
-#endif /* FUNCPROTO */
 {
   int status;
 
@@ -4740,13 +4325,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Itype_text(i, fp)
-  IMAGE i;
-  FILE *fp;
-#else /* FUNCPROTO */
 BiffStatus Itype_text(IMAGE i, FILE *fp)
-#endif /* FUNCPROTO */
 {
   int n;
   _Info *info;
@@ -4809,12 +4388,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iedit_text(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 BiffStatus Iedit_text(IMAGE i)
-#endif /* FUNCPROTO */
 {
 #ifdef MSDOS
   system("");
@@ -4842,7 +4416,7 @@ BiffStatus Iedit_text(IMAGE i)
     editor = "notepad";
 # endif /* _WIN32 */
 
-# ifndef _WIN32
+# ifdef HAVE_FORK
   pid = fork();
   IF (pid EQ 0)
     /* Inside child process, start editor. */
@@ -4909,12 +4483,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Idel_text(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 BiffStatus Idel_text(IMAGE i)
-#endif /* FUNCPROTO */
 {
   _Info *info;
 
@@ -4954,12 +4523,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iend_of_text(i)
-  IMAGE i;
-#else /* FUNCPROTO */
 BiffStatus Iend_of_text(IMAGE i)
-#endif /* FUNCPROTO */
 {
   if (i EQ NULL) { Ierr_action(Imageerr); return(TRUE); }
   return (Igetpos(i) EQ (Inchars(i)+1));
@@ -4995,13 +4559,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Icopy_text(fromimg,toimg)
-  IMAGE fromimg;
-  IMAGE toimg;
-#else /* FUNCPROTO */
 BiffStatus Icopy_text(IMAGE fromimg, IMAGE toimg)
-#endif /* FUNCPROTO */
 {
   char c;
 
@@ -5061,14 +4619,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Ihistory(i, progname, comment)
-  IMAGE i;
-  char *progname;
-  char *comment;
-#else /* FUNCPROTO */
 BiffStatus Ihistory(IMAGE i, char *progname, char *comment)
-#endif /* FUNCPROTO */
 {
   int status;
   time_t now;
@@ -5122,14 +4673,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iread_block(i,blk,blnr)
-  IMAGE i;
-  unsigned char *blk;
-  long blnr;
-#else /* FUNCPROTO */
 BiffStatus Iread_block(IMAGE i, unsigned char *blk, long int blnr)
-#endif /* FUNCPROTO */
 {
     _Info *info;
     long start;
@@ -5201,14 +4745,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Iwrite_block(i,blk,blnr)
-  IMAGE i;
-  unsigned char *blk;
-  long blnr;
-#else /* FUNCPROTO */
 BiffStatus Iwrite_block(IMAGE i, unsigned char *blk, long int blnr)
-#endif /* FUNCPROTO */
 {
     _Info *info;
     long start;
@@ -5285,12 +4822,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char* Ierr_message(ernr)
-  BiffStatus ernr;
-#else /* FUNCPROTO */
 char* Ierr_message(BiffStatus ernr)
-#endif /* FUNCPROTO */
 {
   char *s;
 
@@ -5356,12 +4888,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus Ierr_action(ernr)
-  BiffStatus ernr;
-#else /* FUNCPROTO */
 BiffStatus Ierr_action(BiffStatus ernr)
-#endif /* FUNCPROTO */
 {
   char *s;
 
@@ -5401,12 +4928,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int Iset_message(on)
-  int on;
-#else /* FUNCPROTO */
 int Iset_message(int on)
-#endif /* FUNCPROTO */
 {
   int old = Imessage;
 
@@ -5441,12 +4963,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int Iset_abort(on)
-  int on;
-#else /* FUNCPROTO */
 int Iset_abort(int on)
-#endif /* FUNCPROTO */
 {
   int old = Iabort;
 
@@ -5484,12 +5001,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int Iset_overwrite(on)
-  int on;
-#else /* FUNCPROTO */
 int Iset_overwrite(int on)
-#endif /* FUNCPROTO */
 {
   int old = Ioverwrite;
 
@@ -5498,5 +5010,3 @@ int Iset_overwrite(int on)
 
   return(old);
 }   /*   Iset_abort   */
-
-#endif /* not MAIN */
