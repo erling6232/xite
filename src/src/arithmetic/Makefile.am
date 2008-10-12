@@ -13,28 +13,14 @@ configdir = @configdir@
 
 include $(configdir)/@common_makefile@
 
-# AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES)
-
-# subdirs = @subdirs@
 # infodir = $(prefix)/info
 
 
 # all: install-include install-bin
 
-#install-include:
-#	$(configdir)/mkinstalldirs $(includedir)/xite
-#	for file in *.h ; do \
-#		$(INSTALL_DATA) $$file $(includedir)/xite ; \
-#	done
-#
-#install-bin:
-
 #
 #   Makefile definitions for arithmetic
 #
-OBJ   = absDiff.o  addw.o    average.o   crossSection.o divide.o   logical.o \
-	multiply.o profile.o rms.o       scale.o        signDiff.o square.o  \
-	squareRoot.o real.o  imag.o      power.o        phase.o    logarithm.o
 PROG  = absDiff    addw      average     crossSection   divide     logical \
 	multiply   profile   rms         scale          signDiff   square  \
 	squareRoot real      imag        power          phase      logarithm
@@ -49,12 +35,21 @@ bin_PROGRAMS=$(PROG) $(XPROG)
 include_HEADERS=arithmetic.h
 
 absDiff_SOURCES = absDiff_main.c absDiff.c arithmetic.h
-
-#include:cincl
-#object: cobj
-#lib:    clib
-#dso:    xite_dso
-#xprog:  $(XPROG)
-#program:cprog xprog
-#doc:    manpage
-
+addw_SOURCES = addw_main.c addw.c arithmetic.h
+average_SOURCES = average_main.c average.c arithmetic.h
+crossSection_SOURCES = crossSection_main.c crossSection.c arithmetic.h
+divide_SOURCES = divide_main.c divide.c arithmetic.h
+imag_SOURCES = imag_main.c imag.c arithmetic.h
+logarithm_SOURCES = logarithm_main.c logarithm.c arithmetic.h
+logical_SOURCES = logical_main.c logical.c arithmetic.h
+multiply_SOURCES = multiply_main.c multiply.c arithmetic.h
+phase_SOURCES = phase_main.c phase.c arithmetic.h
+power_SOURCES = power_main.c power.c arithmetic.h
+profile_SOURCES = profile_main.c profile.c arithmetic.h
+real_SOURCES = real_main.c real.c arithmetic.h
+rms_SOURCES = rms_main.c rms.c arithmetic.h
+scale_SOURCES = scale_main.c scale.c arithmetic.h
+signDiff_SOURCES = signDiff_main.c signDiff.c arithmetic.h
+square_SOURCES = square_main.c square.c arithmetic.h
+squareRoot_SOURCES = squareRoot_main.c squareRoot.c arithmetic.h
+xadd_SOURCES = xadd_main.c arithmetic.h
