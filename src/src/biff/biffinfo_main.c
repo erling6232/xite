@@ -162,46 +162,64 @@ ________________________________________________________________
 #include <errno.h>
 #include <xite/blab.h>
 #include <xite/utils.h>
-#include XITE_TYPES_H
-#ifndef _WIN32
-# ifndef NO_DIRENT
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
+
+#ifdef HAVE_IO_H
+#  include <io.h>
+#endif
+
+#ifdef HAVE_DIRENT_H
 #  include <dirent.h>
-# else
-#  include <sys/dir.h>
-#  define dirent direct
-# endif
 #else
-# include XITE_IO_H
-# include <direct.h>
-#endif /* _WIN32 */
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_UNISTD_H
-#include XITE_TYPES_H
-#include XITE_STAT_H
-#include XITE_PARAM_H
+#  if HAVE_DIRECT_H
+#    include <direct.h>
+#  else
+#    if HAVE_SYS_DIR_H
+#      include <sys/dir.h>
+#    endif
+#  endif
+#endif
+
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+ #include <strings.h>
+#else
+#ifdef HAVE_STRING_H
+ #include <string.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+#  include <sys/stat.h>
+#endif
+#ifdef HAVE_SYS_PARAM_H
+#  include <sys/param.h>
+#endif
 #include <xite/debug.h>
 
-#ifdef MAIN
-
-#ifndef _WIN32
+#ifdef HAVE_DIR
   static DIR *dir_s;
   static struct dirent *dirEnt_s;
 # define dname(a)    (a->d_name)
 # define openDir(a)  opendir(a)
 # define closeDir(a) closedir(a)
 
-# ifndef FUNCPROTO
-    static struct dirent *readDir(dir)
-    DIR *dir;
-# else /* FUNCPROTO */
     static struct dirent *readDir(DIR *dir)
-# endif /* FUNCPROTO */
     {
       return(readdir(dir));
     }
 
 #else
+#ifdef _WIN32
 
   static long dir_s;
   static struct _finddata_t dirent_s;
@@ -209,12 +227,7 @@ ________________________________________________________________
 # define dname(a)       (a->name)
 # define closeDir(a)    _findclose(a)
 
-# ifndef FUNCPROTO
-    static long openDir(dir_name)
-    char *dir_name;
-# else /* FUNCPROTO */
     static long openDir(char *dir_name)
-# endif /* FUNCPROTO */
     {
       static char filespec[MAXPATHLEN];
 
@@ -222,12 +235,7 @@ ________________________________________________________________
       return(_findfirst(filespec, dirEnt_s));
     }
 
-# ifndef FUNCPROTO
-    static struct _finddata_t *readDir(dir_handle)
-    long dir_handle;
-# else /* FUNCPROTO */
     static struct _finddata_t *readDir(long dir_handle)
-# endif /* FUNCPROTO */
     {
       int status;
 
@@ -237,6 +245,7 @@ ________________________________________________________________
       else return(NULL);
     }
 #endif /* _WIN32 */
+#endif /* HAVE_DIR */
 
 
 static struct stat buf_s;
@@ -246,13 +255,7 @@ static struct stat buf_s;
 static char pathname_s[1025];
 static int item_printed_s;
 
-#ifndef FUNCPROTO
-static void readsw(argc, argv, format, b, name, title, n, u, hist, img, col)
-int *argc, *title, *b, *format, *hist, *u, *name, *img, *col;
-char **n, *argv[];
-#else /* FUNCPROTO */
 static void readsw(int *argc, char **argv, int *format, int *b, int *name, int *title, char **n, int *u, int *hist, int *img, int *col)
-#endif /* FUNCPROTO */
 {
   *b     = read_bswitch(argc, argv, "-b");
   *name  = read_bswitch(argc, argv, "-f");
@@ -267,14 +270,7 @@ static void readsw(int *argc, char **argv, int *format, int *b, int *name, int *
 
 } /* readsw() */
 
-#ifndef FUNCPROTO
-static int readnm(name, filename, dirname, pipe, i, isdir)
-char *name, **filename, **dirname;
-int *isdir, *pipe;
-IMAGE *i;
-#else /* FUNCPROTO */
 static int readnm(char *name, char **filename, char **dirname, int *pipe, IMAGE *i, int *isdir)
-#endif /* FUNCPROTO */
 {
   int rstat;
 
@@ -309,13 +305,7 @@ static int readnm(char *name, char **filename, char **dirname, int *pipe, IMAGE 
   return(rstat);
 }
 
-#ifndef FUNCPROTO
-static BiffStatus readdr(filename, i)
-char **filename;
-IMAGE *i;
-#else /* FUNCPROTO */
 static BiffStatus readdr(char **filename, IMAGE *i)
-#endif /* FUNCPROTO */
 {
   *filename = dname(dirEnt_s);
 
@@ -327,50 +317,27 @@ static BiffStatus readdr(char **filename, IMAGE *i)
   return(Iopen_image(i, *filename, Ireadonly));
 }
 
-#ifndef FUNCPROTO
-static void print_name(isdir, dirname, filename)
-int isdir;
-char *dirname, *filename;
-#else /* FUNCPROTO */
 static void print_name(int isdir, char *dirname, char *filename)
-#endif /* FUNCPROTO */
 {
   if (item_printed_s++) printf(" ");
   if (isdir) printf("%s/%s", dirname, filename);
   else printf("%s", filename);
 }
 
-#ifndef FUNCPROTO
-static void print_title(i)
-IMAGE i;
-#else /* FUNCPROTO */
 static void print_title(IMAGE i)
-#endif /* FUNCPROTO */
 {
   if (item_printed_s++) printf(" ");
   printf("%s", Ititle(i));
 } 
 
-#ifndef FUNCPROTO
-static void print_nbands(i)
-IMAGE i;
-#else /* FUNCPROTO */
 static void print_nbands(IMAGE i)
-#endif /* FUNCPROTO */
 {
   if (item_printed_s++) printf(" ");
   printf("%ld", Inbands(i));
 } 
 
 
-#ifndef FUNCPROTO
-static void print_bandinfo(i, band, bandno)
-IMAGE i;
-IBAND band;
-int bandno;
-#else /* FUNCPROTO */
 static void print_bandinfo(IMAGE i, IBAND band, int bandno)
-#endif /* FUNCPROTO */
 {
   if (item_printed_s++) printf(" ");
   printf("%4d %4ld %6ld %6ld %6ld %6ld %6ld %6ld",
@@ -378,27 +345,13 @@ static void print_bandinfo(IMAGE i, IBAND band, int bandno)
 	 Ixstart(band),Iystart(band),Ixmag(band),Iymag(band));
 } 
 
-#ifndef FUNCPROTO
-static void print_history(i, pipe)
-IMAGE i;
-int pipe;
-#else /* FUNCPROTO */
 static void print_history(IMAGE i, int pipe)
-#endif /* FUNCPROTO */
 {
   if (! pipe) Iread_text(i);
   Itype_text(i, stdout);
 }
 
-#ifndef FUNCPROTO
-static void print_format(i, bands, nbands, nbands_img, pipe, argc, arg_num, isdir, dirname, filename)
-IMAGE i;
-int *bands, nbands, nbands_img, pipe, argc, arg_num;
-int isdir;
-char *dirname, *filename;
-#else /* FUNCPROTO */
 static void print_format(IMAGE i, int *bands, int nbands, int nbands_img, int pipe, int argc, int arg_num, int isdir, char *dirname, char *filename)
-#endif /* FUNCPROTO */
 {
   int j, bn;
 
@@ -431,13 +384,7 @@ static void print_format(IMAGE i, int *bands, int nbands, int nbands_img, int pi
   if (argc - arg_num > 0) printf("\n\n");
 } 
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int rstat, j, isdir, isimg, iscol;
@@ -646,5 +593,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
