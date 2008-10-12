@@ -45,8 +45,6 @@ static char *Id = "$Id$, Blab, UiO";
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
 
-#ifndef MAIN
-
 /*F:square*
 
 ________________________________________________________________
@@ -232,83 +230,3 @@ int square(IBAND input, IBAND output, double scale)
      default: return(Error(2, "square: Unknown pixel type\n"));
      }
 } /* square() */
-
-#endif /* MAIN */
-
-
-
-/*P:square*
-
-________________________________________________________________
-
-		square
-________________________________________________________________
-
-Name:		square - take the square of each pixel value
-
-Syntax:		| square [-s <scale>] <input> <output>
-
-Description:    'square' squares the input image band by band,
-		according to the formula:
-
-		| output(x,y) = input(x,y) * input(x,y) * scale
-
-		Accepts all pixel types. If the result is outside
-		the domain of the actual pixel type, the nearest
-		possible value is returned. Output image will have
-		the same pixel type as input.
-
-Options:        &-s scale
-		Default: 1.0
-
-See also:	square(3), squareRoot(1), phase(1), power(1), absValue(1),
-                imag(1), real(1), scale(1), multiply(1), divide(1),
-		biffConvert(1)
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       | square mona.img sqmona.img 
-		| square -scale 0.05 mona.img sqmona.img
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE img;
-   int nbands, bn;
-   char *args;
-   double scale;
-
-   Iset_message(1); 
-   Iset_abort(1);
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [-s <scale>] <input> <output>\n"));
-
-   if (argc == 1) Usage(1, NULL);
-   args  = argvOptions(argc, argv);
-
-   scale = read_dswitch(&argc, argv, "-scale", 1.0);
-   scale = read_dswitch(&argc, argv, "-s", scale);
-
-   if (argc != 3) Usage(2, "Illegal number of arguments.\n");
-
-   /* read images */
-   img = Iread_image(argv[1]);
-   nbands = Inbands(img);
-
-   for (bn=1; bn <= nbands; ++bn)
-     if (square(img[bn], img[bn], scale))
-       Warning(3, "Error in band %d\n", bn);
-
-   Ihistory(img, argv[0], args);
-   Iwrite_image(img, argv[2]);
-
-   return(0);
-}
-
-#endif /* MAIN */
