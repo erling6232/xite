@@ -81,17 +81,21 @@ ________________________________________________________________
 #include <xite/biff.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STDIO_H
+ #include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+ #include <strings.h>
+#else
+#ifdef HAVE_STRING_H
+ #include <string.h>
+#endif
+#endif
+#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
+#endif
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   char filename[132];
   char *bandspec[32], *bspec, *args;
