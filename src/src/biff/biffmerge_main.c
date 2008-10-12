@@ -69,8 +69,6 @@ ________________________________________________________________
 */
 static char *Id = "$Id$ $Revision$";
 
-#ifdef MAIN
-
 #include <xite/includes.h>
 #include <xite/blab.h>
 #include <xite/biff.h>
@@ -79,13 +77,7 @@ static char *Id = "$Id$ $Revision$";
 #include XITE_STDIO_H
 #include XITE_TYPES_H
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   int imgnr, bandnr1, bandnr2=0;
@@ -121,5 +113,3 @@ int main(int argc, char *argv[])
   ENDIF;
    return(0);
 }
-
-#endif /* MAIN */
