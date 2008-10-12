@@ -44,8 +44,6 @@ static char *Id = "$Id$, Blab, UiO";
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
 
-#ifndef MAIN
-
 /*F:signDiff*
 
 ________________________________________________________________
@@ -277,103 +275,3 @@ int signDiff(IBAND input1, IBAND input2, IBAND output, double scale, double offs
      }
 
 }  /* signDiff() */
-
-#endif /* not MAIN */
-
-
-
-/*P:signDiff*
-
-________________________________________________________________
-
-		signDiff
-________________________________________________________________
-
-Name:		signDiff - signed difference between two images
-
-Syntax:		| signDiff <input1> <input2> <output>
-                |        [-scale <f>] [-offset <r>]
-
-Description:    'signDiff' calulates the signed difference between
-                two input images pixel by pixel:
-
-		| output = (input1 - input2)*scale + offset
-
-		For complex and double-complex bands, the result is
-
-		| output(x,y).re =
-		|     (input1(x,y).re-input2(x,y).re)*scale + offset
-		| output(x,y).im =
-		|     (input1(x,y).im-input2(x,y).im)*scale + offset
-
-                If the result is outside the pixeltype range, the result is
-                truncated. Within the pixeltype range, the result is
-		rounded to the nearest possible pixelvalue.
-
-		Default argument values:
-		| scale = 1.0
-		| offset = 0.0
-
-Restrictions:   Corresponding bands in each input image must be of the
-                same type. Only the largest rectangle common to two
-		corresponding bands is processed.
-
-See also:       signDiff(3), absDiff(1), addw(1), multiply(1), divide(1)
-
-Author:		Tor Lønnestad, BLAB, ifi, UiO
-Revised:        Svein Bøe, Ifi, UiO. Implemented for all pixel types, not
-                only unsigned byte.
-
-Examples:       | signDiff mona1.img mona2.img monaDiff.img
-                | signDiff m1.img m2.img mdiff.img -scale 1.0 -offset 0
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE i1, i2, i3;
-   int bands, bn;
-   double scale, offset;
-   char *args;
-
-   Iset_message(TRUE); 
-   Iset_abort(TRUE);
-
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-     "Usage: %s [<option>...] <input1> <input2> <output>\n\
-       where <option> is chosen from\n\
-         -scale <f>  : floating point scale-factor (default 1.0)\n\
-         -offset <n> : floating point offset (default 0.0)\n"));
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-
-   scale  = read_dswitch(&argc, argv, "-scale",  1.0);
-   offset = read_dswitch(&argc, argv, "-offset", 0.0);
-
-   if (argc != 4) Usage(2, "Illegal number of arguments.\n");
-
-   i1 = Iread_image(argv[1]);
-   i2 = Iread_image(argv[2]);
-   i3 = Icopy_init(i1);
-   bands = MIN(Inbands(i1),Inbands(i2));
-
-   for (bn=1; bn <= bands; ++bn) {
-     if (signDiff(i1[bn], i2[bn], i3[bn], scale, offset)) {
-       fprintf(stderr, "Error in band %d\n", bn);
-       exit(1);
-     }
-   }
-
-   Ihistory(i3, argv[0], args);
-   Iwrite_image(i3, argv[3]);
-
-   return(0);
-}
-
-#endif /* MAIN */
