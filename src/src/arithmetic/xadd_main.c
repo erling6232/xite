@@ -34,8 +34,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifdef MAIN
-
 #include <xite/includes.h>
 #include <X11/Xos.h>
 #include <X11/Intrinsic.h>
@@ -391,5 +389,3 @@ int main(int argc, char **argv)
   ximage_mainloop();
   return(0);
 }
-
-#endif /* MAIN */
