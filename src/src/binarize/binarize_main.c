@@ -563,36 +563,34 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 #define EM_DEBUG 
 
 #include <math.h>
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_TIME_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+ #include <stdio.h>
+#endif
+#ifdef HAVE_SYS_TIME_H
+ #include <sys/time.h>
+#endif
+#ifdef HAVE_STRINGS_H
+ #include <strings.h>
+#else
+#ifdef HAVE_STRING_H
+ #include <string.h>
+#endif
+#endif
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
 #include <xite/binarize.h>
-#include "BinM.h"
+#include "xite/BinM.h"
 #include "write_band.c"
 
-#ifdef FUNCPROTO
 static int binarize(int bin_method, int region_size, int step_size, double distance_limit, double weight, int global_min, int global_max, int threshold, int flag, double low_bound, double up_bound, double sdev_limit, double ratio, int intermediate_images, IBAND inband, IBAND outband)
-#else
-static int binarize(bin_method, region_size, step_size, distance_limit, weight, global_min, global_max, threshold, flag, low_bound, up_bound, sdev_limit, ratio, intermediate_images, inband, outband)
-int bin_method, region_size, step_size;
-double distance_limit, weight;
-int global_min, global_max, threshold, flag;
-double low_bound, up_bound, sdev_limit, ratio;
-int intermediate_images;
-IBAND inband, outband;
-#endif
 {
   int code;
   switch (bin_method)
@@ -732,31 +730,7 @@ IBAND inband, outband;
   return BIN_OK;
 } /* binarize() */
 
-#ifdef FUNCPROTO
 static int parse_command_line (int *argc, char *argv[], int *bin_method, int *region_size, int *step_size, double *distance_limit, double *weight, int *glob_min, int *glob_max,	int *threshold, int *flag, double *low_bound, double *up_bound,	double *sdev_limit, double *ratio, int *val_step, int *inv_val_step, int *intermediate_images, char **infile, char **outfile)
-#else
-static int parse_command_line (argc, argv, bin_method, region_size, step_size, distance_limit, weight, glob_min, glob_max, threshold, flag, low_bound, up_bound, sdev_limit, ratio, val_step, inv_val_step, intermediate_images, infile, outfile)
-int *argc;
-char *argv[];
-int *bin_method;
-int *region_size;
-int *step_size;
-double *distance_limit;
-double *weight;
-int *glob_min;
-int *glob_max;
-int *threshold;
-int *flag;
-double *low_bound;
-double *up_bound;
-double *sdev_limit; 
-double *ratio;
-int *val_step;
-int *inv_val_step;
-int *intermediate_images;
-char **infile;
-char **outfile;
-#endif
 {
   int no_of_parameters;
   char method_name[5];
@@ -941,13 +915,7 @@ char **outfile;
   return BIN_OK;
 } /* parse_command_line() */
 
-#ifdef FUNCPROTO
 int main(int argc, char *argv[])
-#else
-int main (argc, argv)
-int argc;
-char *argv[];
-#endif
 {
   char  *infile;
   char  *outfile;
@@ -1120,5 +1088,3 @@ char *argv[];
 
   return 0; /* Unix commands should return 0 */
 }
-
-#endif /* MAIN */
