@@ -1,5 +1,5 @@
 #
-#      Makefile.am for src/biff
+#      Makefile.am for src/binarize
 #
 
 
@@ -11,12 +11,12 @@ configdir = @configdir@
 include $(configdir)/@common_makefile@
 
 #
-#   Makefile definitions for arithmetic
+#   Makefile definitions
 #
 
-noinst_LTLIBRARIES = libxitebiff.la
+noinst_LTLIBRARIES = libxitebinarize.la
 
-libxitebiff_la_SOURCES = \
+libxitebinarize_la_SOURCES = \
 	bin_ab.c \
         bin_be.c \
         bin_etm.c \

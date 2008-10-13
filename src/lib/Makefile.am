@@ -2,6 +2,8 @@ lib_LTLIBRARIES = libxite.la
 libxite_la_SOURCES =
 libxite_la_LIBADD = arithmetic/libxitearithmetic.la
 libxite_la_LIBADD = biff/libxitebiff.la
+libxite_la_LIBADD = binarize/libxitebinarize.la
+libxite_la_LIBADD = canny/libxitecanny.la
 
 SUBDIRS = \
 	arithmetic \

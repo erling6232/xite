@@ -11,7 +11,7 @@ configdir = @configdir@
 include $(configdir)/@common_makefile@
 
 #
-#   Makefile definitions for arithmetic
+#   Makefile definitions
 #
 noinst_LTLIBRARIES = libxitearithmetic.la
 
