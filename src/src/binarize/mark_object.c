@@ -1,16 +1,7 @@
 
 
-#ifdef FUNCPROTO
 static int mark_object(int x, int y, IBAND ioband, IBAND visited, 
 		       int mark_value)
-#else
-static int mark_object(x, y, ioband, visited, mark_value)
-     int x;
-     int y;
-     IBAND ioband;
-     IBAND visited;
-     int mark_value;
-#endif
 {
   int xsize, ysize;
   int xstart, ystart;
@@ -95,4 +86,3 @@ static int mark_object(x, y, ioband, visited, mark_value)
     } /* while */
 
 } /* END mark_object */
-
