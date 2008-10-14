@@ -87,9 +87,13 @@ AC_CONFIG_FILES([
     lib/arithmetic/Makefile
     lib/biff/Makefile
     lib/binarize/Makefile
+    lib/canny/Makefile
+    lib/cdoc/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
     src/binarize/Makefile
+    src/canny/Makefile
+    src/cdoc/Makefile
     ])
 AC_OUTPUT
