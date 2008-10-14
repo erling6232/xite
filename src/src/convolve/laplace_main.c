@@ -34,77 +34,20 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/convolve.h>
 #include <xite/readarg.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/message.h>
-
-#ifndef MAIN
-
-/*F:laplace*
-
-________________________________________________________________
-
-		laplace
-________________________________________________________________
-
-Name:		laplace - edge and line detection
-Syntax:         | #include <xite/convolve.h>
-		|
-                | void laplace( IBAND input, IBAND output, int a,
-                |    int b, int c, double scale, double offset,
-                |    int verbose );
-Description:    'laplace' performs the convolution between
-                a band 'input' and a convolution kernel 'conv'.
-                |
-		|        a          b          a
-		|        b          c          b
-                |        a          b          a
-		|
-                The result of the convolution is scaled
-		|   pix = (conv. result) * scale + offset;
-                If 'scale' is zero an autoscaling is performed.
-		If 'verbose' flag is set, the number of underflows and
-		overflows are printed. If 'verbose' flag is set
-		and autoscale is performed the scale and offset 
-		factors are displayed
-
-		'conv3x3_overflow' and 'conv3x3_underflow' are 
-		global variabels and may be declared as
-		| extern int conv3x3_overflow, conv3x3_underflow
-See also:	laplace(1), conv3x3(3), lapZeroCross(3)
-Author:		Otto Milvang
-Examples:       
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-
-
-#ifndef FUNCPROTO
-void laplace(input, output, a, b, c, scale, offset, verbose)
-IBAND input, output;
-int a, b, c;
-double scale, offset;
-int verbose;
-#else /* FUNCPROTO */
-void laplace(IBAND input, IBAND output, int a, int b, int c, double scale, double offset, int verbose)
-#endif /* FUNCPROTO */
-{
-  int conv[9];
-  conv[0] = conv[2] = conv[6] = conv[8] = a;
-  conv[1] = conv[3] = conv[5] = conv[7] = b;
-  conv[4] = c;
-  conv3x3(input, output, conv, scale, offset, verbose);
-}
-
-#endif /* not MAIN */
-
-
-
 
 /*P:laplace*
 
@@ -147,15 +90,7 @@ ________________________________________________________________
 
 
 
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img, img2;
   int i;
@@ -199,5 +134,3 @@ int main(int argc, char **argv)
   Iwrite_image(img2,argv[2]);
   return(0);
 }
-
-#endif /* MAIN */
