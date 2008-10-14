@@ -97,18 +97,20 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/copy.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/draw.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #define MAXIMAGES 100
 #ifndef MAX
@@ -120,16 +122,8 @@ ________________________________________________________________
      readAllImages : read all images and startpoints
 ---------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static void readAllImages(images, aut, argc, argv, nimages)
-IMAGE *images;
-int aut, argc;
-char *argv[];
-int *nimages;
-#else /* FUNCPROTO */
 static void readAllImages(IMAGE *images, int aut, int argc, char *argv[],
 int *nimages)
-#endif /* FUNCPROTO */
 {
    IMAGE image;
    int bandnr, ac=1, xstart, ystart;
@@ -157,13 +151,7 @@ int *nimages)
      testPixtyp : test if all bands have the same pixel type
 ---------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static void testPixtyp(images, nimages)
-IMAGE *images;
-int nimages;
-#else /* FUNCPROTO */
 static void testPixtyp(IMAGE *images, int nimages)
-#endif /* FUNCPROTO */
 {
   int in, bn, pt;
   
@@ -180,13 +168,7 @@ static void testPixtyp(IMAGE *images, int nimages)
 ---------------------------------------------------------
 */
 
-#ifndef FUNCPROTO
-static void newSize(images, nimages, xs, ys, nbands)
-IMAGE *images;
-int nimages, *xs, *ys, *nbands;
-#else /* FUNCPROTO */
 static void newSize(IMAGE *images, int nimages, int *xs, int *ys, int *nbands)
-#endif /* FUNCPROTO */
 {
    IBAND b;
    int imgnr, bandnr, nb;
@@ -212,13 +194,7 @@ static void newSize(IMAGE *images, int nimages, int *xs, int *ys, int *nbands)
 ---------------------------------------------------------
 */
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
    IMAGE *images, Output;
    IBAND b;
@@ -275,5 +251,3 @@ int main(int argc, char *argv[])
    Iwrite_image(Output,argv[argc-1]);
    return(0);
 }
-
-#endif /* MAIN */
