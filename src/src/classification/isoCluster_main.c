@@ -37,15 +37,17 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_TYPES_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/classification.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-
-#ifdef MAIN
 
 #define EUCLID_METRIC 1
 #define CITY_METRIC   2
@@ -70,13 +72,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static float classMeanDist(means, nbands, c1, c2, metric)
-float *means[];
-int nbands, c1, c2, metric;
-#else /* FUNCPROTO */
 static float classMeanDist(float **means, int nbands, int c1, int c2, int metric)
-#endif /* FUNCPROTO */
 {
    int bn;
    float diff, dist=0.0;
@@ -130,13 +126,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void mergeTwoClasses(output, c1, c2)
-IBAND output;
-int c1, c2;
-#else /* FUNCPROTO */
 static void mergeTwoClasses(IBAND output, int c1, int c2)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
    xsize = Ixsize(output);
@@ -166,16 +156,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int mergeClasses(output, means, k, nbands, metric, mindist)
-IBAND output;
-float *means[];
-int *k;
-int nbands, metric;
-float mindist;
-#else /* FUNCPROTO */
 static int mergeClasses(IBAND output, float **means, int *k, int nbands, int metric, float mindist)
-#endif /* FUNCPROTO */
 {
    int c1, c2, C1, C2;
    float dist, md = 1000.0;
@@ -227,17 +208,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void classStdev(input, classif, means, k, stdevs, metric)
-IMAGE input;
-IBAND classif;
-float *means[];
-int k;
-float stdevs[];
-int metric;
-#else /* FUNCPROTO */
 static void classStdev(IMAGE input, IBAND classif, float **means, int k, float *stdevs, int metric)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize, nbands, bn, nk;
    float diff, dist;
@@ -311,16 +282,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void splitClass(input, classif, splitcl, means, kp)
-IMAGE input;
-IBAND classif;
-int splitcl;
-float *means[];
-int *kp;
-#else /* FUNCPROTO */
 static void splitClass(IMAGE input, IBAND classif, int splitcl, float **means, int *kp)
-#endif /* FUNCPROTO */
 {
    float splitval, diff, *stdevs;
    int x, y, xsize, ysize, nbands, bn, splitbn;
@@ -379,17 +341,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int splitClasses(input, classif, means, kp, maxstdev, metric)
-IMAGE input;
-IBAND classif;
-float *means[];
-int *kp;
-float maxstdev;
-int metric;
-#else /* FUNCPROTO */
 static int splitClasses(IMAGE input, IBAND classif, float **means, int *kp, float maxstdev, int metric)
-#endif /* FUNCPROTO */
 {
    int i, maxc;
    float maxstd;
@@ -434,15 +386,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int dropClasses(means, kp, h, minpix)
-float *means[];
-int *kp;
-histogram h;
-int minpix;
-#else /* FUNCPROTO */
 static int dropClasses(float **means, int *kp, int *h, int minpix)
-#endif /* FUNCPROTO */
 {
    char c[2];
    int nk, mincl;
@@ -546,13 +490,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE input, output;
    float* means[100];
@@ -646,5 +584,3 @@ int main(int argc, char **argv)
    Iwrite_image(output, argv[2]);
    return(0);
 }
-
-#endif /* MAIN */
