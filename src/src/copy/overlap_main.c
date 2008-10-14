@@ -44,90 +44,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:overlap*
-
-________________________________________________________________
-
-		overlap
-________________________________________________________________
-
-Name:		overlap - calculate overlapping area of two bands
-
-Syntax:         | #include <xite/copy.h>
-		|
-                | int overlap( IBAND ib1, IBAND ib2, IBAND* ob1,
-                |    IBAND* ob2 );
-
-Description:    Input bands 'ib1' and 'ib2' are placed in a common
-		coordinate system according to their (xstart, ystart)
-		attributes. The overlapping area is calculated, and
-		two subbands 'ob1' and 'ob2' are created and returned,
-		pointing out the overlapping area in each band.
-		'ob1' will thus be a subband of 'ib1', and 'ob2' will
-		be a subband of 'ib2'.
-
-Restrictions:   Only accepts unsigned byte pixeltype.
-
-Return value:   | 0 => ok, 
-		| 1 => bad pixel type input band 1
-		| 2 => bad pixel type input band 2
-		| 3 => no overlap
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-________________________________________________________________
-
-*/
-
-#ifndef FUNCPROTO
-int overlap(ib1, ib2, ob1, ob2)
-IBAND ib1, ib2;
-IBAND *ob1, *ob2;
-#else /* FUNCPROTO */
-int overlap(IBAND ib1, IBAND ib2, IBAND *ob1, IBAND *ob2)
-#endif /* FUNCPROTO */
-{
-   int xstart1, ystart1, xstart2, ystart2, xstart, ystart,
-       xsize1, ysize1, xsize2, ysize2, xsize, ysize, diff;
-
-   if (Ipixtyp(ib1) != Iu_byte_typ)
-     return(Error(1, "Input band 1 must be unsigned byte.\n"));
-   if (Ipixtyp(ib2) != Iu_byte_typ)
-     return(Error(2, "Input band 2 must be unsigned byte.\n"));
-
-   diff = Ixstart(ib2)-Ixstart(ib1)+1;
-   xstart1 = MAX(diff, 1);
-   diff = Iystart(ib2)-Iystart(ib1)+1;
-   ystart1 = MAX(diff, 1);
-   diff = Ixstart(ib1)-Ixstart(ib2)+1;
-   xstart2 = MAX(diff, 1);
-   diff = Iystart(ib1)-Iystart(ib2)+1;
-   ystart2 = MAX(diff, 1);
-   xsize1 = Ixsize(ib1) - xstart1 + 1;
-   ysize1 = Iysize(ib1) - ystart1 + 1;
-   xsize2 = Ixsize(ib2) - xstart2 + 1;
-   ysize2 = Iysize(ib2) - ystart2 + 1;
-   xsize = MIN(xsize1, xsize2);
-   ysize = MIN(ysize1, ysize2);
-
-   if ((xsize <= 0) || (ysize <= 0)) {
-     ob1 = (IBAND*)0;
-     ob2 = (IBAND*)0;
-     return(3);
-   }
-   *ob1   = Imake_subband(ib1, xstart1, ystart1, xsize, ysize);
-   *ob2   = Imake_subband(ib2, xstart2, ystart2, xsize, ysize);
-   xstart = MAX(Ixstart(ib1), Ixstart(ib2));
-   ystart = MAX(Iystart(ib1), Iystart(ib2));
-   Iset_start(*ob1, xstart, ystart);
-   Iset_start(*ob2, xstart, ystart);
-
-   return(0);
-}
-
-#endif /* not MAIN */
-
 /*P:overlap*
 
 ________________________________________________________________
@@ -156,17 +72,11 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
-#include XITE_STDIO_H
-
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE ii1, ii2, oi1, oi2;
    int ibn, obn, ibns, obns;
@@ -197,5 +107,3 @@ int main(int argc, char **argv)
    Iwrite_image(oi2, argv[4]);
   return(0);
 }
-
-#endif /* MAIN */
