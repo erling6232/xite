@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/dither.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -43,8 +45,6 @@ static char *Id = "$Id$, Blab, UiO";
 #ifndef MIN
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
-
-#ifndef MAIN
 
 /*F:dither*
 
@@ -75,13 +75,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int dither(b1, b2, t)
-IBAND b1, b2;
-int t;
-#else /* FUNCPROTO */
 int dither(IBAND b1, IBAND b2, int t)
-#endif /* FUNCPROTO */
 {
   int ysize;
   int x, y, xsize, rest;
@@ -110,76 +104,3 @@ int dither(IBAND b1, IBAND b2, int t)
   ENDFOR;
   return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:dither*
-
-________________________________________________________________
-
-		dither
-________________________________________________________________
-
-Name:		dither - create a dithering image
-
-Syntax:		dither <input image> <output image> [threshold]
-
-Description:    'dither' dithers an image for better display on BW
-                screens. <threshold> is a threshold-like argument,
-		default is 127. Larger (smaller) value gives darker
-		(brighter) image.
-
-Files:	
-See also:	
-Diagnostics:
-
-Restrictions:   Accepts only UNS_BYTE pixels.
-
-Return value:
-
-Author:		Tor L|nnestad, BLAB, IfI, UiO
-
-Examples:       | dither mona.img monadith.img 
-                | dither mona.img monadith.img 100
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
-int main(int argc, char **argv)
-#endif /* FUNCPROTO */
-{
-  IMAGE i;
-  int bn, t;
-  char arg[30];
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <oldfile> <newfile> [threshold]\n"));
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  if (argc == 1) Usage(1, (char*)0);
-  if ((argc LT 3) OR (argc GT 4)) Usage(2, "Bad number of arguments\n");
-
-  i = Iread_image(argv[1]);
-  if (argc GE 4) t = atoi(argv[3]); else t = 127;
-  for (bn=1; bn LE Inbands(i); bn++)
-    if(dither(i[bn], i[bn], t))
-      Warning(3, "Bad arguments in band %d\n", bn);
-
-  sprintf(arg, "threshold : %d", t);
-  Ihistory(i, argv[0], arg);
-  Iwrite_image(i, argv[2]);
-   return(0);
-}
-
-#endif /* MAIN */

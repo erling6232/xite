@@ -13,16 +13,13 @@ include $(configdir)/@common_makefile@
 #
 #   Makefile definitions
 #
-PROG  = biffDump mosaic overlap subcopy
+PROG  = dither
 XPROG   =
-MANP  = biffDump.m copyBand.m mosaic.m overlap.m subcopy.m
-CINCL =  copy.i
+MANP  = dither.m
+CINCL =  dither.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
 LDADD = libxite.la
 
-biffDump_SOURCES = biffDump_main.c
-mosaic_SOURCES   = mosaic_main.c
-overlap_SOURCES  = overlap_main.c
-subcopy_SOURCES  = subcopy_main.c
+dither_SOURCES = dither_main.c

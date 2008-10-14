@@ -1,5 +1,5 @@
 #
-#      Makefile.am for lib/copy
+#      Makefile.am for lib/dither
 #
 
 
@@ -14,6 +14,6 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-noinst_LTLIBRARIES = libxitecopy.la
+noinst_LTLIBRARIES = libxitedither.la
 
-libxitecopy_la_SOURCES = copyBand.c overlap.c
+libxitedither_la_SOURCES = dither.c

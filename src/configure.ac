@@ -97,6 +97,7 @@ AC_CONFIG_FILES([
     lib/convert/Makefile
     lib/convolve/Makefile
     lib/copy/Makefile
+    lib/dither/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -110,5 +111,6 @@ AC_CONFIG_FILES([
     src/convert/Makefile
     src/convolve/Makefile
     src/copy/Makefile
+    src/dither/Makefile
     ])
 AC_OUTPUT

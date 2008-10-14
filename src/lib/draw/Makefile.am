@@ -1,5 +1,5 @@
 #
-#      Makefile.am for lib/dither
+#      Makefile.am for lib/draw
 #
 
 
@@ -14,6 +14,6 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-noinst_LTLIBRARIES = libxitedither.la
+noinst_LTLIBRARIES = libxitedraw.la
 
-libxitedither_la_SOURCES = dither.c
+libxitedraw_la_SOURCES = mkImg.c bdf2biff.c
