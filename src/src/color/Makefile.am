@@ -1,0 +1,32 @@
+#
+#      Makefile.am for src/color
+#
+
+
+@SET_MAKE@
+
+SHELL = /bin/sh
+configdir = @configdir@
+
+include $(configdir)/@common_makefile@
+
+#
+#   Makefile definitions
+#
+PROG    = colorquant mct saturmod color2ascii
+XPROG   =
+MANP    = colorfile.m colorquant.m mct.m saturmod.m color2ascii.m
+MANP_SH = makepseudo.m
+CINCL   = color.i
+SCRIPTS = makepseudo
+
+bin_PROGRAMS=$(PROG) $(XPROG)
+bin_SCRIPTS = $(SCRIPTS)
+
+LDADD = libxite.la
+
+color2ascii_SOURCES = color2ascii_main.c
+colorquant_SOURCES  = colorquant_main.c
+mct_SOURCES         = mct_main.c
+saturmod_SOURCES    = saturmod_main.c
+makepseudo_SOURCES  = makepseudo.sh
