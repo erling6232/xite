@@ -4,6 +4,8 @@ libxite_la_LIBADD = arithmetic/libxitearithmetic.la
 libxite_la_LIBADD = biff/libxitebiff.la
 libxite_la_LIBADD = binarize/libxitebinarize.la
 libxite_la_LIBADD = canny/libxitecanny.la
+libxite_la_LIBADD = cdoc/libxitecdoc.la
+libxite_la_LIBADD = classification/libxiteclassification.la
 
 SUBDIRS = \
 	arithmetic \

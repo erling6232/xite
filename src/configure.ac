@@ -89,11 +89,13 @@ AC_CONFIG_FILES([
     lib/binarize/Makefile
     lib/canny/Makefile
     lib/cdoc/Makefile
+    lib/classification/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
     src/binarize/Makefile
     src/canny/Makefile
     src/cdoc/Makefile
+    src/classification/Makefile
     ])
 AC_OUTPUT
