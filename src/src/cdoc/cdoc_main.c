@@ -216,15 +216,31 @@ ________________________________________________________________
 #include <xite/strings.h>
 #include <xite/message.h>
 #include <errno.h>
-#include XITE_STAT_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_TIME_H
-#include XITE_TOUPPER_H
-#include XITE_UNISTD_H
-#include XITE_MKTEMP_H
-
-#ifdef MAIN
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+#  include <sys/stat.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+ #include <strings.h>
+#else
+ #ifdef HAVE_STRING_H
+   #include <string.h>
+  #endif
+#endif
+#ifdef HAVE_SYS_TIME_H
+#  include <sys/time.h>
+#endif
+#ifdef HAVE_CTYPE_H
+#  include <ctype.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 
 static FILE *inp_s, *outp_s;
 static char man_s[20]      ="1";
@@ -267,12 +283,7 @@ typedef enum {
  * Substitute NEWLINE by null character.
  * Return EOF or first character after NEWLINE. */
 
-#ifndef FUNCPROTO
-static int getline(line)
-char *line;
-#else /* FUNCPROTO */
 static int getline(char *line)
-#endif /* FUNCPROTO */
 {
   int cnr, intch;
 
@@ -469,13 +480,7 @@ static char ext[][30]        = {
 
 /* Transform special characters in line and print to outp_s. */
 
-#ifndef FUNCPROTO
-static void putlinel(line, heading, cr, quote)
-char *line;
-int heading, cr, quote;
-#else /* FUNCPROTO */
 static void putlinel(char *line, int heading, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   char c, oldc = 0;
   int italic;
@@ -509,13 +514,7 @@ static void putlinel(char *line, int heading, int cr, int quote)
   if(cr) putc('\n', outp_s);
 } /* putlinel() */
 
-#ifndef FUNCPROTO
-static void putlinen(line, heading, cr, quote)
-char *line;
-int heading, cr, quote;
-#else /* FUNCPROTO */
 static void putlinen(char *line, int heading, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   char c;
   int italic;
@@ -548,13 +547,7 @@ static void putlinen(char *line, int heading, int cr, int quote)
 
 
 
-#ifndef FUNCPROTO
-static void putlinet(line, heading, cr, quote)
-char *line;
-int heading, cr, quote;
-#else /* FUNCPROTO */
 static void putlinet(char *line, int heading, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   char c;
   time_t msec;
@@ -622,25 +615,13 @@ static void putlinet(char *line, int heading, int cr, int quote)
   if (cr) putc('\n', outp_s);
 }
 
-#ifndef FUNCPROTO
-static void putlinex(line, heading, cr, quote)
-char *line;
-int heading, cr, quote;
-#else /* FUNCPROTO */
 static void putlinex(char *line, int heading, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   fprintf(outp_s, "%s", line);
   if(cr) putc('\n', outp_s);
 }
 
-#ifndef FUNCPROTO
-static char *putlineh(line, heading, cr, quote)
-char *line;
-int heading, cr, quote;
-#else /* FUNCPROTO */
 static char *putlineh(char *line, int heading, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   char c, oldc = 0, olderc = 0;
   char *outbuf, *ptr;
@@ -756,14 +737,7 @@ static char *putlineh(char *line, int heading, int cr, int quote)
 
 /* Transform special characters in line and print to outp_s. */
 
-#ifndef FUNCPROTO
-static char *putline(mode, line, header, cr, quote)
-doc_type mode;
-char *line;
-int header, cr, quote;
-#else /* FUNCPROTO */
 static char *putline(doc_type mode, char *line, int header, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   char *t = NULL;
 
@@ -781,13 +755,7 @@ static char *putline(doc_type mode, char *line, int header, int cr, int quote)
   return(t);
 }
 
-#ifndef FUNCPROTO
-static void descrItem(mode, line, header, cr, quote)
-doc_type mode, header, cr, quote;
-char *line;
-#else /* FUNCPROTO */
 static void descrItem(doc_type mode, char *line, int header, int cr, int quote)
-#endif /* FUNCPROTO */
 {
   if (mode != TROFF || items < 2)
     fprintf(outp_s, "%s\n", descr_item[mode]);
@@ -805,12 +773,7 @@ static void descrItem(doc_type mode, char *line, int header, int cr, int quote)
   return;
 } /* descrItem() */
 
-#ifndef FUNCPROTO
-static void strip(txt)
-char *txt;
-#else /* FUNCPROTO */
 static void strip(char *txt)
-#endif /* FUNCPROTO */
 {
   char *p, *t;
 
@@ -828,13 +791,7 @@ static void strip(char *txt)
 
 } /* strip() */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int err=0;
   int comment = 0, written = 0, linked = 0;
@@ -853,7 +810,7 @@ int main(int argc, char **argv)
   char outbuf[512], *ptr, extension[MAXPATHLEN];
   char *infilename, *outfilename;
   doc_type mode = LATEX;
-#ifndef _WIN32
+#ifdef HAVE_UMASK
   mode_t umask_old = 0, umask_new = S_IWGRP | S_IWOTH;
 #endif
 
@@ -890,7 +847,7 @@ int main(int argc, char **argv)
 
   if(err) Usage(1, "Illegal option.\n");
 
-#ifndef _WIN32
+#ifdef HAVE_UMASK
   umask_old = umask(umask_new);
 #endif
 
@@ -1001,7 +958,7 @@ int main(int argc, char **argv)
 		sprintf(refname, "%s%s", &line[3+strlen(symb_s)],
 			&ext[mode][1]);
 		errno = 0;
-#ifndef _WIN32
+#ifdef HAVE_SYMLINK
 		if (symlink(refname, outfilename)) perror("cdoc link");
 #else
 		/* Copy file. */
@@ -1319,12 +1276,10 @@ int main(int argc, char **argv)
     }
   } /* for symbnr */
 
-#ifndef _WIN32
+#ifdef HAVE_UMASK
   (void) umask(umask_old);
 #endif
 
   return(0);
 
 } /* main() */
-
-#endif /* MAIN */
