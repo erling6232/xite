@@ -6,6 +6,8 @@ libxite_la_LIBADD = binarize/libxitebinarize.la
 libxite_la_LIBADD = canny/libxitecanny.la
 libxite_la_LIBADD = cdoc/libxitecdoc.la
 libxite_la_LIBADD = classification/libxiteclassification.la
+libxite_la_LIBADD = color/libxitecolor.la
+libxite_la_LIBADD = combine/libxitecombine.la
 
 SUBDIRS = \
 	arithmetic \
