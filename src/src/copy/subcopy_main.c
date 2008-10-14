@@ -36,11 +36,19 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/copy.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 #ifndef MAX
 # define  MAX(a,b) (((a) > (b)) ? (a) : (b))
@@ -48,8 +56,6 @@ static char *Id = "$Id$, Blab, UiO";
 #ifndef MIN
 # define  MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
-
-#ifdef MAIN
 
 /*
 _________________________________________________
@@ -63,14 +69,7 @@ return 2 when bad bandspec
 _________________________________________________
 */
 
-#ifndef FUNCPROTO
-static int parseBands(bandspec, bands, nbands)
-char *bandspec;
-int *bands;
-int *nbands;
-#else /* FUNCPROTO */
 static int parseBands(char *bandspec, int *bands, int *nbands)
-#endif /* FUNCPROTO */
 {
   int bnr=0, bn, bn1, bn2, stat=0;
   if (NOT bandspec) { *nbands = 0; return(1);}
@@ -140,13 +139,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1,img2;
   int xstart, xsize, xstop, ystart, ysize, ystop, bn, nbands1, nbands2,
@@ -228,5 +221,3 @@ int main(int argc, char **argv)
   Iwrite_image(img2, argv[2]);
   return(0);
 }
-
-#endif /* MAIN */
