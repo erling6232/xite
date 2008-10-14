@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/contour.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -86,13 +88,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int contour(input, output, eqd, cpv, bpv)
-IBAND input, output;
-int eqd, cpv, bpv;
-#else /* FUNCPROTO */
 int contour(IBAND input, IBAND output, int eqd, int cpv, int bpv)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize, i, mapval;
    UNS_BYTE map[256];
@@ -179,13 +175,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2;
    int bn, eqd, cpv, bpv;
