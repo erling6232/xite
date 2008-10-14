@@ -1,6 +1,7 @@
 include_HEADERS = \
 	arithmetic.h biff.h binarize.h blab.h canny.h cdoc.h \
 	classification.h color.h combine.h contour.h convolve.h \
+	copy.h \
 	draw.h dummy.h histo.h \
 	includes.h \
 	message.h patchlevel.h readarg.h xite_endian.h xite_file.h \
