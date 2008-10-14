@@ -90,10 +90,17 @@ ________________________________________________________________
 static char *Id="$Id$";
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_MKTEMP_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/biff.h>
 #include <xite/readarg.h>
 #include <xite/draw.h>
@@ -109,14 +116,7 @@ static IMAGE img, chars;
 static IBAND band;
 static char relx, font_file[80];
 
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-static void readcommand(line)
-char line[];
-#else /* FUNCPROTO */
 static void readcommand(char line[])
-#endif /* FUNCPROTO */
 {
   char command[20];
   int nr;
@@ -184,13 +184,7 @@ static void readcommand(char line[])
     }
 }
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
   char text_file[70], biff_file[70], newimage_file[70], buf[300];
   unsigned char c, text[300];
@@ -348,5 +342,3 @@ or: \n\
   fclose(textpt);
   return 0;
 }
-
-#endif /* MAIN */
