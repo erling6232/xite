@@ -13,21 +13,22 @@ include $(configdir)/@common_makefile@
 #
 #   Makefile definitions
 #
-PROG    = biffConvert raw2biff ascii2biff pseudo2rgb biff2raw biff2ascii \
-	  biffswap
+PROG  = convolve conv3x3 gradient laplace prewitt roberts sobel grad crossing lapZeroCross
 XPROG   =
-MANP    = biffConvert.m raw2biff.m ascii2biff.m pseudo2rgb.m biff2raw.m \
-	  biff2ascii.m biffswap.m
-CINCL   = convert.i
+MANP  = convolve.m conv3x3.m gradient_op.m laplace.m crossing.m lapZeroCross.m
+CINCL =  convolve.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
 LDADD = libxite.la
 
-ascii2biff_SOURCES = ascii2biff_main.c
-biff2ascii_SOURCES = biff2ascii_main.c
-biff2raw_SOURCES   = biff2raw_main.c
-biffConvert_SOURCES= biffConvert_main.c
-biffswap_SOURCES   = biffswap_main.c
-pseudo2rgb_SOURCES = pseudo2rgb_main.c
-raw2biff_SOURCES   = raw2biff_main.c
+conv3x3_SOURCES      = conv3x3_main.c
+convolve_SOURCES     = convolve_main.c
+crossing_SOURCES     = crossing_main.c
+gradient_SOURCES     = gradient_main.c
+grad_SOURCES         = grad_main.c
+laplace_SOURCES      = laplace_main.c
+lapZeroCross_SOURCES = lapZeroCross_main.c
+prewitt_SOURCES      = prewitt_main.c
+roberts_SOURCES      = roberts_main.c
+sobel_SOURCES        = sobel_main.c
