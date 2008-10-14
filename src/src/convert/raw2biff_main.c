@@ -39,15 +39,25 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/convert.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_FILE_H
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_SYS_FILE_H
+#  include <sys/file.h>
+#endif
+#ifdef HAVE_MALLOC_H
+#  include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 
 #define MAX_TITLE_LENGTH 32
 
-
-#ifdef MAIN
 
 /*P:raw2biff*
 
@@ -154,27 +164,14 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void skip(fd, nbytes)
-FILE *fd;
-int nbytes;
-#else /* FUNCPROTO */
 static void skip(FILE *fd, int nbytes)
-#endif /* FUNCPROTO */
 {
   char buf[512];
   while (nbytes GE 512) { fread(buf, 512, 1, fd); nbytes -= 512; }
   if (nbytes) fread( buf, nbytes, 1, fd);
 }
 
-#ifndef FUNCPROTO
-static void org_bit_bl(i, fd, nbands, ysize, xsize, bh, ba, lh, la)
-IMAGE i;
-FILE *fd;
-int nbands, ysize, xsize,  bh, ba, lh, la;
-#else /* FUNCPROTO */
 static void org_bit_bl(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int bh, int ba, int lh, int la)
-#endif /* FUNCPROTO */
 {
   int x, y, bn, xa, xb;
   unsigned char *buffer;
@@ -200,14 +197,7 @@ static void org_bit_bl(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int 
   ENDFOR;
 }
 
-#ifndef FUNCPROTO
-static void org_bit_bm(i, fd, nbands, ysize, xsize, bh, ba, lh, la)
-IMAGE i;
-FILE *fd;
-int nbands, ysize, xsize, bh, ba, lh, la;
-#else /* FUNCPROTO */
 static void org_bit_bm(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int bh, int ba, int lh, int la)
-#endif /* FUNCPROTO */
 {
   int x, y, bn, xa, xb;
   unsigned char *buffer;
@@ -235,14 +225,7 @@ static void org_bit_bm(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int 
 
 
 
-#ifndef FUNCPROTO
-static void org_bls(i, fd, nbands, ysize, xsize, pix_size, bh, ba, lh, la)
-IMAGE i;
-FILE *fd;
-int nbands, ysize, xsize, pix_size, bh, ba, lh, la;
-#else /* FUNCPROTO */
 static void org_bls(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int pix_size, int bh, int ba, int lh, int la)
-#endif /* FUNCPROTO */
 {
   int y, bn;
   FOR (bn = 1; bn LE nbands; INC bn)
@@ -261,14 +244,7 @@ static void org_bls(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int pix
   ENDFOR;
 }
 
-#ifndef FUNCPROTO
-static void org_lbs(i, fd, nbands, ysize, xsize, pix_size, bh, ba, lh, la)
-IMAGE i;
-FILE *fd;
-int nbands, ysize, xsize, pix_size, bh, ba, lh, la;
-#else /* FUNCPROTO */
 static void org_lbs(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int pix_size, int bh, int ba, int lh, int la)
-#endif /* FUNCPROTO */
 {
   int y, bn; 
   FOR (y=1; y LE ysize; INC y)
@@ -287,14 +263,7 @@ static void org_lbs(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int pix
   ENDFOR;
 }
 
-#ifndef FUNCPROTO
-static void org_lsb(i, fd, nbands, ysize, xsize, pix_size, bh, ba, lh, la)
-IMAGE i;
-FILE *fd;
-int nbands, ysize, xsize, pix_size, bh, ba, lh, la;
-#else /* FUNCPROTO */
 static void org_lsb(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int pix_size, int bh, int ba, int lh, int la)
-#endif /* FUNCPROTO */
 {
   int x, y, bn;
   FOR (y=1; y LE ysize; INC y)
@@ -316,13 +285,7 @@ static void org_lsb(IMAGE i, FILE *fd, int nbands, int ysize, int xsize, int pix
   ENDFOR;
 }
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
 
    IMAGE i;
@@ -415,5 +378,3 @@ int main(int argc, char **argv)
 
    return(0);
 }
-
-#endif /* MAIN */
