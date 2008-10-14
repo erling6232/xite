@@ -95,6 +95,8 @@ AC_CONFIG_FILES([
     lib/combine/Makefile
     lib/contour/Makefile
     lib/convert/Makefile
+    lib/convolve/Makefile
+    lib/copy/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -106,5 +108,7 @@ AC_CONFIG_FILES([
     src/combine/Makefile
     src/contour/Makefile
     src/convert/Makefile
+    src/convolve/Makefile
+    src/copy/Makefile
     ])
 AC_OUTPUT

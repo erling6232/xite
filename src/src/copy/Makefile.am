@@ -1,5 +1,5 @@
 #
-#      Makefile.am for src/contour
+#      Makefile.am for src/copy
 #
 
 
@@ -13,13 +13,16 @@ include $(configdir)/@common_makefile@
 #
 #   Makefile definitions
 #
-PROG  = contour
+PROG  = biffDump mosaic overlap subcopy
 XPROG   =
-MANP  = contour.m
-CINCL =  contour.i
+MANP  = biffDump.m copyBand.m mosaic.m overlap.m subcopy.m
+CINCL =  copy.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
 LDADD = libxite.la
 
-contourbine_SOURCES = contour_main.c
+biffDump_SOURCES = biffDump_main.c
+mosaic_SOURCES   = mosaic_main.c
+overlap_SOURCES  = overlap_main.c
+subcopy_SOURCES  = subcopy_main.c

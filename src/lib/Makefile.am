@@ -11,6 +11,7 @@ libxite_la_LIBADD = combine/libxitecombine.la
 libxite_la_LIBADD = contour/libxitecontour.la
 libxite_la_LIBADD = convert/libxiteconvert.la
 libxite_la_LIBADD = convolve/libxiteconvolve.la
+libxite_la_LIBADD = copy/libxitecopy.la
 
 SUBDIRS = \
 	arithmetic \

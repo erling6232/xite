@@ -1,5 +1,5 @@
 #
-#      Makefile.am for lib/contour
+#      Makefile.am for lib/copy
 #
 
 
@@ -14,6 +14,6 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-noinst_LTLIBRARIES = libxitecontour.la
+noinst_LTLIBRARIES = libxitecopy.la
 
-libxitecontour_la_SOURCES = contour.c
+libxitecopy_la_SOURCES = copyBand.c overlap.c
