@@ -1,5 +1,6 @@
 include_HEADERS = \
-	arithmetic.h biff.h binarize.h blab.h draw.h dummy.h histo.h \
+	arithmetic.h biff.h binarize.h blab.h canny.h cdoc.h \
+	draw.h dummy.h histo.h \
 	includes.h \
 	message.h patchlevel.h readarg.h xite_endian.h xite_file.h \
 	xite_fork.h xite_funcproto.h xite_limits.h xite_mktemp.h \
