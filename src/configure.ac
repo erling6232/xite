@@ -62,7 +62,7 @@ AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
 AC_FUNC_WAIT3
 AC_CHECK_FUNCS([dup2 getcwd isascii pow regcomp select sqrt strcasecmp strchr strcspn strerror strrchr strspn strstr strtol])
-AC_CHECK_FUNCS([setmode random srandom toupper tolower])
+AC_CHECK_FUNCS([link setmode symlink random srandom toupper tolower umask])
 
 # define XITE_FCNTL_H      <sys/fcntl.h>
 # define XITE_IO_H         <xite/dummy.h>
