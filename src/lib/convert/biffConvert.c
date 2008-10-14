@@ -54,8 +54,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:mkConvertBand=convertBand*/
 /*F:convertBand*
 
@@ -1031,97 +1029,3 @@ IBAND mkConvertBand(IBAND b, IPIXTYP pixtyp)
   }
   return(b2);
 }
-
-#endif /* not MAIN */
-
-/*P:biffConvert*
-
-________________________________________________________________
-
-		biffConvert
-________________________________________________________________
-
-Name:		biffConvert - convert image between different pixel types
-
-Syntax:		| biffConvert <inimage> <outimage> <pixeltype>
-                |    [<pixeltype>...]
-
-Description:    'biffConvert' reads the input image <inimage>, converts
-                every band to specified pixel type, and writes output
-		image to <outimage>. First pixel type specification is
-		applied to first band, second to second,.. If more bands,
-		the last pixel type specification is applied to the rest
-		of the bands. Pixel types are specified by a pixel type
-		number:
-
-		| ub or  3 => convert to unsigned byte
-		| sb or  4 => convert to signed byte
-		| us or  5 => convert to unsigned short
-		| ss or  6 => convert to signed short
-		| i  or  7 => convert to integer
-		| r  or  8 => convert to real
-		| c  or  9 => convert to complex
-		| d  or 10 => convert to double
-		| dc or 11 => convert to double complex
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       | # convert to real: 
-                | biffConvert mona.img monaReal.img 8
-                |
-                | # convert to byte:
-                | biffConvert spot.img spotByte.img 3
-                |
-                | # convert 1st to byte, 2nd to integer, 3rd to real:
-                | biffConvert spot.img spotBIR.img 3 7 8 
-                |
-                | # convert first band to byte and short:
-                | biffConvert mona.img:1:1 monaBS.img 3 5 
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE i1, i2;
-  int bn;
-  IPIXTYP pt;
-  
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-     "Usage: %s <inimage> <outimage> <pixtyp> [<pixtyp>...]\n\
-        where pixtyp may be \n\
-          ub or 3 => unsigned byte,    sb or  4 => signed byte, \n\
-          us or 5 => unsigned short,   ss or  6 => signed short, \n\
-          i  or 7 => integer,          r  or  8 => real, \n\
-          c  or 9 => complex,          d  or 10 => double, \n\
-          dc or 11 => double complex\n"));
-
-  if (argc == 1) Usage(1, NULL);
-  if (argc < 4) Usage(2, "Illegal number of arguments.\n");
-  
-  i1 = Iread_image(argv[1]);
-  if (NOT i1) exit(Error(3, "Couldn't read %s\n", argv[1]));
-  i2 = Init_image(Inbands(i1), Ititle(i1));
-  if (NOT (size_t)i2) exit(Error(4, "Malloc failed\n"));
-  Icopy_text(i1, i2);
-  for (bn=1; bn LE Inbands(i1); bn++) {
-    pt = (argc GE bn+3) ? IparsePixtyp(argv[bn+2]) : pt;
-    i2[bn] = mkConvertBand(i1[bn], pt);
-    if (NOT i2[bn]) {
-      Warning(5, "Couldn't convert band %d\n", bn);
-      i2[bn] = i1[bn];
-    }
-  }
-  
-  Ihistory(i2, argv[0], "");
-  Iwrite_image(i2, argv[2]);
-  return(0);
-}
-
-#endif /* MAIN */
