@@ -37,9 +37,19 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <stdlib.h>
 #include <xite/color.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/readarg.h>
 #include <xite/message.h>
 
@@ -52,87 +62,6 @@ static char *Id = "$Id$, Blab, UiO";
 #endif
 
 
-
-#ifndef MAIN
-
-/*F:color2ascii*
-
-________________________________________________________________
-
-		color2ascii
-________________________________________________________________
-
-Name:		color2ascii - write a biff band to an ascii data file
-
-Syntax:         | #include <xite/color.h>
-                |
-                | int color2ascii( Color_cell* coltab, int len,
-                |    char* filename, char* type, int hex );
-
-Description:    'color2ascii' dumps the contents of 'coltab' with length
-                'len' as ascii data to the file 'filename'. The format can
-		be read by 'mct(1)'. Give filename "-" or "-1" for writing
-		to stdout.
-
-		For information on the output format, see 'PrintColortable(3)'.
-
-Parameters:     &len
-                This is the length of the colortable, i.e. the number of
-		entries to be printed.
-
-		&hex
-		If nonzero, print pixelvalue as hexadecimal numbers, instead
-		of decimal numbers.
-
-		&type
-		This may be one of the following
-		&&w
-		Truncate or create file for writing
-		&&a
-		Append. Open for writing at end of file, or create for writing.
-
-Return value:   | 0 - ok
-		| 1 - could not open file
-		| 2 - bad 'type' argument, should be "w" or "a"
-
-See also:       color2ascii(1), mct(1), PrintColortable(3), colorquant(1),
-                makepseudo(1)
-
-Author:		Svein Bøe
-
-Id:		$Id$
-________________________________________________________________
-
-*/
-
-
-#ifndef FUNCPROTO
-int color2ascii(coltab, len, filename, type, hex)
-Color_cell *coltab;
-char *filename, *type;
-int len, hex;
-#else /* FUNCPROTO */
-int color2ascii(Color_cell *coltab, int len, char *filename, char *type, int hex)
-#endif /* FUNCPROTO */
-{
-  FILE *f;
-
-  if (strcmp(type, "w") && strcmp(type, "a")) 
-      return(Error(2, "color2ascii: type must be \"a\" or \"w\"\n"));
-
-  if (filename == NULL || !strcmp(filename, "-") || !strcmp(filename, "-1"))
-    f = stdout;
-  else f = fopen(filename, type);
-  if (! f)
-    return(Error(1, "color2ascii: Couldn't open file %s\n", filename));
-
-  PrintColortable(coltab, len, hex, f);
-
-  if (f != stdout) fclose(f);
-  return(0);
-}
-
-#endif /* not MAIN */
 
 /*P:color2ascii*
 
@@ -181,15 +110,7 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int len, hex, status;
   char *tabName;
@@ -219,5 +140,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */

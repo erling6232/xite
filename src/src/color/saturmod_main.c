@@ -82,21 +82,21 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/color.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_STRTOL_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 #include <xite/readarg.h>
 #include <xite/message.h>
 #include <xite/ihs.h>
 
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-static int a2i(str)
-char *str;
-#else /* FUNCPROTO */
 static int a2i(char *str)
-#endif /* FUNCPROTO */
 {
   char *test;
   int val;
@@ -107,12 +107,7 @@ static int a2i(char *str)
   return(val);
 }
 
-#ifndef FUNCPROTO
-static unsigned long a2ul(str)
-char *str;
-#else /* FUNCPROTO */
 static unsigned long a2ul(char *str)
-#endif /* FUNCPROTO */
 {
   char *test;
   unsigned long val;
@@ -123,13 +118,7 @@ static unsigned long a2ul(char *str)
   return(val);
 }
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   FILE *infile = NULL, *outfile = NULL;
   char buffer[132], s_n[32], s_r[32], s_g[32], s_b[32];
@@ -201,5 +190,3 @@ int main(int argc, char **argv)
     }
   return(0);
 }
-
-#endif /* MAIN */

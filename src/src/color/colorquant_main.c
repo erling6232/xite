@@ -55,16 +55,22 @@ typedef int *intband, *intimage[];
 #include <xite/blab.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_TYPES_H
-
-#ifdef MAIN
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
 
 #define TIMING 1
 
-#if defined(TIMING) && !defined(_WIN32)
-#include <sys/times.h>
+#if defined(TIMING) && HAVE_TIMES
+#ifdef HAVE_SYS_TIMES_H
+#  include <sys/times.h>
+#endif
 struct tms t;
 static long t1_s,t2_s,t3_s,t4_s,t5_S,t6_s,t7_s, h1,h2,h3,h4,h5,h6;
 #define INIT t1_s=t2_s=t3_s=t4_s=t5_S=t6_s=t7_s=0;
@@ -117,14 +123,7 @@ ________________________________________________________________
 */
 
                                   
-#ifndef FUNCPROTO
-static void init_var(ptr_stat, ptr_gptr, min_col, max_col, size, bands)
-state **ptr_stat;
-long ** ptr_gptr;
-long min_col, max_col, size, bands;
-#else /* FUNCPROTO */
 static void init_var(state **ptr_stat, long int **ptr_gptr, long int min_col, long int max_col, long int size, long int bands)
-#endif /* FUNCPROTO */
 {
   long i, count, *gptr;
   state *stat;
@@ -177,14 +176,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void histogram(hist, image, length)
-  long     *hist;
-  byteband image;
-  long     length;
-#else /* FUNCPROTO */
 static void histogram(long int *hist, byteband image, long int length)
-#endif /* FUNCPROTO */
 {
   unsigned short i;
   long *j;
@@ -215,13 +207,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void statistic(color, image)
-  state *color;
-  byteimage image;
-#else /* FUNCPROTO */
 static void statistic(state *color, unsigned char **image)
-#endif /* FUNCPROTO */
 {
   long  plan, i, iant, isum, maxval, minc, maxc, *hptr, *sptr;
   long  av, maxavvik,terskel;
@@ -310,14 +296,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static long find_max(stat, spl_col, plan, min_col, cur_col)
-state *stat;
-long *spl_col, *plan;
-long min_col, cur_col;
-#else /* FUNCPROTO */
 static long find_max(state *stat, long int *spl_col, long int *plan, long int min_col, long int cur_col)
-#endif /* FUNCPROTO */
 {
   long col, minval;
   state *cur_stat;
@@ -365,14 +344,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static ptrdiff_t split_arr(image, gptr,  plan, offset, length, split)
-  byteimage image;
-  long *gptr;
-  long plan, offset, length, split;
-#else /* FUNCPROTO */
 static ptrdiff_t split_arr(unsigned char **image, long int *gptr, long int plan, long int offset, long int length, long int split)
-#endif /* FUNCPROTO */
 {
   long off[MAXBANDS];
   byte *btr1,*btr2, bval;
@@ -439,15 +411,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void split(image, gptr, fra, til, plan)
-byteimage image;
-long *gptr;
-state *fra, *til;
-long plan;
-#else /* FUNCPROTO */
 static void split(unsigned char **image, long int *gptr, state *fra, state *til, long int plan)
-#endif /* FUNCPROTO */
 {
   long  i, minval;
     minval = fra -> bs_val;
@@ -489,14 +453,7 @@ ________________________________________________________________
 
 #ifdef SPLIT
 
-#ifndef FUNCPROTO
-static BiffStatus test_nabo(stat, color_tab, class, a, b)
-state *stat;
-intimage  color_tab;
-long class[256], a,b;
-#else /* FUNCPROTO */
 static BiffStatus test_nabo(state *stat, int **color_tab, long int *class, long int a, long int b)
-#endif /* FUNCPROTO */
 {
   long i, ok, diff, sum;
   if (a == b) return(0);
@@ -545,15 +502,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void reconstr(stat, gptr, image, min_col, max_col)
-  state *stat;
-  long *gptr;
-  byteband image;
-  long min_col, max_col;
-#else /* FUNCPROTO */
 static void reconstr(state *stat, long int *gptr, byteband image, long int min_col, long int max_col)
-#endif /* FUNCPROTO */
 {
   long color,ll,pp,off;
   FOR(color = min_col; color LE max_col; color ++)
@@ -591,12 +540,7 @@ ________________________________________________________________
 */
 
 
-#ifdef FUNCPROTO
 static int compare(state *a, state *b)
-#else
-static int compare(a, b)
-state *a, *b;
-#endif
 {
   long arg1,arg2,i;
   arg1 = 0;
@@ -634,29 +578,15 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void write_answer(stat, gptr, image, band_size,  
-                c_image, color_tab, min_col, max_col, step_col)
-  state * stat;
-  byteimage image;
-  intimage  color_tab;
-  byteband  c_image;
-  long *gptr, band_size, min_col, max_col, step_col; 
-#else /* FUNCPROTO */
 static void write_answer(state *stat, long int *gptr, unsigned char **image, long int band_size, byteband c_image, int **color_tab, long int min_col, long int max_col, long int step_col)
-#endif /* FUNCPROTO */
 {
   long c, i;
   byte *ptr;
   long ant, class[256];
 
   IN(h6);
-# ifdef FUNCPROTO
   qsort(&stat[min_col], max_col-min_col+1, sizeof(state),
 	(int (*)(const void*, const void*)) compare);
-# else
-  qsort(&stat[min_col], max_col-min_col+1, sizeof(state), compare);
-# endif
 
   reconstr(stat, gptr, c_image, min_col, max_col);
 
@@ -711,16 +641,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void syntese(image, bands, band_size, c_image, color_tab, min_col, max_col, step_col, escape_codes)
-  byteimage image;
-  int *color_tab[];
-  byteband c_image;
-  long bands, band_size, min_col, max_col, step_col; 
-  int escape_codes;
-#else /* FUNCPROTO */
 static void syntese(unsigned char **image, long int bands, long int band_size, byteband c_image, int **color_tab, long int min_col, long int max_col, long int step_col, int escape_codes)
-#endif /* FUNCPROTO */
 {
   long cur_col, *gptr, max, spl_col, plan;
   state *stat;
@@ -795,12 +716,7 @@ static long xsize_s, ysize_s, size_s;
 /*      Params	: None					*/
 /*							*/
 
-#ifndef FUNCPROTO
-static void read_file(min_col, max_col)
-long min_col, max_col;
-#else /* FUNCPROTO */
 static void read_file(long int min_col, long int max_col)
-#endif /* FUNCPROTO */
 {
   long bands, i;
   int *col;
@@ -922,13 +838,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   long i, c, min_col, max_col, step_col, col_res;
   FILE *cf;
@@ -1031,5 +941,3 @@ int main(int argc, char **argv)
   }
   return(0);
 }
-
-#endif /* MAIN */

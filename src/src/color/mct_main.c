@@ -114,18 +114,18 @@ ________________________________________________________________
 #include <xite/biff.h>
 #include <xite/color.h>
 #include <xite/utils.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 
-#ifdef MAIN
-  
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   Color_cell ctab[4096];
   FILE *inp;
@@ -161,5 +161,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
