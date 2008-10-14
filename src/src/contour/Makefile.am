@@ -1,5 +1,5 @@
 #
-#      Makefile.am for src/color
+#      Makefile.am for src/contour
 #
 
 
@@ -13,13 +13,13 @@ include $(configdir)/@common_makefile@
 #
 #   Makefile definitions
 #
-PROG  = combine
+PROG  = contour
 XPROG   =
-MANP  = combine.m
-CINCL =  combine.i
+MANP  = contour.m
+CINCL =  contour.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
 LDADD = libxite.la
 
-combine_SOURCES = combine_main.c
+contourbine_SOURCES = contour_main.c
