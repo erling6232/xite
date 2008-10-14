@@ -9,6 +9,7 @@ libxite_la_LIBADD = classification/libxiteclassification.la
 libxite_la_LIBADD = color/libxitecolor.la
 libxite_la_LIBADD = combine/libxitecombine.la
 libxite_la_LIBADD = contour/libxitecontour.la
+libxite_la_LIBADD = convert/libxiteconvert.la
 
 SUBDIRS = \
 	arithmetic \

@@ -1,5 +1,5 @@
 #
-#      Makefile.am for lib/convert
+#      Makefile.am for lib/convolve
 #
 
 
@@ -14,7 +14,7 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-noinst_LTLIBRARIES = libxiteconvert.la
+noinst_LTLIBRARIES = libxiteconvolve.la
 
-libxiteconvert_la_SOURCES = biffConvert.c ascii2biff.c pseudo2rgb.c \
-	biff2raw.c biff2ascii.c biffswap.c
+libxiteconvolve_la_SOURCES = convolve.c conv3x3.c gradient.c laplace.c \
+	prewitt.c roberts.c sobel.c grad.c crossing.c lapZeroCross.c

@@ -26,7 +26,7 @@ AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([ctype.h fcntl.h float.h io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/time.h unistd.h values.h])
+AC_CHECK_HEADERS([ctype.h fcntl.h float.h io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/time.h sys/times.h unistd.h values.h])
 AC_CHECK_HEADER([src/biff/biff.h])
 AC_CHECK_HEADERS([direct.h regex.h])
 
@@ -63,6 +63,7 @@ AC_FUNC_VPRINTF
 AC_FUNC_WAIT3
 AC_CHECK_FUNCS([dup2 getcwd isascii pow regcomp select sqrt strcasecmp strchr strcspn strerror strrchr strspn strstr strtol])
 AC_CHECK_FUNCS([link setmode symlink random srandom toupper tolower umask])
+AC_CHECK_FUNCS([times])
 
 # define XITE_FCNTL_H      <sys/fcntl.h>
 # define XITE_IO_H         <xite/dummy.h>
@@ -90,6 +91,10 @@ AC_CONFIG_FILES([
     lib/canny/Makefile
     lib/cdoc/Makefile
     lib/classification/Makefile
+    lib/color/Makefile
+    lib/combine/Makefile
+    lib/contour/Makefile
+    lib/convert/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -97,5 +102,9 @@ AC_CONFIG_FILES([
     src/canny/Makefile
     src/cdoc/Makefile
     src/classification/Makefile
+    src/color/Makefile
+    src/combine/Makefile
+    src/contour/Makefile
+    src/convert/Makefile
     ])
 AC_OUTPUT
