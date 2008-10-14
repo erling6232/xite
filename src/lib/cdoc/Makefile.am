@@ -16,4 +16,4 @@ include $(configdir)/@common_makefile@
 
 noinst_LTLIBRARIES = libxitecdoc.la
 
-libxitecdoc_la_SOURCES = add_html_toc.c getfiles.c
+libxitecdoc_la_SOURCES = add_html_toc.c getfiles.c getopt.c
