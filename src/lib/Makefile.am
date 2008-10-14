@@ -13,6 +13,7 @@ libxite_la_LIBADD = convert/libxiteconvert.la
 libxite_la_LIBADD = convolve/libxiteconvolve.la
 libxite_la_LIBADD = copy/libxitecopy.la
 libxite_la_LIBADD = dither/libxitedither.la
+libxite_la_LIBADD = draw/libxitedraw.la
 
 SUBDIRS = \
 	arithmetic \
