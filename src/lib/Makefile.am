@@ -8,6 +8,7 @@ libxite_la_LIBADD = cdoc/libxitecdoc.la
 libxite_la_LIBADD = classification/libxiteclassification.la
 libxite_la_LIBADD = color/libxitecolor.la
 libxite_la_LIBADD = combine/libxitecombine.la
+libxite_la_LIBADD = contour/libxitecontour.la
 
 SUBDIRS = \
 	arithmetic \
