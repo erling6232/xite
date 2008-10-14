@@ -36,11 +36,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/copy.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/readarg.h>
-#include XITE_TYPES_H
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
 #include <xite/message.h>
 
 #ifndef MAX
@@ -105,15 +109,7 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i;
   int x, y, xstart, ystart, xsize, ysize, xstop, ystop, c, b;
@@ -172,5 +168,3 @@ int main(int argc, char **argv)
   if (f NE stdout) fclose(f);
    return(0);
 }
-
-#endif /* MAIN */
