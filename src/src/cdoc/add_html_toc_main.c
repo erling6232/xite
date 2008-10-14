@@ -77,15 +77,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void add_html_toc(FILEin, headers, num_headers, FILEout, add_toc, add_ref)
-FILE *FILEin, *FILEout;
-char **headers;
-int num_headers;
-int add_toc, add_ref;
-#else /* FUNCPROTO */
 void add_html_toc(FILE *FILEin, char **headers, int num_headers, FILE *FILEout, int add_toc, int add_ref)
-#endif /* FUNCPROTO */
 {
   char *start, buf[513], t[513], buf2[513];
   int j, found, line_num = 0;
@@ -197,13 +189,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   char *args; /* To hold input arguments. */
   char *infile, *headfile, *outfile, buf[512], *header[512];
