@@ -97,12 +97,7 @@ static int spv, sbg, sxsize, sysize;
 #define COMPARE2(xx,yy) \
   if (sob[yy][xx] != sbg) if (sib[yy][xx] == spv) fill(xx,yy)
 
-#ifndef FUNCPROTO
-static void fill(x, y)
-int x, y;
-#else /* FUNCPROTO */
 static void fill(int x, int y)
-#endif /* FUNCPROTO */
 {
 /*printf(" %d %d \n", x, y); */
   sob[y][x] = sbg;
@@ -120,13 +115,7 @@ static void fill(int x, int y)
   if (y<sysize) COMPARE2(x, y+1);
 }
 
-#ifndef FUNCPROTO
-static void collapse(ib, ob, x, y, bg)
-IBAND ib, ob;
-int x, y, bg;
-#else /* FUNCPROTO */
 static void collapse(IBAND ib, IBAND ob, int x, int y, int bg)
-#endif /* FUNCPROTO */
 {  
   sib = ib;
   sob = ob;
@@ -137,13 +126,7 @@ static void collapse(IBAND ib, IBAND ob, int x, int y, int bg)
 }
 
 
-#ifndef FUNCPROTO
-int extrema1(inband, outband, fg, bg)
-IBAND inband, outband;
-int fg, bg;
-#else /* FUNCPROTO */
 int extrema1(IBAND inband, IBAND outband, int fg, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, pv;
   int smaller, larger;
@@ -227,13 +210,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE inimage, outimage;
   int bg, fg, bn, nbands;

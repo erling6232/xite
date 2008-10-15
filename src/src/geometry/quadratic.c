@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/geometry.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/convert.h>
 #include <xite/readarg.h>
@@ -117,14 +119,7 @@ ________________________________________________________________
    }
 
 
-#ifndef FUNCPROTO
-static void quadratic0(ib, ob, xa, ya, bg)
-IBAND ib, ob;
-double *xa, *ya;
-int bg;
-#else /* FUNCPROTO */
 static void quadratic0(IBAND ib, IBAND ob, double *xa, double *ya, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xc, yc;
   int xl, xu, yl, yu;
@@ -175,14 +170,7 @@ static void quadratic0(IBAND ib, IBAND ob, double *xa, double *ya, int bg)
        }
 }	
 
-#ifndef FUNCPROTO
-static void quadratic1(ib, ob, xa, ya, bg)
-IBAND ib, ob;
-double *xa, *ya;
-int bg;
-#else /* FUNCPROTO */
 static void quadratic1(IBAND ib, IBAND ob, double *xa, double *ya, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xc, yc;
   int xl, xu, yl, yu;
@@ -244,14 +232,7 @@ static void quadratic1(IBAND ib, IBAND ob, double *xa, double *ya, int bg)
 }	
 
 
-#ifndef FUNCPROTO
-static void quadratic3(ib, ob, xa, ya, bg)
-IBAND ib, ob;
-double *xa, *ya;
-int bg;
-#else /* FUNCPROTO */
 static void quadratic3(IBAND ib, IBAND ob, double *xa, double *ya, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xc, yc;
   int xl, xu, yl, yu;
@@ -329,14 +310,7 @@ static void quadratic3(IBAND ib, IBAND ob, double *xa, double *ya, int bg)
 }	
 
 
-#ifndef FUNCPROTO
-int quadratic(inband, outband, xa, ya, ip, bg)
-IBAND inband, outband;
-double *xa, *ya;
-int ip, bg;
-#else /* FUNCPROTO */
 int quadratic(IBAND inband, IBAND outband, double *xa, double *ya, int ip, int bg)
-#endif /* FUNCPROTO */
 {
 
   if (Ipixtyp(inband) != Iu_byte_typ || Ipixtyp(outband) != Iu_byte_typ)
@@ -439,13 +413,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 { 
   IMAGE img, img2;
   IR_BAND rband;

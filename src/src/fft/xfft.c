@@ -186,7 +186,9 @@ ________________________________________________________________
 #include <xite/ImageOverlay.h>
 #include <xite/Xdialog.h>
 #include <xite/ShellWids.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/statistics.h>
 #include <xite/mallocp.h>
 #include <xite/debug.h>
@@ -239,12 +241,7 @@ static IBAND orgband_s, fftband_s;
 
 
 
-#ifndef FUNCPROTO
-static void fourier(band, fftband)
-IBAND band, fftband;
-#else /* FUNCPROTO */
 static void fourier(IBAND band, IBAND fftband)
-#endif /* FUNCPROTO */
 {
   static IC_BAND cb1 = NULL, cb2 = NULL;
   int size;
@@ -270,12 +267,7 @@ static void fourier(IBAND band, IBAND fftband)
 
 
 
-#ifndef FUNCPROTO
-static int fft_pow2(length)
-int length;
-#else /* FUNCPROTO */
 static int fft_pow2(int length)
-#endif /* FUNCPROTO */
 {
   int i, pow;
 
@@ -288,13 +280,7 @@ static int fft_pow2(int length)
   return(pow);
 }
 
-#ifndef FUNCPROTO
-static int set_to_pow2(length, flag)
-int length;
-int flag;
-#else /* FUNCPROTO */
 static int set_to_pow2(int length, int flag)
-#endif /* FUNCPROTO */
 {
   int exponent;
 
@@ -312,13 +298,7 @@ static int set_to_pow2(int length, int flag)
 
 } /* set_to_pow2() */
 
-#ifndef FUNCPROTO
-static void update_fourier(wid, roix_im, roiy_im, roixsize_im, roiysize_im)
-Widget wid;
-int roix_im, roiy_im, roixsize_im, roiysize_im;
-#else /* FUNCPROTO */
 static void update_fourier(Widget wid, int roix_im, int roiy_im, int roixsize_im, int roiysize_im)
-#endif /* FUNCPROTO */
 {
   IBAND subband, old_fftband;
 
@@ -356,14 +336,7 @@ static void update_fourier(Widget wid, int roix_im, int roiy_im, int roixsize_im
 } /* update_fourier() */
 
 
-#ifndef FUNCPROTO
-static void Ximage(wid, client_data, roi)
-Widget wid;
-XtPointer client_data;
-XtPointer roi;
-#else /* FUNCPROTO */
 static void Ximage(Widget wid, XtPointer client_data, XtPointer roi)
-#endif /* FUNCPROTO */
 {
   ImageOverlayCallback iroi = (ImageOverlayCallback) roi;
   int roix, roiy, roixsize, roiysize;
@@ -400,13 +373,7 @@ static void Ximage(Widget wid, XtPointer client_data, XtPointer roi)
 
 } /* Ximage() */
 
-#ifndef FUNCPROTO
-static void Quit(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void Quit(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("xfft.c: Quit");
 
@@ -421,13 +388,7 @@ static void Quit(Widget wid, XtPointer client_data, XtPointer call_data)
   exit(0);
 }
 
-#ifndef FUNCPROTO
-static void Expand(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void Expand(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int roix, roiy, roixsize, roiysize, im_width, im_height;
   int roix_im, roiy_im, roixsize_im, roiysize_im;
@@ -477,13 +438,7 @@ static void Expand(Widget wid, XtPointer client_data, XtPointer call_data)
 
 } /* Expand() */
 
-#ifndef FUNCPROTO
-static void Shrink(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void Shrink(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int roix, roiy, roixsize, roiysize;
   int roix_im, roiy_im, roixsize_im, roiysize_im;
@@ -525,14 +480,7 @@ static void Shrink(Widget wid, XtPointer client_data, XtPointer call_data)
 
 } /* Shrink() */
 
-#ifndef FUNCPROTO
-static void Save(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void Save(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   char* name;
   int status;
@@ -549,13 +497,7 @@ static void Save(Widget wid, XtPointer client_data, XtPointer call_data)
   }
 }
 
-#ifndef FUNCPROTO
-static void info(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void info(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   char msg[1000];
   Dimension core_w, core_h, core_fft_w, core_fft_h;
@@ -651,14 +593,7 @@ static void info(Widget wid, XtPointer client_data, XtPointer call_data)
 
 
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, c_data, call_data)
-Widget wid;
-XtPointer c_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer c_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int client_data = *((int *) c_data);
 
@@ -680,13 +615,7 @@ static void ximage_work(Widget wid, XtPointer c_data, XtPointer call_data)
 
 } /* ximage_work() */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   Widget top;
   IBAND subband;

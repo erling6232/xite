@@ -38,10 +38,18 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/geometry.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 #ifdef MAIN
 
@@ -54,12 +62,7 @@ static char *txt_s[8] = { "Identity-transform",
 			"Rotate 270 deg",
 			"Bi-transpose" };
 
-#ifndef FUNCPROTO
-static BiffStatus vert(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus vert(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x,y;
@@ -75,12 +78,7 @@ static BiffStatus vert(IBAND input, IBAND output)
 }
 
 
-#ifndef FUNCPROTO
-static BiffStatus hori(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus hori(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x, y;
@@ -96,12 +94,7 @@ static BiffStatus hori(IBAND input, IBAND output)
 }
 
 
-#ifndef FUNCPROTO
-static BiffStatus tran(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus tran(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x, y;
@@ -117,12 +110,7 @@ static BiffStatus tran(IBAND input, IBAND output)
 }
 
 
-#ifndef FUNCPROTO
-static BiffStatus r270(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus r270(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x, y;
@@ -138,12 +126,7 @@ static BiffStatus r270(IBAND input, IBAND output)
 }
 
 
-#ifndef FUNCPROTO
-static BiffStatus r180(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus r180(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x, y;
@@ -159,12 +142,7 @@ static BiffStatus r180(IBAND input, IBAND output)
 }
 
 
-#ifndef FUNCPROTO
-static BiffStatus r090(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus r090(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x, y;
@@ -180,12 +158,7 @@ static BiffStatus r090(IBAND input, IBAND output)
 }
 
 
-#ifndef FUNCPROTO
-static BiffStatus bdia(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 static BiffStatus bdia(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int xsize = Ixsize(output), ysize = Iysize(output);
   int x, y;
@@ -235,13 +208,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1,img2;
   int func,i, pt, xsize, ysize;

@@ -42,7 +42,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 
 
 /*P:fftMagPhase*
@@ -125,13 +127,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img, img2;
   IBAND band_in, band_mag, band_phase;

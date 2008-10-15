@@ -7,14 +7,7 @@
 
 #include "fft_L.h"
 
-#ifndef FUNCPROTO
-void dint(x, length, wtab)
-float *x;
-float *wtab;
-int length;
-#else /* FUNCPROTO */
 void dint(float *x, int length, float *wtab)
-#endif /* FUNCPROTO */
 {
 	register float tempr, tempi, temp2;
 	switch (length) {

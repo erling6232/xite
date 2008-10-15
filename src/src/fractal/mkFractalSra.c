@@ -41,8 +41,12 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/readarg.h>
 #include <xite/utils.h>
 #include XITE_RANDOM_H
-#include XITE_STDIO_H
-#include XITE_TIME_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_SYS_TIME_H
+ #include <sys/time.h>
+#endif
 #include <xite/message.h>
 
 #ifndef MAX

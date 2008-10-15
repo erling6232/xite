@@ -37,7 +37,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/fht.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
@@ -90,13 +92,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ht2ft(inband, outband)
-IR_BAND inband;
-IC_BAND outband;
-#else /* FUNCPROTO */
 int ht2ft(IR_BAND inband, IC_BAND outband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, xsizep2, ysizep2;
   float even, odd;
@@ -199,13 +195,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1, img2;
   int bn, nbands, stat;

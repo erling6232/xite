@@ -7,13 +7,7 @@
 
 #include "fft_L.h"
 
-#ifndef FUNCPROTO
-void bitrev512( x, length )
-float x[];
-int length;
-#else /* FUNCPROTO */
 void bitrev512(float *x, int length)
-#endif /* FUNCPROTO */
 {
 	register float temp;	switch (length) {
 	    case 512:

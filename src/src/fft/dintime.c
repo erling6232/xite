@@ -12,14 +12,7 @@ soon as the length reaches UNROL, everything is inlined elsewhere */
 
 #include "fft_L.h"
 
-#ifndef FUNCPROTO
-void dintime( x, length, wtab )
-struct complex_ri *x;
-int length;
-float *wtab;
-#else /* FUNCPROTO */
 void dintime(struct complex_ri *x, int length, float *wtab)
-#endif /* FUNCPROTO */
 {
     int qlen, step1, step2, c1, c2, s1, s2;
     struct complex_ri *ptr1, *ptr2, *ptr3, *ptr4, tmp;

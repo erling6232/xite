@@ -39,12 +39,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/fht.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/convert.h>
 #include <xite/copy.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #ifndef MAIN
 
@@ -52,12 +56,7 @@ static char *Id = "$Id$, Blab, UiO";
 # define PI 3.14159265358979323846
 #endif
 
-#ifndef FUNCPROTO
-static void transpose(bin, bout)
-  IR_BAND bin, bout;
-#else /* FUNCPROTO */
 static void transpose(IR_BAND bin, IR_BAND bout)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   float buf;
@@ -81,12 +80,7 @@ static void transpose(IR_BAND bin, IR_BAND bout)
   }
 }
 
-#ifndef FUNCPROTO
-static void specialTransp(bin, bout)
-  IR_BAND bin, bout;
-#else /* FUNCPROTO */
 static void specialTransp(IR_BAND bin, IR_BAND bout)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, xsizep2, ysizep2;
 
@@ -104,12 +98,7 @@ static void specialTransp(IR_BAND bin, IR_BAND bout)
 }
  
 
-#ifndef FUNCPROTO
-static int permute(index, power_index)
-  int index, power_index;
-#else /* FUNCPROTO */
 static int permute(int index, int power_index)
-#endif /* FUNCPROTO */
 {
   int i, j, s;
 
@@ -160,13 +149,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int fhtInitTables(sinTab, cosTab, perm, size)
-  float *sinTab,*cosTab;
-  int *perm, size;
-#else /* FUNCPROTO */
 int fhtInitTables(float *sinTab, float *cosTab, int *perm, int size)
-#endif /* FUNCPROTO */
 {
   int i, ipi, ipihalf, i3pihalf, pow;
   double angle, omega;
@@ -275,14 +258,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-void fht1d(data, sinTab, cosTab, work, perm, size, power, forw)
-  float *data, *sinTab, *cosTab, *work;
-  int *perm;
-  int size, power, forw;
-#else /* FUNCPROTO */
 void fht1d(float *data, float *sinTab, float *cosTab, float *work, int *perm, int size, int power, int forw)
-#endif /* FUNCPROTO */
 {
   int pow, i, j, k, trg_ind, trg_inc, tfhSize;
   int i_2, i_3, section, s_start, halfSize;
@@ -432,13 +408,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus fht2d(inband, outband, forward)
-  IR_BAND inband, outband;
-  int forward;
-#else /* FUNCPROTO */
 BiffStatus fht2d(IR_BAND inband, IR_BAND outband, int forward)
-#endif /* FUNCPROTO */
 {
   float *sinTab,*cosTab;
   float *work;
@@ -592,13 +562,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int nbands, bn, i, b;
   IMAGE img1, img2;

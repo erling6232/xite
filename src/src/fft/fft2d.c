@@ -39,14 +39,18 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/fft.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/convert.h>
 #include "fft_L.h"
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 
@@ -69,29 +73,6 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-#define f_hor(hor, I_BAND, complex, fft)                       	\
-static void hor(in_band, out_band, in, out, xsize, ysize)	\
-I_BAND in_band, out_band;					\
-complex in[], out[];						\
-int xsize, ysize;						\
-{								\
-  int x, y;   						        \
-  complex *ptr1, *ptr2;						\
-  for (y=1; y <= ysize; y++)					\
-    {								\
-      ptr1 = &in[0];						\
-      ptr2 = &in_band[y][1];					\
-      for (x = 1; x <= xsize; x++)				\
-	*ptr1++ = *ptr2++;					\
-      fft((float *) in, xsize);					\
-      ptr1 = &in[0]; 						\
-      ptr2 = &out_band[y][1];					\
-      for (x = 1; x <= xsize; x++)				\
-	*ptr2++  = *ptr1++;					\
-    }								\
-}
-#else /* FUNCPROTO */
 #define f_hor(hor, I_BAND, complex, fft)                       	\
 static void hor(I_BAND in_band, I_BAND out_band, complex in[],  \
 		complex out[], int xsize, int ysize)            \
@@ -111,30 +92,8 @@ static void hor(I_BAND in_band, I_BAND out_band, complex in[],  \
 	*ptr2++  = *ptr1++;					\
     }								\
 }
-#endif /* FUNCPROTO */
 
 
-#ifndef FUNCPROTO
-#define f_ver(ver, I_BAND, complex, fft)                        \
-static void ver(in_band, out_band, in, out, xsize, ysize)	\
-I_BAND in_band, out_band;					\
-complex in[], out[];						\
-int xsize, ysize;						\
-{								\
-  int x, y;						        \
-  complex *ptr1;						\
-  for (x=1; x <= xsize; x++)					\
-    {								\
-      ptr1 = &in[0];						\
-      for (y = 1; y <= ysize; y++)				\
-	*ptr1++ = in_band[y][x];				\
-      fft((float *) in, ysize);					\
-      ptr1 = &in[0];						\
-      for (y = 1; y <= ysize; y++)				\
-	out_band[y][x] = *ptr1++;				\
-    }								\
-}
-#else /* FUNCPROTO */
 #define f_ver(ver, I_BAND, complex, fft)                        \
 static void ver(I_BAND in_band, I_BAND out_band, complex in[],  \
 		complex out[], int xsize, int ysize)		\
@@ -152,38 +111,7 @@ static void ver(I_BAND in_band, I_BAND out_band, complex in[],  \
 	out_band[y][x] = *ptr1++;				\
     }								\
 }
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-#define f_copy(copy, I_BAND)					\
-static void copy(in_band, out_band, inverse)			\
-I_BAND in_band, out_band;					\
-int inverse;							\
-{								\
-  int x, y, xsize, ysize;					\
-  xsize = Ixsize((IBAND) in_band);				\
-  ysize = Iysize((IBAND) in_band);				\
-  if (in_band == out_band)					\
-    {								\
-      if(inverse)						\
-	for(y=1; y <= ysize; y++)				\
-	  for(x=1; x <= xsize; x++)				\
-	    in_band[y][x].im = -in_band[y][x].im;		\
-    } else {							\
-      if(inverse)						\
-	for(y=1; y <= ysize; y++)				\
-	  for(x=1; x <= xsize; x++)				\
-	    {							\
-	      out_band[y][x].re =  in_band[y][x].re;		\
-	      out_band[y][x].im = -in_band[y][x].im;		\
-	    }							\
-      else							\
-	for(y=1; y <= ysize; y++)				\
-	  for(x=1; x <= xsize; x++)				\
-	    out_band[y][x] = in_band[y][x];			\
-    }								\
-}  
-#else /* FUNCPROTO */
 #define f_copy(copy, I_BAND)					\
 static void copy(I_BAND in_band, I_BAND out_band, int inverse)  \
 {								\
@@ -210,26 +138,7 @@ static void copy(I_BAND in_band, I_BAND out_band, int inverse)  \
 	    out_band[y][x] = in_band[y][x];			\
     }								\
 }  
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-#define f_scale(scal, I_BAND)					\
-static void scal(in_band,  scale)		       		\
-I_BAND in_band;							\
-double scale;							\
-{								\
-  int x, y, xsize, ysize;					\
-  xsize = Ixsize((IBAND) in_band);				\
-  ysize = Iysize((IBAND) in_band);				\
-  if (scale != 1.0)						\
-    for(y=1; y <= ysize; y++)					\
-      for(x=1; x <= xsize; x++)					\
-	{							\
-	  in_band[y][x].re = in_band[y][x].re * scale;		\
-	  in_band[y][x].im = in_band[y][x].im * scale;		\
-	}							\
-}  
-#else /* FUNCPROTO */
 #define f_scale(scal, I_BAND)					\
 static void scal(I_BAND in_band, double scale)			\
 {								\
@@ -244,7 +153,6 @@ static void scal(I_BAND in_band, double scale)			\
 	  in_band[y][x].im = in_band[y][x].im * scale;		\
 	}							\
 }  
-#endif /* FUNCPROTO */
 
 f_hor(fft_f_hor, IC_BAND,  COMPLEX,  fft)
 f_ver(fft_f_ver, IC_BAND,  COMPLEX,  fft)
@@ -309,12 +217,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int fft_fsincos(length)
-int length;
-#else /* FUNCPROTO */
 static int fft_fsincos(int length)
-#endif /* FUNCPROTO */
 {
   int i, pow;
 
@@ -328,14 +231,7 @@ static int fft_fsincos(int length)
   return(pow);
 }
 
-#ifndef FUNCPROTO
-BiffStatus fft2d(in_band, out_band, inverse, scale)
-IBAND in_band, out_band;
-int inverse;
-double scale;
-#else /* FUNCPROTO */
 BiffStatus fft2d(IBAND in_band, IBAND out_band, int inverse, double scale)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, pixtyp;
   COMPLEX *in, *out;
@@ -460,13 +356,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   IBAND i1;

@@ -8,25 +8,13 @@
 #include <xite/includes.h>
 #include "fft_L.h"
 
-#ifndef FUNCPROTO
-void fft(x, length)
-float *x;
-int length;
-#else /* FUNCPROTO */
 void fft(float *x, int length)
-#endif /* FUNCPROTO */
 {
     dintime( (struct complex_ri *) x, length, wtab );
     bitrev( x, length );
 }
 
-#ifndef FUNCPROTO
-static void ifft(x, length)
-float *x;
-int length;
-#else /* FUNCPROTO */
 static void ifft(float *x, int length)
-#endif /* FUNCPROTO */
 {
     float *fptr, *eptr, scale;
 
@@ -38,13 +26,7 @@ static void ifft(float *x, int length)
 	*fptr *= scale;
 }
 
-#ifndef FUNCPROTO
-static void rfft(x, length)
-struct complex_ri *x;
-int length;
-#else /* FUNCPROTO */
 static void rfft(struct complex_ri *x, int length)
-#endif /* FUNCPROTO */
 {
     int hlen, step, i, c, s;
     struct complex_ri odd, even;
@@ -81,13 +63,7 @@ static void rfft(struct complex_ri *x, int length)
     x[0].r = even.r;
 }
 
-#ifndef FUNCPROTO
-static void rifft(x, length)
-struct complex_ri *x;
-int length;
-#else /* FUNCPROTO */
 static void rifft(struct complex_ri *x, int length)
-#endif /* FUNCPROTO */
 {
     int hlen, step, i, c, s;
     struct complex_ri odd, even;

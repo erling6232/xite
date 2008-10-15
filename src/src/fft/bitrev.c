@@ -7,13 +7,7 @@
 
 #include "fft_L.h"
 
-#ifndef FUNCPROTO
-void bitrev(x, length)
-float *x;
-int length;
-#else /* FUNCPROTO */
 void bitrev(float *x, int length)
-#endif /* FUNCPROTO */
 {
 	int i, irev, j, bits;
 	float temp, *ptr1, *ptr2;

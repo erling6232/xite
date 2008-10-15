@@ -37,7 +37,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/geometry.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/convert.h>
 #include <xite/readarg.h>
@@ -118,14 +120,7 @@ ________________________________________________________________
    }
 
 
-#ifndef FUNCPROTO
-static void affine0(ib, ob, x0, x1, x2, y0, y1, y2, bg)
-IBAND ib, ob;
-double x0, x1, x2, y0,y1, y2;
-int bg;
-#else /* FUNCPROTO */
 static void affine0(IBAND ib, IBAND ob, double x0, double x1, double x2, double y0, double y1, double y2, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xc, yc;
   int xl, xu, yl, yu;
@@ -164,14 +159,7 @@ static void affine0(IBAND ib, IBAND ob, double x0, double x1, double x2, double 
        }
 }	
 
-#ifndef FUNCPROTO
-static void affine1(ib, ob, x0, x1, x2, y0, y1, y2, bg)
-IBAND ib, ob;
-double x0, x1, x2, y0,y1, y2;
-int bg;
-#else /* FUNCPROTO */
 static void affine1(IBAND ib, IBAND ob, double x0, double x1, double x2, double y0, double y1, double y2, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xc, yc;
   int xl, xu, yl, yu;
@@ -221,14 +209,7 @@ static void affine1(IBAND ib, IBAND ob, double x0, double x1, double x2, double 
 }	
 
 
-#ifndef FUNCPROTO
-static void affine3(ib, ob, x0, x1, x2, y0, y1, y2, bg)
-IBAND ib, ob;
-double x0, x1, x2, y0,y1, y2;
-int bg;
-#else /* FUNCPROTO */
 static void affine3(IBAND ib, IBAND ob, double x0, double x1, double x2, double y0, double y1, double y2, int bg)
-#endif /* FUNCPROTO */
 {
   int x, y, xc, yc;
   int xl, xu, yl, yu;
@@ -293,14 +274,7 @@ static void affine3(IBAND ib, IBAND ob, double x0, double x1, double x2, double 
        }
 }	
 
-#ifndef FUNCPROTO
-int affine(inband, outband, x0, x1, x2, y0, y1, y2, ip, bg)
-IBAND inband, outband;
-double x0, x1, x2, y0, y1, y2;
-int ip, bg;
-#else /* FUNCPROTO */
 int affine(IBAND inband, IBAND outband, double x0, double x1, double x2, double y0, double y1, double y2, int ip, int bg)
-#endif /* FUNCPROTO */
 {
 
   if (Ipixtyp(inband) != Iu_byte_typ || Ipixtyp(outband) != Iu_byte_typ)
@@ -398,13 +372,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 { 
   IMAGE img, img2;
   IR_BAND rband;

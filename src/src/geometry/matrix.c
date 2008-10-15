@@ -35,8 +35,12 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/message.h>
 #include "matrix.h"
 
@@ -47,43 +51,23 @@ static char *Id = "$Id$, Blab, UiO";
 static xiteMatrix M_tempmat[MAXTEMP];
 static int M_tempant = 0;
 
-#ifndef FUNCPROTO
-int MRows(m)
-xiteMatrix m;
-#else /* FUNCPROTO */
 int MRows(xiteMatrix m)
-#endif /* FUNCPROTO */
 {
   return(m->rows);
 }
 
-#ifndef FUNCPROTO
-int MCols(m)
-xiteMatrix m;
-#else /* FUNCPROTO */
 int MCols(xiteMatrix m)
-#endif /* FUNCPROTO */
 {
   return(m->cols);
 }
 
-#ifndef FUNCPROTO
-static void MError(s)
-char *s;
-#else /* FUNCPROTO */
 static void MError(char *s)
-#endif /* FUNCPROTO */
 {
   Error(3, "matrix: %s\n", s);
   exit(1);
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix M_new(l, s)
-int l,s;
-#else /* FUNCPROTO */
 static xiteMatrix M_new(int l, int s)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
 
@@ -96,21 +80,12 @@ static xiteMatrix M_new(int l, int s)
   return m;
 }
 
-#ifndef FUNCPROTO
-static int MMerkTemp()
-#else /* FUNCPROTO */
 static int MMerkTemp(void)
-#endif /* FUNCPROTO */
 {
   return M_tempant; 
 }
 
-#ifndef FUNCPROTO
-static void MNoTemp(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 static void MNoTemp(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -121,24 +96,14 @@ static void MNoTemp(xiteMatrix a)
     }
 }
 
-#ifndef FUNCPROTO
-void MFree(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 void MFree(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   MNoTemp(a);
   free(a->elem);
   free(a);
 }
 
-#ifndef FUNCPROTO
-static void MFreeTemp(tempstart)
-int tempstart;
-#else /* FUNCPROTO */
 static void MFreeTemp(int tempstart)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -146,12 +111,7 @@ static void MFreeTemp(int tempstart)
   M_tempant = tempstart;
 }
 
-#ifndef FUNCPROTO
-static void MShowTemp(detail)
-int detail;
-#else /* FUNCPROTO */
 static void MShowTemp(int detail)
-#endif /* FUNCPROTO */
 {
   int i, b = 0;
 
@@ -168,13 +128,7 @@ static void MShowTemp(int detail)
 }
 
 
-#ifndef FUNCPROTO
-xiteMatrix MData(l, s, data)
-int l,s;
-void *data;
-#else /* FUNCPROTO */
 xiteMatrix MData(int l, int s, void *data)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
 
@@ -186,22 +140,12 @@ xiteMatrix MData(int l, int s, void *data)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MNull(l, s)
-int l, s;
-#else /* FUNCPROTO */
 static xiteMatrix MNull(int l, int s)
-#endif /* FUNCPROTO */
 {
   return M_new(l,s);
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MIdent(l, s)
-int l, s;
-#else /* FUNCPROTO */
 static xiteMatrix MIdent(int l, int s)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i, k;
@@ -214,13 +158,7 @@ static xiteMatrix MIdent(int l, int s)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MKonst(l, s, v)
-int l, s;
-double v;
-#else /* FUNCPROTO */
 static xiteMatrix MKonst(int l, int s, double v)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -233,12 +171,7 @@ static xiteMatrix MKonst(int l, int s, double v)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MTransp(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 static xiteMatrix MTransp(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -251,12 +184,7 @@ static xiteMatrix MTransp(xiteMatrix a)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MAdd(a, b)
-xiteMatrix a, b;
-#else /* FUNCPROTO */
 static xiteMatrix MAdd(xiteMatrix a, xiteMatrix b)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -272,12 +200,7 @@ static xiteMatrix MAdd(xiteMatrix a, xiteMatrix b)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MSub(a, b)
-xiteMatrix a, b;
-#else /* FUNCPROTO */
 static xiteMatrix MSub(xiteMatrix a, xiteMatrix b)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -293,12 +216,7 @@ static xiteMatrix MSub(xiteMatrix a, xiteMatrix b)
   return m;
 }
 
-#ifndef FUNCPROTO
-xiteMatrix MMult(a, b)
-xiteMatrix a, b;
-#else /* FUNCPROTO */
 xiteMatrix MMult(xiteMatrix a, xiteMatrix b)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j,k;
@@ -314,13 +232,7 @@ xiteMatrix MMult(xiteMatrix a, xiteMatrix b)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MRealMult(a, c)
-xiteMatrix a;
-double c;
-#else /* FUNCPROTO */
 static xiteMatrix MRealMult(xiteMatrix a, double c)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -333,13 +245,7 @@ static xiteMatrix MRealMult(xiteMatrix a, double c)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MSubMatrix(a, i1, i2, j1, j2)
-xiteMatrix a;
-int i1, i2, j1, j2;
-#else /* FUNCPROTO */
 static xiteMatrix MSubMatrix(xiteMatrix a, int i1, int i2, int j1, int j2)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -354,12 +260,7 @@ static xiteMatrix MSubMatrix(xiteMatrix a, int i1, int i2, int j1, int j2)
   return m;
 }
   
-#ifndef FUNCPROTO
-static xiteMatrix MRowConcat(a, b)
-xiteMatrix a, b;
-#else /* FUNCPROTO */
 static xiteMatrix MRowConcat(xiteMatrix a, xiteMatrix b)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -378,12 +279,7 @@ static xiteMatrix MRowConcat(xiteMatrix a, xiteMatrix b)
   return m;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MColConcat(a, b)
-xiteMatrix a, b;
-#else /* FUNCPROTO */
 static xiteMatrix MColConcat(xiteMatrix a, xiteMatrix b)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -402,12 +298,7 @@ static xiteMatrix MColConcat(xiteMatrix a, xiteMatrix b)
   return m;
 }
 
-#ifndef FUNCPROTO
-static double MNorm(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 static double MNorm(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   int i,j;
   double s = 0;
@@ -421,12 +312,7 @@ static double MNorm(xiteMatrix a)
   return sqrt(s);
 }
 
-#ifndef FUNCPROTO
-static double MNorm2(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 static double MNorm2(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   int i,j;
   double s = 0;
@@ -440,12 +326,7 @@ static double MNorm2(xiteMatrix a)
   return s;
 }
 
-#ifndef FUNCPROTO
-static xiteMatrix MIMinus(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 static xiteMatrix MIMinus(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   xiteMatrix m;
   int i,j;
@@ -459,12 +340,7 @@ static xiteMatrix MIMinus(xiteMatrix a)
   return m;
 }
 
-#ifndef FUNCPROTO
-xiteMatrix MPseudoInv(A)
-xiteMatrix A;
-#else /* FUNCPROTO */
 xiteMatrix MPseudoInv(xiteMatrix A)
-#endif /* FUNCPROTO */
 {
   xiteMatrix Ap;
   int tempstart;
@@ -501,12 +377,7 @@ xiteMatrix MPseudoInv(xiteMatrix A)
 }
 
 
-#ifndef FUNCPROTO
-static void MPrint(a)
-xiteMatrix a;
-#else /* FUNCPROTO */
 static void MPrint(xiteMatrix a)
-#endif /* FUNCPROTO */
 {
   int i,j;
 
