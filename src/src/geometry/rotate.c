@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -113,14 +115,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int rotate(inband, outband, theta, rx, ry, ip, bg)
-IBAND inband, outband;
-double  theta, rx, ry;
-int ip, bg;
-#else /* FUNCPROTO */
 int rotate(IBAND inband, IBAND outband, double theta, double rx, double ry, int ip, int bg)
-#endif /* FUNCPROTO */
 {
   return(affine(inband, outband, 
 		-cos(theta) * rx + sin(theta) * ry + rx,
@@ -203,13 +198,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 { 
   IMAGE img, img2;
   char *args;

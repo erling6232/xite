@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/geometry.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -44,42 +46,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-#define transpose_macro(NAME, TYPE, BAND) \
- \
-static void NAME(I) \
-BAND I; \
-{\
-  int x1, x2, y1, y2, xsize, ysize, xstop, ystop;\
-  TYPE h;\
-  xsize = Ixsize( (IBAND) I);\
-  ysize = Ixsize( (IBAND) I);\
-  for (y1=1; y1<=ysize; y1 += 32)\
-    {\
-      ystop = y1+31 > ysize ? ysize : y1+31;\
-      xstop = y1+31 > xsize ? xsize : y1+31;\
-      for (y2=y1; y2<=ystop; y2++)\
-        for (x2=y2+1; x2<=xstop; x2++)\
-	  {\
-	    h = I[y2][x2];\
-	    I[y2][x2] = I[x2][y2];\
-	    I[x2][y2] = h;\
-	  }\
-      for (x1=y1+32; x1<=xsize; x1 += 32)\
-	{\
-	  ystop = y1+31 > ysize ? ysize : y1+31;\
-	  xstop = x1+31 > xsize ? xsize : x1+31;\
-	  for (y2=y1; y2<=ystop; y2++)\
-	    for (x2=x1; x2<=xstop; x2++)\
-	      {\
-		h = I[y2][x2];\
-		I[y2][x2] = I[x2][y2];\
-		I[x2][y2] = h;\
-	      }\
-	}\
-    }\
-}
-#else /* FUNCPROTO */
 #define transpose_macro(NAME, TYPE, BAND) \
  \
 static void NAME(BAND I) \
@@ -113,7 +79,6 @@ static void NAME(BAND I) \
 	}\
     }\
 }
-#endif /* FUNCPROTO */
 
 transpose_macro(transpose_I1,   UNS_BYTE,  IBAND)
 transpose_macro(transpose_I2,   UNS_SHORT, IUS_BAND)
@@ -156,12 +121,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus transpose_band(I)
-IBAND I;
-#else /* FUNCPROTO */
 BiffStatus transpose_band(IBAND I)
-#endif /* FUNCPROTO */
 {
   int pixtyp;
   pixtyp = Ipixtyp(I);
@@ -221,13 +181,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int i;

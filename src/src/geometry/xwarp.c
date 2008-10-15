@@ -224,11 +224,24 @@ ________________________________________________________________
 #include <X11/StringDefs.h>
 #include <X11/Xaw/Toggle.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_UNISTD_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/ximage.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+#  include <malloc.h>
+#endif
 #include XITE_STDARG_H
+#ifdef HAVE_VARARGS_H
+#  include <varargs.h>
+#else
+#  ifdef HAVE_STDARG_H
+#    include <stdarg.h>
+#  endif
+#endif
 #include <xite/readarg.h>
 #include <xite/histo.h>
 #include <xite/region.h>
@@ -343,14 +356,7 @@ static char *ewidgets_s[WIDGETS] = {
 static Widget toplevel, rwidgets_s[WIDGETS];
 static Widget left_s, right_s;
 
-#ifndef FUNCPROTO
-static void bottomInfoHandler(widget, client_data, event)
-Widget widget;
-XtPointer client_data;
-XEvent *event;
-#else /* FUNCPROTO */
 static void bottomInfoHandler(Widget widget, XtPointer client_data, XEvent *event)
-#endif /* FUNCPROTO */
 {
   Dimension width;
   char *p;
@@ -369,13 +375,7 @@ static void bottomInfoHandler(Widget widget, XtPointer client_data, XEvent *even
   return;
 }
 
-#ifndef FUNCPROTO
-static int info(id, message)
-int id;
-char *message;
-#else /* FUNCPROTO */
 static int info(int id, char *message)
-#endif /* FUNCPROTO */
 {
   Dimension width;
 
@@ -388,14 +388,7 @@ static int info(int id, char *message)
   return id;
 }
 
-#ifndef FUNCPROTO
-static int _warp(inimg, outimg, points, lnpoint, rnpoint, ncoeffs, ip, bg, rss, qr)
-IMAGE inimg, outimg;
-int ncoeffs, ip, rss, qr, bg, lnpoint, rnpoint;
-IBAND points;
-#else /* FUNCPROTO */
 static int _warp(IMAGE inimg, IMAGE outimg, IBAND points, int lnpoint, int rnpoint, int ncoeffs, int ip, int bg, int rss, int qr)
-#endif /* FUNCPROTO */
 {
   int status;
 
@@ -408,13 +401,7 @@ static int _warp(IMAGE inimg, IMAGE outimg, IBAND points, int lnpoint, int rnpoi
 
 } /* _warp() */
 
-#ifndef FUNCPROTO
-static int gray(inband1, inband2, outband, overlay, par)
-IBAND inband1, inband2, outband, overlay;
-int par;
-#else /* FUNCPROTO */
 static int gray(IBAND inband1, IBAND inband2, IBAND outband, IBAND overlay, int par)
-#endif /* FUNCPROTO */
 {
   region **regb, *reg, *rbg;
   histogram h1, h2, trans;
@@ -512,12 +499,7 @@ static int gray(IBAND inband1, IBAND inband2, IBAND outband, IBAND overlay, int 
   
 } /* gray() */
 
-#ifndef FUNCPROTO
-static int SendFiles(prog)
-program *prog;
-#else /* FUNCPROTO */
 static int SendFiles(program *prog)
-#endif /* FUNCPROTO */
 {
   char ch[20];
 
@@ -529,12 +511,7 @@ static int SendFiles(program *prog)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static int analyse(overlay, mask)
-IBAND overlay, mask;
-#else /* FUNCPROTO */
 static int analyse(IBAND overlay, IBAND mask)
-#endif /* FUNCPROTO */
 {
   region **regb, *reg, *rbg;
   int rsize, i, rnr, x, y, nregs;
@@ -608,22 +585,13 @@ static int analyse(IBAND overlay, IBAND mask)
   
 } /* analyse() */
 
-#ifndef FUNCPROTO
-static int center2()
-#else /* FUNCPROTO */
 static int center2(void)
-#endif /* FUNCPROTO */
 {
   ImageOverlayDrawOrigo((ImageOverlayWidget) rwidgets_s[XIMAGE], 0, 0, 0);
   return(0);
 }
 
-#ifndef FUNCPROTO
-static void nextprev(diff)
-int diff;
-#else /* FUNCPROTO */
 static void nextprev(int diff)
-#endif /* FUNCPROTO */
 {
   bandnr_s += diff;
   XtVaSetValues(rwidgets_s[PREV], XtNsensitive, bandnr_s > 1, NULL);
@@ -633,14 +601,7 @@ static void nextprev(int diff)
   XtVaSetValues(right_s, XtNimageBand, img2_s[bandnr_s], NULL);
 }
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   IBAND b1, b2;
   float f1, f2, off;
@@ -939,14 +900,7 @@ static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
 
 } /* ximage_work() */
 
-#ifndef FUNCPROTO
-static void draw_callback(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void draw_callback(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ImageOverlayCallback icb;
   int cl_data;
@@ -995,13 +949,7 @@ static void draw_callback(Widget wid, XtPointer client_data, XtPointer call_data
 
 } /* draw_callback() */
 
-#ifndef FUNCPROTO
-static int checkimg(argv, img1, img2)
-char **argv;
-IMAGE img1, img2;
-#else /* FUNCPROTO */
 static int checkimg(char **argv, IMAGE img1, IMAGE img2)
-#endif /* FUNCPROTO */
 {
   int i, nbands, xsize, ysize;
   
@@ -1031,13 +979,7 @@ static int checkimg(char **argv, IMAGE img1, IMAGE img2)
 
 } /* checkimg() */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IBAND b1, b2;  
   Dimension rw, rh;

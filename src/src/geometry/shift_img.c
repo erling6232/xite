@@ -41,17 +41,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-static int gcd(a,b)
-int a,b;
-#else /* FUNCPROTO */
 static int gcd(int a, int b)
-#endif /* FUNCPROTO */
 {
   int r;
 
@@ -69,49 +68,6 @@ static int gcd(int a, int b)
 
 
 
-#ifndef FUNCPROTO
-#define shift_macro(NAME, TYPE, BAND)			\
-                                                        \
-static void NAME(I, O, xshift, yshift)    		\
-BAND I, O; 						\
-int xshift, yshift;					\
-{							\
-  int x1, x2, y1, y2, xsize, ysize;			\
-  int xgcd, xlen, ygcd, ylen, yp, yn;			\
-  TYPE *h, *s, *d;					\
-                                                        \
-  xsize = Ixsize( (IBAND) I);				\
-  ysize = Iysize( (IBAND) I);				\
-  xshift %= xsize;					\
-  yshift %= ysize;					\
-  if (xshift < 0) xshift += xsize;			\
-  if (yshift < 0) yshift += ysize;			\
-  xgcd = gcd(xshift, xsize);				\
-  ygcd = gcd(yshift, ysize);				\
-  ylen = ysize/ygcd;					\
-  xlen = xsize-xshift;                                  \
-  h = (TYPE *) malloc((xsize+1) *			\
-      Ipixsize(Ipixtyp((IBAND) I))/8);			\
-                                                        \
-  for (y1=1; y1<=ygcd; y1 ++)				\
-    {							\
-      for(x1=1; x1<=xsize; x1++) h[x1] = I[y1][x1];	\
-      yp = yn = y1;					\
-      for(y2=1; y2<=ylen; y2++)				\
-        {						\
-	  yn = (( yp - 1 + yshift) % ysize) + 1;	\
-	  s = (yn == y1) ? &h[1] : &I[yn][1];		\
-          d = &O[yp][1];			      	\
-	  x2 = xshift;	       				\
-	  for (x1=0; x1<xlen; )     d[x1++] = s[x2++];	\
-	  x2 = 0;					\
-	  for (x1=xlen; x1<xsize; ) d[x1++] = s[x2++];	\
-	  yp = yn;					\
-	}						\
-    }	     						\
-  free(h);						\
-}
-#else /* FUNCPROTO */
 #define shift_macro(NAME, TYPE, BAND)			\
                                                         \
 static void NAME(BAND I, BAND O, int xshift, int yshift) \
@@ -151,7 +107,6 @@ static void NAME(BAND I, BAND O, int xshift, int yshift) \
     }	     						\
   free(h);						\
 }
-#endif /* FUNCPROTO */
 
 shift_macro(shift_I1,  UNS_BYTE,  IBAND)
 shift_macro(shift_I2,  UNS_SHORT, IUS_BAND)
@@ -197,13 +152,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus shift_band(in_band, out_band, shiftx, shifty)
-IBAND in_band, out_band;
-int shiftx, shifty;
-#else /* FUNCPROTO */
 BiffStatus shift_band(IBAND in_band, IBAND out_band, int shiftx, int shifty)
-#endif /* FUNCPROTO */
 {
   int pixtyp;
   pixtyp = Ipixtyp(in_band);
@@ -268,13 +217,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int bn;

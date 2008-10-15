@@ -166,13 +166,23 @@ ________________________________________________________________
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/convert.h>
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 #define MAX_NCOEFFS  6
 
@@ -192,14 +202,7 @@ int polrad, y, x;
 }
 */
 
-#ifndef FUNCPROTO
-int warp_resample(inimg, outimg, xxa, yya, ncoeffs, ip, bg)
-IMAGE inimg, outimg;
-double *xxa, *yya;
-int ncoeffs, ip, bg;
-#else /* FUNCPROTO */
 int warp_resample(IMAGE inimg, IMAGE outimg, double *xxa, double *yya, int ncoeffs, int ip, int bg)
-#endif /* FUNCPROTO */
 {
   int bandno;
   IBAND inband, outband;
@@ -227,12 +230,7 @@ int warp_resample(IMAGE inimg, IMAGE outimg, double *xxa, double *yya, int ncoef
  
 } /* warp_resample() */
 
-#ifndef FUNCPROTO
-static void printCoeffs(Q, R)
-xiteMatrix Q, R;
-#else /* FUNCPROTO */
 static void printCoeffs(xiteMatrix Q, xiteMatrix R)
-#endif /* FUNCPROTO */
 {
   int antelem, elem;
 
@@ -256,14 +254,7 @@ static void printCoeffs(xiteMatrix Q, xiteMatrix R)
 
 } /* printCoeffs() */
 
-#ifndef FUNCPROTO
-static void printResiduals(Q, R, points, npoints, ncoeffs)
-xiteMatrix Q, R;
-IBAND points;
-int npoints, ncoeffs;
-#else /* FUNCPROTO */
 static void printResiduals(xiteMatrix Q, xiteMatrix R, IBAND points, int npoints, int ncoeffs)
-#endif /* FUNCPROTO */
 {
   IR_BAND rpt_band = (IR_BAND) points;
   float dk, dl, rs, err = 0.0, maxerr = 0.0;
@@ -323,14 +314,7 @@ static void printResiduals(xiteMatrix Q, xiteMatrix R, IBAND points, int npoints
 
 } /* printResiduals() */
 
-#ifndef FUNCPROTO
-int oiWarpMapping(M, Mp, Q, R, K, L, points, npoints, ncoeffs)
-xiteMatrix *M, *Mp, *Q, *R, *K, *L;
-IBAND points;
-int npoints, ncoeffs;
-#else /* FUNCPROTO */
 int oiWarpMapping(xiteMatrix *M, xiteMatrix *Mp, xiteMatrix *Q, xiteMatrix *R, xiteMatrix *K, xiteMatrix *L, IBAND points, int npoints, int ncoeffs)
-#endif /* FUNCPROTO */
 {
   float *ijdata, *kdata, *ldata;
   float ir, jr, kr, lr;
@@ -480,14 +464,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int warp(inimg, outimg, points, npoints, ncoeffs, ip, bg, rss, qr)
-IMAGE inimg, outimg;
-int ncoeffs, ip, rss, qr, bg, rnpoints;
-IBAND points;
-#else /* FUNCPROTO */
 int warp(IMAGE inimg, IMAGE outimg, IBAND points, int npoints, int ncoeffs, int ip, int bg, int rss, int qr)
-#endif /* FUNCPROTO */
 {
   int status, i;
   xiteMatrix M, Mp, Q, R, K, L;
@@ -537,13 +514,7 @@ int warp(IMAGE inimg, IMAGE outimg, IBAND points, int npoints, int ncoeffs, int 
 
 #define DEFPOLDEGREE 1
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
   IMAGE imgi, imgo;
   IR_BAND rband;
