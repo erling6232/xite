@@ -99,13 +99,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-BiffStatus mkHisto(band, histo)
-  IBAND band;
-  histogram histo;
-#else /* FUNCPROTO */
 BiffStatus mkHisto(IBAND band, int *histo)
-#endif /* FUNCPROTO */
 {
   int x,y,xsize,ysize;
 
@@ -139,15 +133,7 @@ BiffStatus mkHisto(IBAND band, int *histo)
 	     } }
 
 
-#ifndef FUNCPROTO
-BiffStatus mkIhistogram(band, histo, limits, n)
-IBAND band;
-int histo[];
-int limits[];
-int n;
-#else /* FUNCPROTO */
 BiffStatus mkIhistogram(IBAND band, int *histo, int *limits, int n)
-#endif /* FUNCPROTO */
 {
   int low, high, mid, x, y, xsize, ysize, pt, ipix;
   double dpix;
@@ -236,15 +222,7 @@ BiffStatus mkIhistogram(IBAND band, int *histo, int *limits, int n)
 
 
 
-#ifndef FUNCPROTO
-BiffStatus mkDhistogram(band, histo, limits, n)
-IBAND band;
-int histo[];
-double limits[];
-int n;
-#else /* FUNCPROTO */
 BiffStatus mkDhistogram(IBAND band, int *histo, double *limits, int n)
-#endif /* FUNCPROTO */
 {
   int low, high, mid, x, y, xsize, ysize, pt;
   double dpix;
@@ -382,13 +360,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int i, n, bn, header, integer;

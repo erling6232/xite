@@ -37,9 +37,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include <xite/strings.h>
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 #include <xite/fft.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -166,25 +173,13 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int lowpassu(band, cut_frequency, filter_size, win_type, sum)
-IBAND band;
-int filter_size;
-double cut_frequency, *sum;
-window_type win_type;
-#else /* FUNCPROTO */
 int lowpassu(IBAND band, double cut_frequency, int filter_size, window_type win_type, double *sum)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, xhalf, yhalf, feven, xeven, yeven, low;
   int xhalf2, yhalf2;
   double max_rad, distx, disty, dist, fn, PPI;
   IPIXTYP pt;
-#ifndef FUNCPROTO
-  double (*window_func)();
-#else /* FUNCPROTO */
   double (*window_func)(double n, int size);
-#endif /* FUNCPROTO */
 
   switch (win_type) {
     case BARTLETT:  window_func = bartlett;
@@ -486,15 +481,7 @@ int lowpassu(IBAND band, double cut_frequency, int filter_size, window_type win_
 
 } /* lowpassu() */
 
-#ifndef FUNCPROTO
-int lowpass(band, cut_frequency, filter_size, win_type)
-IBAND band;
-int filter_size;
-double cut_frequency;
-window_type win_type;
-#else /* FUNCPROTO */
 int lowpass(IBAND band, double cut_frequency, int filter_size, window_type win_type)
-#endif /* FUNCPROTO */
 {
   int stat;
   double sum;
@@ -677,15 +664,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus lowpassf (band, cut_frequency, filter_size, win_type)
-IBAND band;
-double cut_frequency;
-int filter_size;
-window_type win_type;
-#else /* FUNCPROTO */
 BiffStatus lowpassf (IBAND band, double cut_frequency, int filter_size, window_type win_type)
-#endif /* FUNCPROTO */
 {
    int stat;
 
@@ -702,12 +681,7 @@ BiffStatus lowpassf (IBAND band, double cut_frequency, int filter_size, window_t
 
 } /* lowpassf() */
 
-#ifndef FUNCPROTO
-filter_type parseFilterTypeName(name)
-char *name;
-#else /* FUNCPROTO */
 filter_type parseFilterTypeName(char *name)
-#endif /* FUNCPROTO */
 {
   filter_type val;
 
@@ -910,13 +884,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE   img;
   int     filter_size, xsize, ysize, stat, spatial;

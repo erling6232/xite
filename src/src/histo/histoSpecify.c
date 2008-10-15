@@ -77,13 +77,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-int histoSpecify(b1, b2, histo)
-  IBAND b1, b2;
-  histogram histo;
-#else /* FUNCPROTO */
 int histoSpecify(IBAND b1, IBAND b2, int *histo)
-#endif /* FUNCPROTO */
 {
   int i,j, s1, ant, old, min;
   double m;

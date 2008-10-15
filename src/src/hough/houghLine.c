@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/hough.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/convert.h>
@@ -43,7 +45,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/minmax.h>
 #include <xite/draw.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+#  include <malloc.h>
+#endif
 
 
 
@@ -60,12 +64,7 @@ _______________________________________________________________
 _______________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static double distEuclid(x1, y1, x2, y2)
-int x1, y1, x2, y2;
-#else /* FUNCPROTO */
 static double distEuclid(int x1, int y1, int x2, int y2)
-#endif /* FUNCPROTO */
 {
   return(sqrt((double)(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1)))));
 }  
@@ -125,13 +124,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus houghLine(input, output)
-IBAND input;
-IUS_BAND output;
-#else /* FUNCPROTO */
 BiffStatus houghLine(IBAND input, IUS_BAND output)
-#endif /* FUNCPROTO */
 {
   int ixsize, iysize, oxsize, oysize, x, y, rho, theta, oyhalf;
   float frho;
@@ -201,23 +194,12 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int round(x)
-double x;
-#else /* FUNCPROTO */
 static int round(double x)
-#endif /* FUNCPROTO */
 {
   return( x > 0 ? (int) (x + 0.5) : (int) (x - 0.5) );
 }
 
-#ifndef FUNCPROTO
-int drawLine(band, theta, rho)
-IBAND band;
-int theta, rho;
-#else /* FUNCPROTO */
 int drawLine(IBAND band, int theta, int rho)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, xstart, xstop, ystart, ystop;
   float a, b, sinth;
@@ -291,14 +273,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int findMaxima(b1, b2, max, t)
-IBAND b1, b2;
-point** max;
-int t;
-#else /* FUNCPROTO */
 static int findMaxima(IBAND b1, IBAND b2, point **max, int t)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, yhalf, count=0;
   point *pt;
@@ -399,13 +374,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2, i3;
   IBAND ubb;

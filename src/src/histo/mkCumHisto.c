@@ -63,12 +63,7 @@ Author:		Tor L|nnestad
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-void mkCumHisto(histo, cumHisto)
-  histogram histo, cumHisto;
-#else /* FUNCPROTO */
 void mkCumHisto(int *histo, int *cumHisto)
-#endif /* FUNCPROTO */
 {
   int n;
   cumHisto[0] = histo[0];

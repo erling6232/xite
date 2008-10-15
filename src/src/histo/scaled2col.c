@@ -65,13 +65,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-void scaled2col(scHisto, colTab)
-  histogram scHisto;
-  Color_tab colTab;
-#else /* FUNCPROTO */
 void scaled2col(int *scHisto, Color_cell *colTab)
-#endif /* FUNCPROTO */
 {
   int n;
   FOR (n=0; n LE 255; n++)

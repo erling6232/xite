@@ -36,13 +36,17 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/hough.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/convert.h>
 #include <xite/message.h>
 #include <xite/minmax.h>
 #include <xite/readarg.h>
 #include <xite/draw.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+#  include <malloc.h>
+#endif
 
 
 
@@ -90,13 +94,7 @@ static int rmx_s = 0;
 
 #define INSIDE(y,x) (((x)>=1) && ((x)<=xsize) && ((y)>=1) && ((y) <= ysize))
 
-#ifndef FUNCPROTO
-int drawCircle(band, x, y, radius)
-IUS_BAND band;
-int x, y, radius;
-#else /* FUNCPROTO */
 int drawCircle(IUS_BAND band, int x, int y, int radius)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x0, y0, x0sq, rsq;
 
@@ -224,14 +222,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus houghCircle(input, output, radius)
-IBAND input;
-IUS_BAND output;
-int radius;
-#else /* FUNCPROTO */
 BiffStatus houghCircle(IBAND input, IUS_BAND output, int radius)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y;
 
@@ -257,14 +248,7 @@ BiffStatus houghCircle(IBAND input, IUS_BAND output, int radius)
 
 
 
-#ifndef FUNCPROTO
-BiffStatus houghCircles(input, output, rmin, rmax)
-IBAND input;
-IUS_IMAGE output;
-int rmin, rmax;
-#else /* FUNCPROTO */
 BiffStatus houghCircles(IBAND input, IUS_IMAGE output, int rmin, int rmax)
-#endif /* FUNCPROTO */
 {
   int r, stat;
   if ((rmin < 0) || (rmin > rmax))
@@ -310,14 +294,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int findMaxima(b1, b2, max, t)
-IBAND b1, b2;
-point** max;
-int t;
-#else /* FUNCPROTO */
 static int findMaxima(IBAND b1, IBAND b2, point **max, int t)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, count=0;
   point *p;
@@ -425,13 +402,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2, i3;
   IUS_BAND usb;

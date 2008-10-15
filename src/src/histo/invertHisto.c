@@ -67,12 +67,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-void invertHisto(histo,invHisto)
-  histogram histo,invHisto;
-#else /* FUNCPROTO */
 void invertHisto(int *histo, int *invHisto)
-#endif /* FUNCPROTO */
 {
   int n;
   for (n=0; n LE 255; invHisto[n ++] = 0);

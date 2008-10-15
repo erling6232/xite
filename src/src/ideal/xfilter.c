@@ -54,9 +54,19 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/Xdialog.h>
 #include <xite/readarg.h>
 #include <xite/mallocp.h>
-#include XITE_STDIO_H
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_MALLOC_H
+#  include <malloc.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 #include <xite/ideal.h>
 #include <xite/debug.h>
 
@@ -424,12 +434,7 @@ static XrmOptionDescRec opTable_s[] = {
   { "-olin",    ".linearFourOut",  XrmoptionNoArg,  (XtPointer) "False" },
 };
 
-#ifndef FUNCPROTO
-static void compress_and_shift_spec(wid_num)
-image_widget_number wid_num;
-#else /* FUNCPROTO */
 static void compress_and_shift_spec(image_widget_number wid_num)
-#endif /* FUNCPROTO */
 {
   bandData data         = band_data_s[wid_num];
   layout_image l_image  = layout_images_s[wid_num];
@@ -465,14 +470,7 @@ static void compress_and_shift_spec(image_widget_number wid_num)
 
 } /* compress_and_shift_spec() */
 
-#ifndef FUNCPROTO
-static void set_scrollbar_thumb(wid, value, min, max, logarithmic)
-Widget wid;
-double value, min, max;
-Boolean logarithmic;
-#else /* FUNCPROTO */
 static void set_scrollbar_thumb(Widget wid, double value, double min, double max, Boolean logarithmic)
-#endif /* FUNCPROTO */
 {
   if (logarithmic) {
     value = log10(value);
@@ -486,12 +484,7 @@ static void set_scrollbar_thumb(Widget wid, double value, double min, double max
 
 } /* set_scrollbar_thumb() */
 
-#ifndef FUNCPROTO
-static void Quit(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Quit(Widget wid)
-#endif /* FUNCPROTO */
 {
   if (ConfirmationBox(TopLevelWidget(wid), "Really quit?", "No", "Yes",
 			 "xfilter - confirmation", "xfilter - conf") != 1)
@@ -502,13 +495,7 @@ static void Quit(Widget wid)
 
 } /* Quit() */
 
-#ifndef FUNCPROTO
-static void number_format(txt, places, before, after)
-char *txt;
-int *places, *before, *after;
-#else /* FUNCPROTO */
 static void number_format(char *txt, int *places, int *before, int *after)
-#endif /* FUNCPROTO */
 {
   char *ptr;
 
@@ -526,15 +513,7 @@ static void number_format(char *txt, int *places, int *before, int *after)
 
 } /* number_format() */
 
-#ifndef FUNCPROTO
-static void set_gen_number(wid, number, format, precision)
-Widget wid;
-double number;
-char *format;
-Boolean precision;
-#else /* FUNCPROTO */
 static void set_gen_number(Widget wid, double number, char *format, Boolean precision)
-#endif /* FUNCPROTO */
 {
   char *s, f[15], *t;
   int places, before, after;
@@ -565,39 +544,21 @@ static void set_gen_number(Widget wid, double number, char *format, Boolean prec
 
 } /* set_gen_number() */
 
-#ifndef FUNCPROTO
-static void set_double_number(wid, number)
-Widget wid;
-double number;
-#else /* FUNCPROTO */
 static void set_double_number(Widget wid, double number)
-#endif /* FUNCPROTO */
 {
   set_gen_number(wid, number, "f", True);
   return;
 
 } /* set_double_number() */
 
-#ifndef FUNCPROTO
-static void set_double_exp_number(wid, number)
-Widget wid;
-double number;
-#else /* FUNCPROTO */
 static void set_double_exp_number(Widget wid, double number)
-#endif /* FUNCPROTO */
 {
   set_gen_number(wid, (double) number, "e", False);
   return;
 
 } /* set_double_exp_number() */
 
-#ifndef FUNCPROTO
-static void set_int_number(wid, number)
-Widget wid;
-int number;
-#else /* FUNCPROTO */
 static void set_int_number(Widget wid, int number)
-#endif /* FUNCPROTO */
 {
   int places;
   char *s, format[50], *t;
@@ -616,12 +577,7 @@ static void set_int_number(Widget wid, int number)
 
 } /* set_int_number() */
 
-#ifndef FUNCPROTO
-static void set_number(wid_number)
-prompt_widget_number wid_number;
-#else /* FUNCPROTO */
 static void set_number(prompt_widget_number wid_number)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("xfilter.c: set_number");
 
@@ -656,11 +612,7 @@ static void set_number(prompt_widget_number wid_number)
 
 } /* set_number() */
 
-#ifndef FUNCPROTO
-static void Make_input_band()
-#else /* FUNCPROTO */
 static void Make_input_band(void)
-#endif /* FUNCPROTO */
 {
   int xsize = -1, ysize = -1;
   BiffStatus status = 0;
@@ -735,14 +687,7 @@ static void Make_input_band(void)
 
 } /* Make_input_band() */
 
-#ifndef FUNCPROTO
-static void free_and_or_allocate(wid_num, data_pt, disp_pt, title)
-image_widget_number wid_num;
-IPIXTYP data_pt, disp_pt;
-char *title;
-#else /* FUNCPROTO */
 static void free_and_or_allocate(image_widget_number wid_num, IPIXTYP data_pt, IPIXTYP disp_pt, char *title)
-#endif /* FUNCPROTO */
 {
   int xsize = -1, ysize = -1;
   bandData data         = band_data_s[wid_num];
@@ -778,11 +723,7 @@ static void free_and_or_allocate(image_widget_number wid_num, IPIXTYP data_pt, I
 
 } /* free_and_or_allocate() */
 
-#ifndef FUNCPROTO
-static void Make_input_four()
-#else /* FUNCPROTO */
 static void Make_input_four(void)
-#endif /* FUNCPROTO */
 {
   bandData indata          = band_data_s[INIMAGE],
            findata         = band_data_s[F_INIMAGE];
@@ -809,11 +750,7 @@ static void Make_input_four(void)
 
 } /* Make_input_four() */
 
-#ifndef FUNCPROTO
-static void update_sensitive()
-#else /* FUNCPROTO */
 static void update_sensitive(void)
-#endif /* FUNCPROTO */
 {
   if (!scroll_wid(LOW_SCROLL)) return;
 
@@ -919,11 +856,7 @@ static void update_sensitive(void)
 
 } /* update_sensitive() */
 
-#ifndef FUNCPROTO
-static void update_filter_menulabel()
-#else /* FUNCPROTO */
 static void update_filter_menulabel(void)
-#endif /* FUNCPROTO */
 {
   char *label;
 
@@ -952,11 +885,7 @@ static void update_filter_menulabel(void)
 
 } /* update_filter_menulabel() */
 
-#ifndef FUNCPROTO
-static void update_window_menulabel()
-#else /* FUNCPROTO */
 static void update_window_menulabel(void)
-#endif /* FUNCPROTO */
 {
   char *label;
 
@@ -983,11 +912,7 @@ static void update_window_menulabel(void)
 
 } /* update_window_menulabel() */
 
-#ifndef FUNCPROTO
-static void update_rms()
-#else /* FUNCPROTO */
 static void update_rms(void)
-#endif /* FUNCPROTO */
 {
   double val;
   char label[80];
@@ -1008,11 +933,7 @@ static void update_rms(void)
 
 } /* update_rms() */
 
-#ifndef FUNCPROTO
-static void Make_filter()
-#else /* FUNCPROTO */
 static void Make_filter(void)
-#endif /* FUNCPROTO */
 {
   double d_scale = 1.0;
   int fsize = 0;
@@ -1095,11 +1016,7 @@ static void Make_filter(void)
 
 } /* Make_filter() */
 
-#ifndef FUNCPROTO
-static void Make_filter_four()
-#else /* FUNCPROTO */
 static void Make_filter_four(void)
-#endif /* FUNCPROTO */
 {
   bandData data          = band_data_s[FILTIMAGE],
            fdata         = band_data_s[F_FILTIMAGE];
@@ -1140,11 +1057,7 @@ static void Make_filter_four(void)
 
 } /* Make_filter_four() */
 
-#ifndef FUNCPROTO
-static void Make_filter_cross()
-#else /* FUNCPROTO */
 static void Make_filter_cross(void)
-#endif /* FUNCPROTO */
 {
   int status = 0;
   long size;
@@ -1198,11 +1111,7 @@ static void Make_filter_cross(void)
 
 } /* Make_filter_cross() */
 
-#ifndef FUNCPROTO
-static void Make_output_four()
-#else /* FUNCPROTO */
 static void Make_output_four(void)
-#endif /* FUNCPROTO */
 {
   bandData  out_data      = band_data_s[OUTIMAGE],
             fout_data     = band_data_s[F_OUTIMAGE],
@@ -1243,11 +1152,7 @@ static void Make_output_four(void)
 
 } /* Make_output_four() */
 
-#ifndef FUNCPROTO
-static void Make_output()
-#else /* FUNCPROTO */
 static void Make_output(void)
-#endif /* FUNCPROTO */
 {
   bandData        data  = band_data_s[OUTIMAGE],
                   fdata = band_data_s[F_OUTIMAGE];
@@ -1280,11 +1185,7 @@ static void Make_output(void)
 
 } /* Make_output() */
 
-#ifndef FUNCPROTO
-static void Make_difference()
-#else /* FUNCPROTO */
 static void Make_difference(void)
-#endif /* FUNCPROTO */
 {
   bandData        diff_data  = band_data_s[DIFFIMAGE],
                   in_data    = band_data_s[INIMAGE],
@@ -1312,12 +1213,7 @@ static void Make_difference(void)
 
 } /* Make_difference() */
 
-#ifndef FUNCPROTO
-static void update_widget(wid_num)
-image_widget_number wid_num;
-#else /* FUNCPROTO */
 static void update_widget(image_widget_number wid_num)
-#endif /* FUNCPROTO */
 {
   bandData data         = band_data_s[wid_num];
   layout_image l_image  = layout_images_s[wid_num];
@@ -1374,12 +1270,7 @@ static void update_widget(image_widget_number wid_num)
 
 } /* update_widget() */
 
-#ifndef FUNCPROTO
-static void update_magnitude_widget(wid_num)
-image_widget_number wid_num;
-#else /* FUNCPROTO */
 static void update_magnitude_widget(image_widget_number wid_num)
-#endif /* FUNCPROTO */
 {
   bandData data         = band_data_s[wid_num];
   layout_image l_image  = layout_images_s[wid_num];
@@ -1412,11 +1303,7 @@ static void update_magnitude_widget(image_widget_number wid_num)
 
 } /* update_magnitude_widget() */
 
-#ifndef FUNCPROTO
-static void update_filter_and_fht()
-#else /* FUNCPROTO */
 static void update_filter_and_fht(void)
-#endif /* FUNCPROTO */
 {
   if (filter_type_s != LOWPASS_IDEAL && filter_type_s != BUTTER_LP &&
       filter_type_s != EXP_LP) {
@@ -1431,11 +1318,7 @@ static void update_filter_and_fht(void)
 
 } /* update_filter_and_fht() */
 
-#ifndef FUNCPROTO
-static void update_from_filter_to_output()
-#else /* FUNCPROTO */
 static void update_from_filter_to_output(void)
-#endif /* FUNCPROTO */
 {
   update_filter_and_fht();
   update_widget(FILTCROSS);
@@ -1447,12 +1330,7 @@ static void update_from_filter_to_output(void)
 
 } /* update_from_filter_to_output() */
 
-#ifndef FUNCPROTO
-static void Read_image(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Read_image(Widget wid)
-#endif /* FUNCPROTO */
 {
   int stat = 0;
   char *name = NULL, msg[200];
@@ -1506,12 +1384,7 @@ static void Read_image(Widget wid)
 
 } /* Read_image() */
 
-#ifndef FUNCPROTO
-static void Save_image(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Save_image(Widget wid)
-#endif /* FUNCPROTO */
 {
   int stat;
   char *name = NULL;
@@ -1535,12 +1408,7 @@ static void Save_image(Widget wid)
 
 } /* Save_image() */
 
-#ifndef FUNCPROTO
-static void Save_filter(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Save_filter(Widget wid)
-#endif /* FUNCPROTO */
 {
   int stat;
   char *name = NULL;
@@ -1564,13 +1432,7 @@ static void Save_filter(Widget wid)
 
 } /* Save_filter() */
 
-#ifndef FUNCPROTO
-static void filt_select(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void filt_select(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   filter_type cl_data = (filter_type) *((int *) client_data);
 
@@ -1589,13 +1451,7 @@ static void filt_select(Widget wid, XtPointer client_data, XtPointer call_data)
 
 } /* filt_select() */
 
-#ifndef FUNCPROTO
-static void window_select(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void window_select(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   window_type cl_data = *((window_type *) client_data);
 
@@ -1630,13 +1486,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void jump_value(value, min, max, jump, increase, logarithmic)
-double *value, min, max, jump;
-Boolean increase, logarithmic;
-#else /* FUNCPROTO */
 static void jump_value(double *value, double min, double max, double jump, Boolean increase, Boolean logarithmic)
-#endif /* FUNCPROTO */
 {
   double newmin, newmax, newval;
   double val = *value;
@@ -1666,14 +1516,7 @@ static void jump_value(double *value, double min, double max, double jump, Boole
 
 } /* jump_value() */
 
-#ifndef FUNCPROTO
-static void scroll_incremental_cb(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void scroll_incremental_cb(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   scroll_widget_number wid_num = (scroll_widget_number) *((int *) client_data);
   long position = (long) call_data;
@@ -1779,14 +1622,7 @@ static void scroll_incremental_cb(Widget wid, XtPointer client_data, XtPointer c
 
 } /* scroll_incremental_cb() */
 
-#ifndef FUNCPROTO
-static void prompt_activate_cb(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void prompt_activate_cb(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   prompt_widget_number wid_num = (prompt_widget_number) *((int *) client_data);
 
@@ -1896,14 +1732,7 @@ static void prompt_activate_cb(Widget wid, XtPointer client_data, XtPointer call
 
 } /* prompt_activate_cb() */
 
-#ifndef FUNCPROTO
-static void scroll_jump_cb(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void scroll_jump_cb(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   scroll_widget_number wid_num = (scroll_widget_number) *((int *) client_data);
 
@@ -2004,14 +1833,7 @@ static void scroll_jump_cb(Widget wid, XtPointer client_data, XtPointer call_dat
 
 } /* scroll_jump_cb() */
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   command_widget_number wid_num =
     (command_widget_number) *((int *) client_data);
@@ -2403,13 +2225,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void check_options(argc, argv)
-int *argc;
-char **argv;
-#else /* FUNCPROTO */
 static void check_options(int *argc, char **argv)
-#endif /* FUNCPROTO */
 {
 
   /* Give usage message if arguments are missing */
@@ -2445,11 +2261,7 @@ static void check_options(int *argc, char **argv)
 
 } /* check_options() */
 
-#ifndef FUNCPROTO
-static void init_band_data()
-#else /* FUNCPROTO */
 static void init_band_data(void)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -2494,11 +2306,7 @@ static void init_band_data(void)
 
 } /* init_band_data() */
 
-#ifndef FUNCPROTO
-static void assign_img_to_images()
-#else /* FUNCPROTO */
 static void assign_img_to_images(void)
-#endif /* FUNCPROTO */
 {
   Make_input_band();
   Make_input_four();
@@ -2519,11 +2327,7 @@ static void assign_img_to_images(void)
 
 } /* assign_img_to_images() */
 
-#ifndef FUNCPROTO
-static void images_layout()
-#else /* FUNCPROTO */
 static void images_layout(void)
-#endif /* FUNCPROTO */
 {
   /* Allocate array of pointers. */
   layout_images_s = (layout_image *)
@@ -2565,11 +2369,7 @@ static void images_layout(void)
 
 } /* images_layout() */
 
-#ifndef FUNCPROTO
-static void prompts_layout()
-#else /* FUNCPROTO */
 static void prompts_layout(void)
-#endif /* FUNCPROTO */
 {
   char t[80];
 
@@ -2627,11 +2427,7 @@ static void prompts_layout(void)
 
 } /* prompts_layout() */
 
-#ifndef FUNCPROTO
-static void commands_layout()
-#else /* FUNCPROTO */
 static void commands_layout(void)
-#endif /* FUNCPROTO */
 {
   /* Allocate array of pointers. */
   layout_commands_s = (layout_command *)
@@ -2660,11 +2456,7 @@ static void commands_layout(void)
 
 } /* commands_layout() */
 
-#ifndef FUNCPROTO
-static void labels_layout()
-#else /* FUNCPROTO */
 static void labels_layout(void)
-#endif /* FUNCPROTO */
 {
   /* Allocate array of pointers. */
   layout_labels_s = (layout_label *)
@@ -2718,11 +2510,7 @@ static void labels_layout(void)
 
 } /* labels_layout() */
 
-#ifndef FUNCPROTO
-static void scrolls_layout()
-#else /* FUNCPROTO */
 static void scrolls_layout(void)
-#endif /* FUNCPROTO */
 {
   /* Allocate array of pointers. */
   layout_scrolls_s = (layout_scroll *)
@@ -2796,11 +2584,7 @@ static void scrolls_layout(void)
 
 } /* scrolls_layout() */
 
-#ifndef FUNCPROTO
-static void menus_layout()
-#else /* FUNCPROTO */
 static void menus_layout(void)
-#endif /* FUNCPROTO */
 {
   layout_menus_s = (layout_menu *)
     malloc(sizeof(layout_menu) * num_menus_s);
@@ -2817,11 +2601,7 @@ static void menus_layout(void)
 
 } /* menus_layout() */
 
-#ifndef FUNCPROTO
-static void entries_filt_layout()
-#else /* FUNCPROTO */
 static void entries_filt_layout(void)
-#endif /* FUNCPROTO */
 {
   /* Allocate array of pointers. */
   layout_entries_filt_s = (layout_menu_entry *)
@@ -2859,11 +2639,7 @@ static void entries_filt_layout(void)
 
 } /* entries_filt_layout() */
   
-#ifndef FUNCPROTO
-static void entries_wind_layout()
-#else /* FUNCPROTO */
 static void entries_wind_layout(void)
-#endif /* FUNCPROTO */
 {
   /* Allocate array of pointers. */
   layout_entries_wind_s = (layout_menu_entry *)
@@ -2893,11 +2669,7 @@ static void entries_wind_layout(void)
 
 } /* entries_wind_layout() */
   
-#ifndef FUNCPROTO
-static void prepare_for_layout()
-#else /* FUNCPROTO */
 static void prepare_for_layout(void)
-#endif /* FUNCPROTO */
 {
   int i = 0;
 
@@ -2969,13 +2741,7 @@ static void prepare_for_layout(void)
 
 } /* prepare_for_layout() */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   XtResource *all_resources;
   XrmOptionDescRec *all_options;

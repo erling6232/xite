@@ -37,7 +37,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/haar.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/convert.h>
 #include <xite/readarg.h>
@@ -56,12 +58,7 @@ static char *Id = "$Id$, Blab, UiO";
 */
 
 /* bit reverse */
-#ifndef FUNCPROTO
-static void bitr(in, nbits, out)
-int in, nbits, *out;
-#else /* FUNCPROTO */
 static void bitr(int in, int nbits, int *out)
-#endif /* FUNCPROTO */
 {
    int lout=0;
    WHILE (nbits--)
@@ -119,12 +116,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int haar2d(b1, b2)
-IR_BAND b1, b2;
-#else /* FUNCPROTO */
 int haar2d(IR_BAND b1, IR_BAND b2)
-#endif /* FUNCPROTO */
 {
    int xsize, ysize, x, y, bitrev, xite, yite, nnite, g, po2,
        kl, klb, k1, k2, ia, ms1, ms2, mb, mtep, mtepr, mbg, l,
@@ -271,12 +263,7 @@ int haar2d(IR_BAND b1, IR_BAND b2)
 
 
 
-#ifndef FUNCPROTO
-int haari2d(b1, b2)
-IR_BAND b1, b2;
-#else /* FUNCPROTO */
 int haari2d(IR_BAND b1, IR_BAND b2)
-#endif /* FUNCPROTO */
 {
    int xsize, ysize, x, y, bitrev, xite, yite, nnite, po2,
        kl, klb, k1, k2, ia, ms1, ms2, mb, mtep, mtepr, mbg, l,
@@ -472,13 +459,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int i, b, r, bn, status;
   IMAGE img;

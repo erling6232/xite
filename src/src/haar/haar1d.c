@@ -99,12 +99,7 @@ ________________________________________________________________
                 bitr - bit reverse
 ________________________________________________________________
 */
-#ifndef FUNCPROTO
-static void bitr(in, nbits, out)
-int in, nbits, *out;
-#else /* FUNCPROTO */
 static void bitr(int in, int nbits, int *out)
-#endif /* FUNCPROTO */
 {
    int lout=0;
    WHILE (nbits--)
@@ -122,13 +117,7 @@ ________________________________________________________________
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-int haar1d(a1, a2, size)
-float *a1, *a2;
-int size;
-#else /* FUNCPROTO */
 int haar1d(float *a1, float *a2, int size)
-#endif /* FUNCPROTO */
 {
    int po2, x, nite, nnite, irg, k, kl, klb, k2,
    ia, mb, mbg, ms1, ms2, mtep, mtepr;
@@ -200,13 +189,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int haari1d(a1, a2, size)
-float *a1, *a2;
-int size;
-#else /* FUNCPROTO */
 int haari1d(float *a1, float *a2, int size)
-#endif /* FUNCPROTO */
 {
    int po2, x, nite, nnite, irg, k, kl, klb, k2,
    ia, mb, mbg, ms1, ms2, mtep, mtepr;

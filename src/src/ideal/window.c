@@ -37,8 +37,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 #include <xite/strings.h>
 #include <xite/fft.h>
 #include <xite/message.h>
@@ -133,12 +141,7 @@ _______________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-window_type parseWindowName(name)
-char *name;
-#else /* FUNCPROTO */
 window_type parseWindowName(char *name)
-#endif /* FUNCPROTO */
 {
   window_type val;
 
@@ -158,13 +161,7 @@ window_type parseWindowName(char *name)
   return(Error(-1, "Unknown window name.\n"));
 }
 
-#ifndef FUNCPROTO
-double bartlett(n, size)
-double   n;
-int     size;
-#else /* FUNCPROTO */
 double bartlett(double n, int size)
-#endif /* FUNCPROTO */
 {
    double val, v;
 
@@ -174,13 +171,7 @@ double bartlett(double n, int size)
    return (val);
 }
 
-#ifndef FUNCPROTO
-double triangle(n, size)
-double   n;
-int     size;
-#else /* FUNCPROTO */
 double triangle(double n, int size)
-#endif /* FUNCPROTO */
 {
    double val, v;
 
@@ -190,13 +181,7 @@ double triangle(double n, int size)
    return (val);
 }
 
-#ifndef FUNCPROTO
-double hamming(n, size)
-double   n;
-int     size;
-#else /* FUNCPROTO */
 double hamming(double n, int size)
-#endif /* FUNCPROTO */
 {
    double  val, pl;
 
@@ -207,13 +192,7 @@ double hamming(double n, int size)
 }
 
 
-#ifndef FUNCPROTO
-double hanning(n, size)
-double   n;
-int     size;
-#else /* FUNCPROTO */
 double hanning(double n, int size)
-#endif /* FUNCPROTO */
 {
    double  val, pl;
 
@@ -223,13 +202,7 @@ double hanning(double n, int size)
    return (val);
 }
 
-#ifndef FUNCPROTO
-double rectangle(n, size)
-double   n;
-int     size;
-#else /* FUNCPROTO */
 double rectangle(double n, int size)
-#endif /* FUNCPROTO */
 {
    return (1.0);
 }
@@ -297,24 +270,13 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int window(band, size, win_type)
-IBAND band;
-int size;
-window_type win_type;
-#else /* FUNCPROTO */
 int window(IBAND band, int size, window_type win_type)
-#endif /* FUNCPROTO */
 {
   long xsize, ysize, x, y, xhalf, yhalf;
   double radx, rady, rad, max_rad, xcent, ycent;
   IPIXTYP pt;
 
-#ifndef FUNCPROTO
-   double (*window_func)();
-#else /* FUNCPROTO */
    double (*window_func)(double n, int size);
-#endif /* FUNCPROTO */
 
   xsize = Ixsize(band);
   ysize = Iysize(band);
@@ -553,13 +515,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   window_type win_type;

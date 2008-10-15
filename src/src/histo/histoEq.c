@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/histo.h>
@@ -79,13 +81,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-BiffStatus histoEq(b1, b2, graylevels)
-  IBAND b1, b2;
-  int graylevels;
-#else /* FUNCPROTO */
 BiffStatus histoEq(IBAND b1, IBAND b2, int graylevels)
-#endif /* FUNCPROTO */
 {
   histogram histo;
 
@@ -140,13 +136,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int bn, k;

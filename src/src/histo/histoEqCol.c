@@ -69,14 +69,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-void histoEqCol(b,ct, graylevels)
-  IBAND b;
-  Color_tab ct;
-  int graylevels;
-#else /* FUNCPROTO */
 void histoEqCol(IBAND b, Color_cell *ct, int graylevels)
-#endif /* FUNCPROTO */
 {
   histogram histo;
   mkHisto(b,histo);
@@ -122,13 +115,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i;
   int k;

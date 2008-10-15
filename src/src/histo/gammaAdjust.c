@@ -36,20 +36,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/histo.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-static void logaritmic_color(col, x)
-int *col; 
-double x;
-#else /* FUNCPROTO */
 static void logaritmic_color(int *col, double x)
-#endif /* FUNCPROTO */
 {
   int i;
   double a, b;
@@ -62,13 +58,7 @@ static void logaritmic_color(int *col, double x)
     }
 }
 
-#ifndef FUNCPROTO
-static void exp_color(col, x)
-int *col; 
-double x;
-#else /* FUNCPROTO */
 static void exp_color(int *col, double x)
-#endif /* FUNCPROTO */
 {
   int i;
   double a, b;
@@ -126,13 +116,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus gammaAdjust(inband, outband, adjust)
-IBAND inband, outband;
-double adjust;
-#else /* FUNCPROTO */
 BiffStatus gammaAdjust(IBAND inband, IBAND outband, double adjust)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y;
   int col[256];
@@ -200,13 +184,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   double adjust;

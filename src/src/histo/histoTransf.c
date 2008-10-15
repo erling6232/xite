@@ -73,13 +73,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-int histoTransf(inband, outband, hist)
-   IBAND inband, outband;
-   histogram hist;
-#else /* FUNCPROTO */
 int histoTransf(IBAND inband, IBAND outband, histogram hist)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize;
    int xs1, ys1, xs2, ys2;

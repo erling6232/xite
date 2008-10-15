@@ -37,8 +37,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 #include <xite/fft.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
@@ -54,15 +62,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-int highpass(band, cut_frequency, filter_size, win_type)
-IBAND band;
-int *filter_size;
-double cut_frequency;
-window_type win_type;
-#else /* FUNCPROTO */
 int highpass(IBAND band, double cut_frequency, int *filter_size, window_type win_type)
-#endif /* FUNCPROTO */
 {
   int stat;
   long xsize, ysize;
@@ -134,15 +134,7 @@ int highpass(IBAND band, double cut_frequency, int *filter_size, window_type win
 } /* highpass() */
 
 
-#ifndef FUNCPROTO
-BiffStatus highpassf(band, cut_frequency, filter_size, win_type)
-IBAND band;
-double cut_frequency;
-int *filter_size;
-window_type win_type;
-#else /* FUNCPROTO */
 BiffStatus highpassf(IBAND band, double cut_frequency, int *filter_size, window_type win_type)
-#endif /* FUNCPROTO */
 {
    int stat;
 
@@ -164,13 +156,7 @@ BiffStatus highpassf(IBAND band, double cut_frequency, int *filter_size, window_
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int      filter_size, xsize, ysize, stat, r, spatial;
   window_type win_type;

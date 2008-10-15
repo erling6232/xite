@@ -69,13 +69,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-void scaleHisto(cumHisto, scHisto, range)
-  histogram cumHisto, scHisto;
-  int range;
-#else /* FUNCPROTO */
 void scaleHisto(int *cumHisto, int *scHisto, int range)
-#endif /* FUNCPROTO */
 {
   int old, new, h, n=0;
   double mult, frange;

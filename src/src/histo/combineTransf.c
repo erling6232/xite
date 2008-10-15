@@ -66,12 +66,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-void combineTransf(h1, h2, h3)
-  histogram h1, h2, h3;
-#else /* FUNCPROTO */
 void combineTransf(int *h1, int *h2, int *h3)
-#endif /* FUNCPROTO */
 {
   int n;
   for (n=0; n <= 255; n++)

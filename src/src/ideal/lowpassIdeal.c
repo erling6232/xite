@@ -37,8 +37,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+#  include <strings.h>
+#else
+#  ifdef HAVE_STRING_H
+#    include <string.h>
+#  endif
+#endif
 #include <xite/fft.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -55,13 +63,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-BiffStatus lowpassIdealf (band, cut_frequency)
-IBAND band;
-double  cut_frequency;
-#else /* FUNCPROTO */
 BiffStatus lowpassIdealf (IBAND band, double cut_frequency)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, xhalf, yhalf, feven, xeven, yeven, low;
   int filter_size, xhalf2, yhalf2;
@@ -330,13 +332,7 @@ BiffStatus lowpassIdealf (IBAND band, double cut_frequency)
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE   img;
   int     xsize, ysize, stat, spatial;
