@@ -35,12 +35,18 @@ static int of=0, uf=0;
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/principal.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
-#include XITE_TYPES_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif
 
 #ifndef MAIN
 
@@ -86,13 +92,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus linearTrans(input, output, weights)
-IMAGE input, output;
-IR_BAND weights;
-#else /* FUNCPROTO */
 BiffStatus linearTrans(IMAGE input, IMAGE output, IR_BAND weights)
-#endif /* FUNCPROTO */
 {
   int nbands, x, y, bn1, bn2, pv, ival, xsize, ysize;
   float **table, val;
@@ -201,13 +201,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   IR_BAND rb;

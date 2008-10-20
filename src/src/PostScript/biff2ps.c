@@ -253,10 +253,22 @@ ________________________________________________________________
 #include <xite/blab.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_TIME_H
-#include XITE_UNISTD_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 
 #define	INCH		* 72
 #define	PG_SIZE_X	( 595 )	/* Canvas is 7.5" x 9.0" area on a
@@ -300,11 +312,7 @@ static char *  flag_fy  = NULL;
 static tstring flag_i   = "";
 static tstring flag_o   = "";
 
-#ifdef FUNCPROTO
-  static void print_bg(void);
-#else
-  static void print_bg();
-#endif
+static void print_bg(void);
 
 
 
@@ -328,13 +336,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void print_header(title, width, height, depth)
-char *title;
-int width, height, depth;
-#else /* FUNCPROTO */
 static void print_header(char *title, int width, int height, int depth)
-#endif /* FUNCPROTO */
 {
   time_t now;
   int xoff, yoff, xscale, yscale, scale, maxx, maxy;
@@ -476,11 +478,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void print_bg()
-#else /* FUNCPROTO */
 static void print_bg(void)
-#endif /* FUNCPROTO */
 {
   tstring t;
 
@@ -526,13 +524,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void print_data(iband, depth)
-IBAND iband; 
-int depth; 
-#else /* FUNCPROTO */
 static void print_data(IBAND iband, int depth)
-#endif /* FUNCPROTO */
 { 
   int xsize, ysize, size, val;
   unsigned char *ptr;
@@ -619,13 +611,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void print_rgb_data(img, depth)
-IMAGE img;
-int depth;
-#else /* FUNCPROTO */
 static void print_rgb_data(IMAGE img, int depth)
-#endif /* FUNCPROTO */
 { 
   int xsize, ysize, x, y, val, color, size=16;
   tstring t;
@@ -715,11 +701,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void print_tail()
-#else /* FUNCPROTO */
 static void print_tail(void)
-#endif /* FUNCPROTO */
 {
   fprintf(outfile,"\n");
   fprintf(outfile,"grestore\n");
@@ -738,13 +720,7 @@ static void print_tail(void)
 
 
 
-#ifndef FUNCPROTO
-int main(argc, argv)
- int argc;
- char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int depth, xsize, ysize; 

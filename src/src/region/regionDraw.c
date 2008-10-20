@@ -95,14 +95,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int regionDraw(band, reg, loop, pv)
-IBAND band;
-region* reg;
-int loop, pv;
-#else /* FUNCPROTO */
 int regionDraw(IBAND band, region *reg, int loop, int pv)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, ymax, xmin, xmax, lpv;
   yline* yl;

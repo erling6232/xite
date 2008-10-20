@@ -35,12 +35,16 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/region.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 /*F:regionYline*
@@ -179,15 +183,7 @@ static int *curReg,   /* current regions  */
 /*_______________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static int readyline(input, yl, nyls, y)
-IBAND input;
-yline* yl[];
-int* nyls;
-int y;
-#else /* FUNCPROTO */
 static int readyline(IBAND input, yline **yl, int *nyls, int y)
-#endif /* FUNCPROTO */
 {
   int x, pv, yln=0, xstart=1;
 
@@ -215,13 +211,7 @@ static int readyline(IBAND input, yline **yl, int *nyls, int y)
 /*_______________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static int mkregion(yl, y, on, nc)
-yline* yl;
-int y, on, nc;
-#else /* FUNCPROTO */
 static int mkregion(yline *yl, int y, int on, int nc)
-#endif /* FUNCPROTO */
 {
   region* reg;
   if (NOT (reg = (region*)malloc(sizeof(region))))
@@ -247,13 +237,7 @@ static int mkregion(yline *yl, int y, int on, int nc)
 /*_______________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static int mayBeSamsort(cyln, pyln, y)
-int cyln, pyln;
-int y;
-#else /* FUNCPROTO */
 static int mayBeSamsort(int cyln, int pyln, int y)
-#endif /* FUNCPROTO */
 {
   region *cReg, *pReg, *newReg;
   yline *oldyl1, *oldyl2, *newyl, *lastyl;
@@ -314,12 +298,7 @@ static int mayBeSamsort(int cyln, int pyln, int y)
 /*_______________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static void swap(a,b)
-int *a, *b;
-#else /* FUNCPROTO */
 static void swap(int *a, int *b)
-#endif /* FUNCPROTO */
 {
   int c;
   c = *a; *a = *b; *b = c;
@@ -328,13 +307,7 @@ static void swap(int *a, int *b)
 /*_______________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-static void regionSplit(ra, size)
-region** ra;
-int size;
-#else /* FUNCPROTO */
 static void regionSplit(region **ra, int size)
-#endif /* FUNCPROTO */
 {
   int n1, n2=0;
   region* reg;
@@ -348,16 +321,7 @@ static void regionSplit(region **ra, int size)
 /*_______________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-BiffStatus regionYline(input, regions, nc, sort, split, size)
-IBAND input;
-region ***regions;
-int nc;
-int sort, split;
-int *size;
-#else /* FUNCPROTO */
 BiffStatus regionYline(IBAND input, region ***regions, int nc, int sort, int split, int *size)
-#endif /* FUNCPROTO */
 {
   yline **curYl;   /* current ylines   */
   yline **prevYl;  /* previous ylines  */

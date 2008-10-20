@@ -36,38 +36,30 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/median.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/message.h>
-#include XITE_MALLOC_H
-#include XITE_MEMORY_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_MEMORY_H
+# include <memory.h>
+#endif
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-typedef int (*func)();
-#else /* FUNCPROTO */
 typedef int (*func)( const void *, const void* );
-#endif /* FUNCPROTO */
 
 static func compare; 
 
-#ifndef FUNCPROTO
-#define COMPARE(name, type) static int name(a, b)\
-type **a, **b;\
-{ /* fprintf (stderr, "%8d %8d\n", **a, **b); */ \
-  if (**a < **b) return(-1);\
-  if (**a > **b) return(1);\
-  return(0);\
-}
-#else /* FUNCPROTO */
 #define COMPARE(name, type) static int name(type **a, type **b) \
 { /* fprintf (stderr, "%8d %8d\n", **a, **b); */ \
   if (**a < **b) return(-1);\
   if (**a > **b) return(1);\
   return(0);\
 }
-#endif /* FUNCPROTO */
 
 COMPARE(comp_uns_byte, unsigned char)
 COMPARE(comp_sign_byte, char)
@@ -78,12 +70,7 @@ COMPARE(comp_real, float)
 COMPARE(comp_double, double)
 
 
-#ifndef FUNCPROTO
-static int install_compare(pixtyp)
-IPIXTYP pixtyp;
-#else /* FUNCPROTO */
 static int install_compare(IPIXTYP pixtyp)
-#endif /* FUNCPROTO */
 {
   switch((int) pixtyp)
     {
@@ -140,15 +127,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int fractile_mask(inband, outband, mask, mirror, fractile)
-IBAND inband, outband;
-ISS_BAND mask;
-int mirror;
-double fractile;
-#else /* FUNCPROTO */
 int fractile_mask(IBAND inband, IBAND outband, ISS_BAND mask, int mirror, double fractile)
-#endif /* FUNCPROTO */
 {
   char **sortarr;
   int nelem, numelem = 0;

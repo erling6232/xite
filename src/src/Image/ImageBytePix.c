@@ -58,7 +58,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageBytePix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static ipixel bytepixel =
 {
@@ -76,11 +78,7 @@ static ipixel bytepixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr BytePixel()
-#else /* FUNCPROTO */
 ipixelptr BytePixel(void)
-#endif /* FUNCPROTO */
 {
   return(&bytepixel);
 }

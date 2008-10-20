@@ -38,7 +38,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/region.h>
 #include <xite/blab.h>
 #include <xite/message.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #ifndef MAX
 # define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -102,13 +104,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-yline* regionInsertYline(reg, y, xmin, xmax)
-region* reg;
-int y, xmin, xmax;
-#else /* FUNCPROTO */
 yline* regionInsertYline(region *reg, int y, int xmin, int xmax)
-#endif /* FUNCPROTO */
 {
   yline *yl, *newyl;
   int empty = TRUE;
@@ -264,13 +260,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-yline* regionDeleteYline(reg, y, xmin, xmax)
-region* reg;
-int y, xmin, xmax;
-#else /* FUNCPROTO */
 yline* regionDeleteYline(region *reg, int y, int xmin, int xmax)
-#endif /* FUNCPROTO */
 {
   yline *yl, *newyl, *oldyl, **yptr;
   int empty = TRUE;
@@ -367,12 +357,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus regionEndInsert(reg)
-region* reg;
-#else /* FUNCPROTO */
 BiffStatus regionEndInsert(region *reg)
-#endif /* FUNCPROTO */
 {
   int ymin, ymax, y;
 

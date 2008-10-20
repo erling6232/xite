@@ -35,7 +35,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageOverlayPix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static unsigned char btrans_s[256];
 
@@ -55,11 +57,7 @@ static ipixel overlaypixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr OverlayPixel()
-#else /* FUNCPROTO */
 ipixelptr OverlayPixel(void)
-#endif /* FUNCPROTO */
 {
   return(&overlaypixel);
 }
@@ -109,13 +107,7 @@ ipixelptr OverlayPixel(void)
   for(i=0; i<256; i++) btrans_s[i] = i >=128 ? ((i-128) >> 4) : ((i+128) >> 4);
 #define INIT2
 
-#ifndef FUNCPROTO
-char *ImageOverlayPrintf(buf, pix_value)
-char *buf;
-ImageBytePix *pix_value;
-#else /* FUNCPROTO */
 char *ImageOverlayPrintf(char *buf, ImageBytePix *pix_value)
-#endif /* FUNCPROTO */
 {
   char number[30];
 

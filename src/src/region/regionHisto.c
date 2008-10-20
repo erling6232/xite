@@ -122,15 +122,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int regionHisto(band, reg, loop, histo)
-IBAND band;
-region* reg;
-int loop;
-histogram histo;
-#else /* FUNCPROTO */
 int regionHisto(IBAND band, region *reg, int loop, int *histo)
-#endif /* FUNCPROTO */
 {
   int x, y, ymin, ymax, xmin, xmax, xsize, ysize, h;
   yline *yl;
@@ -159,15 +151,7 @@ int regionHisto(IBAND band, region *reg, int loop, int *histo)
   return(0);
 }
 
-#ifndef FUNCPROTO
-int regionHistoUpdate(band, reg, loop, histo)
-IBAND band;
-region* reg;
-int loop;
-histogram histo;
-#else /* FUNCPROTO */
 int regionHistoUpdate(IBAND band, region *reg, int loop, int *histo)
-#endif /* FUNCPROTO */
 {
   int x, y, ymin, ymax, xmin, xmax, xsize, ysize;
   yline *yl;

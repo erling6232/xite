@@ -31,7 +31,9 @@ ________________________________________________________________
 */
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <ctype.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
@@ -43,7 +45,9 @@ ________________________________________________________________
 #include "ImageOverlayP.h"
 #endif
 #include "ImageP.h"
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/Visual.h>
 #include <xite/debug.h>
 
@@ -133,21 +137,11 @@ static  int k;
 
 
 
-#ifndef FUNCPROTO
-static void Resize24LSB(wid, rmask, gmask, bmask)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-long rmask, gmask, bmask;
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize24LSB(ImageOverlayWidget wid, long rmask, long gmask, long bmask)
-# else
+#else
   static void Resize24LSB(ImageWidget wid, long rmask, long gmask, long bmask)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
   ImagePixel *r_btr, *g_btr, *b_btr;
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
@@ -218,21 +212,11 @@ long rmask, gmask, bmask;
 
 
 
-#ifndef FUNCPROTO
-static void Resize21LSB(wid, rmask, gmask, bmask)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-long rmask, gmask, bmask;
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize21LSB(ImageOverlayWidget wid, long rmask, long gmask, long bmask)
-# else
+#else
   static void Resize21LSB(ImageWidget wid, long rmask, long gmask, long bmask)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
   ImagePixel *r_btr, *g_btr, *b_btr;
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
@@ -303,21 +287,11 @@ long rmask, gmask, bmask;
 
 
 
-#ifndef FUNCPROTO
-static void Resize24MSB(wid, rmask, gmask, bmask)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-long rmask, gmask, bmask;
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize24MSB(ImageOverlayWidget wid, long rmask, long gmask, long bmask)
-# else
+#else
   static void Resize24MSB(ImageWidget wid, long rmask, long gmask, long bmask)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
   ImagePixel *r_btr, *g_btr, *b_btr;
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
@@ -388,21 +362,11 @@ long rmask, gmask, bmask;
 
 
 
-#ifndef FUNCPROTO
-static void Resize21MSB(wid, rmask, gmask, bmask)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-long rmask, gmask, bmask;
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize21MSB(ImageOverlayWidget wid, long rmask, long gmask, long bmask)
-# else
+#else
   static void Resize21MSB(ImageWidget wid, long rmask, long gmask, long bmask)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
   ImagePixel *r_btr, *g_btr, *b_btr;
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
@@ -473,20 +437,11 @@ long rmask, gmask, bmask;
 
 
 
-#ifndef FUNCPROTO
-static void Resize8(wid)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize8(ImageOverlayWidget wid)
-# else
+#else
   static void Resize8(ImageWidget wid)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
   double f0, f1, f2;
@@ -529,20 +484,11 @@ static void Resize8(wid)
 
 
 
-#ifndef FUNCPROTO
-static void Resize7(wid)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize7(ImageOverlayWidget wid)
-# else
+#else
   static void Resize7(ImageWidget wid)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
   double f0, f1, f2;
@@ -585,20 +531,11 @@ static void Resize7(wid)
 
 
 
-#ifndef FUNCPROTO
-static void Resize4(wid)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void Resize4(ImageOverlayWidget wid)
-# else
+#else
   static void Resize4(ImageWidget wid)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
   double f0, f1, f2;
@@ -658,20 +595,11 @@ static void Resize4(wid)
   
 
 
-#ifndef FUNCPROTO
-static void ResizeMSB(wid)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void ResizeMSB(ImageOverlayWidget wid)
-# else
+#else
   static void ResizeMSB(ImageWidget wid)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
 #if !defined(BYTEPIX) && !defined(IMAGE_OVERLAY) && !defined(COMPLEXPIX) && !defined(DOUBLECOMPLEXPIX)
   double f1, f2;
@@ -749,20 +677,11 @@ static void ResizeMSB(wid)
 
 
 
-#ifndef FUNCPROTO
-static void ResizeLSB(wid)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   static void ResizeLSB(ImageOverlayWidget wid)
-# else
+#else
   static void ResizeLSB(ImageWidget wid)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
   int count;
   int x, y;
@@ -932,21 +851,11 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-  void ImageXxxxResize(wid, x, y, width, height)
-# ifdef IMAGE_OVERLAY
-  ImageOverlayWidget wid;
-# else
-  ImageWidget wid;
-# endif
-  int x, y, width, height;
-#else /* FUNCPROTO */
-# ifdef IMAGE_OVERLAY
+#ifdef IMAGE_OVERLAY
   void ImageXxxxResize(ImageOverlayWidget wid, int x, int y, int width, int height)
-# else
+#else
   void ImageXxxxResize(ImageWidget wid, int x, int y, int width, int height)
-# endif
-#endif /* FUNCPROTO */
+#endif
 {
   XVisualInfo vip, *vir;
   int nv, rmask, gmask, bmask;

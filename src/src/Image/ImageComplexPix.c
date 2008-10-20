@@ -31,7 +31,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageComplexPix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static ipixel complexpixel =
 {
@@ -49,22 +51,12 @@ static ipixel complexpixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr ComplexPixel()
-#else /* FUNCPROTO */
 ipixelptr ComplexPixel(void)
-#endif /* FUNCPROTO */
 {
   return(&complexpixel);
 }
 
-#ifndef FUNCPROTO
-char *ImageComplexPrintf(buf, pix_value)
-char *buf;
-ImageComplexPix *pix_value;
-#else /* FUNCPROTO */
 char *ImageComplexPrintf(char *buf, ImageComplexPix *pix_value)
-#endif /* FUNCPROTO */
 {
   char number[30], *ptr;
 

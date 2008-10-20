@@ -102,7 +102,9 @@ ________________________________________________________________
 #include <X11/Intrinsic.h>
 #include <xite/ImageFormat.h>
 #include "ImagePixName.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static char *pixname[] =
 {
@@ -122,104 +124,54 @@ static char *pixname[] =
   NULL,
 };
 
-#ifndef FUNCPROTO
-char *ImageTitle(img)
-IMAGE img;
-#else /* FUNCPROTO */
 char *ImageTitle(IMAGE img)
-#endif /* FUNCPROTO */
 {
   return(Ititle(img));
 }
 
-#ifndef FUNCPROTO
-unsigned char *ImageAddress(band)
-IBAND band;
-#else /* FUNCPROTO */
 unsigned char *ImageAddress(IBAND band)
-#endif /* FUNCPROTO */
 {
    return(&band[1][Ipixsize(Ipixtyp(band))/8]);
 }
 
-#ifndef FUNCPROTO
-int ImageWidth(band)
-IBAND band;
-#else /* FUNCPROTO */
 int ImageWidth(IBAND band)
-#endif /* FUNCPROTO */
 {
   return(Ixsize(band));
 }
 
-#ifndef FUNCPROTO
-int ImageHeight(band)
-IBAND band;
-#else /* FUNCPROTO */
 int ImageHeight(IBAND band)
-#endif /* FUNCPROTO */
 {
   return(Iysize(band));
 }
 
-#ifndef FUNCPROTO
-int ImageLineLength(band)
-IBAND band;
-#else /* FUNCPROTO */
 int ImageLineLength(IBAND band)
-#endif /* FUNCPROTO */
 {
   return(Iysize(band) > 1 ? 
 	 (&band[2][0] - &band[1][0]) :
 	 Ixsize(band));
 }
 
-#ifndef FUNCPROTO
-int ImageXstart(band)
-IBAND band;
-#else /* FUNCPROTO */
 int ImageXstart(IBAND band)
-#endif /* FUNCPROTO */
 {
   return(Ixstart(band));
 }
 
-#ifndef FUNCPROTO
-int ImageYstart(band)
-IBAND band;
-#else /* FUNCPROTO */
 int ImageYstart(IBAND band)
-#endif /* FUNCPROTO */
 {
   return(Iystart(band));
 }
 
-#ifndef FUNCPROTO
-char *ImagePixName(band)
-IBAND band;
-#else /* FUNCPROTO */
 char *ImagePixName(IBAND band)
-#endif /* FUNCPROTO */
 {
   return(pixname[(Ipixtyp(band))]);
 }
 
-#ifndef FUNCPROTO
-char *ImagePixPrintFormat(pixtyp)
-IPIXTYP pixtyp;
-#else /* FUNCPROTO */
 char *ImagePixPrintFormat(IPIXTYP pixtyp)
-#endif /* FUNCPROTO */
 {
   return(IpixPrintFormat(pixtyp));
 }
 
-#ifndef FUNCPROTO
-IPIXTYP ImagePixNameToBIFFPixTyp(image_pix_name)
-char *image_pix_name;
-#else /* FUNCPROTO */
 IPIXTYP ImagePixNameToBIFFPixTyp(char *image_pix_name)
-#endif /* FUNCPROTO */
 {
   if (!image_pix_name) return(Iunknown_typ);
 

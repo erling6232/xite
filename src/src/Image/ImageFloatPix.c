@@ -31,7 +31,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageFloatPix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static ipixel floatpixel =
 {
@@ -49,22 +51,12 @@ static ipixel floatpixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr FloatPixel()
-#else /* FUNCPROTO */
 ipixelptr FloatPixel(void)
-#endif /* FUNCPROTO */
 {
   return(&floatpixel);
 }
 
-#ifndef FUNCPROTO
-char *ImageFloatPrintf(buf, pix_value)
-char *buf;
-ImageFloatPix *pix_value;
-#else /* FUNCPROTO */
 char *ImageFloatPrintf(char *buf, ImageFloatPix *pix_value)
-#endif /* FUNCPROTO */
 {
   char number[30];
 

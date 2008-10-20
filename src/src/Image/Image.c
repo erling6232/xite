@@ -1233,7 +1233,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <ctype.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
@@ -1255,7 +1257,9 @@ ________________________________________________________________
 #include <xite/color.h>
 #include <xite/Visual.h>
 #include <xite/ShellWids.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+#  include <malloc.h>
+#endif
 #include <xite/message.h>
 #include <xite/statistics.h>
 #include <xite/debug.h>
@@ -1433,23 +1437,12 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
-
 static void Button( Widget wid, XEvent *event, String *params, Cardinal *num_params );
 void ImageKill( Widget wid, XEvent *event, String *params, Cardinal *num_params );
 static void Nop( Widget wid, XEvent *event, String *params, Cardinal *num_params );
 static void ZoomPan( Widget wid, XEvent *event, String *params, Cardinal *num_params );
 static void WMColormapAction( Widget wid, XEvent *event, String *params, Cardinal *num_params );
 
-#else /* FUNCPROTO */
-
-static void Button(/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-void ImageKill(/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-static void Nop(/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-static void ZoomPan(/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-static void WMColormapAction(/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-
-#endif /* FUNCPROTO */
 
 /*I*
 
@@ -1501,8 +1494,6 @@ static char translations[] =
 
 /* Method function declarations. */
 
-#ifdef FUNCPROTO
-
 static void ClassInitialize(void );
 static XtGeometryResult Geometry ( Widget wid, XtWidgetGeometry *request, XtWidgetGeometry *answer );
 static void Initialize(Widget request, Widget new, ArgList args, Cardinal *num_args);
@@ -1512,20 +1503,6 @@ static void Redisplay ( Widget wid, XEvent *event, Region region );
 static void Resize ( Widget wid );
 static Boolean SetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args);
 static int SetZoomParam ( ImageWidget wid, double zoom, int x, int y );
-
-#else /* FUNCPROTO */
-
-static void ClassInitialize();
-static XtGeometryResult Geometry (/* Widget wid, XtWidgetGeometry *request, XtWidgetGeometry *answer */);
-static void Initialize(/* Widget request, Widget new, ArgList args, Cardinal *num_args */);
-static void Kill (/* Widget wid */);
-static void Realize(/* Widget wid, XtValueMask *valueMask, XSetWindowAttributes *attrs */);
-static void Redisplay (/* Widget wid, XEvent *event, Region region */);
-static void Resize (/* Widget wid */);
-static Boolean SetValues(/* Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args */);
-static int SetZoomParam (/* ImageWidget wid, double zoom, int x, int y */);
-
-#endif /* FUNCPROTO */
 
 
 
@@ -1621,13 +1598,7 @@ static String err_mess[] = {
   "ImageWidget: Unknown Pixeltype",
 };
 
-#ifndef FUNCPROTO
-void ImageError(wid, messnr)
-Widget wid;
-int messnr;
-#else /* FUNCPROTO */
 void ImageError(Widget wid, int messnr)
-#endif /* FUNCPROTO */
 {
   XtAppErrorMsg(
     XtWidgetToApplicationContext(wid),
@@ -1658,12 +1629,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-int ImageHasColormap(wid)
-ImageWidget wid;
-#else /* FUNCPROTO */
 int ImageHasColormap(ImageWidget wid)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Image.c: ImageHasColormap");
   LEAVE_FUNCTION_DEBUG("Image.c: ImageHasColormap");
@@ -1706,12 +1672,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static display_method ImageGetDisplayMethod(defaultdm, class, planes, cells)
-int defaultdm, class, planes, cells;
-#else /* FUNCPROTO */
 static display_method ImageGetDisplayMethod(int defaultdm, int class, int planes, int cells)
-#endif /* FUNCPROTO */
 {
   int dm;
 
@@ -1765,12 +1726,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void ImageInstallPixelType(pix)
-ipixel *pix;
-#else /* FUNCPROTO */
 void ImageInstallPixelType(ipixel *pix)
-#endif /* FUNCPROTO */
 {
   ImageClassPart *ic = &imageClassRec.image_class;
   ipixelptr ptr;
@@ -1820,12 +1776,7 @@ void ImageInstallPixelType(ipixel *pix)
 }
 
 
-#ifndef FUNCPROTO
-Widget *imageWidgetList(num_widgets)
-int *num_widgets;
-#else /* FUNCPROTO */
 Widget *imageWidgetList(int *num_widgets)
-#endif /* FUNCPROTO */
 {
 
   *num_widgets =
@@ -1855,11 +1806,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void ClassInitialize()
-#else /* FUNCPROTO */
 static void ClassInitialize(void)
-#endif /* FUNCPROTO */
 {
   ImageClassPart *ic = &imageClassRec.image_class;
 
@@ -1914,12 +1861,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void extractBiffAttributes(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void extractBiffAttributes(Widget wid)
-#endif /* FUNCPROTO */
 {
   ImagePart *imPart;
   int i;
@@ -1997,13 +1939,7 @@ static void extractBiffAttributes(Widget wid)
 } /* extractBiffAttributes */
 
 
-#ifndef FUNCPROTO
-static ipixelptr findPixelType(imPart, imClass)
-ImagePart *imPart;
-ImageClassPart *imClass;
-#else /* FUNCPROTO */
 static ipixelptr findPixelType(ImagePart *imPart, ImageClassPart *imClass)
-#endif /* FUNCPROTO */
 {
   ipixelptr pptr;
 
@@ -2032,12 +1968,7 @@ static ipixelptr findPixelType(ImagePart *imPart, ImageClassPart *imClass)
 
 } /* findPixelType */
 
-#ifndef FUNCPROTO
-static int *deftab(n)
-int n;
-#else /* FUNCPROTO */
 static int *deftab(int n)
-#endif /* FUNCPROTO */
 {
   int *tab = NULL;
 
@@ -2051,12 +1982,7 @@ static int *deftab(int n)
 }
 
 
-#ifndef FUNCPROTO
-static void check_color_resources(current, new)
-Widget current, new;
-#else /* FUNCPROTO */
 static void check_color_resources(Widget current, Widget new)
-#endif /* FUNCPROTO */
 {
   /* Let XtNdisplayMethod have priority in setting color resources. */
 
@@ -2100,16 +2026,7 @@ static void check_color_resources(Widget current, Widget new)
 
 } /* check_color_resources() */
 
-#ifndef FUNCPROTO
-static void getVisualParameters(request, new, args, num_args, dpy, screen)
-Widget request, new;
-ArgList args;
-Cardinal *num_args;
-Display **dpy;
-int *screen;
-#else /* FUNCPROTO */
 static void getVisualParameters(Widget request, Widget new, ArgList args, Cardinal *num_args, Display **dpy, int *screen)
-#endif /* FUNCPROTO */
 {
   /* 'request' and 'new' contain resources specified by user as well as those
    * given as 'args' by the application.
@@ -2141,12 +2058,7 @@ static void getVisualParameters(Widget request, Widget new, ArgList args, Cardin
 } /* getVisualParameters() */
 
 
-#ifndef FUNCPROTO
-static void initializeParams(ip)
-ImagePart *ip;
-#else /* FUNCPROTO */
 static void initializeParams(ImagePart *ip)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Image.c: initializeParams");
@@ -2177,12 +2089,7 @@ static void initializeParams(ImagePart *ip)
 } /* initializeParams */
 
 
-#ifndef FUNCPROTO
-static void inheritFromCore(iwid)
-ImageWidget iwid;
-#else /* FUNCPROTO */
 static void inheritFromCore(ImageWidget iwid)
-#endif /* FUNCPROTO */
 {
   ImagePart *ip = &(iwid->image);
 
@@ -2196,12 +2103,7 @@ static void inheritFromCore(ImageWidget iwid)
 } /* inheritFromCore */
 
 
-#ifndef FUNCPROTO
-static void getScaleAndExtrema(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void getScaleAndExtrema(Widget wid)
-#endif /* FUNCPROTO */
 {
   ImagePart *ip  = &(((ImageWidget) wid)->image);
   ipixelptr pptr = ip->pixtype;
@@ -2243,13 +2145,7 @@ static void getScaleAndExtrema(Widget wid)
 } /* getScaleAndExtrema */
 
 
-#ifndef FUNCPROTO
-static void initializeZooming(imWid, imClass)
-ImageWidget imWid;
-ImageClassPart *imClass;
-#else /* FUNCPROTO */
 static void initializeZooming(ImageWidget imWid, ImageClassPart* imClass)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Image.c: initializeZooming");
@@ -2290,13 +2186,7 @@ static void initializeZooming(ImageWidget imWid, ImageClassPart* imClass)
 } /* initializeZooming */
 
 
-#ifndef FUNCPROTO
-static int initCoreSize(imWid, new_w, new_h)
-ImageWidget imWid;
-Dimension *new_w, *new_h;
-#else /* FUNCPROTO */
 static int initCoreSize(ImageWidget imWid, Dimension *new_w, Dimension *new_h)
-#endif /* FUNCPROTO */
 {
   ImagePart *imPart = &(imWid->image);
   Dimension cw, ch, im_w, im_h;
@@ -2354,13 +2244,7 @@ static int initCoreSize(ImageWidget imWid, Dimension *new_w, Dimension *new_h)
 
 } /* initCoreSize() */
 
-#ifndef FUNCPROTO
-static int limitCoreSize(imWid, new_w, new_h)
-ImageWidget imWid;
-Dimension *new_w, *new_h;
-#else /* FUNCPROTO */
 static int limitCoreSize(ImageWidget imWid, Dimension *new_w, Dimension *new_h)
-#endif /* FUNCPROTO */
 {
   ImagePart *imPart = &(imWid->image);
 
@@ -2393,13 +2277,7 @@ static int limitCoreSize(ImageWidget imWid, Dimension *new_w, Dimension *new_h)
 
 } /* limitCoreSize() */
 
-#ifndef FUNCPROTO
-static void setCoreSizeAndResize(new, imClass)
-Widget new;
-ImageClassPart *imClass;
-#else /* FUNCPROTO */
 static void setCoreSizeAndResize(Widget new, ImageClassPart *imClass)
-#endif /* FUNCPROTO */
 {
   ImageWidget imWid = (ImageWidget) new;
   int status;
@@ -2451,13 +2329,7 @@ static void setCoreSizeAndResize(Widget new, ImageClassPart *imClass)
 } /* setCoreSizeAndResize */
 
 
-#ifndef FUNCPROTO
-static Widget *checkWidgetTable(wid, imClass)
-Widget wid;
-ImageClassPart *imClass;
-#else /* FUNCPROTO */
 static Widget *checkWidgetTable(Widget wid, ImageClassPart *imClass)
-#endif /* FUNCPROTO */
 {
   Widget *widgetPtr = imClass->widget_list;
 
@@ -2479,12 +2351,7 @@ static Widget *checkWidgetTable(Widget wid, ImageClassPart *imClass)
 } /* checkWidgetTable */
 
 
-#ifndef FUNCPROTO
-static void initFonts(imPart)
-ImagePart *imPart;
-#else /* FUNCPROTO */
 static void initFonts(ImagePart *imPart)
-#endif /* FUNCPROTO */
 {
   int i, j;
   XFontStruct *fh;
@@ -2516,15 +2383,8 @@ static void initFonts(ImagePart *imPart)
 
 
 
-#ifndef FUNCPROTO
-static void Initialize(request, new, args, num_args)
-Widget request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new, ArgList args,
                              Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   ImageWidget iwid   = (ImageWidget) new;
   ImageClassPart *ic = &imageClassRec.image_class;
@@ -2590,14 +2450,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void Realize(wid, valueMask, attrs)
-     Widget wid;
-     XtValueMask *valueMask;
-     XSetWindowAttributes *attrs;
-#else /* FUNCPROTO */
 static void Realize(Widget wid, XtValueMask *valueMask, XSetWindowAttributes *attrs)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
   int screen;
@@ -2623,15 +2476,7 @@ static void Realize(Widget wid, XtValueMask *valueMask, XSetWindowAttributes *at
 
 
 
-#ifndef FUNCPROTO
-static void WMColormapAction(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void WMColormapAction(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Boolean menubar, enter = 1;
   Widget shell, form;
@@ -2712,12 +2557,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void Kill(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Kill(Widget wid)
-#endif /* FUNCPROTO */
 {
   ImagePart *ip;
   int i;
@@ -2845,15 +2685,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void update_panning(core_w, core_h, im_w, im_h, xpan, ypan, magnif, update)
-Dimension core_h, core_w;
-int im_w, im_h, *xpan, *ypan;
-update_status update;
-float magnif;
-#else /* FUNCPROTO */
 static void update_panning(Dimension core_w, Dimension core_h, int im_w, int im_h, int *xpan, int *ypan, float magnif, update_status update)
-#endif /* FUNCPROTO */
 {
   int maxx, maxy;
 
@@ -2897,14 +2729,7 @@ static void update_panning(Dimension core_w, Dimension core_h, int im_w, int im_
 
 } /* update_panning() */
 
-#ifndef FUNCPROTO
-static void find_flow(xflow, yflow, core_w, core_h, im_w, im_h, xpan, ypan, magnif)
-Dimension core_h, core_w;
-int *xflow, *yflow, im_w, im_h, xpan, ypan;
-float magnif;
-#else /* FUNCPROTO */
 static void find_flow(int *xflow, int *yflow, Dimension core_w, Dimension core_h, int im_w, int im_h, int xpan, int ypan, float magnif)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Image.c: find_flow");
@@ -2931,15 +2756,7 @@ static void find_flow(int *xflow, int *yflow, Dimension core_w, Dimension core_h
 
 } /* find_flow() */
 
-#ifndef FUNCPROTO
-static void update_magnifs(core_w, core_h, update, ximg_w, ximg_h, im_w, im_h, oldMagnif, zoom)
-Dimension core_w, core_h, ximg_w, ximg_h;
-update_status update;
-int im_w, im_h;
-float *oldMagnif, *zoom;
-#else /* FUNCPROTO */
 static void update_magnifs(Dimension core_w, Dimension core_h, update_status update, Dimension ximg_w, Dimension ximg_h, int im_w, int im_h, float *oldMagnif, float *zoom)
-#endif /* FUNCPROTO */
 {
   float magnif;
 
@@ -2969,15 +2786,7 @@ static void update_magnifs(Dimension core_w, Dimension core_h, update_status upd
 
 } /* update_magnifs() */
 
-#ifndef FUNCPROTO
-static void make_trans_table(wid, xarr, yarr, core_w, core_h, im_w, im_h, xflow, yflow, xpan, ypan, magnif)
-Widget wid;
-Dimension core_w, core_h;
-int **xarr, **yarr, im_w, im_h, xflow, yflow, xpan, ypan;
-float magnif;
-#else /* FUNCPROTO */
 static void make_trans_table(Widget wid, int **xarr, int **yarr, Dimension core_w, Dimension core_h, int im_w, int im_h, int xflow, int yflow, int xpan, int ypan, float magnif)
-#endif /* FUNCPROTO */
 {
   int x, y, *xptr, *yptr;
 
@@ -3022,12 +2831,7 @@ static void make_trans_table(Widget wid, int **xarr, int **yarr, Dimension core_
 
 } /* make_trans_table() */
 
-#ifndef FUNCPROTO
-void ImageUpdateMinMax(wid)
-Widget wid;
-#else /* FUNCPROTO */
 void ImageUpdateMinMax(Widget wid)
-#endif /* FUNCPROTO */
 {
   ImageWidget iwid = (ImageWidget) wid;
   ImagePart *ip;
@@ -3059,12 +2863,7 @@ void ImageUpdateMinMax(Widget wid)
 
 } /* ImageUpdateMinMax() */
 
-#ifndef FUNCPROTO
-static void Resize(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Resize(Widget wid)
-#endif /* FUNCPROTO */
 {
   ImageWidget iwid = (ImageWidget) wid;
   ImagePart *ip;
@@ -3324,13 +3123,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int find_font(ip, fontn, fontw, fonth, fonta)
-ImagePart *ip;
-int *fontn, *fontw, *fonth, *fonta;
-#else /* FUNCPROTO */
 static int find_font(ImagePart *ip, int *fontn, int *fontw, int *fonth, int *fonta)
-#endif /* FUNCPROTO */
 {
   /* Search for a font narrow enough for the ascii numbers to fit inside
    * a pixel at the current zooming (zooming says how many screen-pixels one
@@ -3351,13 +3144,7 @@ static int find_font(ImagePart *ip, int *fontn, int *fontw, int *fonth, int *fon
 
 } /* find_font() */
 
-#ifndef FUNCPROTO
-static void find_screen_coord(wid, x, y, width, height, xs, ys, n_xs, n_ys)
-ImageWidget wid;
-int x, y, width, height, **xs, **ys, *n_xs, *n_ys;
-#else /* FUNCPROTO */
 static void find_screen_coord(ImageWidget wid, int x, int y, int width, int height, int **xs, int **ys, int *n_xs, int *n_ys)
-#endif /* FUNCPROTO */
 {
   int x1, x2, y1, y2;
   int xw, xh, cx, cy;
@@ -3417,15 +3204,7 @@ static void find_screen_coord(ImageWidget wid, int x, int y, int width, int heig
 
 } /* find_screen_coord() */
   
-#ifndef FUNCPROTO
-static void find_fg_bg(dpy, ip, x, y, foreg, backg)
-Display *dpy;
-ImagePart *ip;
-int x, y;
-unsigned long *foreg, *backg;
-#else /* FUNCPROTO */
 static void find_fg_bg(Display *dpy, ImagePart *ip, int x, int y, unsigned long *foreg, unsigned long *backg)
-#endif /* FUNCPROTO */
 {
   unsigned long fg = 0, bg = 0;
   int screen;
@@ -3493,13 +3272,7 @@ static void find_fg_bg(Display *dpy, ImagePart *ip, int x, int y, unsigned long 
 
 } /* find_fg_bg() */
 
-#ifndef FUNCPROTO
-static int PrintValues(wid, x, y, width, height)
-ImageWidget wid;
-int x, y, width, height;
-#else /* FUNCPROTO */
 static int PrintValues(ImageWidget wid, int x, int y, int width, int height)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
   char *val;
@@ -3561,12 +3334,7 @@ static int PrintValues(ImageWidget wid, int x, int y, int width, int height)
 
 
 
-#ifndef FUNCPROTO
-static void PrintUnknown(wid)
-ImageWidget wid;
-#else /* FUNCPROTO */
 static void PrintUnknown(ImageWidget wid)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
   int screen;
@@ -3630,14 +3398,7 @@ static void PrintUnknown(ImageWidget wid)
 
 
 
-#ifndef FUNCPROTO
-static int IfExpose(display, event, arg)
-Display *display;
-XEvent *event;
-EventRectangle *arg;
-#else /* FUNCPROTO */
 static int IfExpose(Display *display, XEvent *event, EventRectangle *arg)
-#endif /* FUNCPROTO */
 {
   /* Return in 'arg' the rectangle which includes those defined by 'event'
      and 'arg'. */
@@ -3679,14 +3440,7 @@ static int IfExpose(Display *display, XEvent *event, EventRectangle *arg)
 }  
 
 
-#ifndef FUNCPROTO
-static void Redisplay(wid, event, region)
-Widget wid;
-XEvent *event;
-Region region;
-#else /* FUNCPROTO */
 static void Redisplay(Widget wid, XEvent *event, Region region)
-#endif /* FUNCPROTO */
 {
   XEvent hevent;
   EventRectangle rect;
@@ -3728,12 +3482,8 @@ static void Redisplay(Widget wid, XEvent *event, Region region)
    * Return in 'rect' the rectangle which includes those defined by 'event'
    * and 'rect'. */
 
-# ifndef FUNCPROTO
-  while (XCheckIfEvent(dpy, &hevent, IfExpose, (XPointer) &rect));
-# else /* FUNCPROTO */
   while (XCheckIfEvent(dpy, &hevent, (Bool (*)(Display*, XEvent*, XPointer))
 		       IfExpose, (XPointer) &rect));
-# endif /* FUNCPROTO */
 
   x = rect.x;
   y = rect.y;
@@ -3804,16 +3554,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void check_line_length_arg(ip, args, num_args, do_redisplay, update)
-ImagePart *ip;
-ArgList args;
-Cardinal *num_args;
-Boolean *do_redisplay;
-update_status *update;
-#else /* FUNCPROTO */
 static void check_line_length_arg(ImagePart *ip, ArgList args, Cardinal *num_args, Boolean *do_redisplay, update_status *update)
-#endif /* FUNCPROTO */
 {
   int i, w = 0, l = 0;
 
@@ -3843,14 +3584,7 @@ static void check_line_length_arg(ImagePart *ip, ArgList args, Cardinal *num_arg
 
 } /* check_line_length_arg() */
 
-#ifndef FUNCPROTO
-static Boolean SetValues(current, request, new, args, num_args)
-Widget current, request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static Boolean SetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   ImageWidget in = (ImageWidget) new;
   int screen;
@@ -4045,13 +3779,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static XtGeometryResult Geometry(wid, request, answer)
-Widget wid;
-XtWidgetGeometry *request, *answer;
-#else /* FUNCPROTO */
 static XtGeometryResult Geometry(Widget wid, XtWidgetGeometry *request, XtWidgetGeometry *answer)
-#endif /* FUNCPROTO */
 {
   XtGeometryResult result = XtGeometryYes;
   ImageWidget imWid       = (ImageWidget) wid;
@@ -4165,13 +3893,7 @@ static XtGeometryResult Geometry(Widget wid, XtWidgetGeometry *request, XtWidget
 
 
 
-#ifndef FUNCPROTO
-int ImageScreenXtoPos(wid, x)
-ImageWidget wid;
-int x;
-#else /* FUNCPROTO */
 int ImageScreenXtoPos(ImageWidget wid, int x)
-#endif /* FUNCPROTO */
 {
   if (x < 0 || x >= wid->image.internal_width) return(-1);
   if (wid->image.resize)
@@ -4180,13 +3902,7 @@ int ImageScreenXtoPos(ImageWidget wid, int x)
     return(x + wid->image.xstart);
 }
 
-#ifndef FUNCPROTO
-int ImageScreenYtoPos(wid, y)
-ImageWidget wid;
-int y;
-#else /* FUNCPROTO */
 int ImageScreenYtoPos(ImageWidget wid, int y)
-#endif /* FUNCPROTO */
 {
   if (y<0 || y >= wid->image.internal_height) return(-1);
   if (wid->image.resize)
@@ -4195,13 +3911,7 @@ int ImageScreenYtoPos(ImageWidget wid, int y)
     return(y + wid->image.ystart);
 }
 
-#ifndef FUNCPROTO
-int ImageScreenToWidth(wid, width)
-ImageWidget wid;
-int width;
-#else /* FUNCPROTO */
 int ImageScreenToWidth(ImageWidget wid, int width)
-#endif /* FUNCPROTO */
 {
   int i_w;
 
@@ -4230,13 +3940,7 @@ int ImageScreenToWidth(ImageWidget wid, int width)
   }
 }
 
-#ifndef FUNCPROTO
-int ImageScreenToHeight(wid, height)
-ImageWidget wid;
-int height;
-#else /* FUNCPROTO */
 int ImageScreenToHeight(ImageWidget wid, int height)
-#endif /* FUNCPROTO */
 {
   int i_h;
 
@@ -4265,13 +3969,7 @@ int ImageScreenToHeight(ImageWidget wid, int height)
   }
 }
 
-#ifndef FUNCPROTO
-ImageData ImageScreenXYtoAdr(wid, x, y, options)
-ImageWidget wid;
-int x, y, options;
-#else /* FUNCPROTO */
 ImageData ImageScreenXYtoAdr(ImageWidget wid, int x, int y, int options)
-#endif /* FUNCPROTO */
 {
   int xa, ya;
   ImageData data;
@@ -4299,13 +3997,7 @@ ImageData ImageScreenXYtoAdr(ImageWidget wid, int x, int y, int options)
 	+ xa * (wid->image.pixtype)->pixelsize));
 }
 
-#ifndef FUNCPROTO
-ImageData ImagePosXYtoAdr(wid, x, y, options)
-ImageWidget wid;
-int x, y, options;
-#else /* FUNCPROTO */
 ImageData ImagePosXYtoAdr(ImageWidget wid, int x, int y, int options)
-#endif /* FUNCPROTO */
 {
   ImageData data;
   if (wid->image.pixtype == NULL) return(NULL);
@@ -4327,13 +4019,7 @@ ImageData ImagePosXYtoAdr(ImageWidget wid, int x, int y, int options)
 	+ x * (wid->image.pixtype)->pixelsize));
 }
 
-#ifndef FUNCPROTO
-int ImagePosXtoScreen(wid, x, right)
-ImageWidget wid;
-int x, right;
-#else /* FUNCPROTO */
 int ImagePosXtoScreen(ImageWidget wid, int x, int right)
-#endif /* FUNCPROTO */
 {
   int xx, *xarr, width;
   x -=  wid->image.xstart;
@@ -4355,13 +4041,7 @@ int ImagePosXtoScreen(ImageWidget wid, int x, int right)
   return(xx);
 }
 
-#ifndef FUNCPROTO
-int ImagePosYtoScreen(wid, y, bottom)
-ImageWidget wid;
-int y, bottom;
-#else /* FUNCPROTO */
 int ImagePosYtoScreen(ImageWidget wid, int y, int bottom)
-#endif /* FUNCPROTO */
 {
   int yy, *yarr, height;
 
@@ -4384,13 +4064,7 @@ int ImagePosYtoScreen(ImageWidget wid, int y, int bottom)
   return(yy);
 }
 
-#ifndef FUNCPROTO
-int ImageWidthToScreen(wid, width, maximum)
-ImageWidget wid;
-int width, maximum;
-#else /* FUNCPROTO */
 int ImageWidthToScreen(ImageWidget wid, int width, int maximum)
-#endif /* FUNCPROTO */
 {
   int x;
 
@@ -4401,13 +4075,7 @@ int ImageWidthToScreen(ImageWidget wid, int width, int maximum)
 	 ImagePosXtoScreen(wid, x, 0));
 }
 
-#ifndef FUNCPROTO
-int ImageHeightToScreen(wid, height, maximum)
-ImageWidget wid;
-int height, maximum;
-#else /* FUNCPROTO */
 int ImageHeightToScreen(ImageWidget wid, int height, int maximum)
-#endif /* FUNCPROTO */
 {
   int y;
 
@@ -4435,15 +4103,7 @@ Author:		Otto Milvang
 ________________________________________________________________
 
 */
-#ifndef FUNCPROTO
-static void Button(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Button(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageWidget iwid = (ImageWidget) wid;
   ImagePart *ip;  
@@ -4542,15 +4202,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void Nop(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Nop(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Image.c: Nop");
   LEAVE_FUNCTION_DEBUG("Image.c: Nop");
@@ -4577,16 +4229,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void ImageTranslateZoomPanArgs(wid, zoomarg, panxarg, panyarg, mousex, mousey,
-			  zoom, xpan, ypan)
-ImageWidget wid;
-char *zoomarg, *panxarg, *panyarg;
-int  mousex, mousey,  *xpan, *ypan;
-float *zoom;
-#else /* FUNCPROTO */
 void ImageTranslateZoomPanArgs(ImageWidget wid, char *zoomarg, char *panxarg, char *panyarg, int mousex, int mousey, float *zoom, int *xpan, int *ypan)
-#endif /* FUNCPROTO */
 {
   char *ptr, *val;
   int ww, hh;
@@ -4648,15 +4291,7 @@ void ImageTranslateZoomPanArgs(ImageWidget wid, char *zoomarg, char *panxarg, ch
 }
 
 
-#ifndef FUNCPROTO
-static void ZoomPan(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void ZoomPan(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   float zoom;
   int  xpan, ypan;
@@ -4681,14 +4316,7 @@ static void ZoomPan(Widget wid, XEvent *event, String *params, Cardinal *num_par
 }
 
 
-#ifndef FUNCPROTO
-static int SetZoomParam(wid, zoom, x, y)
-ImageWidget wid;
-double zoom;
-int x, y;
-#else /* FUNCPROTO */
 static int SetZoomParam(ImageWidget wid, double zoom, int x, int y)
-#endif /* FUNCPROTO */
 {
   int ww, wh, iw, ih, minx=0, miny=0, maxx, maxy;
   double minz, maxz;
@@ -4752,14 +4380,7 @@ static int SetZoomParam(ImageWidget wid, double zoom, int x, int y)
   return(1);
 }
 
-#ifndef FUNCPROTO
-void ImageSetZoom(wid, zoom, x, y)
-ImageWidget wid;
-float zoom;
-int x, y;
-#else /* FUNCPROTO */
 void ImageSetZoom (ImageWidget wid, float zoom, int x, int y)
-#endif /* FUNCPROTO */
 {
   ImageWidget wid2;
   ImageClassPart *ic = &imageClassRec.image_class;
@@ -4794,15 +4415,7 @@ void ImageSetZoom (ImageWidget wid, float zoom, int x, int y)
   LEAVE_FUNCTION_DEBUG("Image.c: ImageSetZoom");
 }
 
-#ifndef FUNCPROTO
-void ImageGetZoom(wid, zoom, xpan, ypan, factor)
-ImageWidget wid;
-float *zoom;
-int *xpan, *ypan;
-double *factor;
-#else /* FUNCPROTO */
 void ImageGetZoom(ImageWidget wid, float *zoom, int *xpan, int *ypan, double *factor)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Image.c: ImageGetZoom");
 
@@ -4834,15 +4447,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void ImageKill(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 void ImageKill( Widget wid, XEvent *event, String *params, Cardinal *num_params )
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Image.c: ImageKill");
 
@@ -4869,13 +4474,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void ImageRedisplay(wid, update)
-ImageWidget wid;
-update_status update;
-#else /* FUNCPROTO */
 void ImageRedisplay(ImageWidget wid, update_status update)
-#endif /* FUNCPROTO */
 {
   WidgetClass wc;
   CoreClassPart *ic;
@@ -4913,13 +4512,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void ImageRedisplayScreen(wid, x, y, width, height)
-ImageWidget wid;
-int x, y, width, height;
-#else /* FUNCPROTO */
 void ImageRedisplayScreen(ImageWidget wid, int x, int y, int width, int height)
-#endif /* FUNCPROTO */
 {
   WidgetClass wc;
   Region rect;
@@ -4973,13 +4566,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int ImageRedisplayArea(wid, x, y, width, height)
-ImageWidget wid;
-int x, y, width, height;
-#else /* FUNCPROTO */
 int ImageRedisplayArea(ImageWidget wid, int x, int y, int width, int height)
-#endif /* FUNCPROTO */
 {
   int x1, x2, y1, y2, w, h;
 
@@ -5043,12 +4630,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-void ImageCopyImagePart(widto, widfrom)
-ImageWidget widto, widfrom;
-#else /* FUNCPROTO */
 void ImageCopyImagePart(ImageWidget widto, ImageWidget widfrom)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Image.c: ImageCopyImagePart");
 
@@ -5057,12 +4639,7 @@ void ImageCopyImagePart(ImageWidget widto, ImageWidget widfrom)
   LEAVE_FUNCTION_DEBUG("Image.c: ImageCopyImagePart");
 }
 
-#ifndef FUNCPROTO
-void ImageCopyResources(widto, widfrom)
-ImageWidget widto, widfrom;
-#else /* FUNCPROTO */
 void ImageCopyResources(ImageWidget widto, ImageWidget widfrom)
-#endif /* FUNCPROTO */
 {
   ImagePart tp, fp;
 
@@ -5112,14 +4689,7 @@ void ImageCopyResources(ImageWidget widto, ImageWidget widfrom)
 
 } /* ImageCopyResources() */
 
-#ifndef FUNCPROTO
-void ImageGetResources(wid, args, num_args)
-ImageWidget wid;
-ArgList *args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 void ImageGetResources(ImageWidget wid, ArgList *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   XtResourceList resource_list;
   int i;
@@ -5140,14 +4710,7 @@ void ImageGetResources(ImageWidget wid, ArgList *args, Cardinal *num_args)
 
 } /* ImageGetResources() */
 
-#ifndef FUNCPROTO
-void ImageGetImageResources(wid, args, num_args)
-ImageWidget wid;
-ArgList *args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 void ImageGetImageResources(ImageWidget wid, ArgList *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   ImagePart ip;
   int i;
@@ -5266,13 +4829,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageSetZoomAll(wid, on)
-Widget wid;
-int on;
-#else /* FUNCPROTO */
 int ImageSetZoomAll(Widget wid, int on)
-#endif /* FUNCPROTO */
 {
   ImageClassPart *ic = &imageClassRec.image_class;
 
@@ -5303,12 +4860,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int ImageGetZoomAll(wid)
-Widget wid;
-#else /* FUNCPROTO */
 int ImageGetZoomAll(Widget wid)
-#endif /* FUNCPROTO */
 {
   ImageClassPart *ic = &imageClassRec.image_class;
 

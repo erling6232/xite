@@ -81,13 +81,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int regionArea(reg, loop, area)
-region *reg; 
-int loop, *area;
-#else /* FUNCPROTO */
 int regionArea(region *reg, int loop, int *area)
-#endif /* FUNCPROTO */
 {
   int y, ymax, ar=0;
   yline *yl;

@@ -38,22 +38,17 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/readarg.h>
 #include <xite/histo.h>
 #include <xite/message.h>
-#include XITE_TIME_H
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
 
-#ifndef FUNCPROTO
-static void print_all(outfile, h, max, header, ps)
-FILE *outfile;
-double h[256];
-double max;
-char *header;
-int ps;
-#else /* FUNCPROTO */
 static void print_all(FILE *outfile, double *h, double max, char *header, int ps)
-#endif /* FUNCPROTO */
 {
   int i;
   time_t now;
@@ -318,14 +313,7 @@ static void print_all(FILE *outfile, double *h, double max, char *header, int ps
   fprintf(outfile, "%%%%EOF\n");
 }
 
-#ifndef FUNCPROTO
-static int mkHistoMask(band, mask, val, histo)
-  IBAND band, mask;
-  int val;
-  histogram histo;
-#else /* FUNCPROTO */
 static int mkHistoMask(IBAND band, IBAND mask, int val, int *histo)
-#endif /* FUNCPROTO */
 {
   int x,y,xsize,ysize, ant;
 
@@ -395,13 +383,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img, mimg;
   int h[256], i, ip, ant, aauto, cum, ps = 0;

@@ -39,9 +39,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <xite/noise.h>
 #include <xite/message.h>
-#include XITE_RANDOM_H
-#include XITE_STDIO_H
-#include XITE_TIME_H
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
 
 
 
@@ -79,12 +85,7 @@ ________________________________________________________________
  
 */
 
-#ifndef FUNCPROTO
-int addPoisson(input,output)
-IBAND input,output;
-#else /* FUNCPROTO */
 int addPoisson(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   int n;
@@ -163,13 +164,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-     int argc;
-     char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1,i2;
   int xsize,ysize,nbands,bn,pt;

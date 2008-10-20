@@ -102,15 +102,7 @@ ________________________________________________________________
                 regionXmean
 ----------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-int regionXmean(band, reg, loop, xmean)
-IBAND band;
-region *reg;
-int loop;
-double *xmean; 
-#else /* FUNCPROTO */
 int regionXmean(IBAND band, region *reg, int loop, double *xmean)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y, xmin, xmax, ymin, ymax, ylxsize;
   double xsum=0.0, sum=0.0;
@@ -165,15 +157,7 @@ int regionXmean(IBAND band, region *reg, int loop, double *xmean)
 ----------------------------------------------------------------
 */
 
-#ifndef FUNCPROTO
-int regionYmean(band, reg, loop, ymean)
-IBAND band;
-region *reg;
-int loop;
-double *ymean; 
-#else /* FUNCPROTO */
 int regionYmean(IBAND band, region *reg, int loop, double *ymean)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y, xmin, xmax, ymin, ymax, ylxsize;
   double ysum=0.0, sum=0.0;
@@ -228,15 +212,7 @@ int regionYmean(IBAND band, region *reg, int loop, double *ymean)
                 regionMean
 ----------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-int regionMean(band, reg, loop, xmean, ymean)
-IBAND band;
-region *reg;
-int loop;
-double *xmean, *ymean; 
-#else /* FUNCPROTO */
 int regionMean(IBAND band, region *reg, int loop, double *xmean, double *ymean)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y, xmin, xmax, ymin, ymax, ylxsize;
   double xsum=0.0, ysum=0.0, sum=0.0;

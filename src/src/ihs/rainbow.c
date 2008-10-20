@@ -80,8 +80,16 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/utils.h>
 #include <math.h>
 #include <xite/readarg.h>
@@ -92,13 +100,7 @@ ________________________________________________________________
 #define M_PI 3.14159265358979323846
 #endif
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int i, len;
   double fi, fh, fs, r,g,b, ib, ie, il, hb, he, hl, sb, se, sl;

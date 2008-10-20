@@ -83,10 +83,14 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/message.h>
 #include <xite/region.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 typedef struct
 {
@@ -102,13 +106,7 @@ typedef struct
 
 
 
-#ifndef FUNCPROTO
-static int ok(reg, y, x)
-region *reg;
-int y, x;
-#else /* FUNCPROTO */
 static int ok(region *reg, int y, int x)
-#endif /* FUNCPROTO */
 {
   yline *yl;
 
@@ -122,13 +120,7 @@ static int ok(region *reg, int y, int x)
   return(1);
 }
 
-#ifndef FUNCPROTO
-static int segment(info, x, y, prev_xb, prev_xe, down)			
-searchtype *info;
-int x, y, prev_xb, prev_xe, down;					
-#else /* FUNCPROTO */
 static int segment(searchtype *info, int x, int y, int prev_xb, int prev_xe, int down)
-#endif /* FUNCPROTO */
 {  							
     							
   int lx, x1, x2, r, y2, la, lb, xs, xe;
@@ -182,15 +174,7 @@ static int segment(searchtype *info, int x, int y, int prev_xb, int prev_xe, int
   return(x2-x);					
 }						       
 
-#ifndef FUNCPROTO
-region * regionSearch(data, x, y, xmin, xmax, ymin, ymax, nc,
-    relfunc, reldata)
-ImageDataReg data, reldata;
-int x, y, xmin, xmax, ymin, ymax, nc;
-intfunc relfunc;
-#else /* FUNCPROTO */
 region * regionSearch(ImageDataReg data, int x, int y, int xmin, int xmax, int ymin, int ymax, int nc, intfunc relfunc, ImageDataReg reldata)
-#endif /* FUNCPROTO */
 {
   searchtype info;
   region *reg;

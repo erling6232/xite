@@ -37,7 +37,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <xite/region.h>
 #include <xite/message.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #define NEW(type) (type*)malloc(sizeof(type))
 #ifndef MAX
@@ -97,13 +99,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-region* regionCopy(reg, loop)
-region* reg;
-int loop;
-#else /* FUNCPROTO */
 region* regionCopy(region *reg, int loop)
-#endif /* FUNCPROTO */
 {
   int y;
   region *r, *r1;
@@ -242,13 +238,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-region* regionUnion(reg1, reg2, nc)
-region *reg1, *reg2;
-int nc;
-#else /* FUNCPROTO */
 region* regionUnion(region *reg1, region *reg2, int nc)
-#endif /* FUNCPROTO */
 {
   int overlap, adjacent, y, y1, y2;
   yline *yl, *yl1, *yl2;
@@ -367,12 +357,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int regionOverlap(r1, r2)
-region *r1, *r2;
-#else /* FUNCPROTO */
 int regionOverlap(region *r1, region *r2)
-#endif /* FUNCPROTO */
 {
   int y, ymin, ymax;
   yline *yl1, *yl2;
@@ -459,13 +444,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int regionNeighbor(reg1, reg2, overlap, adjacent, nc)
-region *reg1, *reg2;
-int *overlap, *adjacent, nc;
-#else /* FUNCPROTO */
 int regionNeighbor(region *reg1, region *reg2, int *overlap, int *adjacent, int nc)
-#endif /* FUNCPROTO */
 {
   int y, ymin, ymax, xmin, xmax, ncoffset;
   yline *yl1, *yl2;

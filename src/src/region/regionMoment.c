@@ -145,15 +145,7 @@ ________________________________________________________________
              regionMoment
 -------------------------------------------*/
 
-#ifndef FUNCPROTO
-int regionMoment(band, reg, p, q, loop, moment)
-IBAND band;
-region *reg;
-int p, q, loop;
-double* moment;
-#else /* FUNCPROTO */
 int regionMoment(IBAND band, region *reg, int p, int q, int loop, double *moment)
-#endif /* FUNCPROTO */
 {
   int x, y, xmin, ymin, xmax, ymax, xsize, ysize;
   yline *yl;
@@ -213,15 +205,7 @@ int regionMoment(IBAND band, region *reg, int p, int q, int loop, double *moment
              regionCMoment
 -------------------------------------------*/
 
-#ifndef FUNCPROTO
-int regionCMoment(band, reg, p, q, loop, moment)
-IBAND band;
-region *reg;
-int p, q, loop;
-double* moment;
-#else /* FUNCPROTO */
 int regionCMoment(IBAND band, region *reg, int p, int q, int loop, double *moment)
-#endif /* FUNCPROTO */
 {
   double xmean, ymean;
   
@@ -234,15 +218,7 @@ int regionCMoment(IBAND band, region *reg, int p, int q, int loop, double *momen
              regionPMoment
 -------------------------------------------*/
 
-#ifndef FUNCPROTO
-int regionPMoment(band, reg, p, q, xc, yc, loop, moment)
-IBAND band;
-region *reg;
-int p, q, loop;
-double xc, yc, *moment;
-#else /* FUNCPROTO */
 int regionPMoment(IBAND band, region *reg, int p, int q, double xc, double yc, int loop, double *moment)
-#endif /* FUNCPROTO */
 {
   int x, y, xmin, ymin, xmax, ymax, xsize, ysize;
   yline *yl;

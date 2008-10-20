@@ -39,7 +39,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/region.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 
@@ -91,12 +93,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-region* regionConvexHull(reg)
-region* reg;
-#else /* FUNCPROTO */
 region* regionConvexHull(region *reg)
-#endif /* FUNCPROTO */
 {
   int *X, *Y, i, imax, y, ymin, ymax, ysize, xstart, xstop;
   double *A, a, inc, x;
@@ -291,13 +288,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   region **regs;
   region *reg, *newreg;

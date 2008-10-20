@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/region.h>
 #include <xite/readarg.h>
@@ -87,14 +89,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int regionVolume(band, reg, loop, volume)
-IBAND band;
-region *reg;
-int loop, *volume;
-#else /* FUNCPROTO */
 int regionVolume(IBAND band, region *reg, int loop, int *volume)
-#endif /* FUNCPROTO */
 {
   int x, y, xmax, ymax, vol=0;
   yline *yl;

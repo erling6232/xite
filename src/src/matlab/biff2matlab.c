@@ -40,7 +40,13 @@ static char *Id = "$Id$, Blab, UiO";
 # define mxMAXNAM 20
 #endif
 #include <xite/message.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 static char *biff2matlab_error_s[] = {
 "OK\n",

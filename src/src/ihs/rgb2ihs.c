@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/ihs.h>
 #include <xite/message.h>
 
@@ -67,12 +69,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int rgb2ihs_img(r, g, b, i, h, s)
-IBAND r, g, b, i, h, s; 
-#else /* FUNCPROTO */
 int rgb2ihs_img(IBAND r, IBAND g, IBAND b, IBAND i, IBAND h, IBAND s)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, x, y;
   if (Ipixtyp(r) != Iu_byte_typ ||
@@ -120,13 +117,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int stat;

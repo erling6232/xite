@@ -651,7 +651,9 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <ctype.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
@@ -689,17 +691,8 @@ typedef struct
   int xmin, xmax, ymin, ymax, mode;
 } filltype;
 
-#ifdef FUNCPROTO
-
 static int fillsegment ( filltype *info, int x, int y, int xb, int xe, int down );
 static int floodsegment ( filltype *info, int x, int y, int xb, int xe, int down );
-
-#else
-
-static int fillsegment (/* filltype *info, int x, int y, int xb, int xe, int down */);
-static int floodsegment (/* filltype *info, int x, int y, int xb, int xe, int down */);
-
-#endif
 
 
 
@@ -711,8 +704,6 @@ ________________________________________________________________
 ________________________________________________________________
 
 */
-
-#ifdef FUNCPROTO
 
 static void ClassPartInitialize ( WidgetClass wc );
 static void ImageOverlayDraw ( Widget wid, XEvent *event, String *params, Cardinal *num_params );
@@ -729,26 +720,6 @@ static void ROI_callback ( ImageOverlayWidget iw, XEvent *event, int value );
 static void Redisplay ( Widget wid, XEvent *event, Region region );
 static void Resize ( Widget wid );
 static Boolean SetValues ( Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args );
-
-#else /* FUNCPROTO */
-
-static void ClassPartInitialize (/* WidgetClass wc */);
-static void ImageOverlayDraw (/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-static void ImageRoiDrag (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void ImageRoiDraw (/* ImageOverlayWidget iw, int setmode */);
-static void ImageRoiExtend (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void ImageRoiMove (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void ImageRoiProc (/* Widget iw, XEvent *event, String *params, Cardinal *num_params */);
-static void ImageRoiStartDrag (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void ImageRoiStartMove (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void ImageRoiStop (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void Initialize (/* Widget request, Widget new, ArgList args, Cardinal *num_args */);
-static void ROI_callback (/* ImageOverlayWidget iw, XEvent *event, int value */);
-static void Redisplay (/* Widget wid, XEvent *event, Region region */);
-static void Resize (/* Widget wid */);
-static Boolean SetValues (/* Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args */);
-
-#endif /* FUNCPROTO */
 
 static XtActionsRec actions[] =
 {
@@ -917,12 +888,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int *deftab(n)
-int n;
-#else /* FUNCPROTO */
 static int *deftab(int n)
-#endif /* FUNCPROTO */
 {
   int *tab = NULL;
 
@@ -934,12 +900,7 @@ static int *deftab(int n)
   return(tab);
 }
 
-#ifndef FUNCPROTO
-static void check_color_resources(cw, nw)
-ImageOverlayWidget cw, nw;
-#else /* FUNCPROTO */
 static void check_color_resources(ImageOverlayWidget cw, ImageOverlayWidget nw)
-#endif /* FUNCPROTO */
 {
   int color_count;
   ImageOverlayPart *niop;
@@ -975,14 +936,7 @@ static void check_color_resources(ImageOverlayWidget cw, ImageOverlayWidget nw)
 
 } /* check_color_resources() */
 
-#ifndef FUNCPROTO
-static void set_values_overlay(ic, ir, in, do_redisplay, update)
-ImageOverlayWidget ic, ir, in;
-Boolean *do_redisplay;
-update_status *update;
-#else /* FUNCPROTO */
 static void set_values_overlay(ImageOverlayWidget ic, ImageOverlayWidget ir, ImageOverlayWidget in, Boolean *do_redisplay, update_status *update)
-#endif /* FUNCPROTO */
 {
   ImageOverlayPart *iopc, *iopn;
   ImagePart *ipn;
@@ -1053,14 +1007,7 @@ static void set_values_overlay(ImageOverlayWidget ic, ImageOverlayWidget ir, Ima
 
 } /* set_values_overlay() */
 
-#ifndef FUNCPROTO
-static void set_values_roi(ic, in, do_redisplay, update)
-ImageOverlayWidget ic, in;
-Boolean *do_redisplay;
-update_status *update;
-#else /* FUNCPROTO */
 static void set_values_roi(ImageOverlayWidget ic, ImageOverlayWidget in, Boolean *do_redisplay, update_status *update)
-#endif /* FUNCPROTO */
 {
   ImageOverlayPart *iopc, *iopn;
 
@@ -1099,14 +1046,7 @@ static void set_values_roi(ImageOverlayWidget ic, ImageOverlayWidget in, Boolean
 
 } /* set_values_roi() */
 
-#ifndef FUNCPROTO
-static Boolean SetValues(current, request, new, args, num_args)
-Widget current, request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static Boolean SetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   ImageOverlayWidget ic = (ImageOverlayWidget) current;
   ImageOverlayWidget ir = (ImageOverlayWidget) request;
@@ -1152,12 +1092,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void ClassPartInitialize(wc)
-WidgetClass wc;
-#else /* FUNCPROTO */
 static void ClassPartInitialize(WidgetClass wc)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("ImageOverlay.c: ClassPartInitialize");
@@ -1165,14 +1100,7 @@ static void ClassPartInitialize(WidgetClass wc)
   LEAVE_FUNCTION_DEBUG("ImageOverlay.c: ClassPartInitialize");
 }
 
-#ifndef FUNCPROTO
-static void Initialize(request, new, args, num_args)
-Widget request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   /* This method is downward chained (starting from Core). */
 
@@ -1260,14 +1188,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void Redisplay(wid, event, region)
-Widget wid;
-XEvent *event;
-Region region;
-#else /* FUNCPROTO */
 static void Redisplay(Widget wid, XEvent *event, Region region)
-#endif /* FUNCPROTO */
 {
   /* This method (expose) is self-contained, but calls superclass
    * method. */
@@ -1306,13 +1227,7 @@ static void Redisplay(Widget wid, XEvent *event, Region region)
   LEAVE_FUNCTION_DEBUG("ImageOverlay.c: Redisplay");
 }  
 
-#ifndef FUNCPROTO
-void ImageOverlayRedisplay(wid, update)
-Widget wid;
-update_status update;
-#else /* FUNCPROTO */
 void ImageOverlayRedisplay(Widget wid, update_status update)
-#endif /* FUNCPROTO */
 {
   ImageOverlayWidget iowid = (ImageOverlayWidget) wid;
 
@@ -1324,24 +1239,14 @@ void ImageOverlayRedisplay(Widget wid, update_status update)
   LEAVE_FUNCTION_DEBUG("ImageOverlay.c: ImageOverlayRedisplay");
 }
 
-#ifndef FUNCPROTO
-void ImageOverlayCopyImagePart(widto, widfrom)
-ImageOverlayWidget widto, widfrom;
-#else /* FUNCPROTO */
 void ImageOverlayCopyImagePart(ImageOverlayWidget widto, ImageOverlayWidget widfrom)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ImageOverlay.c: ImageOverlayCopyImagePart");
   widto->image = widfrom->image;
   LEAVE_FUNCTION_DEBUG("ImageOverlay.c: ImageOverlayCopyImagePart");
 }
 
-#ifndef FUNCPROTO
-void ImageOverlayCopyResources(widto, widfrom)
-ImageOverlayWidget widto, widfrom;
-#else /* FUNCPROTO */
 void ImageOverlayCopyResources(ImageOverlayWidget widto, ImageOverlayWidget widfrom)
-#endif /* FUNCPROTO */
 {
   ImageOverlayPart tp, fp;
 
@@ -1375,14 +1280,7 @@ void ImageOverlayCopyResources(ImageOverlayWidget widto, ImageOverlayWidget widf
 
 } /* ImageOverlayCopyResources() */
 
-#ifndef FUNCPROTO
-void ImageOverlayGetResources(wid, args, num_args)
-ImageOverlayWidget wid;
-ArgList *args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 void ImageOverlayGetResources(ImageOverlayWidget wid, ArgList *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   XtResourceList resource_list;
   int i;
@@ -1403,14 +1301,7 @@ void ImageOverlayGetResources(ImageOverlayWidget wid, ArgList *args, Cardinal *n
 
 } /* ImageOverlayGetResources() */
 
-#ifndef FUNCPROTO
-void ImageOverlayGetImageOverlayResources(wid, args, num_args)
-ImageOverlayWidget wid;
-ArgList *args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 void ImageOverlayGetImageOverlayResources(ImageOverlayWidget wid, ArgList *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   ImageOverlayPart ip;
   int i;
@@ -1473,12 +1364,7 @@ void ImageOverlayGetImageOverlayResources(ImageOverlayWidget wid, ArgList *args,
 
 } /* ImageOverlayGetImageOverlayResources() */
 
-#ifndef FUNCPROTO
-void ImageOverlayCopyImageOverlayPart(widto, widfrom)
-ImageOverlayWidget widto, widfrom;
-#else /* FUNCPROTO */
 void ImageOverlayCopyImageOverlayPart(ImageOverlayWidget widto, ImageOverlayWidget widfrom)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ImageOverlay.c: ImageOverlayCopyImageOverlayPart");
   widto->image_overlay = widfrom->image_overlay;
@@ -1509,12 +1395,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void Resize(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Resize(Widget wid)
-#endif /* FUNCPROTO */
 {
   /* This method (resize) is self-contained, but calls superclass
    * method. */
@@ -1577,13 +1458,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-ImageData ImageOverlayScreenXYtoAdr(wid, x, y, option)
-ImageOverlayWidget wid;
-int x, y, option;
-#else /* FUNCPROTO */
 ImageData ImageOverlayScreenXYtoAdr(ImageOverlayWidget wid, int x, int y, int option)
-#endif /* FUNCPROTO */
 {
   int xa, ya;
   ImageData data;
@@ -1638,13 +1513,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-ImageData ImageOverlayPosXYtoAdr(wid, x, y, option)
-ImageOverlayWidget wid;
-int x, y, option;
-#else /* FUNCPROTO */
 ImageData ImageOverlayPosXYtoAdr(ImageOverlayWidget wid, int x, int y, int option)
-#endif /* FUNCPROTO */
 {
   ImageData data;
   data = (ImageData) wid->image_overlay.data;
@@ -1681,13 +1550,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayDrawOrigo(wid, origo, x, y)
-ImageOverlayWidget wid;
-int origo, x, y;
-#else /* FUNCPROTO */
 int ImageOverlayDrawOrigo(ImageOverlayWidget wid, int origo, int x, int y)
-#endif /* FUNCPROTO */
 {
   int old;
   ImageOverlayPart *io = &wid->image_overlay;
@@ -1743,14 +1606,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayDrawPoint(wid, x, y, size, value, update)
-ImageOverlayWidget wid;
-int x, y, size, value;
-update_status update;
-#else /* FUNCPROTO */
 int ImageOverlayDrawPoint(ImageOverlayWidget wid, int x, int y, int size, int value, update_status update)
-#endif /* FUNCPROTO */
 {
   ImageData pix, data;
   int u1, i, xmin, xmax, ymin, ymax, xs, ys, ll, protect;
@@ -1825,14 +1681,7 @@ ________________________________________________________________
 
 #define iabs(a) ((a) < 0 ? -(a) : (a))
 
-#ifndef FUNCPROTO
-int ImageOverlayDrawLine(wid, x1, y1, x2, y2, value, update)
-ImageOverlayWidget wid;
-int x1, y1, x2, y2, value;
-update_status update;
-#else /* FUNCPROTO */
 int ImageOverlayDrawLine(ImageOverlayWidget wid, int x1, int y1, int x2, int y2, int value, update_status update)
-#endif /* FUNCPROTO */
 {
   double s1, f;
   int x, y, xl, yl, cl, w, xs, ys, ll, xmin, ymin, lstep, step;
@@ -1974,14 +1823,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayDrawBox(wid, x1, y1, x2, y2, value, update)
-ImageOverlayWidget wid;
-int x1, y1, x2, y2, value;
-update_status update;
-#else /* FUNCPROTO */
 int ImageOverlayDrawBox(ImageOverlayWidget wid, int x1, int y1, int x2, int y2, int value, update_status update)
-#endif /* FUNCPROTO */
 {
   ImageData data, pix;
   int xp, yp, xs, ys, ll, xmin, xmax, ymin, ymax, protect;
@@ -2065,14 +1907,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayDrawRectangle(wid, x1, y1, x2, y2, value, update)
-ImageOverlayWidget wid;
-int x1, y1, x2, y2, value;
-update_status update;
-#else /* FUNCPROTO */
 int ImageOverlayDrawRectangle(ImageOverlayWidget wid, int x1, int y1, int x2, int y2, int value, update_status update)
-#endif /* FUNCPROTO */
 {
   ImageData data;
   int xs, ys, ll, xmin, xmax, ymin, ymax, protect;
@@ -2125,14 +1960,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayFill(wid, x, y, search, fill, nc, mode, update)
-ImageOverlayWidget wid;
-int x, y, search, fill, nc, mode;
-update_status update;
-#else /* FUNCPROTO */
 int ImageOverlayFill(ImageOverlayWidget wid, int x, int y, int search, int fill, int nc, int mode, update_status update)
-#endif /* FUNCPROTO */
 {
   filltype info;
 
@@ -2184,13 +2012,7 @@ int ImageOverlayFill(ImageOverlayWidget wid, int x, int y, int search, int fill,
 
 #define REL !=
  		
-#ifndef FUNCPROTO
-static int fillsegment(info, x, y, xb, xe, down)			
-filltype *info;
-int x, y, xb, xe, down;					
-#else /* FUNCPROTO */
 static int fillsegment(filltype *info, int x, int y, int xb, int xe, int down)
-#endif /* FUNCPROTO */
 {  							
     							
   int lx, x1, x2, ww, ll, searchnr, fillnr, r, y2, la, lb; 				
@@ -2239,13 +2061,7 @@ static int fillsegment(filltype *info, int x, int y, int xb, int xe, int down)
 
 #define REL ==
  		
-#ifndef FUNCPROTO
-static int floodsegment(info, x, y, xb, xe, down)			
-filltype *info;
-int x, y, xb, xe, down;					
-#else /* FUNCPROTO */
 static int floodsegment(filltype *info, int x, int y, int xb, int xe, int down)
-#endif /* FUNCPROTO */
 {  							
     							
   int lx, x1, x2, ww, ll, searchnr, fillnr, r, y2, la, lb; 				
@@ -2317,13 +2133,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayDisplay(wid, state)
-ImageOverlayWidget wid;
-int state;
-#else /* FUNCPROTO */
 int ImageOverlayDisplay(ImageOverlayWidget wid, int state)
-#endif /* FUNCPROTO */
 {
   int old;
 
@@ -2372,13 +2182,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayProtect(wid, state)
-ImageOverlayWidget wid;
-int state;
-#else /* FUNCPROTO */
 int ImageOverlayProtect(ImageOverlayWidget wid, int state)
-#endif /* FUNCPROTO */
 {
   int old;
   old = wid->image_overlay.protect;
@@ -2414,13 +2218,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int ImageOverlayColor(wid, col)
-ImageOverlayWidget wid;
-int col;
-#else /* FUNCPROTO */
 int ImageOverlayColor(ImageOverlayWidget wid, int col)
-#endif /* FUNCPROTO */
 {
   int old;
   old = wid->image_overlay.draw_value;
@@ -2449,12 +2247,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static int read_state(arg)
-char *arg;
-#else /* FUNCPROTO */
 static int read_state(char *arg)
-#endif /* FUNCPROTO */
 {
   int state;
   if (strcmp(arg, "off") == 0) state = OVERLAY_CLEAR; else
@@ -2467,15 +2260,7 @@ static int read_state(char *arg)
 }
 
 
-#ifndef FUNCPROTO
-static void ImageOverlayDraw(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void ImageOverlayDraw(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageOverlayCallbackRec draw;
   ImageOverlayWidget iowid = (ImageOverlayWidget) wid;
@@ -2651,14 +2436,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void ROI_callback(iw, event, value)
-ImageOverlayWidget iw;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ROI_callback(ImageOverlayWidget iw, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   int x1, x2, y1, y2, x, y, w, h, ww, wh;
   ImageOverlayCallbackRec iroi;
@@ -2696,13 +2474,7 @@ static void ROI_callback(ImageOverlayWidget iw, XEvent *event, int value)
 }
 
 
-#ifndef FUNCPROTO
-static void ImageRoiDraw(iw, setmode)
-ImageOverlayWidget iw;
-int setmode;
-#else /* FUNCPROTO */
 static void ImageRoiDraw(ImageOverlayWidget iw, int setmode)
-#endif /* FUNCPROTO */
 {
   int x, y, w, h;
   
@@ -2733,14 +2505,7 @@ static void ImageRoiDraw(ImageOverlayWidget iw, int setmode)
     XDrawRectangle(XtDisplay(iw), XtWindow(iw), iw->image.gc,x,y,w,h);
 }
 
-#ifndef FUNCPROTO
-static void ImageRoiStartDrag(iow, event, value)
-ImageOverlayWidget iow;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ImageRoiStartDrag(ImageOverlayWidget iow, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   ImageOverlayPart *roi;
   ImageWidget iw = (ImageWidget) iow;
@@ -2771,28 +2536,14 @@ static void ImageRoiStartDrag(ImageOverlayWidget iow, XEvent *event, int value)
   ROI_callback(iow, event, value);
 }
 
-#ifndef FUNCPROTO
-static void ImageRoiExtend(iw, event, value)
-ImageOverlayWidget iw;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ImageRoiExtend(ImageOverlayWidget iw, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   iw->image_overlay.activated = 1;
   ImageRoiDrag(iw, event, value);
   ROI_callback(iw,  event, value);
 }
 
-#ifndef FUNCPROTO
-static void ImageRoiStop(iow, event, value)
-ImageOverlayWidget iow;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ImageRoiStop(ImageOverlayWidget iow, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   
 /* if (!iow->image_overlay.activated &&  
@@ -2819,27 +2570,13 @@ static void ImageRoiStop(ImageOverlayWidget iow, XEvent *event, int value)
   ROI_callback(iow, event, value);
 }
 
-#ifndef FUNCPROTO
-static void ImageRoiStartMove(iw, event, value)
-ImageOverlayWidget iw;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ImageRoiStartMove(ImageOverlayWidget iw, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   iw->image_overlay.activated = 1;
   ImageRoiDraw(iw, ROI_SET);
 }
 
-#ifndef FUNCPROTO
-static void ImageRoiMove(iw, event, value)
-ImageOverlayWidget iw;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ImageRoiMove(ImageOverlayWidget iw, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   int x, y;
 
@@ -2868,14 +2605,7 @@ static void ImageRoiMove(ImageOverlayWidget iw, XEvent *event, int value)
 }
 
 
-#ifndef FUNCPROTO
-static void ImageRoiDrag(iw, event, value)
-ImageOverlayWidget iw;
-XEvent *event;
-int value;
-#else /* FUNCPROTO */
 static void ImageRoiDrag(ImageOverlayWidget iw, XEvent *event, int value)
-#endif /* FUNCPROTO */
 {
   int w, h, x, y;
 
@@ -2902,15 +2632,7 @@ static void ImageRoiDrag(ImageOverlayWidget iw, XEvent *event, int value)
   ROI_callback(iw,  event, value);
 }
 
-#ifndef FUNCPROTO
-static void ImageRoiProc(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void ImageRoiProc(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageOverlayWidget iw = (ImageOverlayWidget) wid;
   if (*num_params != 1) 

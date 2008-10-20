@@ -572,8 +572,8 @@ ________________________________________________________________
 #ifdef HAVE_STDIO_H
  #include <stdio.h>
 #endif
-#ifdef HAVE_SYS_TIME_H
- #include <sys/time.h>
+#ifdef HAVE_TIME_H
+ #include <time.h>
 #endif
 #ifdef HAVE_STRINGS_H
  #include <strings.h>

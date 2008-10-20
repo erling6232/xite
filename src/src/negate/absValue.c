@@ -36,10 +36,14 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/negate.h>
 #include <math.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 
 #ifndef MAIN
 
@@ -96,12 +100,7 @@ ________________________________________________________________
 
 #define ABS(a,b) (((a) < (b)) ? (-(a)) : (a))
 
-#ifndef FUNCPROTO
-int absValue(band1, band2)
-IBAND band1, band2;
-#else /* FUNCPROTO */
 int absValue(IBAND band1, IBAND band2)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   IPIXTYP ipt, opt;
@@ -287,13 +286,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1, img2;
   IBAND bnd1, bnd2;

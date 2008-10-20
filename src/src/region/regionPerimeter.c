@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/region.h>
 #include <xite/readarg.h>
@@ -68,13 +70,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static int region4perimeter(reg, perimeter)
-region *reg;
-int* perimeter;
-#else /* FUNCPROTO */
 static int region4perimeter(region *reg, int *perimeter)
-#endif /* FUNCPROTO */
 {
   int x, y, dir, ymin, ymax, moved, per=0;
   yline *prevYl, *thisYl, *nextYl, *first, *second;
@@ -237,13 +233,7 @@ static int region4perimeter(region *reg, int *perimeter)
 */
 
 
-#ifndef FUNCPROTO
-static int region8perimeter(reg, perimeter)
-region *reg;
-int* perimeter; 
-#else /* FUNCPROTO */
 static int region8perimeter(region *reg, int *perimeter)
-#endif /* FUNCPROTO */
 {
   int x, y, dir, ymin, ymax, moved, per=0;
   yline *prevYl, *thisYl, *nextYl, *first, *second;
@@ -452,15 +442,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int regionPerimeter(reg, nc, loop, perimeter)
-region *reg;
-int nc;
-int loop;
-int* perimeter;
-#else /* FUNCPROTO */
 int regionPerimeter(region *reg, int nc, int loop, int *perimeter)
-#endif /* FUNCPROTO */
 {
   int perim;
 

@@ -121,8 +121,12 @@ ________________________________________________________________
 #include <xite/ximage.h>
 #include <xite/Cmap.h>
 #include <xite/Visual.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/mallocp.h>
 #include <xite/debug.h>
 
@@ -175,14 +179,7 @@ static char *spacelevels_s[16];
 
 
 
-#ifndef FUNCPROTO
-static void Spatial(iw, client_data, call_data)
-Widget iw;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void Spatial(Widget iw, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int choice;
   XawListReturnStruct *list = (XawListReturnStruct *) call_data;
@@ -202,14 +199,7 @@ static void Spatial(Widget iw, XtPointer client_data, XtPointer call_data)
 
 
 
-#ifndef FUNCPROTO
-static void Colors(iw, client_data, call_data)
-Widget iw;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void Colors(Widget iw, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   XColor col[256];
   Visual *visual = NULL;
@@ -248,11 +238,7 @@ static void Colors(Widget iw, XtPointer client_data, XtPointer call_data)
 
 
  
-#ifndef FUNCPROTO
-static void make_labels()
-#else /* FUNCPROTO */
 static void make_labels(void)
-#endif /* FUNCPROTO */
 {
   int i = 1;
 
@@ -266,11 +252,7 @@ static void make_labels(void)
 
 
 
-#ifndef FUNCPROTO
-static void prepare_layout()
-#else /* FUNCPROTO */
 static void prepare_layout(void)
-#endif /* FUNCPROTO */
 {
   layouts_s = (layout *) malloc(num_widgets_s * sizeof(layout));
 
@@ -299,13 +281,7 @@ static void prepare_layout(void)
 
 
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   Widget toplevel;
   IMAGE inimg;

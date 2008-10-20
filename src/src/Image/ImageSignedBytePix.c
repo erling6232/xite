@@ -59,7 +59,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageSignedBytePix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 /* 'btrans_s' is a look-up table for scaling and tresholding of incoming byte
    pixel values.
@@ -254,22 +256,12 @@ static ipixel signedbytepixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr SignedBytePixel()
-#else /* FUNCPROTO */
 ipixelptr SignedBytePixel(void)
-#endif /* FUNCPROTO */
 {
   return(&signedbytepixel);
 }
 
-#ifndef FUNCPROTO
-char *ImageSignedBytePrintf(buf, pix_value)
-char *buf;
-ImageSignedBytePix *pix_value;
-#else /* FUNCPROTO */
 char *ImageSignedBytePrintf(char *buf, ImageSignedBytePix *pix_value)
-#endif /* FUNCPROTO */
 {
   char number[30];
 

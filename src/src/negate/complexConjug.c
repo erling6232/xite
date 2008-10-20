@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/negate.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 
@@ -73,12 +75,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int complexConjug(b1, b2)
-IBAND b1, b2;
-#else /* FUNCPROTO */
 int complexConjug(IBAND b1, IBAND b2)
-#endif /* FUNCPROTO */
 {
   ISB_BAND sb1, sb2;
   IUS_BAND us1, us2;
@@ -221,13 +218,7 @@ ________________________________________________________________
 #ifdef MAIN
 
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int bn, stat;

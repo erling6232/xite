@@ -269,7 +269,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/Xos.h>
 #include <X11/Intrinsic.h>
 #include <X11/Shell.h>
@@ -291,7 +293,9 @@ ________________________________________________________________
 #include <xite/ShellWids.h>
 #include <xite/mallocp.h>
 #include <xite/debug.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <signal.h>
 
 #define GREEN  202
@@ -387,11 +391,7 @@ static IBAND band_s, overlay_s, overlay_backup_s;
 
 
 
-#ifndef FUNCPROTO
-static void Classnumber()
-#else /* FUNCPROTO */
 static void Classnumber(void)
-#endif /* FUNCPROTO */
 {
   int ret_int;
   short w;
@@ -420,12 +420,7 @@ static void Classnumber(void)
 
 
 
-#ifndef FUNCPROTO
-static void Quit(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Quit(Widget wid)
-#endif /* FUNCPROTO */
 {
   int stat;
   if (modified_s) {
@@ -437,12 +432,7 @@ static void Quit(Widget wid)
   exit(0);
 }
 
-#ifndef FUNCPROTO
-static void Nextprev(diff)
-int diff;
-#else /* FUNCPROTO */
 static void Nextprev(int diff)
-#endif /* FUNCPROTO */
 {
   bandno_s += diff;
   XtVaSetValues(wid_PREV, XtNsensitive, bandno_s > 1, NULL);
@@ -452,12 +442,7 @@ static void Nextprev(int diff)
 }
 
 
-#ifndef FUNCPROTO
-static void Clear(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Clear(Widget wid)
-#endif /* FUNCPROTO */
 {
   int x, y;
 
@@ -476,11 +461,7 @@ static void Clear(Widget wid)
 
 
 
-#ifndef FUNCPROTO
-static void Delete()
-#else /* FUNCPROTO */
 static void Delete(void)
-#endif /* FUNCPROTO */
 {
   int y, x, z;
 
@@ -497,11 +478,7 @@ static void Delete(void)
   ImageRedisplay((ImageWidget) wid_XIMAGE, UPDATE_ZOOMPAN);
 }
 
-#ifndef FUNCPROTO
-static void Save_grey()
-#else /* FUNCPROTO */
 static void Save_grey(void)
-#endif /* FUNCPROTO */
 {
   int stat, b, x, y;
   char *name, n[100];
@@ -564,11 +541,7 @@ static void Save_grey(void)
 }
 
 
-#ifndef FUNCPROTO
-static void Read_mask()
-#else /* FUNCPROTO */
 static void Read_mask(void)
-#endif /* FUNCPROTO */
 {
   int stat;
   char *name, n[100];
@@ -602,11 +575,7 @@ static void Read_mask(void)
 }
 
 
-#ifndef FUNCPROTO
-static void Save_mask()
-#else /* FUNCPROTO */
 static void Save_mask(void)
-#endif /* FUNCPROTO */
 {
   int stat;
   char *name, n[100];
@@ -638,11 +607,7 @@ static void Save_mask(void)
 }
 
 
-#ifndef FUNCPROTO
-static void Check_point()
-#else /* FUNCPROTO */
 static void Check_point(void)
-#endif /* FUNCPROTO */
 {
   int x, y;
   for (y=1; y<=ysize_s; y++)
@@ -651,11 +616,7 @@ static void Check_point(void)
     }
 }	
 
-#ifndef FUNCPROTO
-static void Fill_all()
-#else /* FUNCPROTO */
 static void Fill_all(void)
-#endif /* FUNCPROTO */
 {
   int x, y, xs, ys;
   xs = Ixstart(overlay_s);
@@ -712,11 +673,7 @@ static void Fill_all(void)
 
 } /* Fill_all() */
 
-#ifndef FUNCPROTO
-static void Undo()
-#else /* FUNCPROTO */
 static void Undo(void)
-#endif /* FUNCPROTO */
 {
   int x, y;
   for (y=1; y<=ysize_s; y++)
@@ -732,12 +689,7 @@ static void Undo(void)
   ImageRedisplay((ImageWidget) wid_XIMAGE, UPDATE_ZOOMPAN);
 }	
 
-#ifndef FUNCPROTO
-static void Graphic(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Graphic(Widget wid)
-#endif /* FUNCPROTO */
 {
   Boolean state;
   char resource_name[50];
@@ -750,12 +702,7 @@ static void Graphic(Widget wid)
   ImageOverlayDisplay((ImageOverlayWidget) wid_XIMAGE, (int) state);
 }	
 
-#ifndef FUNCPROTO
-static void Nc(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Nc(Widget wid)
-#endif /* FUNCPROTO */
 {
   Boolean state;
   char resource_name[50];
@@ -769,15 +716,7 @@ static void Nc(Widget wid)
 }	
 
 
-#ifndef FUNCPROTO
-static void testsw(sw, name, vec, vnr)
-int sw;
-char *name;
-char *vec[];
-int *vnr;
-#else /* FUNCPROTO */
 static void testsw(int sw, char *name, char **vec, int *vnr)
-#endif /* FUNCPROTO */
 {
   Boolean state;
   Widget wid = layouts_s[sw]->core.wid;
@@ -794,12 +733,7 @@ static void testsw(int sw, char *name, char **vec, int *vnr)
   }
 }
 
-#ifndef FUNCPROTO
-static void Clean(pipe, typ, jobnr)
-int pipe, typ, jobnr;
-#else /* FUNCPROTO */
 static void Clean(int pipe, int typ, int jobnr)
-#endif /* FUNCPROTO */
 {
 /*  if (strlen(tmp1)) 
     {
@@ -814,12 +748,7 @@ static void Clean(int pipe, int typ, int jobnr)
 }
 
 
-#ifndef FUNCPROTO
-static int SendFilesReg(prog)
-program *prog;
-#else /* FUNCPROTO */
 static int SendFilesReg(program *prog)
-#endif /* FUNCPROTO */
 {
   char ch[20];
 
@@ -832,12 +761,7 @@ static int SendFilesReg(program *prog)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static int SendFilesStat(prog)
-program *prog;
-#else /* FUNCPROTO */
 static int SendFilesStat(program *prog)
-#endif /* FUNCPROTO */
 {
   char ch[20];
   sprintf(ch, "-%d", prog->ch_imgin);
@@ -848,11 +772,7 @@ static int SendFilesStat(program *prog)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static void RegionAnalyse()
-#else /* FUNCPROTO */
 static void RegionAnalyse(void)
-#endif /* FUNCPROTO */
 {
   char *vec[30], infile1[20], infile2[20];
   int vnr = 1, num1 = 1;
@@ -899,11 +819,7 @@ static void RegionAnalyse(void)
 		   NULL, NULL, NULL, NULL);
 }	
 
-#ifndef FUNCPROTO
-static void Statistics()
-#else /* FUNCPROTO */
 static void Statistics(void)
-#endif /* FUNCPROTO */
 {
   char *vec[30], infile1[20], infile2[20];
   int vnr = 1;
@@ -936,12 +852,7 @@ static void Statistics(void)
 
 
 
-#ifndef FUNCPROTO
-static void ebutton(button)
-ImageCallback button;
-#else /* FUNCPROTO */
 static void ebutton(ImageCallback button)
-#endif /* FUNCPROTO */
 {
   int x, y, ix, iy, etype;
   IBAND band;
@@ -987,14 +898,7 @@ static void ebutton(ImageCallback button)
   oldy_s = y;
 }
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   widget_number wid_num = (widget_number) *((int *) client_data);
 
@@ -1064,12 +968,7 @@ static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
 
 
 
-#ifndef FUNCPROTO
-static void Handler(signl)
-int signl;
-#else /* FUNCPROTO */
 static void Handler(int signl)
-#endif /* FUNCPROTO */
 {
   fprintf(stderr, "xregion aborted ...\n");
   Clean(0,0,0);
@@ -1078,11 +977,7 @@ static void Handler(int signl)
 }
 
 
-#ifndef FUNCPROTO
-static void Setup_handler()  
-#else /* FUNCPROTO */
 static void Setup_handler(void)
-#endif /* FUNCPROTO */
 {
   signal(SIGHUP,  Handler);
   signal(SIGINT,  Handler);
@@ -1090,14 +985,7 @@ static void Setup_handler(void)
   signal(SIGCLD,  SIG_IGN);
 }
 
-#ifndef FUNCPROTO
-static void draw_callback(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void draw_callback(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ImageOverlayCallbackRec *draw = (ImageOverlayCallbackRec *) call_data;
 
@@ -1130,11 +1018,7 @@ static void draw_callback(Widget wid, XtPointer client_data, XtPointer call_data
 
 } /* draw_callback() */
 
-#ifndef FUNCPROTO
-static void prepare_layout()
-#else /* FUNCPROTO */
 static void prepare_layout(void)
-#endif /* FUNCPROTO */
 {
 
   layouts_s = (layout *) malloc(num_widgets_s * sizeof(layout));
@@ -1307,13 +1191,7 @@ static void prepare_layout(void)
 
 } /* prepare_layout() */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   char *local_usage =
     "Usage: %s [<option>...] <image-filename> [<maskimage>]\n";

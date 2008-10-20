@@ -51,14 +51,7 @@ static char *Id = "$Id$, Blab, UiO";
 #endif
 
 
-#ifndef FUNCPROTO
-static void hist(input,hxstart,hystart,hxstop,hystop,h)
-IBAND input;
-int hxstart,hystart,hxstop,hystop;
-histogram h;
-#else /* FUNCPROTO */
 static void hist(IBAND input, int hxstart, int hystart, int hxstop, int hystop, int *h)
-#endif /* FUNCPROTO */
 {
    register int x,y;
    for (x=0; x <= 255; ++ x) h[x] = 0;
@@ -106,13 +99,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int maxHisto(input, output, nx, ny)
-IBAND input, output;
-int nx, ny;
-#else /* FUNCPROTO */
 int maxHisto(IBAND input, IBAND output, int nx, int ny)
-#endif /* FUNCPROTO */
 {
   int i, j, hxstart, hxstop, hystart, hystop, hy, pixval, Number;
   int x, y, xsize, ysize, hysize, nxhalf, nyhalf, Pixval;
@@ -269,13 +256,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2;
    int bn, nx, ny;

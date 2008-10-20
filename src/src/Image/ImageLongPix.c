@@ -31,7 +31,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageLongPix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static ipixel longpixel =
 {
@@ -50,22 +52,12 @@ static ipixel longpixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr LongPixel()
-#else /* FUNCPROTO */
 ipixelptr LongPixel(void)
-#endif /* FUNCPROTO */
 {
   return(&longpixel);
 }
 
-#ifndef FUNCPROTO
-char *ImageLongPrintf(buf, pix_value)
-char *buf;
-ImageLongPix *pix_value;
-#else /* FUNCPROTO */
 char *ImageLongPrintf(char *buf, ImageLongPix *pix_value)
-#endif /* FUNCPROTO */
 {
   char number[30];
 

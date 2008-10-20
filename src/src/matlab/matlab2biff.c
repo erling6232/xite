@@ -37,8 +37,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/matlab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 static char *matlab2biff_error_s[] = {
   "OK\n",

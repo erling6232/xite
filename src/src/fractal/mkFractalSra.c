@@ -44,8 +44,8 @@ static char *Id = "$Id$, Blab, UiO";
 #ifdef HAVE_STDIO_H
 #  include <stdio.h>
 #endif
-#ifdef HAVE_SYS_TIME_H
- #include <sys/time.h>
+#ifdef HAVE_TIME_H
+ #include <time.h>
 #endif
 #include <xite/message.h>
 

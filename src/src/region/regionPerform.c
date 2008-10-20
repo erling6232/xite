@@ -111,16 +111,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus regionPerform(data, reg, loop, performproc, performdata)
-void *data;
-region* reg;
-int loop;
-regionfunc performproc;
-void *performdata;
-#else /* FUNCPROTO */
 BiffStatus regionPerform(void *data, region *reg, int loop, regionfunc performproc, void *performdata)
-#endif /* FUNCPROTO */
 {
   yline *yl;
   int x, y;

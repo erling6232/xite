@@ -37,8 +37,12 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <xite/median.h>
 #include <xite/message.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #ifndef MAIN
 
@@ -48,12 +52,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 static int xsize_s;
 
-#ifndef FUNCPROTO
-static void medianLine(input, output)
-UNS_BYTE *input, *output;
-#else /* FUNCPROTO */
 static void medianLine(UNS_BYTE *input, UNS_BYTE *output)
-#endif /* FUNCPROTO */
 {
    int gt, x, val1, val2, val3; /* gt <=> val1 GT val2 */
    val1 = input[1]; val2 = input[2]; val3 = input[3];
@@ -80,12 +79,7 @@ static void medianLine(UNS_BYTE *input, UNS_BYTE *output)
 }
 
 
-#ifndef FUNCPROTO
-static void psmed(b1, b2, b3, output, Gt)
-UNS_BYTE *b1, *b2, *b3, *output, *Gt;
-#else /* FUNCPROTO */
 static void psmed(UNS_BYTE *b1, UNS_BYTE *b2, UNS_BYTE *b3, UNS_BYTE *output, UNS_BYTE *Gt)
-#endif /* FUNCPROTO */
 {
    int x, val1, val2, val3;
    FOR (x=1; x LE xsize_s; INC x)
@@ -148,12 +142,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int pseudomedian3x3(input, output)
-IBAND input, output;
-#else /* FUNCPROTO */
 int pseudomedian3x3(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x,y, ysize;
    UNS_BYTE *b1, *b2, *b3, *tmp, *Gt;
@@ -234,13 +223,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2;
    int bn, stat;

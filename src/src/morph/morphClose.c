@@ -43,13 +43,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-int morphClose(inband, outband, B)
-IBAND inband, outband;
-ISS_BAND B;
-#else /* FUNCPROTO */
 int morphClose(IBAND inband, IBAND outband, ISS_BAND B)
-#endif /* FUNCPROTO */
 {
   int status;
   IBAND tmpband;
@@ -70,13 +64,7 @@ int morphClose(IBAND inband, IBAND outband, ISS_BAND B)
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE inimage, outimage;
   ISS_IMAGE B;

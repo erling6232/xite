@@ -32,7 +32,9 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageUnsignedShortPix.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 static ipixel unsignedshortpixel =
 {
@@ -50,22 +52,12 @@ static ipixel unsignedshortpixel =
   /* next        */ NULL,
 };
 
-#ifndef FUNCPROTO
-ipixelptr UnsignedShortPixel()
-#else /* FUNCPROTO */
 ipixelptr UnsignedShortPixel(void)
-#endif /* FUNCPROTO */
 {
   return(&unsignedshortpixel);
 }
 
-#ifndef FUNCPROTO
-char *ImageUnsignedShortPrintf(buf, pix_value)
-char *buf;
-ImageUnsignedShortPix *pix_value;
-#else /* FUNCPROTO */
 char *ImageUnsignedShortPrintf(char *buf, ImageUnsignedShortPix *pix_value)
-#endif /* FUNCPROTO */
 {
   char number[30];
 

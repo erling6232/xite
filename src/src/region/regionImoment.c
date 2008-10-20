@@ -78,15 +78,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int regionImoment(band, reg, loop, moments)
-IBAND band;
-region *reg;
-int loop;
-double *moments;
-#else /* FUNCPROTO */
 int regionImoment(IBAND band, region *reg, int loop, double *moments)
-#endif /* FUNCPROTO */
 {
 
   int x, y, xmin, ymin, xmax, ymax, xsize, ysize;

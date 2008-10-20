@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/pyramid.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/convolve.h>
@@ -155,12 +157,7 @@ ________________________________________________________________
 
 */
  
-#ifndef FUNCPROTO
-int pyramidAver2(b1, b2)
-IBAND b1, b2;
-#else /* FUNCPROTO */
 int pyramidAver2(IBAND b1, IBAND b2)
-#endif /* FUNCPROTO */
 {
    int x, y, xx, yy, xsize, ysize, sum;
 
@@ -190,13 +187,7 @@ int pyramidAver2(IBAND b1, IBAND b2)
 
 
 
-#ifndef FUNCPROTO
-int pyramidRank2(b1, b2, rank)
-IBAND b1, b2;
-int rank;
-#else /* FUNCPROTO */
 int pyramidRank2(IBAND b1, IBAND b2, int rank)
-#endif /* FUNCPROTO */
 {
    int x, y, xx, yy, xsize, ysize;
    int pv, *arr, sortArr[7];
@@ -257,13 +248,7 @@ int pyramidRank2(IBAND b1, IBAND b2, int rank)
 
 
 
-#ifndef FUNCPROTO
-int pyramidGauss5(b1, b2, conv)
-IBAND b1, b2;
-ISS_BAND conv;
-#else /* FUNCPROTO */
 int pyramidGauss5(IBAND b1, IBAND b2, ISS_BAND conv)
-#endif /* FUNCPROTO */
 {
    int x, y, xx, yy, xsize, ysize, verb;
    double scale,offset;
@@ -299,14 +284,7 @@ int pyramidGauss5(IBAND b1, IBAND b2, ISS_BAND conv)
 
 
 
-#ifndef FUNCPROTO
-int mkPyramidAver2(b, i, n)
-IBAND b;
-IMAGE *i;
-int n;
-#else /* FUNCPROTO */
 int mkPyramidAver2(IBAND b, IMAGE *i, int n)
-#endif /* FUNCPROTO */
 {
    int nbands, xsize, ysize, size, nb;
 
@@ -350,14 +328,7 @@ int mkPyramidAver2(IBAND b, IMAGE *i, int n)
 
 
 
-#ifndef FUNCPROTO
-int mkPyramidRank2(b, i, rank, n)
-IBAND b;
-IMAGE *i;
-int rank, n;
-#else /* FUNCPROTO */
 int mkPyramidRank2(IBAND b, IMAGE *i, int rank, int n)
-#endif /* FUNCPROTO */
 {
    int nbands, size, xsize, ysize, nb;
 
@@ -400,15 +371,7 @@ int mkPyramidRank2(IBAND b, IMAGE *i, int rank, int n)
 
 
 
-#ifndef FUNCPROTO
-int mkPyramidGauss5(b, i, conv, n)
-IBAND b;
-IMAGE *i;
-ISS_BAND conv;
-int n;
-#else /* FUNCPROTO */
 int mkPyramidGauss5(IBAND b, IMAGE *i, ISS_BAND conv, int n)
-#endif /* FUNCPROTO */
 {
    int nbands, xsize, ysize, size, nb;
 
@@ -518,12 +481,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-static int initconv(c)
-ISS_BAND c;
-#else /* FUNCPROTO */
 static int initconv(ISS_BAND c)
-#endif /* FUNCPROTO */
 {
    c[1][1] = 1;
    c[1][2] = 5;
@@ -554,13 +512,7 @@ static int initconv(ISS_BAND c)
    return 0;
 }
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE ii, oi;
   IBAND band;

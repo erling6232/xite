@@ -35,12 +35,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/kncn.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #ifndef MAIN
 
@@ -83,13 +87,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int kncn8(b1, b2, k)
-   IBAND b1, b2;
-   int k;
-#else /* FUNCPROTO */
 static int kncn8(IBAND b1, IBAND b2, int k)
-#endif /* FUNCPROTO */
 {
    typedef struct { int x, y; } point;
 
@@ -177,13 +175,7 @@ ________________________________________________________________
    historical reasons. January 1992.
 */
 
-#ifndef FUNCPROTO
-static int kncn16(b1,b2,k)
-   IUS_BAND b1,b2;
-   int k;
-#else /* FUNCPROTO */
 static int kncn16(IUS_BAND b1, IUS_BAND b2, int k)
-#endif /* FUNCPROTO */
 {
   typedef struct point_struct
   {
@@ -332,13 +324,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int kncn(b1, b2, k)
-   IBAND b1, b2;
-   int k;
-#else /* FUNCPROTO */
 int kncn(IBAND b1, IBAND b2, int k)
-#endif /* FUNCPROTO */
 {
    int pt;
 
@@ -394,13 +380,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   int bn, k;

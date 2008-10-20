@@ -37,7 +37,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/region.h>
 #include <xite/blab.h>
 #include <xite/message.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 
@@ -91,12 +93,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-region* regionCreate(objnr, regnr, nc, ymin, ymax)
-int objnr, regnr, nc, ymin, ymax;
-#else /* FUNCPROTO */
 region* regionCreate(int objnr, int regnr, int nc, int ymin, int ymax)
-#endif /* FUNCPROTO */
 {
   region* newreg;
   yline** newyls;

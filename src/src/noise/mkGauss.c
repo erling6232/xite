@@ -38,9 +38,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/noise.h>
 #include <xite/message.h>
 #include <xite/utils.h>
-#include XITE_RANDOM_H
-#include XITE_STDIO_H
-#include XITE_TIME_H
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
 
 #ifndef MAIN
 
@@ -75,13 +81,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus mkGauss(b, my, sigma)
-  IBAND b;
-  double my, sigma;
-#else /* FUNCPROTO */
 BiffStatus mkGauss(IBAND b, double my, double sigma)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, tmp;
 
@@ -145,13 +145,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   char arg[50];

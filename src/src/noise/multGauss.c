@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/noise.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -80,13 +82,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int multGauss(b1, b2, my, sigma)
-  IBAND b1, b2;
-  double my, sigma;
-#else /* FUNCPROTO */
 int multGauss(IBAND b1, IBAND b2, double my, double sigma)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, tmp;
 
@@ -149,13 +145,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   char arg[50];

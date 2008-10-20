@@ -130,13 +130,7 @@ ________________________________________________________________
 # define MIN(a,b) (((a)<(b)) ? (a) : (b))
 #endif
 
-#ifndef FUNCPROTO
-int morphDilate(inband, outband, B)
-IBAND inband, outband;
-ISS_BAND B;
-#else /* FUNCPROTO */
 int morphDilate(IBAND inband, IBAND outband, ISS_BAND B)
-#endif /* FUNCPROTO */
 {
   int x, y, i, j, max, max2, Ixstart_B, Ixsize_B, Iystart_B, Iysize_B,
       Ixstart_inband, Ixsize_inband, Iystart_inband, Iysize_inband;
@@ -367,13 +361,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE inimage, outimage;
   ISS_IMAGE B;

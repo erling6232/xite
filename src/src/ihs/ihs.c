@@ -38,7 +38,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/ihs.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #ifdef DEBUG
 #define PRINTF(a,b,c,d)  printf(a,b,c,d)
@@ -174,13 +176,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void rgb2ihs(r, g, b, i, h, s, norm)
-double r, g, b, *i, *h, *s;
-int norm;
-#else /* FUNCPROTO */
 void rgb2ihs(double r, double g, double b, double *i, double *h, double *s, int norm)
-#endif /* FUNCPROTO */
 {
   double fi, fh, fs, hh, v1, v2, cosh, sinh;
   double stop, sbot, sglob, imax, s1, s2, s3;
@@ -229,13 +225,7 @@ void rgb2ihs(double r, double g, double b, double *i, double *h, double *s, int 
     }
 }
 
-#ifndef FUNCPROTO
-void ihs2rgb(i, h, s, r, g, b, norm)
-double i, h, s, *r, *g, *b;
-int norm;
-#else /* FUNCPROTO */
 void ihs2rgb(double i, double h, double s, double *r, double *g, double *b, int norm)
-#endif /* FUNCPROTO */
 {
   double fr, fg, fb, cosh, sinh;
   double stop, sbot, sglob, imax, s1, s2, s3;
@@ -282,12 +272,7 @@ void ihs2rgb(double i, double h, double s, double *r, double *g, double *b, int 
 }
 
 
-#ifndef FUNCPROTO
-void rgb2ihs_byte(r, g, b, i, h, s)
-unsigned char r, g, b, *i, *h, *s;
-#else /* FUNCPROTO */
 void rgb2ihs_byte(unsigned char r, unsigned char g, unsigned char b, unsigned char *i, unsigned char *h, unsigned char *s)
-#endif /* FUNCPROTO */
 {
   double fi, fh, fs;
   int ii, ih, is;
@@ -305,12 +290,7 @@ void rgb2ihs_byte(unsigned char r, unsigned char g, unsigned char b, unsigned ch
   *s = is;
 }
 
-#ifndef FUNCPROTO
-void ihs2rgb_byte(i, h, s, r, g, b)
-unsigned char i, h, s, *r, *g, *b;
-#else /* FUNCPROTO */
 void ihs2rgb_byte(unsigned char i, unsigned char h, unsigned char s, unsigned char *r, unsigned char *g, unsigned char *b)
-#endif /* FUNCPROTO */
 {
   double fr, fg, fb;
   int ir, ig, ib;
@@ -327,12 +307,7 @@ void ihs2rgb_byte(unsigned char i, unsigned char h, unsigned char s, unsigned ch
   *b = ib;
 }
 
-#ifndef FUNCPROTO
-void rgb2ihs_word(r, g, b, i, h, s)
-unsigned short r, g, b, *i, *h, *s;
-#else /* FUNCPROTO */
 void rgb2ihs_word(short unsigned int r, short unsigned int g, short unsigned int b, short unsigned int *i, short unsigned int *h, short unsigned int *s)
-#endif /* FUNCPROTO */
 {
   double fi, fh, fs;
   int ii, ih, is;
@@ -349,12 +324,7 @@ void rgb2ihs_word(short unsigned int r, short unsigned int g, short unsigned int
   *s = is;
 }
 
-#ifndef FUNCPROTO
-void ihs2rgb_word(i, h, s, r, g, b)
-unsigned short i, h, s, *r, *g, *b;
-#else /* FUNCPROTO */
 void ihs2rgb_word(short unsigned int i, short unsigned int h, short unsigned int s, short unsigned int *r, short unsigned int *g, short unsigned int *b)
-#endif /* FUNCPROTO */
 {
   double fr, fg, fb;
   int ir, ig, ib;

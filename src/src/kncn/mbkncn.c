@@ -36,12 +36,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/kncn.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #ifndef MIN
 # define MIN(a,b) (((a)<(b)) ? (a) : (b))
@@ -87,13 +91,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int mbkncn(i1, i2, k)
-  IMAGE i1, i2;
-  int k;
-#else /* FUNCPROTO */
 int mbkncn(IMAGE i1, IMAGE i2, int k)
-#endif /* FUNCPROTO */
 {
 
 #define NIL 0
@@ -260,13 +258,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   int k;

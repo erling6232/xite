@@ -104,12 +104,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static IPIXTYP bitsToPixtyp(bits)
-int bits;
-#else /* FUNCPROTO */
 static IPIXTYP bitsToPixtyp(int bits)
-#endif /* FUNCPROTO */
 {
   IPIXTYP pt;
 
@@ -123,15 +118,7 @@ static IPIXTYP bitsToPixtyp(int bits)
 
 } /* bitsToPixtyp() */
 
-#ifndef FUNCPROTO
-int pnm2biff(pnm, xsize, ysize, img, format, maxval, lpv, hpv)
-xel** pnm;
-IMAGE *img;
-int format, xsize, ysize, lpv, hpv;
-xelval maxval;
-#else /* FUNCPROTO */
 int pnm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, int format, xelval maxval, int lpv, int hpv)
-#endif /* FUNCPROTO */
 {
   int stat;
 
@@ -157,15 +144,7 @@ int pnm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, int format, xelval max
 
 } /* pnm2biff() */
 
-#ifndef FUNCPROTO
-int ppm2biff(pnm, xsize, ysize, img, maxval)
-xel** pnm;
-IMAGE *img;
-xelval maxval;
-int xsize, ysize;
-#else /* FUNCPROTO */
 int ppm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, xelval maxval)
-#endif /* FUNCPROTO */
 {
   int bitsPerSample, x, y;
   IPIXTYP pt;
@@ -210,15 +189,7 @@ int ppm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, xelval maxval)
 
 } /* ppm2biff() */
 
-#ifndef FUNCPROTO
-int pgm2biff(pnm, xsize, ysize, img, maxval)
-xel** pnm;
-IMAGE *img;
-xelval maxval;
-int xsize, ysize;
-#else /* FUNCPROTO */
 int pgm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, xelval maxval)
-#endif /* FUNCPROTO */
 {
   int bitsPerSample, x, y;
   IPIXTYP pt;
@@ -258,15 +229,7 @@ int pgm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, xelval maxval)
 
 } /* pgm2biff() */
 
-#ifndef FUNCPROTO
-int pbm2biff(pnm, xsize,  ysize, img, maxval, lpv, hpv)
-xel** pnm;
-IMAGE *img;
-xelval maxval;
-int xsize, ysize, lpv, hpv;
-#else /* FUNCPROTO */
 int pbm2biff(xel** pnm, int xsize, int ysize, IMAGE *img, xelval maxval, int lpv, int hpv)
-#endif /* FUNCPROTO */
 {
   int bitsPerSample, x, y;
   IPIXTYP pt;
@@ -376,13 +339,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main( argc, argv )
-int argc;
-char* argv[];
-#else /* FUNCPROTO */
 int main( int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
   IMAGE img = NULL;
   FILE* ifp;

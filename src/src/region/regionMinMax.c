@@ -98,13 +98,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int regionMinMax(reg, loop, xmin, ymin, xmax, ymax)
-region* reg;
-int loop, *xmin, *ymin, *xmax, *ymax;
-#else /* FUNCPROTO */
 int regionMinMax(region *reg, int loop, int *xmin, int *ymin, int *xmax, int *ymax)
-#endif /* FUNCPROTO */
 {
   int y, xmi, ymi, xma=0, yma;
   yline* yl;
@@ -140,13 +134,7 @@ int regionMinMax(region *reg, int loop, int *xmin, int *ymin, int *xmax, int *ym
 
 
 
-#ifndef FUNCPROTO
-int regionXmin(reg, loop, xmin)
-region* reg;
-int loop, *xmin;
-#else /* FUNCPROTO */
 int regionXmin(region *reg, int loop, int *xmin)
-#endif /* FUNCPROTO */
 {
   int y, ymin, ymax, xmi;
 
@@ -169,13 +157,7 @@ int regionXmin(region *reg, int loop, int *xmin)
 }
 
 
-#ifndef FUNCPROTO
-int regionXmax(reg, loop, xmax)
-region* reg;
-int loop, *xmax;
-#else /* FUNCPROTO */
 int regionXmax(region *reg, int loop, int *xmax)
-#endif /* FUNCPROTO */
 {
   int y, ymin, ymax, xma=0;
   yline* yl;
@@ -203,13 +185,7 @@ int regionXmax(region *reg, int loop, int *xmax)
 }
 
 
-#ifndef FUNCPROTO
-int regionYmin(reg, loop, ymin)
-region* reg;
-int loop, *ymin;
-#else /* FUNCPROTO */
 int regionYmin(region *reg, int loop, int *ymin)
-#endif /* FUNCPROTO */
 {
   int ymi;
 
@@ -229,13 +205,7 @@ int regionYmin(region *reg, int loop, int *ymin)
 }
 
 
-#ifndef FUNCPROTO
-int regionYmax(reg, loop, ymax)
-region* reg;
-int loop, *ymax;
-#else /* FUNCPROTO */
 int regionYmax(region *reg, int loop, int *ymax)
-#endif /* FUNCPROTO */
 {
   int yma;
   if (NOT reg) {

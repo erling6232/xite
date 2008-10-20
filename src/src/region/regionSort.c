@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/region.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 
@@ -83,13 +85,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int regionSort(regArr, objArr, rsize, osize)
-region **regArr, ***objArr;
-int rsize, *osize;
-#else /* FUNCPROTO */
 int regionSort(region **regArr, region ***objArr, int rsize, int *osize)
-#endif /* FUNCPROTO */
 {
   int n1, n2, maxonr=0;
   region **lastReg, *reg;

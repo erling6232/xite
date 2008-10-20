@@ -137,15 +137,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int biff2pnmg(img, pnm, maxval, binary)
-IMAGE img;
-xel*** pnm;
-xelval *maxval;
-int *binary;
-#else /* FUNCPROTO */
 int biff2pnmg(IMAGE img, xel*** pnm, xelval *maxval, int *binary)
-#endif /* FUNCPROTO */
 {
   PNM_BIFF_BAND_TYPE bnd = NULL;
   int xsize, ysize, x, y, bin, low, high;
@@ -219,14 +211,7 @@ int biff2pnmg(IMAGE img, xel*** pnm, xelval *maxval, int *binary)
 
 } /* biff2pnmg() */
 
-#ifndef FUNCPROTO
-int biff2pnmc(img, pnm, maxval)
-IMAGE img;
-xel*** pnm;
-xelval *maxval;
-#else /* FUNCPROTO */
 int biff2pnmc(IMAGE img, xel*** pnm, xelval *maxval)
-#endif /* FUNCPROTO */
 {
   PNM_BIFF_BAND_TYPE bnd = NULL, bnd2 = NULL, bnd3 = NULL;
   int xsize, ysize, x, y;
@@ -296,15 +281,7 @@ int biff2pnmc(IMAGE img, xel*** pnm, xelval *maxval)
 
 } /* biff2pnmc() */
 
-#ifndef FUNCPROTO
-int biff2pnm(img, pnm, maxval, format)
-IMAGE img;
-xel*** pnm;
-xelval *maxval;
-int *format;
-#else /* FUNCPROTO */
 int biff2pnm(IMAGE img, xel*** pnm, xelval *maxval, int *format)
-#endif /* FUNCPROTO */
 {
   if (Inbands(img) == 3) {
 
@@ -325,15 +302,7 @@ int biff2pnm(IMAGE img, xel*** pnm, xelval *maxval, int *format)
 
 } /* biff2pnm() */
 
-#ifndef FUNCPROTO
-void writepnm(pnm, filename, xsize, ysize, maxval, format, forceplain)
-xel **pnm;
-char *filename;
-int xsize, ysize, format, forceplain;
-xelval maxval;
-#else /* FUNCPROTO */
 void writepnm(xel **pnm, char *filename, int xsize, int ysize, xelval maxval, int format, int forceplain)
-#endif /* FUNCPROTO */
 {
   FILE* ofp;
 
@@ -415,13 +384,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main( argc, argv )
-int argc;
-char* argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   xel** pnm = NULL;

@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/knn.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/histo.h>
@@ -51,14 +53,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-static void hist(input, hxstart, hystart, hxstop, hystop, h)
-IBAND input;
-int hxstart, hystart, hxstop, hystop;
-histogram h;
-#else /* FUNCPROTO */
 static void hist(IBAND input, int hxstart, int hystart, int hxstop, int hystop, int *h)
-#endif /* FUNCPROTO */
 {
    int x, y;
    for (x=0; x LE 255; x++) h[x] = 0;
@@ -109,13 +104,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int knn(input, output, n, k)
-IBAND input, output;
-int n, k;
-#else /* FUNCPROTO */
 int knn(IBAND input, IBAND output, int n, int k)
-#endif /* FUNCPROTO */
 {
    int hxstart, hystart, hystop, hy, pixval;
    int x, y, xsize, ysize, hxstop, hysize, fullarea, nhalf, localk;
@@ -303,13 +292,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2;
    int n, k, bn, stat;

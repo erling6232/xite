@@ -81,13 +81,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int regionIsPoint(reg, loop, x, y)
-region* reg;
-int loop, x, y;
-#else /* FUNCPROTO */
 int regionIsPoint(region *reg, int loop, int x, int y)
-#endif /* FUNCPROTO */
 {
   yline* yl;
 
@@ -151,13 +145,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int regionPoint(reg, x, y)
-region* reg;
-int *x, *y;
-#else /* FUNCPROTO */
 int regionPoint(region *reg, int *x, int *y)
-#endif /* FUNCPROTO */
 {
   yline* yl;
 

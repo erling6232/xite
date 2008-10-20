@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/color.h>
 #include <xite/compu4.h>
@@ -45,8 +47,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/region.h>
 #include <xite/readarg.h>
 #include <xite/statistics.h>
-#include XITE_STRING_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 /*P:regionAnalyse*
@@ -298,12 +308,7 @@ typedef struct {
 
 typedef struct { int p, q; } momentData ; 
 
-#ifndef FUNCPROTO
-static momentData* momData(s)
-char* s;
-#else /* FUNCPROTO */
 static momentData* momData(char *s)
-#endif /* FUNCPROTO */
 {
   momentData* md;
   md = NEW(momentData); if (NOT md) fprintf(stderr, "Error!\n");
@@ -312,110 +317,59 @@ static momentData* momData(char *s)
   return(md);
 }
 
-#ifndef FUNCPROTO
-static void wrObjnr(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrObjnr(region *reg)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", reg->objectnr);
 }
 
-#ifndef FUNCPROTO
-static void wrRegnr(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrRegnr(region *reg)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", reg->regionnr);
 }
 
-#ifndef FUNCPROTO
-static void wrArea(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrArea(region *reg)
-#endif /* FUNCPROTO */
 {
   int area;
   regionArea(reg, TRUE, &area);
   printf(" %7d ", area);
 }
 
-#ifndef FUNCPROTO
-static void wrPerim(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrPerim(region *reg)
-#endif /* FUNCPROTO */
 {
   int perimeter;
   regionPerimeter(reg, nc, TRUE, &perimeter);
   printf(" %5d ", perimeter);
 }
 
-#ifndef FUNCPROTO
-static void wrVolume(reg, meanpix)
-region* reg;
-double meanpix;
-#else /* FUNCPROTO */
 static void wrVolume(region *reg, double meanpix)
-#endif /* FUNCPROTO */
 {
   int area;
   regionArea(reg, TRUE, &area);
   printf(" %10.0f ", meanpix*area);
 }
 
-#ifndef FUNCPROTO
-static void wrXmean(band, reg)
-IBAND band;
-region* reg;
-#else /* FUNCPROTO */
 static void wrXmean(IBAND band, region *reg)
-#endif /* FUNCPROTO */
 {
   double xmean;
   regionXmean(band, reg, TRUE, &xmean);
   printf(" %10.3f ", xmean);
 }
 
-#ifndef FUNCPROTO
-static void wrYmean(band, reg)
-IBAND band;
-region* reg;
-#else /* FUNCPROTO */
 static void wrYmean(IBAND band, region *reg)
-#endif /* FUNCPROTO */
 {
   double ymean;
   regionYmean(band, reg, TRUE, &ymean);
   printf(" %10.3f ", ymean);
 }
 
-#ifndef FUNCPROTO
-static void wrXYmean(band, reg)
-IBAND band;
-region* reg;
-#else /* FUNCPROTO */
 static void wrXYmean(IBAND band, region *reg)
-#endif /* FUNCPROTO */
 {
   double xmean, ymean;
   regionMean(band, reg, TRUE, &xmean, &ymean);
   printf(" %10.3f  %10.3f ", xmean, ymean);
 }
 
-#ifndef FUNCPROTO
-static void wrMoment(band, reg, md)
-IBAND band;
-region* reg;
-momentData* md;
-#else /* FUNCPROTO */
 static void wrMoment(IBAND band, region *reg, momentData *md)
-#endif /* FUNCPROTO */
 {
   double mom;
   if (NOT md) fprintf(stderr, "Error\n");
@@ -423,27 +377,14 @@ static void wrMoment(IBAND band, region *reg, momentData *md)
   printf(" %10.3f ", mom);
 }
 
-#ifndef FUNCPROTO
-static void wrCMoment(band, reg, md)
-IBAND band;
-region* reg;
-momentData* md;
-#else /* FUNCPROTO */
 static void wrCMoment(IBAND band, region *reg, momentData *md)
-#endif /* FUNCPROTO */
 {
   double mom;
   regionCMoment(band, reg, md->p, md->q, TRUE, &mom);
   printf(" %10.3f ", mom);
 }
 
-#ifndef FUNCPROTO
-static void wrImoment(band, reg)
-IBAND band;
-region* reg;
-#else /* FUNCPROTO */
 static void wrImoment(IBAND band, region *reg)
-#endif /* FUNCPROTO */
 {
   double mom[8];
   int i;
@@ -451,161 +392,85 @@ static void wrImoment(IBAND band, region *reg)
   for(i=1; i<=7; i++) printf(mom[i]*mom[i] < 0.000001 ? " %9.3g " : " %9.6f ", mom[i]);
 }
 
-#ifndef FUNCPROTO
-static void wrXmin(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrXmin(region *reg)
-#endif /* FUNCPROTO */
 {
   int xmin;
   regionXmin(reg, TRUE, &xmin);
   printf(" %5d ", xmin);
 }
 
-#ifndef FUNCPROTO
-static void wrYmin(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrYmin(region *reg)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", reg->ymin);
 }
 
-#ifndef FUNCPROTO
-static void wrXmax(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrXmax(region *reg)
-#endif /* FUNCPROTO */
 {
   int xmax;
   regionXmax(reg, TRUE, &xmax);
   printf(" %5d ", xmax);
 }
 
-#ifndef FUNCPROTO
-static void wrYmax(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrYmax(region *reg)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", reg->ymax);
 }
 
-#ifndef FUNCPROTO
-static void wrMinMax(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrMinMax(region *reg)
-#endif /* FUNCPROTO */
 {
   int xmin, ymin, xmax, ymax;
   regionMinMax(reg, TRUE, &xmin, &ymin, &xmax, &ymax);
   printf(" %5d  %5d  %5d  %5d ", xmin, ymin, xmax, ymax);
 }
 
-#ifndef FUNCPROTO
-static void wrHeight(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrHeight(region *reg)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", (reg->ymax - reg->ymin + 1));
 }
 
-#ifndef FUNCPROTO
-static void wrWidth(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrWidth(region *reg)
-#endif /* FUNCPROTO */
 {
   int xmin, ymin, xmax, ymax;
   regionMinMax(reg, TRUE, &xmin, &ymin, &xmax, &ymax);
   printf(" %5d ", (xmax - xmin + 1));
 }
 
-#ifndef FUNCPROTO
-static void wrMinPix(minpix)
-int minpix;
-#else /* FUNCPROTO */
 static void wrMinPix(int minpix)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", minpix);
 }
 
-#ifndef FUNCPROTO
-static void wrMaxPix(maxpix)
-int maxpix;
-#else /* FUNCPROTO */
 static void wrMaxPix(int maxpix)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", maxpix);
 }
 
-#ifndef FUNCPROTO
-static void wrMinMaxPix(minpix, maxpix)
-int minpix, maxpix;
-#else /* FUNCPROTO */
 static void wrMinMaxPix(int minpix, int maxpix)
-#endif /* FUNCPROTO */
 {
   printf(" %5d  %5d ", minpix, maxpix);
 }
 
-#ifndef FUNCPROTO
-static void wrPoint(reg)
-region* reg;
-#else /* FUNCPROTO */
 static void wrPoint(region *reg)
-#endif /* FUNCPROTO */
 {
   printf(" %5d  %5d ", reg->ylines[reg->ymin]->xmin, reg->ymin);
 }
 
-#ifndef FUNCPROTO
-static void wrMean(meanpix)
-double meanpix;
-#else /* FUNCPROTO */
 static void wrMean(double meanpix)
-#endif /* FUNCPROTO */
 {
   printf(" %10.3f ", meanpix);
 }
 
-#ifndef FUNCPROTO
-static void wrMedian(med)
-int med;
-#else /* FUNCPROTO */
 static void wrMedian(int med)
-#endif /* FUNCPROTO */
 {
   printf(" %5d ", med);
 }
 
-#ifndef FUNCPROTO
-static void wrStdev(stdev)
-double stdev;
-#else /* FUNCPROTO */
 static void wrStdev(double stdev)
-#endif /* FUNCPROTO */
 {
   printf(" %10.3f ", stdev);
 }
 
-#ifndef FUNCPROTO
-static void permutate(sws, perm, nsw)
-Switch* sws;
-int *perm, nsw;
-#else /* FUNCPROTO */
 static void permutate(Switch *sws, int *perm, int nsw)
-#endif /* FUNCPROTO */
 {
   int a, b, min;
   for (a=0; a LT nsw; a++) perm[a] = a;
@@ -648,13 +513,7 @@ static char *headers[] = {
   "   IMOM 1     IMOM 2     IMOM 3     IMOM 4     IMOM 5     IMOM 6     IMOM 7  ",
 };
 
-#ifndef FUNCPROTO
-static void wrHeader(sws, perm, nsw)
-Switch* sws;
-int *perm, nsw;
-#else /* FUNCPROTO */
 static void wrHeader(Switch *sws, int *perm, int nsw)
-#endif /* FUNCPROTO */
 {
   int sw, hlen=0;
 
@@ -669,13 +528,7 @@ static void wrHeader(Switch *sws, int *perm, int nsw)
 }
 
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   IBAND band1, band2;

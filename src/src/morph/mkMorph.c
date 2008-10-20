@@ -39,7 +39,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/histo.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/morph.h>
 
 #ifndef MAIN
@@ -93,13 +95,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int ellipse(band, b, a, theta)
-IBAND band;
-double a, b, theta;
-#else /* FUNCPROTO */
 static int ellipse(IBAND band, double b, double a, double theta)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, midx, midy, x, y;
   double val, A, B, C, D;
@@ -165,13 +161,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int rectangle(band, a, b, theta)
-IBAND band;
-double a, b, theta;
-#else /* FUNCPROTO */
 static int rectangle(IBAND band, double a, double b, double theta)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, midx, midy, x, y;
   double thp, p, xm, ym;
@@ -268,13 +258,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-IBAND mkMorphForm(type, xsize, ysize, theta)
-morph_height_type type;
-double xsize, ysize, theta;
-#else /* FUNCPROTO */
 IBAND mkMorphForm(morph_height_type type, double xsize, double ysize, double theta)
-#endif /* FUNCPROTO */
 {
   int dia;
   IBAND band;
@@ -339,14 +323,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int zellipse(band, a, b, c, theta)
-IBAND band;
-int c;
-double a, b, theta;
-#else /* FUNCPROTO */
 static int zellipse(IBAND band, double a, double b, int c, double theta)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, midx, midy, x, y;
   double val, p, thp, xm, ym;
@@ -427,14 +404,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static int zlinear(band, a, b, c, theta)
-IBAND band;
-int c;
-double a, b, theta;
-#else /* FUNCPROTO */
 static int zlinear(IBAND band, double a, double b, int c, double theta)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, midx, midy, x, y;
   double thp, p, xm, ym, f1, f2, tmp;
@@ -524,14 +494,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int zparabola(band, a, b, c, theta)
-IBAND band;
-int c;
-double a, b, theta;
-#else /* FUNCPROTO */
 static int zparabola(IBAND band, double a, double b, int c, double theta)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, midx, midy, x, y;
   double thp, p, xm, ym, f1, a2, b2;
@@ -613,14 +576,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static int zcone(band, a, b, c, theta)
-IBAND band;
-int c;
-double a, b, theta;
-#else /* FUNCPROTO */
 static int zcone(IBAND band, double a, double b, int c, double theta)
-#endif /* FUNCPROTO */
 {
   int xsize, ysize, midx, midy, x, y;
   double thp, p, xm, ym, f1, a2, b2;
@@ -717,14 +673,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int mkMorphHeight(band, type, xsize, ysize, zsize, theta)
-IBAND band;
-int zsize, type;
-double xsize, ysize, theta;
-#else /* FUNCPROTO */
 int mkMorphHeight(IBAND band, int type, double xsize, double ysize, int zsize, double theta)
-#endif /* FUNCPROTO */
 {
   int status = 0;
 
@@ -807,13 +756,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int MorphScale(band, neg)
-IBAND band;
-int neg;
-#else /* FUNCPROTO */
 int MorphScale(IBAND band, int neg)
-#endif /* FUNCPROTO */
 {
   int x, y, xsi, ysi, min, max, found_str_element = 0;
   ISS_BAND ss_band = (ISS_BAND) band;
@@ -998,13 +941,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int zsize, neg;

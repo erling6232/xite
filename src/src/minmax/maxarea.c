@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/minmax.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -85,13 +87,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus maxarea(in_band, out_band, dx, dy)
-IBAND in_band, out_band;
-int dx, dy;
-#else /* FUNCPROTO */
 BiffStatus maxarea(IBAND in_band, IBAND out_band, int dx, int dy)
-#endif /* FUNCPROTO */
 {
    int xsize, ysize;
    int xdist, ydist, x, y;
@@ -208,13 +204,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE img1, img2;
    int bn, dx, dy, stat;
