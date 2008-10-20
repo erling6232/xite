@@ -32,15 +32,25 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 #include <xite/includes.h>
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/tiff.h>
-#include XITE_STDIO_H
 
 #ifndef MAIN
 
@@ -229,79 +239,6 @@ ________________________________________________________________
 
 /* Macro for definition of b/w conversion routines */
 
-#ifndef FUNCPROTO
-
-# define DECL_BIFF2TIFF_BW(FUNC_NAME, FUNC_STRING, BAND_TYPE, DATA_TYPE, TIFF_PIX_TYPE) \
-  int FUNC_NAME(band, tif, compression, threshold) \
-  BAND_TYPE band; \
-  TIFF *tif; \
-  uint16 compression; \
-  DATA_TYPE threshold; \
-  { \
-    uint32 xsize, ysize, x, y, i; \
-    DATA_TYPE *buf, *bptr; \
-    tsize_t length; \
-    int bit; \
- \
-    xsize = (uint32) Ixsize((IBAND) band); \
-    ysize = (uint32) Iysize((IBAND) band); \
- \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, xsize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageWidth.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGELENGTH, ysize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageLength.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 1)) \
-      TIFFError(FUNC_STRING, "Could not set field BitsPerSample.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK)) \
-      TIFFError(FUNC_STRING, "Could not set field Photometric.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT)) \
-      TIFFError(FUNC_STRING, "Could not set field Orientation.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG)) \
-      TIFFError(FUNC_STRING, "Could not set field Planarconfig.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 1)) \
-      TIFFError(FUNC_STRING, "Could not set field SamplesPerPixel.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLEFORMAT, TIFF_PIX_TYPE)) \
-      TIFFError(FUNC_STRING, "Could not set field Sampleformat.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_COMPRESSION, compression)) \
-      TIFFError(FUNC_STRING, "Could not set field Compression.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_FILLORDER, FILLORDER_MSB2LSB)) \
-      TIFFError(FUNC_STRING, "Could not set field Fillorder.\n"); \
- \
-    length = TIFFScanlineSize(tif); \
-    if (length == -1) return(Error(2, "%s%s\n", FUNC_STRING, \
-                                   ": Error in determining scanline size.")); \
- \
-    buf = (DATA_TYPE *) malloc((size_t) length); \
-    if (!buf) return(Error(2, "%s%s\n", FUNC_STRING, \
-			   ": Could not allocate memory.")); \
- \
-    for (y = 1; y <= ysize;  y++) { \
-      bptr = buf; \
-      for (x = 1; x <= xsize;  x += 8) { \
-        *bptr = 0; \
-        bit   = 0x080; \
- \
-        for (i = 1; i <= 8; i++) { \
-          if (x + i - 1 > xsize) break; \
-          if (band[y][x + i - 1] >= threshold) *bptr |= bit; \
-          bit >>= 1; \
-	} \
- \
-        bptr++; \
-      } \
- \
-      if (TIFFWriteScanline(tif, (unsigned char *) buf, y-1, 0) < 0) \
-        break; \
-    } \
- \
-    TIFFWriteDirectory(tif); \
- \
-    free(buf); \
-    return(0); \
-  }
-
-#else /* FUNCPROTO */
-
 # define DECL_BIFF2TIFF_BW(FUNC_NAME, FUNC_STRING, BAND_TYPE, DATA_TYPE, TIFF_PIX_TYPE) \
   int FUNC_NAME(BAND_TYPE band, TIFF *tif, uint16 compression, DATA_TYPE threshold) \
   { \
@@ -367,71 +304,7 @@ ________________________________________________________________
     return(0); \
   }
 
-#endif /* FUNCPROTO */
-
 /* Macro for definition of grayscale conversion routines */
-
-#ifndef FUNCPROTO
-
-# define DECL_BIFF2TIFF_GRAY(FUNC_NAME, FUNC_STRING, BAND_TYPE, DATA_TYPE, TIFF_PIX_TYPE, BITS_PER_SAMPLE, SAMPLES_PER_PIXEL) \
-  int FUNC_NAME(band, tif, compression) \
-  BAND_TYPE band; \
-  TIFF *tif; \
-  uint16 compression; \
-  { \
-    uint32 xsize, ysize, x, y; \
-    DATA_TYPE *buf; \
-    tsize_t length; \
- \
-    xsize = (uint32) Ixsize((IBAND) band); \
-    ysize = (uint32) Iysize((IBAND) band); \
- \
- \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, xsize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageWidth.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGELENGTH, ysize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageLength.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, BITS_PER_SAMPLE)) \
-      TIFFError(FUNC_STRING, "Could not set field BitsPerSample.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK)) \
-      TIFFError(FUNC_STRING, "Could not set field Photometric.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT)) \
-      TIFFError(FUNC_STRING, "Could not set field Orientation.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG)) \
-      TIFFError(FUNC_STRING, "Could not set field Planarconfig.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, SAMPLES_PER_PIXEL)) \
-      TIFFError(FUNC_STRING, "Could not set field SamplesPerPixel.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLEFORMAT, TIFF_PIX_TYPE)) \
-      TIFFError(FUNC_STRING, "Could not set field Sampleformat.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_COMPRESSION, compression)) \
-      TIFFError(FUNC_STRING, "Could not set field Compression.\n"); \
- \
-    length = TIFFScanlineSize(tif); \
-    if (length == -1) return(Error(2, "%s%s\n", FUNC_STRING, \
-                                   ": Error in determining scanline size.")); \
- \
-    buf = (DATA_TYPE *) malloc((size_t) length); \
-    if (!buf) return(Error(2, "%s%s\n", FUNC_STRING, \
-                           ": Could not allocate memory.")); \
- \
-    for (y=1; y <= ysize;  y++) \
-      { \
-        for (x=1; x <= xsize;  x++) \
-          { \
-            buf[x-1] = band[y][x]; \
-          } \
- \
-        if (TIFFWriteScanline(tif, (unsigned char *) buf, y-1, 0) < 0) \
-          break; \
-      } \
- \
-    TIFFWriteDirectory(tif); \
- \
-    free(buf); \
-    return(0); \
-  }
-
-#else /* FUNCPROTO */
 
 # define DECL_BIFF2TIFF_GRAY(FUNC_NAME, FUNC_STRING, BAND_TYPE, DATA_TYPE, TIFF_PIX_TYPE, BITS_PER_SAMPLE, SAMPLES_PER_PIXEL) \
   int FUNC_NAME(BAND_TYPE band, TIFF *tif, uint16 compression) \
@@ -488,90 +361,7 @@ ________________________________________________________________
     return(0); \
   }
 
-#endif /* FUNCPROTO */
-
 /* Macro for definition of palette conversion routines */
-
-#ifndef FUNCPROTO
-
-# define DECL_BIFF2TIFF_PAL(FUNC_NAME, FUNC_STRING, BAND_TYPE, DATA_TYPE, TIFF_PIX_TYPE, BITS_PER_SAMPLE, SAMPLES_PER_PIXEL) \
-  int FUNC_NAME(band, tif, coltab, colLen, compression) \
-  BAND_TYPE band; \
-  TIFF *tif; \
-  Color_cell *coltab; \
-  int colLen; \
-  uint16 compression; \
-  { \
-    uint32 xsize, ysize, x, y, i; \
-    DATA_TYPE *buf; \
-    uint16 red[COLORS8BIT], green[COLORS8BIT], blue[COLORS8BIT]; \
-    unsigned long pix; \
-    tsize_t length; \
- \
-    xsize = (uint32) Ixsize((IBAND) band); \
-    ysize = (uint32) Iysize((IBAND) band); \
- \
- \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, xsize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageWidth.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGELENGTH, ysize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageLength.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, BITS_PER_SAMPLE)) \
-      TIFFError(FUNC_STRING, "Could not set field BitsPerSample.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_PALETTE)) \
-      TIFFError(FUNC_STRING, "Could not set field Photometric.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT)) \
-      TIFFError(FUNC_STRING, "Could not set field Orientation.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG)) \
-      TIFFError(FUNC_STRING, "Could not set field Planarconfig.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, SAMPLES_PER_PIXEL)) \
-      TIFFError(FUNC_STRING, "Could not set field SamplesPerPixel.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLEFORMAT, TIFF_PIX_TYPE)) \
-      TIFFError(FUNC_STRING, "Could not set field Sampleformat.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_COMPRESSION, compression)) \
-      TIFFError(FUNC_STRING, "Could not set field Compression.\n"); \
- \
-    for (i = 0; i < COLORS8BIT; i++) { \
-      red[i]   = 0; \
-      green[i] = 0; \
-      blue[i]  = 0; \
-    } \
-    for (i = 0; i < colLen; i++) { \
-      pix        = PseudoBasePart(coltab[i].pixel); \
-      red[pix]   = coltab[i].red; \
-      green[pix] = coltab[i].green; \
-      blue[pix]  = coltab[i].blue; \
-    } \
- \
-    if (!TIFFSetField(tif, TIFFTAG_COLORMAP, red, green, blue)) \
-      TIFFError(FUNC_STRING, "Could not set field Colormap.\n"); \
- \
-    length = TIFFScanlineSize(tif); \
-    if (length == -1) return(Error(2, "%s%s\n", FUNC_STRING, \
-                                   ": Error in determining scanline size.")); \
- \
-    buf = (DATA_TYPE *)malloc((size_t) length); \
-    if (!buf) return(Error(2, "%s%s\n", FUNC_STRING, \
-			   ": Could not allocate memory.")); \
- \
-    for (y=1; y <= ysize;  y++) \
-      { \
-	for (x=1; x <= xsize;  x++) \
-	  { \
-	    buf[x-1] = band[y][x]; \
-	  } \
- \
-	if (TIFFWriteScanline(tif, (unsigned char *) buf, y-1, 0) < 0) \
-	  break; \
-      } \
- \
-    TIFFWriteDirectory(tif); \
- \
-    free(buf); \
-    return(0); \
-  }
-
-#else /* FUNCPROTO */
 
 # define DECL_BIFF2TIFF_PAL(FUNC_NAME, FUNC_STRING, BAND_TYPE, DATA_TYPE, TIFF_PIX_TYPE, BITS_PER_SAMPLE, SAMPLES_PER_PIXEL) \
   int FUNC_NAME(BAND_TYPE band, TIFF *tif, Color_cell *coltab, int colLen, uint16 compression) \
@@ -645,79 +435,8 @@ ________________________________________________________________
     return(0); \
   }
 
-#endif /* FUNCPROTO */
-
 /* Macro for definition of rgb conversion routines */
  
-#ifndef FUNCPROTO
-
-# define DECL_BIFF2TIFF_RGB(FUNC_NAME, FUNC_STRING, IMAGE_TYPE, DATA_TYPE, TIFF_PIX_TYPE, BITS_PER_SAMPLE, SAMPLES_PER_PIXEL) \
-  int FUNC_NAME(img, tif, compression) \
-  IMAGE_TYPE img; \
-  TIFF *tif; \
-  uint16 compression; \
-  { \
-    uint32 xsize, ysize, x, y, x1; \
-    DATA_TYPE *buf; \
-    tsize_t length; \
- \
-    if (Inbands((IMAGE) img) != 3) \
-      return(Error(3, "%s%s\n", FUNC_STRING, \
-		   ": Image does not have exactly three bands.\n")); \
- \
-    xsize = (uint32) Ixsize((IBAND) img[1]); \
-    ysize = (uint32) Iysize((IBAND) img[1]); \
- \
- \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, xsize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageWidth.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_IMAGELENGTH, ysize)) \
-      TIFFError(FUNC_STRING, "Could not set field ImageLength.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, BITS_PER_SAMPLE)) \
-      TIFFError(FUNC_STRING, "Could not set field BitsPerSample.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB)) \
-      TIFFError(FUNC_STRING, "Could not set field Photometric.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT)) \
-      TIFFError(FUNC_STRING, "Could not set field Orientation.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG)) \
-      TIFFError(FUNC_STRING, "Could not set field Planarconfig.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, SAMPLES_PER_PIXEL)) \
-      TIFFError(FUNC_STRING, "Could not set field SamplesPerPixel.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_SAMPLEFORMAT, TIFF_PIX_TYPE)) \
-      TIFFError(FUNC_STRING, "Could not set field Sampleformat.\n"); \
-    if (!TIFFSetField(tif, TIFFTAG_COMPRESSION, compression)) \
-      TIFFError(FUNC_STRING, "Could not set field Compression.\n"); \
- \
-    length = TIFFScanlineSize(tif); \
-    if (length == -1) return(Error(2, "%s%s\n", FUNC_STRING, \
-                                   ": Error in determining scanline size.")); \
- \
-    buf = (DATA_TYPE *)malloc((size_t) length); \
-    if (!buf) return(Error(2, "%s%s\n", FUNC_STRING, \
-			   ": Could not allocate memory.")); \
- \
-    for (y=1; y <= ysize;  y++) \
-      { \
-	x1=0; \
-	for (x=1; x <= xsize;  x++) \
-	  { \
-	    buf[x1++] = img[1][y][x]; \
-	    buf[x1++] = img[2][y][x]; \
-	    buf[x1++] = img[3][y][x]; \
-	  } \
- \
-	if (TIFFWriteScanline(tif, (unsigned char *) buf, y-1, 0) < 0) \
-	  break; \
-      } \
- \
-    TIFFWriteDirectory(tif); \
- \
-    free(buf); \
-    return(0); \
-  }
-
-#else /* FUNCPROTO */
-
 # define DECL_BIFF2TIFF_RGB(FUNC_NAME, FUNC_STRING, IMAGE_TYPE, DATA_TYPE, TIFF_PIX_TYPE, BITS_PER_SAMPLE, SAMPLES_PER_PIXEL) \
   int FUNC_NAME(IMAGE_TYPE img, TIFF *tif, uint16 compression) \
   { \
@@ -780,8 +499,6 @@ ________________________________________________________________
     return(0); \
   }
 
-#endif /* FUNCPROTO */
-
 /* Definition of b/w conversion routines */
 
 DECL_BIFF2TIFF_BW(biff2tiff1, "biff2tiff1", IBAND, UNS_BYTE, SAMPLEFORMAT_UINT)
@@ -813,16 +530,7 @@ DECL_BIFF2TIFF_RGB(biff2tiff64c, "biff2tiff64c", ID_IMAGE, double, SAMPLEFORMAT_
 
 
 
-#ifndef FUNCPROTO
-int biff2tiff(img, tif, format, coltab, colLen, compression)
-IMAGE img;
-TIFF *tif;
-int format, colLen;
-uint16 compression;
-Color_cell *coltab;
-#else /* FUNCPROTO */
 int biff2tiff(IMAGE img, TIFF *tif, int format, Color_cell *coltab, int colLen, uint16 compression)
-#endif /* FUNCPROTO */
 {
   long pixeltype, bn;
    
@@ -1007,13 +715,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char *argv[])
-#endif /* FUNCPROTO */
 {
   IMAGE img, colImg;
   int rgb, palette, bw, format, colLen;

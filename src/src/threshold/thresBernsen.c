@@ -33,7 +33,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/threshold.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/minmax.h>
@@ -93,13 +95,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int thresBernsen(inband, outband, cmin, dx, dy, lpv, hpv, low)
-IBAND inband, outband;
-int  cmin, dx, dy, lpv, hpv, low;
-#else /* FUNCPROTO */
 int thresBernsen(IBAND inband, IBAND outband, int cmin, int dx, int dy, int lpv, int hpv, int low)
-#endif /* FUNCPROTO */
 {
   IBAND maxband, minband;
   int xsize, ysize, x, y, t, c, bpv;
@@ -205,13 +201,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1,img2;
   int bn, dx, dy, cmin, lpv, hpv, low;

@@ -33,7 +33,9 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/histo.h>
@@ -82,12 +84,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int thresOtsu(h)
-histogram h;
-#else /* FUNCPROTO */
 int thresOtsu(int *h)
-#endif /* FUNCPROTO */
 {
    int i, bestsplitpos, cumh255;
    double mean, splitval, bestsplitval, diff;
@@ -172,13 +169,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE input, output;
    histogram h;

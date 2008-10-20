@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <stdlib.h>
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/message.h>
@@ -86,15 +88,7 @@ Id:             $Id$
 ________________________________________________________________  
 */
 
-#ifdef FUNCPROTO
 static int zs_get_ngb (int x, int y, IBAND inband, UNS_BYTE *p)
-#else /* FUNCPROTO */
-static int zs_get_ngb (x, y, inband, p)
-     int x;
-     int y;
-     IBAND inband;
-     UNS_BYTE *p;
-#endif /* FUNCPROTO */
 {
   p[1] = (inband[y][x]     == THN_FOREGROUND);
   p[2] = (inband[y-1][x]   == THN_FOREGROUND);
@@ -110,12 +104,7 @@ static int zs_get_ngb (x, y, inband, p)
 }
 
 
-#ifdef FUNCPROTO
 static int zs_nze_ngb (UNS_BYTE *p)
-#else /* FUNCPROTO */
-static int zs_nze_ngb (p)
-     UNS_BYTE *p;
-#endif /* FUNCPROTO */
 {
   int i;
   int sum = 0;
@@ -125,12 +114,7 @@ static int zs_nze_ngb (p)
 }
 
 
-#ifdef FUNCPROTO
 static int zs_pos_tra (UNS_BYTE *p)
-#else /* FUNCPROTO */
-static int zs_pos_tra (p)
-     UNS_BYTE *p;
-#endif /* FUNCPROTO */
 {
   int prev;
   int i;
@@ -146,13 +130,7 @@ static int zs_pos_tra (p)
   return result;
 }
 
-#ifdef FUNCPROTO
 static int zs_flag_bp1 (IBAND inband, IBAND flagband)
-#else /* FUNCPROTO */
-static int zs_flag_bp1 (inband, flagband)
-     IBAND inband;
-     IBAND flagband;
-#endif /* FUNCPROTO */
 {
   int x, y;
   int xsize, ysize;
@@ -182,13 +160,7 @@ static int zs_flag_bp1 (inband, flagband)
   return 1;
 }
 
-#ifdef FUNCPROTO
 static int zs_flag_bp2 (IBAND inband, IBAND flagband)
-#else /* FUNCPROTO */
-static int zs_flag_bp2 (inband, flagband)
-     IBAND inband;
-     IBAND flagband;
-#endif /* FUNCPROTO */
 {
   int x, y;
   int xsize, ysize;
@@ -218,13 +190,7 @@ static int zs_flag_bp2 (inband, flagband)
   return 1;
 }
 
-#ifdef FUNCPROTO
 static int zs_del_fbp (IBAND ioband, IBAND flagband)
-#else /* FUNCPROTO */
-static int zs_del_fbp (ioband, flagband)
-     IBAND ioband;
-     IBAND flagband;
-#endif /* FUNCPROTO */
 {
   int delete = 0;
   int x, y;
@@ -246,14 +212,7 @@ static int zs_del_fbp (ioband, flagband)
   return delete;
 }
  
-#ifdef FUNCPROTO
 int thn_zs(int verbose, IBAND inband, IBAND outband)
-#else /* FUNCPROTO */
-int thn_zs(verbose, inband, outband)
-int verbose;
-IBAND inband;
-IBAND outband;
-#endif /* FUNCPROTO */
 {
   int xsize, ysize;
   int x, y;
@@ -343,13 +302,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifdef FUNCPROTO
 int main (int argc, char *argv[])
-#else /* FUNCPROTO */
-int main (argc, argv)
-int argc;
-char *argv[];
-#endif /* FUNCPROTO */
 {
    char  *infile;
    char  *outfile, *args;

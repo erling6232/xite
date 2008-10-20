@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/texture.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/message.h>
@@ -121,13 +123,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-double glrlSre(inband, maxlength, noofruns) 
-II_BAND inband;
-int maxlength, noofruns; 
-#else /* FUNCPROTO */
 double glrlSre(II_BAND inband, int maxlength, int noofruns)
-#endif /* FUNCPROTO */
 { 
   int x, y, ysize; 
   double sre = 0.0;
@@ -144,13 +140,7 @@ double glrlSre(II_BAND inband, int maxlength, int noofruns)
   return(sre);  
 }
 
-#ifndef FUNCPROTO
-double glrlLre(inband, maxlength, noofruns)
-II_BAND inband;
-int maxlength, noofruns;
-#else /* FUNCPROTO */
 double glrlLre(II_BAND inband, int maxlength, int noofruns)
-#endif /* FUNCPROTO */
 {
   int x, y, ysize;
   double lre = 0.0; 
@@ -167,13 +157,7 @@ double glrlLre(II_BAND inband, int maxlength, int noofruns)
   return(lre);  
 }
 
-#ifndef FUNCPROTO
-double glrlGln(inband, maxlength, noofruns)
-II_BAND inband;
-int maxlength, noofruns;
-#else /* FUNCPROTO */
 double glrlGln(II_BAND inband, int maxlength, int noofruns)
-#endif /* FUNCPROTO */
 {
   int x, y, ysize;
   double gln = 0.0, gln1; 
@@ -196,13 +180,7 @@ double glrlGln(II_BAND inband, int maxlength, int noofruns)
   return(gln);  
 }
 
-#ifndef FUNCPROTO
-double glrlRp(inband, maxlength, noofruns, noofpixels)
-II_BAND inband;
-int maxlength, noofruns, noofpixels;
-#else /* FUNCPROTO */
 double glrlRp(II_BAND inband, int maxlength, int noofruns, int noofpixels)
-#endif /* FUNCPROTO */
 {
   int x, y, ysize;
   double rp = 0.0; 
@@ -219,13 +197,7 @@ double glrlRp(II_BAND inband, int maxlength, int noofruns, int noofpixels)
   return(rp);  
 }
 
-#ifndef FUNCPROTO
-double glrlRln(inband, maxlength, noofruns)
-II_BAND inband;
-int maxlength, noofruns;
-#else /* FUNCPROTO */
 double glrlRln(II_BAND inband, int maxlength, int noofruns)
-#endif /* FUNCPROTO */
 {
   int x, y, ysize;
   double rln = 0.0, rln1; 
@@ -248,13 +220,7 @@ double glrlRln(II_BAND inband, int maxlength, int noofruns)
   return(rln);  
 }
 
-#ifndef FUNCPROTO
-double glrlSgre(inband, maxlength, noofruns)
-II_BAND inband;
-int maxlength, noofruns;
-#else /* FUNCPROTO */
 double glrlSgre(II_BAND inband, int maxlength, int noofruns)
-#endif /* FUNCPROTO */
 {
   int x, y, ysize;
   double sgre = 0.0; 
@@ -271,13 +237,7 @@ double glrlSgre(II_BAND inband, int maxlength, int noofruns)
   return(sgre);  
 }
 
-#ifndef FUNCPROTO
-double glrlLgre(inband, maxlength, noofruns)
-II_BAND inband;
-int maxlength, noofruns;
-#else /* FUNCPROTO */
 double glrlLgre(II_BAND inband, int maxlength, int noofruns)
-#endif /* FUNCPROTO */
 {
   int x, y, ysize;
   double lgre = 0.0; 
@@ -344,15 +304,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int glRunLength(input, output, hori, vert, average, noofgl, maxlength, noofruns)
-IBAND input;
-II_BAND output;
-int hori, vert, noofgl, average;
-int *maxlength, *noofruns;
-#else /* FUNCPROTO */
 int glRunLength(IBAND input, II_BAND output, int hori, int vert, int average, int noofgl, int *maxlength, int *noofruns)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, oxsize, oysize;
   int run_length;
@@ -608,13 +560,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int noofgl, nbands, bn, i, line;
   int hori, vert, head, heq, xsize, ysize, average;

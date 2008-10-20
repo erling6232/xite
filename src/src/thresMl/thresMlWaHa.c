@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/thresMl.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/convolve.h>
 #include <xite/histo.h>
 #include <xite/message.h>
@@ -51,13 +53,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef FUNCPROTO
-static int makeTriImage ( gray , edge, min , max , tri, n )
-IBAND   gray, edge, min, max, tri;
-int     n;
-#else /* FUNCPROTO */
 static int makeTriImage (IBAND gray, IBAND edge, IBAND min, IBAND max, IBAND tri, int n)
-#endif /* FUNCPROTO */
 {
   int     x, y;
   int     xsize, ysize, pixval;
@@ -87,13 +83,7 @@ static int makeTriImage (IBAND gray, IBAND edge, IBAND min, IBAND max, IBAND tri
 
 
 
-#ifndef FUNCPROTO
-static int splitHisto ( gray, tri, min, max, Hd, Hb, gmin, gmax, popD, popB )
-IBAND   gray, tri, min, max;
-int     Hd[], Hb[], gmin, gmax, *popD, *popB;
-#else /* FUNCPROTO */
 static int splitHisto (IBAND gray, IBAND tri, IBAND min, IBAND max, int *Hd, int *Hb, int gmin, int gmax, int *popD, int *popB)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
 
@@ -117,12 +107,7 @@ static int splitHisto (IBAND gray, IBAND tri, IBAND min, IBAND max, int *Hd, int
 
 
 
-#ifndef FUNCPROTO
-static int findThres ( gmin, gmax, Hd, Hb )
-int     *gmin, *gmax, Hd[], Hb[];
-#else /* FUNCPROTO */
 static int findThres (int *gmin, int *gmax, int *Hd, int *Hb)
-#endif /* FUNCPROTO */
 {
   int     i, Td, Tb;
   double  HdTdSum, HdTbSum, HbTdSum, HbTbSum, Pd, Pb;
@@ -269,13 +254,7 @@ Id:           $Id$
 ________________________________________________________________
 
 */
-#ifndef FUNCPROTO
-int thresMlWaHa (gray,tri,edge,thVect,edgeTh,numTh,population,n, totTh)
-IBAND   gray, tri, edge;
-int     thVect[], edgeTh, numTh, population, n, *totTh;
-#else /* FUNCPROTO */
 int thresMlWaHa (IBAND gray, IBAND tri, IBAND edge, int *thVect, int edgeTh, int numTh, int population, int n, int *totTh)
-#endif /* FUNCPROTO */
 {
   IBAND   minBand, maxBand;
   int     x, y, finished, xsize, ysize;
@@ -497,13 +476,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main( argc, argv )
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE     grayImg, edgeImg, triImg;
   histogram thVect, grayVect;

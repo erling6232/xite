@@ -83,13 +83,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int mkComCur(band, cc)
-IBAND band;
-histogram cc;
-#else /* FUNCPROTO */
 int mkComCur(IBAND band, int *cc)
-#endif /* FUNCPROTO */
 {
   int B[257];
   int n, x, y, n1, n2, xsize, ysize;
@@ -178,14 +172,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int thresMlComCur(band, thresholds, nt)
-IBAND band;
-int *thresholds;
-int nt;
-#else /* FUNCPROTO */
 int thresMlComCur(IBAND band, int *thresholds, int nt)
-#endif /* FUNCPROTO */
 {
   histogram cc;
   int stat;
@@ -271,13 +258,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE img;
    histogram t, h;

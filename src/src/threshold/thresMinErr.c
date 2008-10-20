@@ -35,13 +35,21 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
 #include <xite/threshold.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 
 
@@ -97,13 +105,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int thresMinErrIter(h, tinit)
-histogram h;
-int tinit;
-#else /* FUNCPROTO */
 int thresMinErrIter(int *h, int tinit)
-#endif /* FUNCPROTO */
 {
   int i, iter, t, newt, oldt, eps1, eps2;
   double mean1, mean2, var1, var2, sigma1, sigma2, A, B, sq, newt1, newt2;
@@ -215,12 +217,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int thresMinErrCrit(h)
-histogram h;
-#else /* FUNCPROTO */
 int thresMinErrCrit(int *h)
-#endif /* FUNCPROTO */
 {
   int i, t, tmin;
   double mean1, mean2, var1, var2, sigma1, sigma2, P1, P2, j, jmin;
@@ -332,13 +329,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int thresMinErrEqVar(h, tinit)
-histogram h;
-int tinit;
-#else /* FUNCPROTO */
 int thresMinErrEqVar(int *h, int tinit)
-#endif /* FUNCPROTO */
 { 
   int i, t, newt, oldt, iter, eps, eps2;
   float mean1, mean2, var1, var2, var, w1, w2, P1, P2;
@@ -475,13 +466,7 @@ Id:             $Id$
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i;
    histogram h;

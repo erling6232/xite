@@ -32,7 +32,9 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/stdiff.h>
@@ -90,12 +92,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int maxSimilar3x3(input, output)
-   IBAND input, output;
-#else /* FUNCPROTO */
 int maxSimilar3x3(IBAND input, IBAND output)
-#endif /* FUNCPROTO */
 {
    int x, y, xsize, ysize, best, diff, bestdiff;
    IBAND b;
@@ -183,13 +180,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   int bn, stat;

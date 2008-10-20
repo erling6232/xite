@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/arithmetic.h>
@@ -43,7 +45,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/readarg.h>
 #include <xite/texture.h>
 #include <xite/draw.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 
@@ -155,12 +159,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-double glcmAsm(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmAsm(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double Asm = 0.0;
@@ -179,12 +178,7 @@ double glcmAsm(ID_BAND inband)
 }
 
 
-#ifndef FUNCPROTO
-double glcmCont(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmCont(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize, n;
   double cont=0.0, *sum;
@@ -209,12 +203,7 @@ double glcmCont(ID_BAND inband)
   return(cont);
 }
 
-#ifndef FUNCPROTO
-double glcmCorr(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmCorr(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double corr = 0.0, mux, muy, muxx, muyy, sigmax, sigmay;
@@ -263,12 +252,7 @@ double glcmCorr(ID_BAND inband)
   return(corr);
 }
 
-#ifndef FUNCPROTO
-double glcmIdm(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmIdm(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double idm = 0.0;
@@ -286,12 +270,7 @@ double glcmIdm(ID_BAND inband)
   return(idm);
 }
 
-#ifndef FUNCPROTO
-double glcmEntropy(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmEntropy(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double entropy = 0.0;
@@ -312,12 +291,7 @@ double glcmEntropy(ID_BAND inband)
   return(entropy);
 }
 
-#ifndef FUNCPROTO
-double glcmVar(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmVar(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
     int x, y, xsize, ysize;
     double var = 0.0, mean = 0.0;
@@ -341,12 +315,7 @@ double glcmVar(ID_BAND inband)
 }
 
 
-#ifndef FUNCPROTO
-double glcmShade(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmShade(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double shade = 0.0, mux = 0.0, muy = 0.0;
@@ -378,12 +347,7 @@ double glcmShade(ID_BAND inband)
   return(shade);
 }
 
-#ifndef FUNCPROTO
-double glcmProm(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmProm(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double prom = 0.0, mux = 0.0, muy = 0.0;
@@ -414,12 +378,7 @@ double glcmProm(ID_BAND inband)
   return(prom);
 }
 
-#ifndef FUNCPROTO
-double glcmInertia(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmInertia(ID_BAND inband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
   double inert = 0.0;
@@ -439,12 +398,7 @@ double glcmInertia(ID_BAND inband)
 
 
 
-#ifndef FUNCPROTO
-double glcmDiagmoment(inband)
-ID_BAND inband;
-#else /* FUNCPROTO */
 double glcmDiagmoment(ID_BAND inband)
-#endif /* FUNCPROTO */
 {	
    int x, y, xsize, ysize;
    double diagm = 0.0, mean= 0.0;
@@ -570,13 +524,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int dx, dy, num_greylevel, nbands, bn, heq;
   int x, y, xsize, ysize;

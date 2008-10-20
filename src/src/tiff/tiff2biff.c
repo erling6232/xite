@@ -38,9 +38,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/tiff.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_TYPES_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
 
 
 
@@ -65,13 +71,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void Byte2Bit(c,bit,minisblack)
-unsigned char *bit, c;
-int minisblack;
-#else /* FUNCPROTO */
 static void Byte2Bit(unsigned char c, unsigned char *bit, int minisblack)
-#endif /* FUNCPROTO */
 {	
   int i;
 
@@ -88,14 +88,7 @@ static void Byte2Bit(unsigned char c, unsigned char *bit, int minisblack)
 
 }
    
-#ifndef FUNCPROTO
-static void tiffCol2biffCol(redmap, greenmap, bluemap, bps, coltab, numColors)
-uint16 *redmap, *greenmap, *bluemap, bps;
-Color_cell **coltab;
-int *numColors;
-#else /* FUNCPROTO */
 static void tiffCol2biffCol(uint16 *redmap, uint16 *greenmap, uint16 *bluemap, uint16 bps, Color_cell **coltab, int *numColors)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -303,16 +296,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-void tiff2biff1(band, tif, rows, cols, fillorder, minisblack)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-uint16 fillorder;
-int minisblack;
-#else /* FUNCPROTO */
 void tiff2biff1(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 fillorder, int minisblack)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc, n, ccn, ccnn, i;	
   unsigned char *tf_buf, *cp, c;
@@ -378,34 +362,14 @@ void tiff2biff1(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 fillorde
 }
 
 
-#ifndef FUNCPROTO
-void tiff2biff1p(band, tif, rows, cols, fillorder, redmap, greenmap, bluemap, coltab, bps, numColors)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-uint16 fillorder;
-uint16 *redmap, *greenmap, *bluemap, bps;
-Color_cell **coltab;
-int *numColors;
-#else /* FUNCPROTO */
 void tiff2biff1p(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 fillorder, uint16 *redmap, uint16 *greenmap, uint16 *bluemap, Color_cell **coltab, uint16 bps, int *numColors)
-#endif /* FUNCPROTO */
 {
   tiff2biff1(band, tif, rows, cols, fillorder, 1);
   tiffCol2biffCol(redmap, greenmap, bluemap, bps, coltab, numColors);
 }
 
 
-#ifndef FUNCPROTO
-void tiff2biff2(band, tif, rows, cols, minisblack, maxval)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-int minisblack;
-double maxval;
-#else /* FUNCPROTO */
 void tiff2biff2(IBAND band, TIFF *tif, uint32 rows, uint32 cols, int minisblack, double maxval)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc, ccn;
   unsigned char *tf_buf, *cp;
@@ -450,33 +414,14 @@ void tiff2biff2(IBAND band, TIFF *tif, uint32 rows, uint32 cols, int minisblack,
   free((char *) tf_buf);
 }
 
-#ifndef FUNCPROTO
-void tiff2biff2p(band, tif, rows, cols, redmap, greenmap, bluemap, coltab, bps, numColors)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-uint16 *redmap, *greenmap, *bluemap, bps;
-Color_cell **coltab;
-int *numColors;
-#else /* FUNCPROTO */
 void tiff2biff2p(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 *redmap, uint16 *greenmap, uint16 *bluemap, Color_cell **coltab, uint16 bps, int *numColors)
-#endif /* FUNCPROTO */
 {
   tiff2biff2(band, tif, rows, cols, 1, 0.0);
   tiffCol2biffCol(redmap, greenmap, bluemap, bps, coltab, numColors);
 }
 
 
-#ifndef FUNCPROTO
-void tiff2biff4(band, tif, rows, cols, minisblack, maxval)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-int minisblack;
-double maxval;
-#else /* FUNCPROTO */
 void tiff2biff4(IBAND band, TIFF *tif, uint32 rows, uint32 cols, int minisblack, double maxval)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc, ccn;
   unsigned char *tf_buf, *cp;
@@ -518,17 +463,7 @@ void tiff2biff4(IBAND band, TIFF *tif, uint32 rows, uint32 cols, int minisblack,
   free((char *) tf_buf);
 }
 
-#ifndef FUNCPROTO
-void tiff2biff4p(band, tif, rows, cols, redmap, greenmap, bluemap, coltab, bps, numColors)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-uint16 *redmap, *greenmap, *bluemap, bps;
-Color_cell **coltab;
-int *numColors;
-#else /* FUNCPROTO */
 void tiff2biff4p(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 *redmap, uint16 *greenmap, uint16 *bluemap, Color_cell **coltab, uint16 bps, int *numColors)
-#endif /* FUNCPROTO */
 {
   tiff2biff2(band, tif, rows, cols, 1, 0.0);
   tiffCol2biffCol(redmap, greenmap, bluemap, bps, coltab, numColors);
@@ -537,16 +472,7 @@ void tiff2biff4p(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 *redmap
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff8(band, tif, rows, cols, minisblack, maxval)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-int minisblack;
-double maxval;
-#else /* FUNCPROTO */
 void tiff2biff8(IBAND band, TIFF *tif, uint32 rows, uint32 cols, int minisblack, double maxval)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   unsigned char *tf_buf, *cp;
@@ -581,17 +507,7 @@ void tiff2biff8(IBAND band, TIFF *tif, uint32 rows, uint32 cols, int minisblack,
   free((char *) tf_buf);
 }
 
-#ifndef FUNCPROTO
-void tiff2biff8p(band, tif, rows, cols, redmap, greenmap, bluemap, coltab, bps, numColors)
-IBAND band;
-TIFF* tif;
-uint32 rows, cols;
-uint16 *redmap, *greenmap, *bluemap, bps;
-Color_cell **coltab;
-int *numColors;
-#else /* FUNCPROTO */
 void tiff2biff8p(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 *redmap, uint16 *greenmap, uint16 *bluemap, Color_cell **coltab, uint16 bps, int *numColors)
-#endif /* FUNCPROTO */
 {
   tiff2biff8(band, tif, rows, cols, 1, 0.0);
   tiffCol2biffCol(redmap, greenmap, bluemap, bps, coltab, numColors);
@@ -599,14 +515,7 @@ void tiff2biff8p(IBAND band, TIFF *tif, uint32 rows, uint32 cols, uint16 *redmap
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff8c(img,tif,rows,cols)
-IMAGE img;
-TIFF* tif;
-uint32  rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff8c(IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   unsigned char *tf_buf, *cp;
@@ -640,14 +549,7 @@ void tiff2biff8c(IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff16(band,tif,rows,cols)
-IUS_BAND band;
-TIFF* tif;
-uint32  rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff16(IUS_BAND band, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   unsigned short *tf_buf, *cp;
@@ -677,14 +579,7 @@ void tiff2biff16(IUS_BAND band, TIFF *tif, uint32 rows, uint32 cols)
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff16c(img,tif,rows,cols)
-IUS_IMAGE img;
-TIFF* tif;
-uint32  rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff16c(IUS_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   unsigned short *tf_buf, *cp;
@@ -720,14 +615,7 @@ void tiff2biff16c(IUS_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff32i(band,tif,rows,cols)
-II_BAND band;
-TIFF* tif;
-uint32  rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff32i(II_BAND band, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   int *tf_buf, *cp;
@@ -757,14 +645,7 @@ void tiff2biff32i(II_BAND band, TIFF *tif, uint32 rows, uint32 cols)
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff32ic(img,tif,rows,cols)
-II_IMAGE img;
-TIFF* tif;
-uint32  rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff32ic(II_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   int *tf_buf, *cp;
@@ -796,14 +677,7 @@ void tiff2biff32ic(II_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
 }
 
 
-#ifndef FUNCPROTO
-void tiff2biff32fp(band,tif,rows,cols)
-IR_BAND band;
-TIFF* tif;
-uint32 rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff32fp(IR_BAND band, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   float *tf_buf, *cp;
@@ -831,14 +705,7 @@ void tiff2biff32fp(IR_BAND band, TIFF *tif, uint32 rows, uint32 cols)
 }
 
 
-#ifndef FUNCPROTO
-void tiff2biff32fpc(img,tif,rows,cols)
-IR_IMAGE img;
-TIFF* tif;
-uint32 rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff32fpc(IR_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   float *tf_buf, *cp;
@@ -873,14 +740,7 @@ void tiff2biff32fpc(IR_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff64(band,tif,rows,cols)
-ID_BAND band;
-TIFF* tif;
-uint32 rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff64(ID_BAND band, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   double *tf_buf, *cp;
@@ -910,14 +770,7 @@ void tiff2biff64(ID_BAND band, TIFF *tif, uint32 rows, uint32 cols)
 
 
 
-#ifndef FUNCPROTO
-void tiff2biff64c(img,tif,rows,cols)
-ID_IMAGE img;
-TIFF* tif;
-uint32 rows, cols;
-#else /* FUNCPROTO */
 void tiff2biff64c(ID_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
-#endif /* FUNCPROTO */
 {
   uint32 row, cc;
   double *tf_buf, *cp;
@@ -948,15 +801,7 @@ void tiff2biff64c(ID_IMAGE img, TIFF *tif, uint32 rows, uint32 cols)
   free((char *) tf_buf);
 }
 
-#ifndef FUNCPROTO
-static int GetCommonFields(tif, bps, spp, photomet, fillorder, sampleform, cols, rows, title)
-TIFF *tif;
-uint16 *bps, *spp, *photomet, *fillorder, *sampleform;
-uint32 *cols, *rows;
-char *title;
-#else /* FUNCPROTO */
 static int GetCommonFields(TIFF *tif, uint16 *bps, uint16 *spp, uint16 *photomet, uint16 *fillorder, uint16 *sampleform, uint32 *cols, uint32 *rows, char **title)
-#endif /* FUNCPROTO */
 {
   if ( ! TIFFGetField( tif, TIFFTAG_BITSPERSAMPLE, bps ) )
     *bps = 1; /* Default from TIFF 6.0 spec. */
@@ -992,14 +837,7 @@ static int GetCommonFields(TIFF *tif, uint16 *bps, uint16 *spp, uint16 *photomet
 }
 
 
-#ifndef FUNCPROTO
-static int CheckSampleFormat(sampleFormat, pixeltype, maxval, bps)
-uint16 sampleFormat, bps;
-long *pixeltype;
-double *maxval;
-#else /* FUNCPROTO */
 static int CheckSampleFormat(uint16 sampleFormat, long *pixeltype, double *maxval, uint16 bps)
-#endif /* FUNCPROTO */
 {
   switch (sampleFormat) {
   case SAMPLEFORMAT_UINT:
@@ -1072,12 +910,7 @@ static int CheckSampleFormat(uint16 sampleFormat, long *pixeltype, double *maxva
   return(0);
 }
 
-#ifndef FUNCPROTO
-static int CheckSamplePerPixel(spp)
-uint16 spp;
-#else /* FUNCPROTO */
 static int CheckSamplePerPixel(uint16 spp)
-#endif /* FUNCPROTO */
 {
   switch ( spp ) {
   case 1:
@@ -1094,14 +927,7 @@ static int CheckSamplePerPixel(uint16 spp)
 }
 
 
-#ifndef FUNCPROTO
-static int CheckPhotometric(tif, photomet, format, minisblack, redmap, greenmap, bluemap, spp)
-TIFF *tif;
-uint16 photomet, spp, **redmap, **greenmap, **bluemap;
-int *format, *minisblack;
-#else /* FUNCPROTO */
 static int CheckPhotometric(TIFF *tif, uint16 photomet, int *format, int*minisblack, uint16 **redmap, uint16 **greenmap, uint16 **bluemap, uint16 spp)
-#endif /* FUNCPROTO */
 {
   switch (photomet) {
   case PHOTOMETRIC_MINISBLACK:
@@ -1142,14 +968,7 @@ static int CheckPhotometric(TIFF *tif, uint16 photomet, int *format, int*minisbl
   return(0);
 }
 
-#ifndef FUNCPROTO
-IMAGE tiff2biff(tif, coltab, numColors)
-TIFF *tif;
-Color_cell **coltab;
-int *numColors;
-#else /* FUNCPROTO */
 IMAGE tiff2biff(TIFF *tif, Color_cell **coltab, int *numColors)
-#endif /* __STD__ */
 {
   uint16 bps, spp, photomet, fillorder, sampleform,
     *redcolormap, *greencolormap, *bluecolormap;
@@ -1361,13 +1180,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main( argc, argv )
-int argc;
-char* argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   TIFF* tif;
   IMAGE img;

@@ -33,7 +33,9 @@ static char *Id = "$Id$, Blab, UiO";
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/histo.h>
@@ -76,13 +78,7 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
 int thresPtile ( histogram h, float pTile )
-#else
-int thresPtile(h, pTile)
-histogram h;
-float pTile;
-#endif
 {
   int i, sum, limit ;
 
@@ -147,13 +143,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i;
    histogram h;

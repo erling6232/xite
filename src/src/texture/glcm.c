@@ -41,7 +41,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/draw.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #ifndef MAIN
 
@@ -105,14 +107,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int glcm(input, output, dx, dy, num_greylevel)
-IBAND input;
-ID_BAND output;
-int dx, dy, num_greylevel;
-#else /* FUNCPROTO */
 int glcm(IBAND input, ID_BAND output, int dx, int dy, int num_greylevel)
-#endif /* FUNCPROTO */
 {
   int x, y, pv1, pv2, stat=0;
   int xstart, ystart, xstop, ystop;
@@ -206,13 +201,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int dx, dy, num_greylevel, nbands, bn, heq;
   IMAGE inimg;

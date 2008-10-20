@@ -39,7 +39,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/thresMl.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #ifdef MAIN
 
@@ -93,13 +95,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   double scale;

@@ -41,16 +41,28 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/sunraster.h>
-#include XITE_STDIO_H
-#include XITE_UNISTD_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/utils.h>
-#include XITE_TYPES_H
-#include XITE_FILE_H
-#include XITE_FCNTL_H
-#include XITE_MALLOC_H
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_FILE_H
+#  include <sys/file.h>
+#endif
+#ifdef HAVE_SYS_FCNTL_H
+#  include <sys/fcntl.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include "rast.h"
 
 #define ERR_NONE   0
@@ -84,14 +96,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void uncompress(band, bit_data, depth)
-IBAND band;
-unsigned char *bit_data;
-int depth;
-#else /* FUNCPROTO */
 static void uncompress(IBAND band, unsigned char *bit_data, int depth)
-#endif /* FUNCPROTO */
 {
   unsigned char *byte_data;
   register int count, w;
@@ -161,13 +166,7 @@ static void uncompress(IBAND band, unsigned char *bit_data, int depth)
   
 } /* uncompress() */
 
-#ifndef FUNCPROTO
-static int _Iread_(fd, ptr, size)
-int fd, size;
-unsigned char *ptr;
-#else /* FUNCPROTO */
 static int _Iread_(int fd, unsigned char *ptr, int size)
-#endif /* FUNCPROTO */
 {
   int blokk, total = 0;
 
@@ -230,15 +229,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int read_sunraster(img, tab, filename, depth)
-IMAGE *img;
-Color_tab tab;
-char *filename;
-int *depth;
-#else /* FUNCPROTO */
 int read_sunraster(IMAGE *img, Color_cell *tab, char *filename, int *depth)
-#endif /* FUNCPROTO */
 {
   struct rasterfile ras;
   int fd;
@@ -462,13 +453,7 @@ static char *sunraster2biff_error[] =
   "Illegal command line",
 };
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   Color_tab tab;   /* This is non-NULL (it refers to the first element of a

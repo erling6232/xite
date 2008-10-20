@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/threshold.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -91,13 +93,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int thresholdSpOut(b1, b2, t, lpv, hpv)
-IBAND b1, b2;
-int t, lpv, hpv;
-#else /* FUNCPROTO */
 int thresholdSpOut(IBAND b1, IBAND b2, int t, int lpv, int hpv)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
 
@@ -124,13 +120,7 @@ int thresholdSpOut(IBAND b1, IBAND b2, int t, int lpv, int hpv)
 ________________________________________________________________
 */
 
-#ifndef FUNCPROTO
-int threshold(b1, b2, t)
-IBAND b1, b2;
-int t;
-#else /* FUNCPROTO */
 int threshold(IBAND b1, IBAND b2, int t)
-#endif /* FUNCPROTO */
 {
   return(thresholdSpOut(b1, b2, t, 0, 255));
 }
@@ -175,13 +165,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int bn, t, lpv, hpv, stat;

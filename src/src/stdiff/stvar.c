@@ -37,14 +37,26 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/stdiff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 #ifndef MAIN
 
@@ -69,13 +81,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void update_line(line, x, x2, width, add)
-UNS_BYTE *line;
-int *x, *x2, width, add;
-#else /* FUNCPROTO */
 static void update_line(UNS_BYTE *line, int *x, int *x2, int width, int add)
-#endif /* FUNCPROTO */
 {
   int val;
   
@@ -127,14 +133,7 @@ ________________________________________________________________
 	  *result++ = val;\
 	  }
 
-#ifndef FUNCPROTO
-static void stvar_line(result, input, x, x2, width, 
-                         deltax, deltay, k)
-UNS_BYTE *result, *input;
-int *x, *x2, width, deltax, deltay, k;
-#else /* FUNCPROTO */
 static void stvar_line(UNS_BYTE *result, UNS_BYTE *input, int *x, int *x2, int width, int deltax, int deltay, int k)
-#endif /* FUNCPROTO */
 {
   int sumx, sqsumx, N, mid, stdev, i, val;
   int *xx, *xx2;
@@ -193,13 +192,7 @@ ________________________________________________________________
 	  *result++ = val;\
 	  }
 
-#ifndef FUNCPROTO
-static void stther_line(result, input, x, x2, width, deltax, deltay, k)
-UNS_BYTE *result, *input;
-int *x, *x2, width, deltax, deltay, k;
-#else /* FUNCPROTO */
 static void stther_line(UNS_BYTE *result, UNS_BYTE *input, int *x, int *x2, int width, int deltax, int deltay, int k)
-#endif /* FUNCPROTO */
 {
   int sumx, sqsumx, N, mid, stdev, i, val;
   int *xx, *xx2;
@@ -277,14 +270,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int stvar(input, output, deltax, deltay, kt, t)
-IBAND input, output;
-int deltax, deltay, t;
-double  kt;
-#else /* FUNCPROTO */
 int stvar(IBAND input, IBAND output, int deltax, int deltay, double kt, int t)
-#endif /* FUNCPROTO */
 {
   int *x, *x2, i, j, k, l, ik;
   UNS_BYTE **first, **last, **inptr, **outptr;
@@ -384,13 +370,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE input, output;
   int i, t;

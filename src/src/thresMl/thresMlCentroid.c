@@ -41,12 +41,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 #ifndef MAIN
 
-#ifndef FUNCPROTO
-static int eqHisto(h1, h2)
-histogram h1, h2;
-#else /* FUNCPROTO */
 static int eqHisto(int *h1, int *h2)
-#endif /* FUNCPROTO */
 {
   int i;
   for (i=0; i<256; i++) if (h1[i] != h2[i]) return(FALSE);
@@ -109,13 +104,7 @@ ________________________________________________________________
 #define MEAN ((int)(0.5+sumih)/sumh)
 #define CENT ((method) ? MEDIAN : MEAN) 
 
-#ifndef FUNCPROTO
-int histoCentroid(hin, hout, m, method)
-histogram hin, hout;
-int m, method;
-#else /* FUNCPROTO */
 int histoCentroid(int *hin, int *hout, int m, int method)
-#endif /* FUNCPROTO */
 {
   histogram H1, H2;
   int sumh, sumih, i, j, itera, median, mediansum;
@@ -226,14 +215,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int thresMlCentroid(histo, thres, m, method, nt)
-histogram histo, thres;
-int m, method;
-int *nt;
-#else /* FUNCPROTO */
 int thresMlCentroid(int *histo, int *thres, int m, int method, int *nt)
-#endif /* FUNCPROTO */
 {
   histogram H1, H2;
   int i, j, low, high, sumi=0, sumj=0;
@@ -368,14 +350,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-static void thres2map(thres, map, nt, s)
-histogram thres, map;
-int nt;
-double s;
-#else /* FUNCPROTO */
 static void thres2map(int *thres, int *map, int nt, double s)
-#endif /* FUNCPROTO */
 {
   int g, l;
 
@@ -390,13 +365,7 @@ static void thres2map(int *thres, int *map, int nt, double s)
 }
 
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   histogram h, thres;

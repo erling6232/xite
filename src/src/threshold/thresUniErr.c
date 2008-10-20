@@ -35,12 +35,20 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
 #include <xite/threshold.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 
 
@@ -83,12 +91,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int thresUniErr(band)
-IBAND band;
-#else /* FUNCPROTO */
 int thresUniErr(IBAND band)
-#endif /* FUNCPROTO */
 {
   int x, y, i, j, tmp, bottom, top, ant2x2, maks1, maks2, maks4, t;
   int xsize, ysize, min, jmin;
@@ -208,12 +211,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;  char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE img;
    int t, bn, lpv, hpv, output;

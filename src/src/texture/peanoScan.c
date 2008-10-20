@@ -32,7 +32,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/texture.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -111,24 +113,12 @@ ________________________________________________________________
 
 static int x, y, ox, oy, oxsize, oysize, stop;
 static IBAND ib, ob;
-#ifndef FUNCPROTO
-static void right();
-static void left();
-static void up();
-static void down();
-#else /* FUNCPROTO */
 static void right(int l);
 static void left(int l);
 static void up(int l);
 static void down(int l);
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-static void right(l)
-int l;
-#else /* FUNCPROTO */
 static void right(int l)
-#endif /* FUNCPROTO */
 {
 /* printf("X:%d Y:%d OX:%d OY:%d L:%d\n", x, y, ox, oy, l); */
 /* printf("X:%d Y:%d L:%d\n", x, y, l);  if (stop) return; */
@@ -145,12 +135,7 @@ static void right(int l)
   ENDIF;
 }
 
-#ifndef FUNCPROTO
-static void left(l)
-int l;
-#else /* FUNCPROTO */
 static void left(int l)
-#endif /* FUNCPROTO */
 {
   if (stop) return;
   IF (l == 1)
@@ -166,12 +151,7 @@ static void left(int l)
   ENDIF;
 }
 
-#ifndef FUNCPROTO
-static void up(l)
-int l;
-#else /* FUNCPROTO */
 static void up(int l)
-#endif /* FUNCPROTO */
 {
   if (stop) return;
   IF (l == 1)
@@ -187,12 +167,7 @@ static void up(int l)
   ENDIF;
 }
 
-#ifndef FUNCPROTO
-static void down(l)
-int l;
-#else /* FUNCPROTO */
 static void down(int l)
-#endif /* FUNCPROTO */
 {
   if (stop) return;
   IF (l == 1)
@@ -209,13 +184,7 @@ static void down(int l)
 }
 
 
-#ifndef FUNCPROTO
-int peanoScan(inband, outband, blockPow)
-IBAND inband, outband;
-int blockPow;
-#else /* FUNCPROTO */
 int peanoScan(IBAND inband, IBAND outband, int blockPow)
-#endif /* FUNCPROTO */
 {
   int i, xsize, ysize, xstart, ystart, n, ws;
 
@@ -343,13 +312,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE inimg, peanoimg;
   int oxsize, oysize, power, bn;

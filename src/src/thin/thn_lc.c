@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <stdlib.h>
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/message.h>
@@ -116,15 +118,7 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
 int thn_lc(int verbose, IBAND inband, IBAND outband)
-#else /* FUNCPROTO */
-int thn_lc(verbose, inband, outband)
-   int verbose;
-   IBAND inband;
-   IBAND outband;
-#endif /* FUNCPROTO */
-
 {
   int x, y, xsize, ysize;
   int P2, P3, P4, P5;
@@ -213,13 +207,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifdef FUNCPROTO
 int main (int argc, char *argv[])
-#else /* FUNCPROTO */
-int main (argc, argv)
-int argc;
-char *argv[];
-#endif /* FUNCPROTO */
 {
    int xsize, ysize;
    IBAND inband;

@@ -35,9 +35,19 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <stdlib.h>
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_FCNTL_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_SYS_FCNTL_H
+#  include <sys/fcntl.h>
+#endif
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/message.h>
@@ -112,14 +122,7 @@ static int har_str_ele_s[16][3][3]=
 
 
 
-#ifdef FUNCPROTO
 static int har_dif_img (IBAND inband, IBAND other_band, IBAND negated) 
-#else /* FUNCPROTO */
-static int har_dif_img (inband, other_band, negated) 
-     IBAND inband; 
-     IBAND other_band; 
-     IBAND negated;
-#endif /* FUNCPROTO */
 {
    int r, c;
    int temp ;
@@ -141,17 +144,7 @@ static int har_dif_img (inband, other_band, negated)
 
 
 
-#ifdef FUNCPROTO
 static int har_val_ran(int row, int col, int lr, int hr, int lc, int hc) 
-#else /* FUNCPROTO */
-static int har_val_ran(row, col, lr, hr, lc, hc) 
-     int row; 
-     int col; 
-     int lr; 
-     int hr; 
-     int lc; 
-     int hc;
-#endif /* FUNCPROTO */
 {
     if ( (row < lr) || (row > hr) || (col < lc) || (col > hc) )
          return 0 ;
@@ -161,19 +154,7 @@ static int har_val_ran(row, col, lr, hr, lc, hc)
 
 
 
-#ifdef FUNCPROTO
 static int har_hit_and_mis (IBAND inband, IBAND negated, int J, int K, IBAND H_M_band, int *empty, IBAND hit_band, IBAND miss_band) 
-#else /* FUNCPROTO */
-static int har_hit_and_mis (inband, negated, J, K, H_M_band, empty, hit_band, miss_band) 
-IBAND inband; 
-IBAND negated; 
-int J; 
-int K; 
-IBAND H_M_band; 
-int *empty;
-IBAND hit_band; 
-IBAND miss_band;
-#endif /* FUNCPROTO */
 {
    int r, c, l, m ;
    int flag ;
@@ -242,18 +223,7 @@ IBAND miss_band;
 
 
 
-#ifdef FUNCPROTO
 static int har_situation_i (IBAND inband, IBAND negated, int idx, int *update, IBAND H_M_band, IBAND hit_band, IBAND miss_band)
-#else /* FUNCPROTO */
-static int har_situation_i (inband, negated, idx, update, H_M_band, hit_band, miss_band)
-IBAND inband; 
-IBAND negated; 
-int idx; 
-int *update;
-IBAND H_M_band; 
-IBAND hit_band; 
-IBAND miss_band;
-#endif /* FUNCPROTO */
 {
    int   empty ;
    int   J_idx, K_idx ;
@@ -279,13 +249,7 @@ IBAND miss_band;
 
 
 
-#ifdef FUNCPROTO
 static int har_one_pas (IBAND inband, int *not_finished, IBAND negated, IBAND H_M_band, IBAND hit_band, IBAND miss_band)
-#else /* FUNCPROTO */
-static int har_one_pas (inband, not_finished, negated, H_M_band, hit_band, miss_band)
-int *not_finished; 
-IBAND inband, negated, H_M_band, hit_band, miss_band;
-#endif /* FUNCPROTO */
 {
    int   i;
    int   update_flag;
@@ -345,12 +309,7 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
 int thn_har (IBAND inband) 
-#else /* FUNCPROTO */
-int thn_har (inband) 
-     IBAND inband;
-#endif /* FUNCPROTO */
 {
   int not_finished;
   int pass_no;
@@ -432,13 +391,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifdef FUNCPROTO
 int main (int argc, char *argv[])
-#else /* FUNCPROTO */
-int main (argc, argv)
-int argc;
-char *argv[];
-#endif /* FUNCPROTO */
 {
   int xsize, ysize;
   IBAND inband;

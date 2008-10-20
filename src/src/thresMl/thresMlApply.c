@@ -107,15 +107,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int thresMlAppScale(inband, outband, thresholds, nt, scale)
-IBAND inband, outband;
-int *thresholds;
-int nt;
-double scale;
-#else /* FUNCPROTO */
 int thresMlAppScale(IBAND inband, IBAND outband, int *thresholds, int nt, double scale)
-#endif /* FUNCPROTO */
 {
   histogram transTable;
   int i, tn=0, g=0;
@@ -139,15 +131,7 @@ int thresMlAppScale(IBAND inband, IBAND outband, int *thresholds, int nt, double
 }
 
 
-#ifndef FUNCPROTO
-int thresMlAppMean(inband, outband, thresholds, nt, histo)
-IBAND inband, outband;
-int *thresholds;
-int nt;
-histogram histo;
-#else /* FUNCPROTO */
 int thresMlAppMean(IBAND inband, IBAND outband, int *thresholds, int nt, int *histo)
-#endif /* FUNCPROTO */
 {
   histogram transTable;
   int min, max, sum, g, tn;
@@ -174,15 +158,7 @@ int thresMlAppMean(IBAND inband, IBAND outband, int *thresholds, int nt, int *hi
 }
 
 
-#ifndef FUNCPROTO
-int thresMlAppMedian(inband, outband, thresholds, nt, histo)
-IBAND inband, outband;
-int *thresholds;
-int nt;
-histogram histo;
-#else /* FUNCPROTO */
 int thresMlAppMedian(IBAND inband, IBAND outband, int *thresholds, int nt, int *histo)
-#endif /* FUNCPROTO */
 {
   histogram transTable;
   int min, max, sum, medsum, g, tn, med;

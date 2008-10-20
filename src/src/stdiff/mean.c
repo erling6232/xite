@@ -35,12 +35,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/stdiff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 
 
@@ -62,25 +66,6 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-#define update_line_template(name, pixtyp, calctyp) \
-static void name(line, x, width, add) \
-pixtyp *line; \
-calctyp *x; \
-int width, add; \
-{ \
-  line++; \
-  if (add) { \
-    while(width--) { \
-      *x += *line++; x++; \
-    } \
-  } else { \
-    while(width--) { \
-      *x -= *line++; x++; \
-    } \
-  } \
-}
-#else /* FUNCPROTO */
 #define update_line_template(name, pixtyp, calctyp) \
 static void name(pixtyp *line, calctyp *x, int width, int add) \
 { \
@@ -95,7 +80,6 @@ static void name(pixtyp *line, calctyp *x, int width, int add) \
     } \
   } \
 }
-#endif /* FUNCPROTO */
 
 update_line_template(update_line_byte,        UNS_BYTE,   int)
 update_line_template(update_line_signed_byte, SIGN_BYTE,  int)
@@ -123,43 +107,6 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-#define mean_line_template(name, pixtyp, calctyp) \
-static void name(result, input, x, width, deltax, deltay) \
-pixtyp *result, *input; \
-calctyp *x; \
-int width, deltax, deltay; \
-{ \
-  int N, i; \
-  calctyp *xx, sumx; \
-  \
-  result++; input++; \
-  sumx = 0;  N = 0; \
-  xx = x; \
-  if (deltax > width) deltax = width-1; \
-  if ((deltax & 1) == 0) deltax++; \
-  \
-  for (i=1; i<=deltax; i++) \
-    { \
-      N      += deltay; \
-      sumx   += *xx++; \
-      if (i & 1) *result++ = sumx/N; \
-    } \
-  width -= deltax; \
-  while (width--) \
-    { \
-      sumx   += *xx++; \
-      sumx   -= *x++; \
-      *result++ = sumx/N; \
-    } \
-  while (deltax--) \
-    { \
-      N      -= deltay; \
-      sumx   -= *x++; \
-      if (deltax & 1) *result++ = sumx/N; \
-    } \
-}
-#else /* FUNCPROTO */
 #define mean_line_template(name, pixtyp, calctyp) \
 static void name(pixtyp *result, pixtyp *input, calctyp *x, int width, int deltax, int deltay) \
 { \
@@ -192,7 +139,6 @@ static void name(pixtyp *result, pixtyp *input, calctyp *x, int width, int delta
       if (deltax & 1) *result++ = sumx/N; \
     } \
 }
-#endif /* FUNCPROTO */
 
 mean_line_template(mean_line_byte,        UNS_BYTE,   int)
 mean_line_template(mean_line_signed_byte, SIGN_BYTE,  int)
@@ -237,53 +183,6 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-#define mean_template(name, bandtyp, pixtyp, calctyp, update_fun, mean_fun) \
-static int name(input, output, deltax, deltay) \
-bandtyp input, output; \
-int deltax, deltay; \
-{ \
-  int  i; \
-  calctyp *x; \
-  pixtyp **first, **last; \
-  int width, height; \
-  \
-  if (Ipixtyp((IBAND) input) != Ipixtyp((IBAND) output)) \
-    return(Error(2, "mean: Different input pixel types.\n")); \
-  \
-  if (deltax < 1)  return(Error(3, "mean: Bad deltax value\n")); \
-  if (deltay < 1)  return(Error(4, "mean: Bad deltay value\n")); \
-  \
-  width  = Ixsize((IBAND) input); \
-  height = Iysize((IBAND) input); \
-  \
-  input++; output++; \
-  first = last = input;  \
-  x  = (calctyp *) malloc(width*sizeof(calctyp)); \
-  for(i=0; i<width; i++) x[i] = 0; \
-  for (i=1; i<= deltay; i++) \
-    { \
-      update_fun(*first++, x, width, 1); \
-      if ( i & 1) mean_fun(*output++, *input++, x, width, deltax, i); \
-    } \
-  height -= deltay; \
-  while(height--) \
-    { \
-      update_fun(*first++, x, width, 1); \
-      update_fun(*last++, x,  width, 0); \
-      mean_fun(*output++, *input++, x, width, deltax, deltay); \
-    } \
-  while(deltay--) \
-    { \
-      update_fun(*last++, x, width, 0); \
-      if (deltay & 1) \
-	mean_fun(*output++, *input++, x, width, deltax, deltay); \
-  \
-    } \
-  free(x); \
-  return(0); \
-}
-#else /* FUNCPROTO */
 #define mean_template(name, bandtyp, pixtyp, calctyp, update_fun, mean_fun) \
 static int name(bandtyp input, bandtyp output, int deltax, int deltay) \
 { \
@@ -327,7 +226,6 @@ static int name(bandtyp input, bandtyp output, int deltax, int deltay) \
   free(x); \
   return(0); \
 }
-#endif /* FUNCPROTO */
 
 mean_template(mean_byte, IUB_BAND, UNS_BYTE,int, update_line_byte, mean_line_byte)
 mean_template(mean_signed_byte, ISB_BAND, SIGN_BYTE, int, update_line_signed_byte, mean_line_signed_byte)
@@ -338,13 +236,7 @@ mean_template(mean_real, IR_BAND, REAL, DOUBLE, update_line_real, mean_line_real
 mean_template(mean_double, ID_BAND, DOUBLE, DOUBLE, update_line_double, mean_line_double)
 
 
-#ifndef FUNCPROTO
-int mean(input, output, deltax, deltay)
-IBAND input, output;
-int deltax, deltay;
-#else /* FUNCPROTO */
 int mean(IBAND input, IBAND output, int deltax, int deltay)
-#endif /* FUNCPROTO */
 {
   int stat = 0;
 
@@ -413,13 +305,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE input, output;
   int i, dx, dy;
