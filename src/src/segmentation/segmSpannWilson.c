@@ -68,13 +68,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void thres2map(thres, map, nt)
-histogram thres, map;
-int nt;
-#else /* FUNCPROTO */
 static void thres2map(int *thres, int *map, int nt)
-#endif /* FUNCPROTO */
 {
   int i, j, low, high;
   low = 0;
@@ -107,12 +101,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static BiffStatus sameAsFather(father, son)
-IBAND father, son;
-#else /* FUNCPROTO */
 static BiffStatus sameAsFather(IBAND father, IBAND son)
-#endif /* FUNCPROTO */
 {
   int x, y, xx, yy=1, xsize, ysize, sonXsize, sonYsize, pixelval;
 
@@ -162,12 +151,7 @@ ________________________________________________________________
 */
 #define EQUAL(x1,y1,x2,y2) (inband[y1][x1] == inband[y2][x2])
 
-#ifndef FUNCPROTO
-static BiffStatus createBoundary(inband, outband)
-IBAND inband, outband;
-#else /* FUNCPROTO */
 static BiffStatus createBoundary(IBAND inband, IBAND outband)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
 
@@ -234,12 +218,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void enlargeBoundary(inband, outband)
-IBAND inband, outband;
-#else /* FUNCPROTO */
 static void enlargeBoundary(IBAND inband, IBAND outband)
-#endif /* FUNCPROTO */
 {
   maxarea(inband, outband, 3, 3);
 }
@@ -280,13 +259,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-BiffStatus reclassifyBoundary(orig, result, boundary, map) 
-IBAND orig, result, boundary;
-histogram map;
-#else /* FUNCPROTO */
 BiffStatus reclassifyBoundary(IBAND orig, IBAND result, IBAND boundary, int *map)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, ysize;
 
@@ -416,13 +389,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-BiffStatus segmSpannWilson(inband, outband, n, m, method)
-IBAND inband, outband;
-int n, m, method;
-#else /* FUNCPROTO */
 BiffStatus segmSpannWilson(IBAND inband, IBAND outband, int n, int m, int method)
-#endif /* FUNCPROTO */
 {
   IMAGE img1, img2, img3, img4;
   histogram histo, thres;
@@ -577,13 +544,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img1, img2;
   int bn, nbands, m, n, method;

@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/snn.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -121,13 +123,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int litSnn(input, output, dp, dx, dy)
-IBAND input, output;
-int dp, dx, dy;
-#else /* FUNCPROTO */
 int litSnn(IBAND input, IBAND output, int dp, int dx, int dy)
-#endif /* FUNCPROTO */
 {
    int x, y, xx1, yy1, xx2, yy2, xxstart, yystart, xxstop, yystop, diff,
        dxhalf, dyhalf, xsize, ysize, npixels, pixval1, pixval2, center;
@@ -240,13 +236,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   int bn, dp, dx, dy, stat;

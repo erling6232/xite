@@ -36,8 +36,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/statistics.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/debug.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
@@ -89,13 +97,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int band_minmax(band, minval, maxval)
-IBAND band;
-double *minval, *maxval;
-#else /* FUNCPROTO */
 int band_minmax(IBAND band, double *minval, double *maxval)
-#endif /* FUNCPROTO */
 {
   int status = 0;
 
@@ -119,13 +121,7 @@ int band_minmax(IBAND band, double *minval, double *maxval)
 
 } /* band_minmax() */
 
-#ifndef FUNCPROTO
-int band_minmax_disp(band, minval, maxval)
-IBAND band;
-float *minval, *maxval;
-#else /* FUNCPROTO */
 int band_minmax_disp(IBAND band, float *minval, float *maxval)
-#endif /* FUNCPROTO */
 {
   int status = Iok;
 
@@ -220,13 +216,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int n=0, l = FALSE, u = FALSE, name = FALSE, format = TRUE, pipe = FALSE;

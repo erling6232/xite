@@ -42,8 +42,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/utl_malloc.h>
 #include <xite/readarg.h>
-#include XITE_STRING_H
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 
 
@@ -152,14 +160,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int hstatistics(histo, min, max, median, mean, stdev)
-histogram histo;
-int *min, *max, *median;
-double *mean, *stdev;
-#else /* FUNCPROTO */
 int hstatistics(int *histo, int *min, int *max, int *median, double *mean, double *stdev)
-#endif /* FUNCPROTO */
 {
   int n, size;
   double sum, diff;
@@ -193,14 +194,7 @@ int hstatistics(int *histo, int *min, int *max, int *median, double *mean, doubl
 
 }  /*  hstatistics()  */
 
-#ifndef FUNCPROTO
-int statistics(b, min, max, median, mean, stdev)
-IBAND b;
-int *min, *max, *median;
-double *mean, *stdev;
-#else /* FUNCPROTO */
 int statistics(IBAND b, int *min, int *max, int *median, double *mean, double *stdev)
-#endif /* FUNCPROTO */
 {
   histogram histo;
 
@@ -213,71 +207,6 @@ int statistics(IBAND b, int *min, int *max, int *median, double *mean, double *s
 }  /* statistics() */
 
 
-#ifndef FUNCPROTO
-#define stat_non_compl(name, bandtyp, pixtyp)\
-static void name(b, size, minval, maxval, mean, stdev)\
-bandtyp b;\
-long *size;\
-double *minval, *maxval, *mean, *stdev;\
-{\
-  int mode;\
-  long y, x, xsize, ysize, tsize;\
-  pixtyp mi, ma, *f;\
-  double x1, x2;\
-  double y1, y2;\
-  \
-  mode = ((minval || maxval) ? 1 : 0) + ((mean || stdev) ? 2 : 0);\
-  if (mode == 0) return;\
-  xsize = Ixsize((IBAND) b);\
-  ysize = Iysize((IBAND) b);\
-  tsize  = xsize*ysize;\
-  mi = ma = b[1][1];\
-  y1 = 0.0;\
-  y2 = 0.0;\
-  for (y=1; y<=ysize; y++)\
-    {\
-      f = &b[y][1];\
-      x1 = 0;\
-      x2 = 0;\
-      x = xsize;\
-      switch(mode)\
-	{\
-	case 1:\
-          while (x--)\
-	    {\
-	      if (*f < mi) mi = *f;\
-	      else if (*f > ma) ma = *f;\
-	      f++;\
-	    }\
-	  break;\
-	case 2:\
-          while (x--)\
-	    {\
-	      x2 += (double) (*f) * (*f);\
-	      x1 += *f++;\
-	    }\
-	  break;\
-	case 3:\
-          while (x--)\
-	    {\
-	      if (*f < mi) mi = *f;\
-	      else if (*f > ma) ma = *f;\
-	      x2 += (double) (*f) * (*f);\
-	      x1 += *f++;\
-	    }\
-	  break;\
-	}\
-      y1 += x1;\
-      y2 += x2;\
-    }\
-  if (size)   *size   = tsize;\
-  if (minval) *minval = mi;\
-  if (maxval) *maxval = ma;\
-  if (mean)   *mean   = y1/ (double) tsize;\
-  if (stdev)  *stdev  = sqrt(y2 /((double) tsize) -\
-			     y1*y1/((double) tsize)/((double) tsize));\
-}
-#else /* FUNCPROTO */
 #define stat_non_compl(name, bandtyp, pixtyp)\
 static void name(bandtyp b, long *size, double *minval, double *maxval,\
 		 double *mean, double *stdev) \
@@ -339,98 +268,7 @@ static void name(bandtyp b, long *size, double *minval, double *maxval,\
   if (stdev)  *stdev  = sqrt(y2 /((double) tsize) -\
 			     y1*y1/((double) tsize)/((double) tsize));\
 }
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-#define stat_compl(name, bandtyp, pixtyp)\
-static void name(b, size, minval, maxval, mean, stdev)\
-bandtyp b;\
-long *size;\
-double *minval, *maxval, *stdev;\
-DCOMPLEX *mean;\
-{\
-  int mode;\
-  long y, x, xsize, ysize, tsize;\
-  pixtyp *f;\
-  double mi, ma, f_abs, f_abs2, f_re, f_im;\
-  double x1_re, x1_im, x2;\
-  double y1_re, y1_im, y2;\
-  \
-  mode = ((minval || maxval) ? 1 : 0) + ((mean || stdev) ? 2 : 0);\
-  if (mode == 0) return;\
-  xsize  = Ixsize((IBAND) b);\
-  ysize  = Iysize((IBAND) b);\
-  tsize  = xsize*ysize;\
-  f_re   = b[1][1].re;\
-  f_im   = b[1][1].im;\
-  mi = ma = sqrt((double) f_re * f_re + f_im * f_im);\
-  y1_re  = 0.0;\
-  y1_im  = 0.0;\
-  y2     = 0.0;\
-  for (y=1; y<=ysize; y++)\
-    {\
-      f     = &b[y][1];\
-      x1_re = 0.0;\
-      x1_im = 0.0;\
-      x2    = 0.0;\
-      x     = xsize;\
-      switch(mode)\
-	{\
-	case 1:\
-          while (x--)\
-	    {\
-              f_re   = (*f).re;\
-              f_im   = (*f).im;\
-              f_abs  = sqrt( (double) f_re * f_re + f_im * f_im );\
-	      if (f_abs < mi) mi = f_abs;\
-	      else if (f_abs > ma) ma = f_abs;\
-	      f++;\
-	    }\
-	  break;\
-	case 2:\
-          while (x--)\
-	    {\
-              f_re   = (*f).re;\
-              f_im   = (*f).im;\
-              f_abs2 = (double) f_re * f_re + f_im * f_im;\
-	      x2    += f_abs2;\
-	      x1_re += f_re;\
-	      x1_im += f_im;\
-              f++;\
-	    }\
-	  break;\
-	case 3:\
-          while (x--)\
-	    {\
-              f_re   = (*f).re;\
-              f_im   = (*f).im;\
-              f_abs2 = (double) f_re * f_re + f_im * f_im;\
-              f_abs  = sqrt( f_abs2 );\
-	      if (f_abs < mi) mi = f_abs;\
-	      else if (f_abs > ma) ma = f_abs;\
-	      x2    += f_abs2;\
-	      x1_re += f_re;\
-	      x1_im += f_im;\
-              f++;\
-	    }\
-	  break;\
-	}\
-      y1_re += x1_re;\
-      y1_im += x1_im;\
-      y2    += x2;\
-    }\
-  if (size)   *size   = tsize;\
-  if (minval) *minval = mi;\
-  if (maxval) *maxval = ma;\
-  if (mean)   {\
-    mean->re = y1_re / (double) tsize;\
-    mean->im = y1_im / (double) tsize;\
-  }\
-  if (stdev)  *stdev  = sqrt(y2 /((double) tsize) -\
-			     (y1_re * y1_re + y1_im * y1_im) /\
-                             ((double) tsize)/((double) tsize));\
-}
-#else /* FUNCPROTO */
 #define stat_compl(name, bandtyp, pixtyp)\
 static void name(bandtyp b, long *size, double *minval, double *maxval,\
 		 DCOMPLEX *mean, double *stdev) \
@@ -516,7 +354,6 @@ static void name(bandtyp b, long *size, double *minval, double *maxval,\
 			     (y1_re * y1_re + y1_im * y1_im) /\
                              ((double) tsize)/((double) tsize));\
 }
-#endif /* FUNCPROTO */
 
 stat_non_compl(byteStat, IBAND, UNS_BYTE)
 stat_non_compl(signedByteStat, ISB_BAND, SIGN_BYTE)
@@ -528,58 +365,6 @@ stat_non_compl(doubleStat, ID_BAND, DOUBLE)
 stat_compl(complexStat, IC_BAND, COMPLEX)
 stat_compl(doubleComplexStat, IDC_BAND, DCOMPLEX)
 
-#ifndef FUNCPROTO
-#define statMsk(name, bandtyp, pixtyp, min, max)\
-static void name(b, mask, size, minval, maxval, mean, stdev, maskval)\
-bandtyp b;\
-IBAND mask;\
-long *size;\
-double *minval, *maxval, *mean, *stdev;\
-int maskval;\
-{\
-  int mode;\
-  long xsize, ysize, x, y, tsize;\
-  pixtyp mi, ma, *f;\
-  unsigned char *msk;\
-  double x1, x2;\
-  double y1, y2;\
-  mode = ((minval || maxval) ? 1 : 0) + ((mean || stdev) ? 2 : 0);\
-  if (mode == 0) return;\
-  xsize = Ixsize((IBAND) b);\
-  ysize = Iysize((IBAND) b);\
-  tsize  = 0;\
-  mi = max;\
-  ma = min;\
-  y1 = 0.0;\
-  y2 = 0.0;\
-  for (y=1; y<=ysize; y++)\
-    {\
-      msk = &mask[y][1];\
-      f = &b[y][1];\
-      x1 = 0;\
-      x2 = 0;\
-      x = xsize;\
-      while (x--)\
-       if (*msk++ == maskval)\
-	{\
-	  if (*f < mi) mi = *f;\
-	  else if (*f > ma) ma = *f;\
-	  x2 += (double) (*f) * (*f);\
-	  x1 += *f++;\
-	  tsize++;\
-	} else f++;\
-      y1 += x1;\
-      y2 += x2;\
-    }\
-  if (size)   *size   = tsize;\
-  if (minval) *minval = mi;\
-  if (maxval) *maxval = ma;\
-  if (mean)   *mean   = tsize ? y1 / ((double) tsize) : 0.0;\
-  if (stdev)  *stdev  =\
-     sqrt(tsize ? (y2/((double) tsize) -\
-		   y1*y1/((double) tsize)/((double) tsize)) : 0);\
-}
-#else /* FUNCPROTO */
 #define statMsk(name, bandtyp, pixtyp, min, max)\
 static void name(bandtyp b, IBAND mask, long *size, double *minval,\
 		 double *maxval, double *mean, double *stdev, int maskval)\
@@ -626,7 +411,6 @@ static void name(bandtyp b, IBAND mask, long *size, double *minval,\
      sqrt(tsize ? (y2/((double) tsize) -\
 		   y1*y1/((double) tsize)/((double) tsize)) : 0);\
 }
-#endif /* FUNCPROTO */
 
 statMsk(byteStMsk, IBAND, UNS_BYTE, 0, UNS_BYTE_MAX)
 statMsk(signedByteStMsk, ISB_BAND, SIGN_BYTE, SIGN_BYTE_MIN, SIGN_BYTE_MAX)
@@ -636,73 +420,6 @@ statMsk(longStMsk, II_BAND, INTEGER, INTEGER_MIN, INTEGER_MAX)
 statMsk(floatStMsk, IR_BAND, REAL, -REAL_MAX, REAL_MAX)
 statMsk(doubleStMsk, ID_BAND, DOUBLE, -DOUBLE_MAX, DOUBLE_MAX)
 
-#ifndef FUNCPROTO
-#define statMsks(name, bandtyp, pixtyp)\
-static void name(b, mask, size, minval, maxval, mean, stdev)\
-bandtyp b;\
-IBAND mask;\
-long *size;\
-double *minval, *maxval, *mean, *stdev;\
-{\
-  int mode, i, mark[256];\
-  long tsize[256], xsize, ysize, x, y;\
-  pixtyp mi[256], ma[256], mm1, mm2, *f;\
-  unsigned char *msk;\
-  double x1[256], x2[256];\
-  double y1[256], y2[256];\
-  mode = ((minval || maxval) ? 1 : 0) + ((mean || stdev) ? 2 : 0);\
-  if (mode == 0) return;\
-  xsize = Ixsize((IBAND) b);\
-  ysize = Iysize((IBAND) b);\
-  for(i=0; i<256; i++)\
-    {\
-      tsize[i]  = 0;\
-      mark[i]  = 0;\
-      mi[i] = ma[i] = 0.0;\
-      x1[i] = 0;\
-      x2[i] = 0;\
-      y1[i] = 0.0;\
-      y2[i] = 0.0;\
-    }\
-  for (y=1; y<=ysize; y++)\
-    {\
-      msk = &mask[y][1];\
-      f = &b[y][1];\
-      mm1 = mm2 = *msk;\
-      x = xsize;\
-      while (x--)\
-	{\
-	  if (tsize[*msk] == 0) mi[*msk] = ma[*msk] = *f;\
-	  else if (*f < mi[*msk]) mi[*msk] = *f;\
-	  else if (*f > ma[*msk]) ma[*msk] = *f;\
-	  x2[*msk] += (double) (*f) * (*f);\
-	  x1[*msk] += *f++;\
-          if (*msk < mm1) mm1 = *msk;\
-	  else if (*msk > mm2) mm2 = *msk;\
-          mark[*msk] = 1;\
-	  tsize[*msk++]++;\
-	}\
-      for(i=mm1; i<=mm2; i++)\
-        if (mark[i])\
-	{\
-          y1[i] += x1[i];\
-          y2[i] += x2[i];\
-          x1[i] = 0;\
-          x2[i] = 0;\
-	  mark[i] = 0;\
-	}\
-    }\
-  if (size)   for(i=0; i<256; i++) size[i]   = tsize[i];\
-  if (minval) for(i=0; i<256; i++) minval[i] = mi[i];\
-  if (maxval) for(i=0; i<256; i++) maxval[i] = ma[i];\
-  if (mean)   for(i=0; i<256; i++) mean[i]   =\
-   tsize[i] ? y1[i] / ((double) tsize[i]) : 0.0;\
-  if (stdev)  for(i=0; i<256; i++) \
-    stdev[i] =\
-      sqrt(tsize[i] ? y2[i] / ((double) tsize[i]) -\
-	   y1[i]*y1[i]/((double) tsize[i])/((double) tsize[i]) : 0.0);\
-}
-#else /* FUNCPROTO */
 #define statMsks(name, bandtyp, pixtyp)\
 static void name(bandtyp b, IBAND mask, long *size, double *minval, \
 		 double *maxval, double *mean, double *stdev) \
@@ -765,7 +482,6 @@ static void name(bandtyp b, IBAND mask, long *size, double *minval, \
       sqrt(tsize[i] ? y2[i] / ((double) tsize[i]) -\
 	   y1[i]*y1[i]/((double) tsize[i])/((double) tsize[i]) : 0.0);\
 }
-#endif /* FUNCPROTO */
 
 statMsks(byteStMsks, IBAND, UNS_BYTE)
 statMsks(signedByteStMsks, ISB_BAND, SIGN_BYTE)
@@ -776,14 +492,7 @@ statMsks(floatStMsks, IR_BAND, REAL)
 statMsks(doubleStMsks, ID_BAND, DOUBLE)
 
 
-#ifndef FUNCPROTO
-int statistic(band, size, min, max, mean, stdev)
-IBAND band;
-long *size;
-double *min, *max, *mean, *stdev;
-#else /* FUNCPROTO */
 int statistic(IBAND band, long *size, double *min, double *max, double *mean, double *stdev)
-#endif /* FUNCPROTO */
 {
   switch((int) Ipixtyp(band))
     {
@@ -809,15 +518,7 @@ int statistic(IBAND band, long *size, double *min, double *max, double *mean, do
 
 } /* statistic() */
 
-#ifndef FUNCPROTO
-int cstatistic(band, size, min, max, mean, stdev)
-IBAND band;
-long *size;
-double *min, *max, *stdev;
-DCOMPLEX *mean;
-#else /* FUNCPROTO */
 int cstatistic(IBAND band, long *size, double *min, double *max, DCOMPLEX *mean, double *stdev)
-#endif /* FUNCPROTO */
 {
   switch((int) Ipixtyp(band))
     {
@@ -836,15 +537,7 @@ int cstatistic(IBAND band, long *size, double *min, double *max, DCOMPLEX *mean,
 
 } /* cstatistic() */
 
-#ifndef FUNCPROTO
-int statisticMask(band, mask, size, min, max, mean, stdev, maskval)
-IBAND band, mask;
-long *size;
-double *min, *max, *mean, *stdev;
-int maskval;
-#else /* FUNCPROTO */
 int statisticMask(IBAND band, IBAND mask, long *size, double *min, double *max, double *mean, double *stdev, int maskval)
-#endif /* FUNCPROTO */
 {
 
   if (Ixsize(band) != Ixsize(mask) || Iysize(band) != Iysize(mask))
@@ -883,14 +576,7 @@ int statisticMask(IBAND band, IBAND mask, long *size, double *min, double *max, 
 }
 
 
-#ifndef FUNCPROTO
-int statisticMasks(band, mask, size, min, max, mean, stdev)
-IBAND band, mask;
-long *size;
-double *min, *max, *mean, *stdev;
-#else /* FUNCPROTO */
 int statisticMasks(IBAND band, IBAND mask, long *size, double *min, double *max, double *mean, double *stdev)
-#endif /* FUNCPROTO */
 {
   if (Ixsize(band) != Ixsize(mask) || Iysize(band) != Iysize(mask))
     return(Error(1, "statisticMasks(): Mask must be same size as band.\n"));
@@ -980,67 +666,6 @@ ________________________________________________________________
 		and 'covarvarr' may be NULL.
 */
 
-#ifndef FUNCPROTO
-#define stat_4(name, bandtyp, pixtyp)\
-static void name(img, size, mean, covar)\
-IMAGE img;\
-long *size;\
-double *mean, **covar;\
-{\
-  int nbands, n, m, xsize, ysize, x, y, tsize;\
-  pixtyp **f;\
-  double *x1, **x2;\
-  bandtyp b;\
-  double *y1, **y2;\
-  xsize = Ixsize((IBAND) b);\
-  ysize = Iysize((IBAND) b);\
-  tsize  = xsize*ysize;\
-  nbands = Inbands(img);\
-  f  = (pixtyp **)    Mmatrix_1d(1, nbands, sizeof(pixtyp *), 1);\
-  x1 = (double *)  Mmatrix_1d(1, nbands, sizeof(double), 1);\
-  y1 = (double *)  Mmatrix_1d(1, nbands, sizeof(double), 1);\
-  x2 = (double **) Mmatrix_2d(1, nbands, 1, nbands, sizeof(double), 1);\
-  y2 = (double **) Mmatrix_2d(1, nbands, 1, nbands, sizeof(double), 1);\
-  for (y=1; y<=ysize; y++)\
-    {\
-      for (n=1; n<= nbands; n++)\
-	{\
-	   b = (bandtyp) img[n];\
-           f[n] = &b[y][1];\
-	   x1[n] = 0;\
-           for (m=1; m<=nbands; m++)\
-  	     x2[n][m] = 0;\
-	}\
-      x = xsize;\
-      while (x--)\
-        {\
-	  for(n=1; n<=nbands; n++)\
-	    {\
-              x1[n] += *(f[n]);\
-	      for (m=n; m<=nbands; m++)\
-		x2[n][m] += (double) (*(f[n])) * (*(f[m]));\
-            }\
-        }\
-      for(n=1; n<=nbands; n++)\
-	{\
-          y1[n] += x1[n];\
-          for (m=n; m<=nbands; m++)\
-	    y2[n][m] += (x2[n][m]);\
-        }\
-    }\
-  for(n=1; n<=nbands; n++)\
-    for (m=1; m<n; m++)\
-      y2[n][m] = y2[n][m];\
-  if (size)   *size   = tsize;\
-  if (mean)\
-    for(n=1; n<=nbands; n++)\
-      mean[n] = y1[n]/tsize;\
-  if (covar)\
-    for(n=1; n<=nbands; n++)\
-      for (m=1; m<=nbands; m++)\
-        covar[n][m] = y2[n][m]/tsize - y1[n]*y1[m]/tsize/tsize;\
-}
-#else /* FUNCPROTO */
 #define stat_4(name, bandtyp, pixtyp)\
 static void name(IMAGE img, long *size, double *mean, double **covar) \
 {\
@@ -1097,7 +722,6 @@ static void name(IMAGE img, long *size, double *mean, double **covar) \
       for (m=1; m<=nbands; m++)\
         covar[n][m] = y2[n][m]/tsize - y1[n]*y1[m]/tsize/tsize;\
 }
-#endif /* FUNCPROTO */
 
 /*
 stat_4(byte_4, IBAND, unsigned char)
@@ -1108,54 +732,6 @@ stat_4(float_4, IR_BAND, float)
 stat_4(double_4, ID_BAND, double)
 */
 
-#ifndef FUNCPROTO
-#define stat_5(name, bandtyp, pixtyp)\
-static void name(b, mask, size, minval, maxval, mean, stdev, maskval)\
-bandtyp b;\
-IBAND mask;\
-long *size;\
-double *minval, *maxval, *mean, *stdev;\
-int maskval;\
-{\
-  int mode, xsize, ysize, x, y, tsize;\
-  pixtyp mi, ma, *f;\
-  unsigned char *msk;\
-  double x1, x2;\
-  double y1, y2;\
-  mode = ((minval || maxval) ? 1 : 0) + ((mean || stdev) ? 2 : 0);\
-  if (mode == 0) return;\
-  xsize = Ixsize((IBAND) b);\
-  ysize = Iysize((IBAND) b);\
-  tsize  = 0;\
-  mi = ma = b[1][1];\
-  y1 = 0.0;\
-  y2 = 0.0;\
-  for (y=1; y<=ysize; y++)\
-    {\
-      msk = &mask[y][1];\
-      f = &b[y][1];\
-      x1 = 0;\
-      x2 = 0;\
-      x = xsize;\
-      while (x--)\
-        if (*msk++ == maskval)\
-	{\
-	  if (*f < mi) mi = *f;\
-	  else if (*f > ma) ma = *f;\
-	  x2 += (double) (*f) * (*f);\
-	  x1 += *f++;\
-	  tsize++;\
-	} else f++;\
-      y1 += x1;\
-      y2 += x2;\
-    }\
-  if (size)   *size   = tsize;\
-  if (minval) *minval = mi;\
-  if (maxval) *maxval = ma;\
-  if (mean)   *mean = tsize ? y1/tsize : 0;\
-  if (stdev)  *stdev = sqrt(tsize ? y2/tsize - y1*y1/tsize/tsize : 0);\
-}
-#else /* FUNCPROTO */
 #define stat_5(name, bandtyp, pixtyp)\
 static void name(bandtyp b, IBAND mask, int *long, double *minval, \
 		 double *maxval, double *mean, double *stdev, int maskval) \
@@ -1198,7 +774,6 @@ static void name(bandtyp b, IBAND mask, int *long, double *minval, \
   if (mean)   *mean = tsize ? y1/tsize : 0;\
   if (stdev)  *stdev = sqrt(tsize ? y2/tsize - y1*y1/tsize/tsize : 0);\
 }
-#endif /* FUNCPROTO */
 
 /*
 stat_5(byte_5, IBAND, unsigned char)
@@ -1209,70 +784,6 @@ stat_5(float_5, IR_BAND, float)
 stat_5(double_5, ID_BAND, double)
 */
 
-#ifndef FUNCPROTO
-#define stat_6(name, bandtyp, pixtyp)\
-static void name(b, mask, size, minval, maxval, mean, stdev)\
-bandtyp b;\
-IBAND mask;\
-long *size;\
-double *minval, *maxval, *mean, *stdev;\
-{\
-  int mode, i, xsize, ysize, x, y, tsize[256], mark[256];\
-  pixtyp mi[256], ma[256], mm1, mm2, *f;\
-  unsigned char *msk;\
-  double x1[256], x2[256];\
-  double y1[256], y2[256];\
-  mode = ((minval || maxval) ? 1 : 0) + ((mean || stdev) ? 2 : 0);\
-  if (mode == 0) return;\
-  xsize = Ixsize((IBAND) b);\
-  ysize = Iysize((IBAND) b);\
-  for(i=0; i<256; i++)\
-    {\
-      tsize[i]  = 0;\
-      mark[i]  = 0;\
-      mi[i] = ma[i] = 0.0;\
-      x1[i] = 0;\
-      x2[i] = 0;\
-      y1[i] = 0.0;\
-      y2[i] = 0.0;\
-    }\
-  for (y=1; y<=ysize; y++)\
-    {\
-      msk = &mask[y][1];\
-      f = &b[y][1];\
-      mm1 = mm2 = *msk;\
-      x = xsize;\
-      while (x--)\
-	{\
-	  if (tsize[*msk] == 0) mi[*msk] = ma[*msk] = *f;\
-	  else if (*f < mi[*msk]) mi[*msk] = *f;\
-	  else if (*f > ma[*msk]) ma[*msk] = *f;\
-	  x2[*msk] += (double) (*f) * (*f);\
-	  x1[*msk] += *f++;\
-          if (*msk < mm1) mm1 = *msk;\
-	  else if (*msk > mm2) mm2 = *msk;\
-          mark[*msk] = 1;\
-	  tsize[*msk++]++;\
-	}\
-      for(i=mm1; i<=mm2; i++)\
-        if (mark[i])\
-	{\
-          y1[i] += x1[i];\
-          y2[i] += x2[i];\
-          x1[i] = 0;\
-          x2[i] = 0;\
-	  mark[i] = 0;\
-	}\
-    }\
-  if (size)   for(i=0; i<256; i++) size[i]   = tsize[i];\
-  if (minval) for(i=0; i<256; i++) minval[i] = mi[i];\
-  if (maxval) for(i=0; i<256; i++) maxval[i] = ma[i];\
-  if (mean)   for(i=0; i<256; i++) mean[i] = tsize[i] ? y1[i]/tsize[i] : 0;\
-  if (stdev)  for(i=0; i<256; i++) \
-    stdev[i] = \
-      sqrt(tsize[i] ? y2[i]/tsize[i] - y1[i]*y1[i]/tsize[i]/tsize[i] : 0.0);\
-}
-#else /* FUNCPROTO */
 #define stat_6(name, bandtyp, pixtyp)\
 static void name(bandtyp b, IBAND mask, long *size, double *minval, \
 		 double *maxval, double *mean, double *stdev) \
@@ -1332,7 +843,6 @@ static void name(bandtyp b, IBAND mask, long *size, double *minval, \
     stdev[i] = \
       sqrt(tsize[i] ? y2[i]/tsize[i] - y1[i]*y1[i]/tsize[i]/tsize[i] : 0.0);\
 }
-#endif /* FUNCPROTO */
 
 /*
 stat_6(byte_6, IBAND, unsigned char)
@@ -1344,15 +854,8 @@ stat_6(double_6, ID_BAND, double)
 */
 
 /*
-#ifndef FUNCPROTO
-int covariance(band, size, min, max, mean, stdev)
-IBAND band;
-int *size;
-double *min, *max, *mean, *stdev;
-#else
 int covariance(IBAND band, int *size, double *min, double *max,
 	       double *mean, double *stdev)
-#endif
 {
   switch((int) Ipixtyp(band))
     {
@@ -1368,16 +871,8 @@ int covariance(IBAND band, int *size, double *min, double *max,
 } 
 
 
-#ifndef FUNCPROTO
-int covarianceMask(band, mask, size, min, max, mean, stdev, maskval)
-IBAND band, mask;
-int *size;
-double *min, *max, *mean, *stdev;
-int maskval;
-#else
 int covarianceMask(IBAND band, IBAND mask, int *size, double *min,
 		   double *max, double *mean, double *stdev, int maskval)
-#endif
 {
   switch((int) Ipixtyp(band))
     {
@@ -1398,15 +893,8 @@ int covarianceMask(IBAND band, IBAND mask, int *size, double *min,
 }
 
 
-#ifndef FUNCPROTO
-int covarianceMasks(band, mask, size, min, max, mean, stdev)
-IBAND band, mask;
-int *size;
-double *min, *max, *mean, *stdev;
-#else
 int covarianceMasks(IBAND band, IBAND mask, int *size, double *min,
 		    double *max, double *mean, double *stdev)
-#endif
 {
   switch((int) Ipixtyp(band))
     {
@@ -1509,13 +997,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void readsw(argc, argv, region, format, name, n, ca, l, u, m, s, p, h, a)
-int *argc,  *format, *n, *ca, *l, *u, *s, *m, *h, *p, *name, *a;
-char *argv[], **region;
-#else /* FUNCPROTO */
 static void readsw(int *argc, char *argv[], char **region, int *format, int *name, int *n, int *ca, int *l, int *u, int *m, int *s, int *p, int *h, int *a)
-#endif /* FUNCPROTO */
 {
   *a      = read_bswitch(argc, argv, "-a");
   *ca     = read_bswitch(argc, argv, "-c");
@@ -1536,13 +1018,7 @@ static void readsw(int *argc, char *argv[], char **region, int *format, int *nam
     *l = *u = *m = *n = *s = *ca = TRUE;
 }
 
-#ifndef FUNCPROTO
-static int readfile(name, filename, img)
-char *name, **filename;
-IMAGE *img;
-#else /* FUNCPROTO */
 static int readfile(char *name, char **filename, IMAGE *img)
-#endif /* FUNCPROTO */
 {
   if (name[0] == '-') {
     /* Reading from a pipe. */
@@ -1558,13 +1034,7 @@ static int readfile(char *name, char **filename, IMAGE *img)
   return(Iok);
 }
       
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img, mask=NULL;
   int i, bn, mn, stat;

@@ -36,7 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/scatter.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -87,13 +89,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-int scatter(input1, input2, output, overflows)
-IBAND input1, input2, output;
-int *overflows;
-#else /* FUNCPROTO */
 int scatter(IBAND input1, IBAND input2, IBAND output, int *overflows)
-#endif /* FUNCPROTO */
 {
    int x, y, val1, val2, xsize, ysize;
 
@@ -171,13 +167,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
    IMAGE i1, i2, i3;
    char* title, *args;

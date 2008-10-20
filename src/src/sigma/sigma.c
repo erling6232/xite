@@ -35,7 +35,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/sigma.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/histo.h>
@@ -55,14 +57,7 @@ static char *Id = "$Id$, Blab, UiO";
 static int isqrtarr[16400];
 
 /* generates histogram for rectangular subarea */
-#ifndef FUNCPROTO
-static void hist(input,hxstart,hystart,hxstop,hystop,h)
-IBAND input;
-int hxstart,hystart,hxstop,hystop;
-histogram h;
-#else /* FUNCPROTO */
 static void hist(IBAND input, int hxstart, int hystart, int hxstop, int hystop, int *h)
-#endif /* FUNCPROTO */
 {
     int x,y;
    for (x=0; x LE 255; INC x) h[x] = 0;
@@ -136,13 +131,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int sigmat(input, output, n, t)
-IBAND input,output;
-int n, t;
-#else /* FUNCPROTO */
 int sigmat(IBAND input, IBAND output, int n, int t)
-#endif /* FUNCPROTO */
 {
   int hy, hystart, hystop, pixval, hxstart, hxstop;
   int sum, num, i, start, stop;
@@ -231,13 +220,7 @@ int sigmat(IBAND input, IBAND output, int n, int t)
 /*________________________________________________________________*/
 
 
-#ifndef FUNCPROTO
-float noiseStDev(input, n)
-IBAND input;
-int n;
-#else /* FUNCPROTO */
 float noiseStDev(IBAND input, int n)
-#endif /* FUNCPROTO */
 {
    int x, y, nhalf, xmax, ymax, N, pixval,
        sum, sumx, sumxx, xx, yy, st_dev, i, j, k, l;
@@ -300,14 +283,7 @@ float noiseStDev(IBAND input, int n)
 /*________________________________________________________________*/
 
 
-#ifndef FUNCPROTO
-int sigma(input, output, n, s)
-IBAND input, output;
-int n;
-float s;
-#else /* FUNCPROTO */
 int sigma(IBAND input, IBAND output, int n, float s)
-#endif /* FUNCPROTO */
 {
    float st_dev;
    int  t;
@@ -380,13 +356,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
 
    IMAGE i1, i2;

@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/snn.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
 #include <xite/blab.h>
 #include <xite/message.h>
@@ -115,13 +117,7 @@ ________________________________________________________________
 */
 #define PIXELTYPE UNS_BYTE
 
-#ifndef FUNCPROTO
-static int snn8(input, output, dx, dy)
-IBAND input, output;
-int dx, dy;
-#else /* FUNCPROTO */
 static int snn8(IBAND input, IBAND output, int dx, int dy)
-#endif /* FUNCPROTO */
 {
    int x, y, xx1, yy1, xx2, yy2, xxstart, yystart, xxstop, yystop, sum,
        dxhalf, dyhalf, xsize, ysize, npixels, pixval1, pixval2, center;
@@ -194,13 +190,7 @@ _________________________________________________________________
 */
 #define PIXELTYPE UNS_SHORT
 
-#ifndef FUNCPROTO
-static int snn16(input, output, dx, dy)
-IUS_BAND input, output;
-int dx, dy;
-#else /* FUNCPROTO */
 static int snn16(IUS_BAND input, IUS_BAND output, int dx, int dy)
-#endif /* FUNCPROTO */
 /* should be static, keep it global for a while for histiorical reasons */
 /* Tor L|nnestad 13/1 1992 */
 {
@@ -267,13 +257,7 @@ static int snn16(IUS_BAND input, IUS_BAND output, int dx, int dy)
 #undef PIXELTYPE
 
 
-#ifndef FUNCPROTO
-int snn(input, output, dx, dy)
-IBAND input, output;
-int dx, dy;
-#else /* FUNCPROTO */
 int snn(IBAND input, IBAND output, int dx, int dy)
-#endif /* FUNCPROTO */
 {
    if (Ipixtyp(input) NE Ipixtyp(output))
      return(Error(1, "snn: Bands have different pixel types\n"));
@@ -332,13 +316,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE i1, i2;
   int bn, dx, dy;

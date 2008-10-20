@@ -36,9 +36,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/segmentation.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#include XITE_RANDOM_H
-#include XITE_STDIO_H
-#include XITE_TIME_H
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
 
 #ifndef MAIN
 
@@ -96,14 +102,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int segmRandom(band, prob, lpv, rpv)
-  IBAND band;
-  double prob[3][2];
-  int lpv, rpv;
-#else /* FUNCPROTO */
 int segmRandom(IBAND band, double (*prob)[2], int lpv, int rpv)
-#endif /* FUNCPROTO */
 {
   int x, y, xsize, xval, pre=1;
   double ran2;
@@ -209,14 +208,7 @@ ________________________________________________________________
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE outimage;
   char *title, args[80];
