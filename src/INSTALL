@@ -1,9 +1,15 @@
+mkdir test
+cd test
+autoreconf ..
+../configure
+
+
 autoreconf --install
 
 # or
 
 aclocal
-autoheader
+autoheader ../configure.ac
 automake
 autoconf
 ./configure
