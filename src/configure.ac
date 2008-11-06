@@ -26,7 +26,7 @@ AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([ctype.h fcntl.h float.h io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/time.h sys/times.h time.h unistd.h values.h])
+AC_CHECK_HEADERS([ctype.h fcntl.h float.h sys/io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/time.h sys/times.h time.h unistd.h values.h])
 AC_CHECK_HEADER([src/biff/biff.h])
 AC_CHECK_HEADERS([direct.h regex.h varargs.h stdarg.h])
 
