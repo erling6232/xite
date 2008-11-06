@@ -23,6 +23,23 @@ AC_CHECK_LIB([libXext], [XextAddDisplay])
 
 # Checks for header files
 AC_PATH_X
+AC_ARG_WITH(motif,
+	[  --with-motif=PREFIX     Compile with Motif],
+	[motif="$withval"], [motif=no])
+AC_PATH_XTRA
+if test "$motif" != no; then
+	if test "$motif" != yes; then
+		CPPFLAGS="${CPPFLAGS} -I$motif/include"
+		LDFLAGS="$LDFLAGS -L$motif/lib"
+	fi
+	AC_CHECK_LIB(Xm, XmStringFree, :,
+		[AC_MSG_ERROR(Motif library not found)])
+	# Omit the next line if you must have Motif.
+	AC_DEFINE(WITH_MOTIF)
+	# Omit the next two lines if you do not require Motif.
+else
+	AC_MSG_ERROR(This package requires Motif.)
+fi
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
