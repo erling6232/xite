@@ -35,6 +35,7 @@ AS_IF([test "x$gui" = xauto],
 		[AC_CHECK_LIB([Xm],  [XmStringFree],
 			[AC_SUBST([LIBGUI], ["-lXm"])
 			 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
+			 AC_DEFINE([MOTIF], [], [Define when you have Motif])
 			],
 			[
 			])
