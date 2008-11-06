@@ -48,12 +48,32 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/ImageOverlay.h>
 #include <signal.h>
 #include <errno.h>
-#include XITE_FILE_H
-#include XITE_FORK_H
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_UNISTD_H
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
+#ifdef HAVE_VFORK_H
+# include <vfork.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/debug.h>
 #include <X11/StringDefs.h>
 #include <X11/Shell.h>
@@ -71,11 +91,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/Xaw/AsciiText.h>
 #endif /* MOTIF */
 
-#ifdef FUNCPROTO
 static int initpty(void);
-#else
-static int initpty();
-#endif /* FUNCPROTO */
 
 extern Atom wm_delete_window;  /* for ICCCM delete window */
 
@@ -88,7 +104,6 @@ static XtAppContext appcon_s;
 
 static Widget subjobmenu_s;
 
-#ifdef FUNCPROTO
 static void SubjobSelect(Widget w, XtPointer closure, XtPointer call_data);
 #ifdef MOTIF
 static void AsciiSend(Widget ascii, program *prog,
@@ -96,10 +111,6 @@ static void AsciiSend(Widget ascii, program *prog,
 #else /* MOTIF */
 static void AsciiSend(Widget wid, XEvent *event, String *params, Cardinal *num_params);
 #endif /* MOTIF */
-#else /* FUNCPROTO */
-static void SubjobSelect(/* Widget w, XtPointer closure, XtPointer call_data */);
-static void AsciiSend(/* Widget wid, XEvent *event, String *params, Cardinal *num_params */);
-#endif /* FUNCPROTO */
 
 
 
@@ -227,11 +238,7 @@ ________________________________________________________________
 
 
 #ifndef MOTIF
-# ifndef FUNCPROTO
-static int subjobs2()
-# else /* FUNCPROTO */
 static int subjobs2(void)
-# endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xpty.c: subjobs2");
 
@@ -248,14 +255,7 @@ static int subjobs2(void)
 #endif /* not MOTIF */
 
 
-#ifndef FUNCPROTO
-int XptyInit(display, screenno, parent)
-Display *display;
-int screenno;
-Widget parent;
-#else
 int XptyInit(Display *display, int screenno, Widget parent)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xpty.c: XptyInit");
 
@@ -279,25 +279,11 @@ int XptyInit(Display *display, int screenno, Widget parent)
 
 #ifdef MOTIF
 
-# ifndef FUNCPROTO
-static void menu_save(w, prog, call_data)
-Widget w;
-program *prog;
-char *call_data;
-# else
 static void menu_save(Widget w, program *prog, char *call_data)
-# endif
 {
 }
 
-# ifndef FUNCPROTO
-static void menu_close(w, prog, call_data)
-Widget w;
-program *prog;
-char *call_data;
-# else
 static void menu_close(Widget w, program *prog, char *call_data)
-# endif /* FUNCPROTO */
 {
   Widget wid;
 
@@ -314,14 +300,7 @@ static void menu_close(Widget w, program *prog, char *call_data)
 
 #else /* MOTIF */
 
-# ifndef FUNCPROTO
-static void SubjobSelect(w, clos, call_data)
-Widget w;
-XtPointer clos;
-XtPointer call_data;
-# else
 static void SubjobSelect(Widget w, XtPointer clos,  XtPointer call_data)
-# endif /* FUNCPROTO */
 {
   Widget GV;
   int closure = *((int *) (clos));
@@ -356,13 +335,7 @@ static void SubjobSelect(Widget w, XtPointer clos,  XtPointer call_data)
 
 
 
-#ifndef FUNCPROTO
-static int def_errfunc(prog, buf)
-program *prog;
-char *buf;
-#else
 static int def_errfunc(program *prog, char *buf)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xpty.c: def_errfunc");
   Message(0, "Job %5d message  - %s",prog->jobno, buf);
@@ -371,13 +344,7 @@ static int def_errfunc(program *prog, char *buf)
 }
 
 
-#ifndef FUNCPROTO
-void XptyMessage(prog, txt)
-program *prog;
-char *txt;
-#else
 void XptyMessage(program *prog, char *txt)
-#endif /* FUNCPROTO */
 {
   char header[200], *p;
   char *ptr1, *ptr2, c, st2[2];
@@ -596,13 +563,7 @@ void XptyMessage(program *prog, char *txt)
 
 
 
-#ifndef FUNCPROTO
-void XptyClose(prog, pipe, typ)
-program *prog;
-int pipe, typ;
-#else
 void XptyClose(program *prog, int pipe, int typ)
-#endif /* FUNCPROTO */
 {
   int jno;
 
@@ -651,12 +612,7 @@ void XptyClose(program *prog, int pipe, int typ)
 } 
 
 
-#ifndef FUNCPROTO
-static void CloseStdout(prog)
-program *prog;
-#else
 static void CloseStdout(program *prog)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xpty.c: CloseStdout");
   if (prog->terminated) return;
@@ -668,14 +624,7 @@ static void CloseStdout(program *prog)
   LEAVE_FUNCTION_DEBUG("Xpty.c: CloseStdout");
 }
 
-#ifndef FUNCPROTO
-static void Read_stderr(pr, fid, id)
-XtPointer pr;
-int *fid;
-XtInputId *id;
-#else
 static void Read_stderr(XtPointer pr, int *fid, XtInputId *id)
-#endif /* FUNCPROTO */
 {
   char buf[BUFSIZE];
   int nbytes;
@@ -707,13 +656,7 @@ static void Read_stderr(XtPointer pr, int *fid, XtInputId *id)
 }
 
 
-#ifndef FUNCPROTO
-static int def_outfunc(prog, buf)
-program *prog;
-char *buf;
-#else
 static int def_outfunc(program *prog, char *buf)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xpty.c: def_outfunc");
@@ -725,14 +668,7 @@ static int def_outfunc(program *prog, char *buf)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static void Read_stdout(pr, fid, id)
-XtPointer pr;
-int *fid;
-XtInputId *id;
-#else
 static void Read_stdout(XtPointer pr, int *fid, XtInputId *id)
-#endif /* FUNCPROTO */
 {
   char buf[BUFSIZE];
   int nbytes;
@@ -765,12 +701,7 @@ static void Read_stdout(XtPointer pr, int *fid, XtInputId *id)
 }
 
 
-#ifndef FUNCPROTO
-static int def_imgfunc(prog)
-program *prog;
-#else
 static int def_imgfunc(program *prog)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xpty.c: def_imgfunc");
@@ -780,14 +711,7 @@ static int def_imgfunc(program *prog)
 }
 
 
-#ifndef FUNCPROTO
-static void Read_image(pr, fid, id)
-XtPointer pr;
-int *fid;
-XtInputId *id;
-#else
 static void Read_image(XtPointer pr, int *fid, XtInputId *id)
-#endif /* FUNCPROTO */
 {
   program *prog;
 
@@ -877,11 +801,7 @@ static void Read_image(XtPointer pr, int *fid, XtInputId *id)
   static int tlen_s, plen_s;
 #endif /* GETPTY */
 
-#ifndef FUNCPROTO
-static int initpty()
-#else
 static int initpty(void)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xpty.c: initpty");
 
@@ -906,12 +826,7 @@ static int initpty(void)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static int getpty(master, slave)
-int *master, *slave;
-#else
 static int getpty(int *master, int *slave)
-#endif /* FUNCPROTO */
 {
 #ifdef GETPTY
 /* SGI has a library function called _getpty() */
@@ -984,12 +899,7 @@ static int getpty(int *master, int *slave)
 #endif /* GETPTY */
 }
 
-#ifndef FUNCPROTO
-static int def_openfunc(prog)
-program *prog;
-#else
 static int def_openfunc(program *prog)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xpty.c: def_openfunc");
@@ -998,12 +908,7 @@ static int def_openfunc(program *prog)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static int def_closefunc(prog)
-program *prog;
-#else
 static int def_closefunc(program *prog)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xpty.c: def_closefunc");
@@ -1015,17 +920,8 @@ static int def_closefunc(program *prog)
 static int Xpty_status, Xpty_execstat;
 
 
-#ifndef FUNCPROTO
-int XptyStartProgram(entry, vec, shell, openfunc, closefunc, 
-		     stdoutfunc, stderrfunc, imgfunc)
-char *entry, *vec[];
-int shell;
-ptyfunc1 openfunc, closefunc, imgfunc;
-ptyfunc2 stdoutfunc, stderrfunc;
-#else
 int XptyStartProgram(char *entry, char *vec[], int shell, ptyfunc1 openfunc,
 ptyfunc1 closefunc, ptyfunc2 stdoutfunc, ptyfunc2 stderrfunc, ptyfunc1 imgfunc)
-#endif /* FUNCPROTO */
 {
   int slave, master;
   int pipe_ii[2], pipe_io[2], pipe_te[2];
@@ -1218,11 +1114,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-int XptyJobs()
-#else
 int XptyJobs(void)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xpty.c: XptyJobs");
@@ -1232,12 +1124,7 @@ int XptyJobs(void)
 }
 
 
-#ifndef FUNCPROTO
-void XptyKill(prog)
-program *prog;
-#else
 void XptyKill(program *prog)
-#endif /* FUNCPROTO */
 {
   int i, j, k;
 
@@ -1298,13 +1185,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-void XptyList(wid, c_data, call_data)
-Widget wid;
-XtPointer c_data, call_data;
-#else
 void XptyList(Widget wid, XtPointer c_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1327,15 +1208,8 @@ void XptyList(Widget wid, XtPointer c_data, XtPointer call_data)
 
 #ifdef MOTIF
 
-#ifndef FUNCPROTO
-static void AsciiSend(ascii, prog, cbs)
-Widget ascii;
-program *prog;
-XmTextVerifyCallbackStruct *cbs;
-#else
 static void AsciiSend(Widget ascii, program *prog, 
 XmTextVerifyCallbackStruct *cbs)
-#endif /* FUNCPROTO */
 {
   char st[2];
 
@@ -1366,15 +1240,7 @@ XmTextVerifyCallbackStruct *cbs)
 
 #else /* MOTIF */
 
-#ifndef FUNCPROTO
-static void AsciiSend(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else
 static void AsciiSend(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   char buf[200];
   XawTextEditType type;

@@ -36,7 +36,9 @@ static char *Id = "$Id$";
 
 #include <xite/includes.h>
 #include <stdlib.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/Intrinsic.h>
 #include <xite/Visual.h>
 #include <xite/Cmap.h>
@@ -321,13 +323,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void SetShellArgs(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void SetShellArgs(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   Visual *visual = NULL;
   Colormap cmap = (Colormap) NULL;
@@ -493,14 +489,7 @@ static void SetShellArgs(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void ReadDefaults(dpy, screen, imageVisualClass)
-Display *dpy;
-int screen;
-char *imageVisualClass;
-#else /* FUNCPROTO */
 static void ReadDefaults(Display *dpy, int screen, char *imageVisualClass)
-#endif /* FUNCPROTO */
 {
   XVisualInfo *visualInfo;
 
@@ -516,30 +505,12 @@ static void ReadDefaults(Display *dpy, int screen, char *imageVisualClass)
   SetShellArgs(dpy, screen);
 }
 
-#ifndef FUNCPROTO
-void InitializeVisual(dpy, screen, imageVisualClass)
-Display *dpy;
-int screen;
-char *imageVisualClass;
-#else /* FUNCPROTO */
 void InitializeVisual(Display *dpy, int screen, char *imageVisualClass)
-
-#endif /* FUNCPROTO */
 {
   ReadDefaults(dpy, screen, imageVisualClass);
 }  
 
-#ifndef FUNCPROTO
-void RequestedImageVisualAndColormap(dpy, screen, planes, visual, colormap)
-Display *dpy;
-int screen;
-int *planes;
-Visual **visual;
-Colormap *colormap;
-#else /* FUNCPROTO */
 void RequestedImageVisualAndColormap(Display *dpy, int screen, int *planes, Visual **visual, Colormap *colormap)
-
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("ShellWids.c: RequestedImageVisualAndColormap");
@@ -555,13 +526,7 @@ void RequestedImageVisualAndColormap(Display *dpy, int screen, int *planes, Visu
 
 
 
-#ifndef FUNCPROTO
-Widget CreateAppShell(dpy, app_name, app_class)
-Display *dpy;
-char *app_name, *app_class;
-#else /* FUNCPROTO */
 Widget CreateAppShell(Display *dpy, char *app_name, char *app_class)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ShellWids.c: CreateAppShell");
 
@@ -574,13 +539,7 @@ Widget CreateAppShell(Display *dpy, char *app_name, char *app_class)
 			      dpy, ShellArgs_s, (Cardinal) 4));
 }
 
-#ifndef FUNCPROTO
-Widget CreateTopLevelShell(dpy, name)
-Display *dpy;
-char *name;
-#else /* FUNCPROTO */
 Widget CreateTopLevelShell(Display *dpy, char *name)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ShellWids.c: CreateTopLevelShell");
 
@@ -595,13 +554,7 @@ Widget CreateTopLevelShell(Display *dpy, char *name)
 			      dpy, ShellArgs_s, (Cardinal) 4));
 }
 
-#ifndef FUNCPROTO
-Widget CreatePopupShell(name, parent)
-char *name;
-Widget parent;
-#else /* FUNCPROTO */
 Widget CreatePopupShell(char *name, Widget parent)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
 
@@ -616,13 +569,7 @@ Widget CreatePopupShell(char *name, Widget parent)
 			     parent, ShellArgs_s, (Cardinal) 5));
 }
 
-#ifndef FUNCPROTO
-Widget CreatePopOverShell(name, parent)
-char *name;
-Widget parent;
-#else /* FUNCPROTO */
 Widget CreatePopOverShell(char *name, Widget parent)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
 
@@ -637,13 +584,7 @@ Widget CreatePopOverShell(char *name, Widget parent)
 			     parent, ShellArgs_s, (Cardinal) 5));
 }
 
-#ifndef FUNCPROTO
-Widget CreatePopTopShell(name, parent)
-char *name;
-Widget parent;
-#else /* FUNCPROTO */
 Widget CreatePopTopShell(char *name, Widget parent)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
 
@@ -658,15 +599,7 @@ Widget CreatePopTopShell(char *name, Widget parent)
 			     parent, ShellArgs_s, (Cardinal) 5));
 }
 
-#ifndef FUNCPROTO
-void AddAction(parent, name, func, popup)
-Widget parent;
-char *name;
-XtActionProc func;
-int popup;
-#else /* FUNCPROTO */
 void AddAction(Widget parent, char *name, XtActionProc func, int popup)
-#endif /* FUNCPROTO */
 {
 #ifndef MOTIF 
   XtAppContext appcon;
@@ -688,12 +621,7 @@ void AddAction(Widget parent, char *name, XtActionProc func, int popup)
 #endif
 }
 
-#ifndef FUNCPROTO
-Widget TopLevelWidget(wid)
-Widget wid;
-#else /* FUNCPROTO */
 Widget TopLevelWidget(Widget wid)
-#endif /* FUNCPROTO */
 {
   while(!XtIsSubclass(wid, shellWidgetClass))
     wid = XtParent(wid);
@@ -702,26 +630,13 @@ Widget TopLevelWidget(Widget wid)
 
 
 
-#ifndef FUNCPROTO
-void PopupMenubar(wid)
-Widget wid;
-#else /* FUNCPROTO */
 void PopupMenubar(Widget wid)
-#endif /* FUNCPROTO */
 {
   menubar_s = wid;
 }
 
 
-#ifndef FUNCPROTO
-void PopupExit(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 void PopupExit(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ShellWids.c: PopupExit");
 
@@ -729,13 +644,7 @@ void PopupExit(Widget wid, XEvent *event, String *params, Cardinal *num_params)
 }
 
 
-#ifndef FUNCPROTO
-Widget PopupInit(name, parent, label)
-char *name, *label;
-Widget parent;
-#else /* FUNCPROTO */
 Widget PopupInit(char *name, Widget parent, char *label)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
   Widget menu = NULL;
@@ -777,15 +686,7 @@ Widget PopupInit(char *name, Widget parent, char *label)
   return(menu);
 }
 
-#ifndef FUNCPROTO
-Widget PopupAdd(name, parent, label, callback_func, arg)
-char *name, *label;
-Widget parent;
-XtCallbackProc callback_func;
-int arg;
-#else /* FUNCPROTO */
 Widget PopupAdd(char *name, Widget parent, char *label, XtCallbackProc callback_func, int arg)
-#endif /* FUNCPROTO */
 {
   Widget entry;
 #ifdef MOTIF
@@ -824,15 +725,7 @@ Widget PopupAdd(char *name, Widget parent, char *label, XtCallbackProc callback_
 
 } /* PopupAdd() */
 
-#ifndef FUNCPROTO
-Widget Popup_add(name, parent, label, callback_func, arg)
-char *name, *label;
-Widget parent;
-XtCallbackProc callback_func;
-int arg;
-#else /* FUNCPROTO */
 Widget Popup_add(char *name, Widget parent, char *label, XtCallbackProc callback_func, XtPointer arg)
-#endif /* FUNCPROTO */
 {
   Widget entry;
 #ifdef MOTIF
@@ -870,13 +763,7 @@ Widget Popup_add(char *name, Widget parent, char *label, XtCallbackProc callback
 
 } /* Popup_add() */
 
-#ifndef FUNCPROTO
-Widget PopupLine(name, parent)
-char *name;
-Widget parent;
-#else /* FUNCPROTO */
 Widget PopupLine(char *name, Widget parent)
-#endif /* FUNCPROTO */
 {
   Widget entry;
 
@@ -886,15 +773,7 @@ Widget PopupLine(char *name, Widget parent)
 
 } /* PopupLine() */
 
-#ifndef FUNCPROTO
-void PopupMenu(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 void PopupMenu(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
   int type;
@@ -936,12 +815,7 @@ void PopupMenu(Widget wid, XEvent *event, String *params, Cardinal *num_params)
 
 
 
-#ifndef FUNCPROTO
-Widget ImageFromMenu(wid)
-Widget wid;
-#else /* FUNCPROTO */
 Widget ImageFromMenu(Widget wid)
-#endif /* FUNCPROTO */
 {
   if (XtIsSubclass(wid, imageWidgetClass)) {
     return(wid);
@@ -960,11 +834,7 @@ Widget ImageFromMenu(Widget wid)
   }
 } /* ImageFromMenu() */
 
-#ifndef FUNCPROTO
-Widget PopupWidget()
-#else /* FUNCPROTO */
 Widget PopupWidget(void)
-#endif /* FUNCPROTO */
 {
 
   if (XtIsSubclass(GV_s, textWidgetClass)) {

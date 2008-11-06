@@ -34,7 +34,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/utils.h>
-#include XITE_RANDOM_H
+#ifdef HAVE_STDLIB_H
+# include <stdlib.h>
+#endif
 
 #ifndef M_PI
 #define M_PI    3.14159265358979323846
@@ -61,11 +63,7 @@ Author:		Tor Lønnestad, BLAB, Ifi, UiO
 ________________________________________________________________
 
 */
-#ifndef FUNCPROTO
-static double gaussUnitRandom()
-#else /* FUNCPROTO */
 static double gaussUnitRandom(void)
-#endif /* FUNCPROTO */
 {
    double a, b;
    if (tempvalue < 254.0)
@@ -119,12 +117,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-double gaussRandom(my, sigma)
-   double my, sigma;
-#else /* FUNCPROTO */
 double gaussRandom(double my, double sigma)
-#endif /* FUNCPROTO */
 {
    return(my + (sigma*gaussUnitRandom()));
 }

@@ -51,7 +51,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/ShellWids.h>
 #include <xite/Xdialog.h>
 #include <xite/FormDialog.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/utils.h>
 #include <xite/mallocp.h>
 #include <xite/strings.h>
@@ -80,12 +82,7 @@ Boolean dialog_defaults_e = False;
 
 static int form_dialog_return_val_s;
 
-#ifndef FUNCPROTO
-static void Next_event(parent)
-Widget parent;
-#else /* FUNCPROTO */
 static void Next_event(Widget parent)
-#endif /* FUNCPROTO */
 {
   XtAppContext appcon;
   XEvent event;
@@ -95,15 +92,7 @@ static void Next_event(Widget parent)
   XtDispatchEvent(&event);
 }
 
-#ifndef FUNCPROTO
-static void quit_form_dialog(widget, event, params, num_params)
-Widget widget;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_form_dialog(Widget widget, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget wid = NULL;
   char name[50];
@@ -117,12 +106,7 @@ static void quit_form_dialog(Widget widget, XEvent *event, String *params, Cardi
 
 } /* quit_form_dialog() */
 
-#ifndef FUNCPROTO
-static char *nextInterval(in)
-char **in;
-#else /* FUNCPROTO */
 static char *nextInterval(char **in)
-#endif /* FUNCPROTO */
 {
   char *input, *value, *tmp;
 
@@ -189,11 +173,7 @@ typedef struct _prompt_line{
 
 static prompt_line *first_prompt_s, *last_prompt_s;
 
-#ifndef FUNCPROTO
-static void free_prompt_lines()
-#else /* FUNCPROTO */
 static void free_prompt_lines(void)
-#endif /* FUNCPROTO */
 {
   prompt_line *p = NULL, *prev = NULL;
 
@@ -211,13 +191,7 @@ static void free_prompt_lines(void)
 
 } /* free_prompt_lines() */
 
-#ifndef FUNCPROTO
-static void quit_prompt_dialog(widget, client_data, call_data)
-Widget widget;
-XtPointer call_data, client_data;
-#else /* FUNCPROTO */
 static void quit_prompt_dialog(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xdialog.c: quit_prompt_dialog");
 
@@ -227,13 +201,7 @@ static void quit_prompt_dialog(Widget widget, XtPointer client_data, XtPointer c
 
 } /* quit_prompt_dialog() */
 
-#ifndef FUNCPROTO
-static void std_button_callback(widget, client_data, call_data)
-Widget widget;
-XtPointer call_data, client_data;
-#else /* FUNCPROTO */
 static void std_button_callback(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xdialog.c: std_button_callback");
 
@@ -243,13 +211,7 @@ static void std_button_callback(Widget widget, XtPointer client_data, XtPointer 
 
 } /* std_button_callback() */
 
-#ifndef FUNCPROTO
-static void accept(widget, client_data, call_data)
-Widget widget;
-XtPointer call_data, client_data;
-#else /* FUNCPROTO */
 static void accept(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   prompt_line *p;
   char *result, *tmp, **cl_data = (char **) client_data;
@@ -326,13 +288,7 @@ static void accept(Widget widget, XtPointer client_data, XtPointer call_data)
 
 } /* accept() */
 
-#ifndef FUNCPROTO
-static void help(widget, client_data, call_data)
-Widget widget;
-XtPointer call_data, client_data;
-#else /* FUNCPROTO */
 static void help(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   char *title = (char *) client_data;
   Widget parent;
@@ -350,13 +306,7 @@ static void help(Widget widget, XtPointer client_data, XtPointer call_data)
 
 } /* help() */
 
-#ifndef FUNCPROTO
-static void checkInt(widget, client_data, call_data)
-Widget widget;
-XtPointer call_data, client_data;
-#else /* FUNCPROTO */
 static void checkInt(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   XfwfPromptInfo *c_data = (XfwfPromptInfo *) call_data;
   char *old = c_data->oldstring, *new = c_data->newstring, *np;
@@ -380,13 +330,7 @@ static void checkInt(Widget widget, XtPointer client_data, XtPointer call_data)
 
 } /* checkInt() */
 
-#ifndef FUNCPROTO
-static void checkFloat(widget, client_data, call_data)
-Widget widget;
-XtPointer call_data, client_data;
-#else /* FUNCPROTO */
 static void checkFloat(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   XfwfPromptInfo *c_data = (XfwfPromptInfo *) call_data;
   char *old = c_data->oldstring, *new = c_data->newstring, *np;
@@ -412,12 +356,7 @@ static void checkFloat(Widget widget, XtPointer client_data, XtPointer call_data
 
 } /* checkFloat() */
 
-#ifndef FUNCPROTO
-static void interpret_line(dialog_text, label, option, type, deflt, promptName)
-char **dialog_text, **label, **option, **type, **deflt, **promptName;
-#else /* FUNCPROTO */
 static void interpret_line(char **dialog_text, char **label, char **option, char **type, char **deflt, char **promptName)
-#endif /* FUNCPROTO */
 {
   *label  = nextInterval(dialog_text);
   *option = nextInterval(dialog_text);
@@ -445,14 +384,7 @@ static void interpret_line(char **dialog_text, char **label, char **option, char
 
 } /* interpret_line() */
 
-#ifndef FUNCPROTO
-static int CreateBooleanField(wid_toggle, wid_lab, max_lab_width, top_form, wid_lab_prev, label, deflt, promptName)
-Widget *wid_toggle, *wid_lab, top_form, wid_lab_prev;
-Dimension *max_lab_width;
-char *label, *deflt, *promptName;
-#else /* FUNCPROTO */
 static int CreateBooleanField(Widget *wid_toggle, Widget *wid_lab, Dimension *max_lab_width, Widget top_form, Widget wid_lab_prev, char *label, char *deflt, char *promptName)
-#endif /* FUNCPROTO */
 {
   Boolean state = 0;
   Dimension lab_width;
@@ -484,15 +416,7 @@ static int CreateBooleanField(Widget *wid_toggle, Widget *wid_lab, Dimension *ma
 
 } /* CreateBooleanField() */
 
-#ifndef FUNCPROTO
-static int CreateRadioMultiField(wid_toggle, wid_lab, wid_group, max_lab_width, top_form, wid_lab_prev, label, type, deflt, group_name, promptName, is_first_in_group)
-Widget *wid_toggle, *wid_lab, *wid_group, top_form, wid_lab_prev;
-Dimension *max_lab_width;
-char *label, *type, *deflt, *group_name, *promptName;
-Boolean is_first_in_group;
-#else /* FUNCPROTO */
 static int CreateRadioMultiField(Widget *wid_toggle, Widget *wid_lab, Widget *wid_group, Dimension *max_lab_width, Widget top_form, Widget wid_lab_prev, char *label, char *type, char *deflt, char *group_name, char *promptName, Boolean is_first_in_group)
-#endif /* FUNCPROTO */
 {
   Dimension lab_width;
   Boolean state;
@@ -536,14 +460,7 @@ static int CreateRadioMultiField(Widget *wid_toggle, Widget *wid_lab, Widget *wi
 
 } /* CreateRadioMultiField() */
 
-#ifndef FUNCPROTO
-static int CreateInputField(wid_prompt, wid_lab, max_lab_width, max_prompt_width, top_form, wid_lab_prev, label, deflt, promptName, translations)
-Widget *wid_prompt, *wid_lab, top_form, wid_lab_prev;
-Dimension *max_lab_width, *max_prompt_width;
-char *label, *deflt, *promptName, *translations;
-#else /* FUNCPROTO */
 static int CreateInputField(Widget *wid_prompt, Widget *wid_lab, Dimension *max_lab_width, Dimension *max_prompt_width, Widget top_form, Widget wid_lab_prev, char *label, char *deflt, char *promptName, char *translations)
-#endif /* FUNCPROTO */
 {
   Dimension lab_width, prompt_width;
   Dimension height, top_margin, bottom_margin, left_margin,
@@ -601,13 +518,7 @@ static int CreateInputField(Widget *wid_prompt, Widget *wid_lab, Dimension *max_
 
 } /* CreateInputField() */
 
-#ifndef FUNCPROTO
-static prompt_line *attach_prompt_object(wid_lab, wid_prompt, option, type, deflt)
-Widget wid_lab, wid_prompt;
-char *option, *type, *deflt;
-#else /* FUNCPROTO */
 static prompt_line *attach_prompt_object(Widget wid_lab, Widget wid_prompt, char *option, char *type, char *deflt)
-#endif /* FUNCPROTO */
 {
   /* Make new prompt-line object and attach at the end of the list. */
 
@@ -632,13 +543,7 @@ static prompt_line *attach_prompt_object(Widget wid_lab, Widget wid_prompt, char
 
 } /* attach_prompt_object() */
 
-#ifndef FUNCPROTO
-static void set_resources_radio_multi(first_prompt, max_toggle_width, max_allowed_group_width, group_width)
-prompt_line *first_prompt;
-Dimension max_toggle_width, *group_width, max_allowed_group_width;
-#else /* FUNCPROTO */
 static void set_resources_radio_multi(prompt_line *first_prompt, Dimension max_toggle_width, Dimension max_allowed_group_width, Dimension *group_width)
-#endif /* FUNCPROTO */
 {
   int num_toggles = 0, num_cols = 0;
   prompt_line *p_line, *p_line_old;
@@ -682,15 +587,7 @@ static void set_resources_radio_multi(prompt_line *first_prompt, Dimension max_t
 
 } /* set_resources_radio_multi() */
 
-#ifndef FUNCPROTO
-static void CreateWidgets(parent, header, wid_name, wid_lab, wid_group, dialog_spec, is_first_in_group, max_lab_width, max_prompt_width, max_group_width, return_text, translations)
-Widget parent, *wid_name, *wid_lab, *wid_group;
-char *header, *dialog_spec, **return_text, *translations;
-Boolean *is_first_in_group;
-Dimension *max_lab_width, *max_prompt_width, *max_group_width;
-#else /* FUNCPROTO */
 static void CreateWidgets(Widget parent, char *header, Widget *wid_name, Widget *wid_lab, Widget *wid_group, char *dialog_spec, Boolean *is_first_in_group, Dimension *max_lab_width, Dimension *max_prompt_width, Dimension *max_group_width, char **return_text, char *translations)
-#endif /* FUNCPROTO */
 {
   Widget wid_lab_prev = NULL, wid_prompt = NULL;
   char *label = NULL, *label_prev = NULL, *option = NULL, *type = NULL;
@@ -839,13 +736,7 @@ static void CreateWidgets(Widget parent, char *header, Widget *wid_name, Widget 
 
 } /* CreateWidgets() */
 
-#ifndef FUNCPROTO
-static void set_label_prompt_width(first_prompt, max_lab_width, max_prompt_width)
-prompt_line *first_prompt;
-Dimension max_lab_width, max_prompt_width;
-#else /* FUNCPROTO */
 static void set_label_prompt_width(prompt_line *first_prompt, Dimension max_lab_width, Dimension max_prompt_width)
-#endif /* FUNCPROTO */
 {
   /* Set width of labels and non-toggle prompts. */
 
@@ -863,12 +754,7 @@ static void set_label_prompt_width(prompt_line *first_prompt, Dimension max_lab_
   }
 } /* set_label_prompt_width() */
 
-#ifndef FUNCPROTO
-static char *button_name(num)
-int num;
-#else /* FUNCPROTO */
 static char *button_name(int num)
-#endif /* FUNCPROTO */
 {
   char *btn_name;
 
@@ -881,14 +767,7 @@ static char *button_name(int num)
 
 } /* button_name() */
 
-#ifndef FUNCPROTO
-static void add_buttons(parent, from_vert, buttons, nbuttons, default_buttons)
-Widget parent, from_vert;
-button_table buttons, default_buttons;
-int nbuttons;
-#else /* FUNCPROTO */
 static void add_buttons(Widget parent, Widget from_vert, button_table buttons, int nbuttons, button_table default_buttons)
-#endif /* FUNCPROTO */
 {
   char *btn_name, *label;
   XtCallbackProc callback;
@@ -981,13 +860,7 @@ static void add_buttons(Widget parent, Widget from_vert, button_table buttons, i
 
 } /* add_buttons() */
 
-#ifndef FUNCPROTO
-button_table init_button_table(buttons, length)
-button_table buttons;
-int length;
-#else /* FUNCPROTO */
 button_table init_button_table(button_table buttons, int length)
-#endif /* FUNCPROTO */
 {
   button_table btns;
   int i;
@@ -1007,16 +880,7 @@ button_table init_button_table(button_table buttons, int length)
 
 } /* init_button_table() */
 
-#ifndef FUNCPROTO
-int FormDialog(parent, header, dialog_spec, return_text, buttons, nbuttons, winName, iconName)
-Widget parent;
-char *header, *dialog_spec, **return_text;
-char *winName, *iconName;
-button_table buttons;
-int nbuttons;
-#else /* FUNCPROTO */
 int FormDialog(Widget parent, char *header, char *dialog_spec, char **return_text, button_table buttons, int nbuttons, char *winName, char *iconName)
-#endif /* FUNCPROTO */
 {
   Widget top, top_form, wid_name = NULL, wid_lab = NULL;
   Widget wid_sep = NULL, wid_group = NULL;

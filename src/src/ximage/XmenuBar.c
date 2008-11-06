@@ -53,13 +53,7 @@ ________________________________________________________________
 extern Widget colorsmenu_e, overlaysmenu_e, toolsmenu_e, optionsmenu_e,
               visualsmenu_e;
 
-#ifndef FUNCPROTO
-static void CreateMenuButtons(parent, buttons)
-Widget parent;
-menu_button buttons;
-#else /* FUNCPROTO */
 static void CreateMenuButtons(Widget parent, menu_button buttons)
-#endif /* FUNCPROTO */
 {
   Widget ColorMenuButton, OverlayMenuButton, ProgMenuButton, FlagMenuButton,
          VisualMenuButton;
@@ -123,13 +117,7 @@ static void CreateMenuButtons(Widget parent, menu_button buttons)
 
 } /* CreateMenuButtons() */
     
-#ifndef FUNCPROTO
-Widget CreateMenuBar(parent, buttons)
-Widget parent;
-menu_button buttons;
-#else /* FUNCPROTO */
 Widget CreateMenuBar(Widget parent, menu_button buttons)
-#endif /* FUNCPROTO */
 {
   Widget menu_bar;
   Dimension width;

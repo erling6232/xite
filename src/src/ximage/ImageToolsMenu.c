@@ -54,14 +54,7 @@ typedef enum {
 
 
 
-#ifndef FUNCPROTO
-static void ToolsSelect(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ToolsSelect(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   image_disp_cb_data *cl_data = (image_disp_cb_data *) client_data;
   
@@ -85,16 +78,7 @@ static void ToolsSelect(Widget wid, XtPointer client_data, XtPointer call_data)
   return;
 }
 
-#ifndef FUNCPROTO
-void ToolsMenuInit(display, screenno, parent, display_func, callbacks)
-Display *display;
-int screenno;
-Widget parent;
-ximage_display_func display_func;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 void ToolsMenuInit(Display *display, int screenno, Widget parent, ximage_display_func display_func, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   image_disp_cb_data *data0, *data1, *data2, *data3;
   char *label = NULL;

@@ -41,7 +41,9 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
 #include <xite/Xhistogram.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/Shell.h>
 #include <X11/StringDefs.h>
 #include <Xfwf/MultiList.h>
@@ -66,7 +68,9 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/Xdialog.h>
 #include <xite/readarg.h>
 #include "Colormap.h"
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/debug.h>
 
 extern Widget   Control_e;
@@ -245,14 +249,7 @@ static Boolean sens_exits_main_out[11] =
 
 
 
-#ifndef FUNCPROTO
-static void linear(data, wid, xp, yp)
-private_data *data;
-Widget wid;
-int xp,yp;
-#else /* FUNCPROTO */
 static void linear(private_data *data, Widget wid, int xp, int yp)
-#endif /* FUNCPROTO */
 {
   XColor coltab[520], *c;
   int i, j, len, x, col;
@@ -335,14 +332,7 @@ static void linear(private_data *data, Widget wid, int xp, int yp)
 
 
 
-#ifndef FUNCPROTO
-static void logarithmic(data, wid, x)
-private_data *data;
-Widget wid;
-int x;
-#else /* FUNCPROTO */
 static void logarithmic(private_data *data, Widget wid, int x)
-#endif /* FUNCPROTO */
 {
   XColor coltab[520], *c;
   int i, j, len, col;
@@ -378,14 +368,7 @@ static void logarithmic(private_data *data, Widget wid, int x)
 
 
 
-#ifndef FUNCPROTO
-static void expon(data, wid, x)
-private_data *data;
-Widget wid;
-int x;
-#else /* FUNCPROTO */
 static void expon(private_data *data, Widget wid, int x)
-#endif /* FUNCPROTO */
 {
   XColor coltab[520], *c;
   int i, j, len, col;
@@ -422,13 +405,7 @@ static void expon(private_data *data, Widget wid, int x)
 
 
 
-#ifndef FUNCPROTO
-static void Histoeq(data, norm)
-private_data *data;
-int norm;
-#else /* FUNCPROTO */
 static void Histoeq(private_data *data, int norm)
-#endif /* FUNCPROTO */
 {
   int b;
   IMAGE img, img2;
@@ -465,12 +442,7 @@ static void Histoeq(private_data *data, int norm)
 
 
 
-#ifndef FUNCPROTO
-static void SendParam(data)
-private_data *data;
-#else /* FUNCPROTO */
 static void SendParam(private_data *data)
-#endif /* FUNCPROTO */
 {
   ImageWidget wid;
   float a, b, scalea, scaleb, old_scalea = 1.0, old_scaleb = 0.0;
@@ -514,12 +486,7 @@ static void SendParam(private_data *data)
 
 
 
-#ifndef FUNCPROTO
-static void SendColtab(data)
-private_data *data;
-#else /* FUNCPROTO */
 static void SendColtab(private_data *data)
-#endif /* FUNCPROTO */
 {
   XColor tab[256];
   int col;
@@ -562,12 +529,7 @@ static void SendColtab(private_data *data)
 
 
 
-#ifndef FUNCPROTO
-static void SendImage(data)
-private_data *data;
-#else /* FUNCPROTO */
 static void SendImage(private_data *data)
-#endif /* FUNCPROTO */
 {
   XColor tab[256];
   int i, b, x, y, xsize, ysize, col;
@@ -667,14 +629,7 @@ static void SendImage(private_data *data)
 
 
 
-#ifndef FUNCPROTO
-static void Button(wid, p_data, btn)
-Widget wid;
-XtPointer p_data;
-XtPointer btn;
-#else /* FUNCPROTO */
 static void Button(Widget wid, XtPointer p_data, XtPointer btn)
-#endif /* FUNCPROTO */
 {
   int bt, col;
   float th;
@@ -760,13 +715,7 @@ static void Button(Widget wid, XtPointer p_data, XtPointer btn)
 
 
 
-#ifndef FUNCPROTO
-static void Motion(wid, p_data, btn)
-Widget wid;
-XtPointer p_data, btn;
-#else /* FUNCPROTO */
 static void Motion(Widget wid, XtPointer p_data, XtPointer btn)
-#endif /* FUNCPROTO */
 {
   private_data *data;
   HistogramButtonCallback button;
@@ -807,13 +756,7 @@ static void Motion(Widget wid, XtPointer p_data, XtPointer btn)
 
 
 
-#ifndef FUNCPROTO
-static void Modes(wid, p_data, lst)
-Widget wid;
-XtPointer p_data, lst;
-#else /* FUNCPROTO */
 static void Modes(Widget wid, XtPointer p_data, XtPointer lst)
-#endif /* FUNCPROTO */
 {
   private_data *data;
   XfwfMultiListReturnStruct *list;
@@ -836,13 +779,7 @@ static void Modes(Widget wid, XtPointer p_data, XtPointer lst)
 
 
 
-#ifndef FUNCPROTO
-static void Exits(wid, p_data, lst)
-Widget wid;
-XtPointer p_data, lst;
-#else /* FUNCPROTO */
 static void Exits(Widget wid, XtPointer p_data, XtPointer lst)
-#endif /* FUNCPROTO */
 {
   ipixelptr pptr;
   ImageWidget iw;
@@ -918,13 +855,7 @@ static void Exits(Widget wid, XtPointer p_data, XtPointer lst)
 
 
 
-#ifndef FUNCPROTO
-static void Kill(wid, p_data, ant)
-Widget wid;
-XtPointer p_data, ant;
-#else /* FUNCPROTO */
 static void Kill(Widget wid, XtPointer p_data, XtPointer ant)
-#endif /* FUNCPROTO */
 {
   private_data *data;
   Boolean do_exit = False;
@@ -1025,18 +956,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void CopyToPrivate(wid, image, band, planes, visual, callbacks, private)
-Widget wid;
-IMAGE image;
-IBAND band;
-int planes;
-Visual *visual;
-image_callbacks *callbacks;
-private_data **private;
-#else /* FUNCPROTO */
 static void CopyToPrivate(Widget wid, IMAGE image, IBAND band, int planes, Visual *visual, image_callbacks *callbacks, private_data **private)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xhistogram.c: CopyToPrivate");
@@ -1062,12 +982,7 @@ static void CopyToPrivate(Widget wid, IMAGE image, IBAND band, int planes, Visua
 } /* CopyToPrivate */
 
 
-#ifndef FUNCPROTO
-static void CalcHistogram(private)
-private_data *private;
-#else /* FUNCPROTO */
 static void CalcHistogram(private_data *private)
-#endif /* FUNCPROTO */
 {
   Boolean multi = False, rgb = False;
   IBAND band, *bands = NULL;
@@ -1211,12 +1126,7 @@ static void CalcHistogram(private_data *private)
 
 } /* CalcHistogram() */
 
-#ifndef FUNCPROTO
-static void CalcCumulativeHistogram(private)
-private_data *private;
-#else /* FUNCPROTO */
 static void CalcCumulativeHistogram(private_data *private)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1231,12 +1141,7 @@ static void CalcCumulativeHistogram(private_data *private)
 
 } /* CalcCumulativeHistogram() */
 
-#ifndef FUNCPROTO
-static void CalcFractionalHistogram(private)
-private_data *private;
-#else /* FUNCPROTO */
 static void CalcFractionalHistogram(private_data *private)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1251,19 +1156,7 @@ static void CalcFractionalHistogram(private_data *private)
   
 
 
-#ifndef FUNCPROTO
-static Widget CreateHistogramWidget(private, image, band, visual, map, planes, realDepth, fromVert, parent, width, height)
-private_data *private;
-IMAGE image;
-IBAND band;
-Visual *visual;
-Colormap map;
-int planes, realDepth;
-Widget fromVert, parent;
-Dimension width, height;
-#else /* FUNCPROTO */
 static Widget CreateHistogramWidget(private_data *private, IMAGE image, IBAND band, Visual *visual, Colormap map, int planes, int realDepth, Widget fromVert, Widget parent, Dimension width, Dimension height)
-#endif /* FUNCPROTO */
 {
   Widget histWid;
 
@@ -1301,18 +1194,7 @@ static Widget CreateHistogramWidget(private_data *private, IMAGE image, IBAND ba
 
 
 
-#ifndef FUNCPROTO
-void xhistogram(wid, image, band, map, planes, disp, callbacks)
-Widget wid;
-IMAGE image;
-IBAND band;
-Colormap map;
-int planes;
-ximage_display_func disp;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 void xhistogram(Widget wid, IMAGE image, IBAND band, Colormap map, int planes, ximage_display_func disp, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   /* map is full- or reduced-color version of colormap. */
 
@@ -1669,13 +1551,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int i;

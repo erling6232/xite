@@ -93,11 +93,7 @@ static XtResource resources[] = {
 };
 #undef offset
 
-#ifndef FUNCPROTO
-static void Realize(/* Widget w, Mask *valueMask, XSetWindowAttributes *attributes */);
-#else /* FUNCPROTO */
 static void Realize( Widget w, Mask *valueMask, XSetWindowAttributes *attributes );
-#endif /* FUNCPROTO */
 
 ColormapClassRec colormapClassRec = {
   {
@@ -156,12 +152,7 @@ WidgetClass colormapWidgetClass = (WidgetClass)&colormapClassRec;
  *      Returns: none.
  */
 
-#ifndef FUNCPROTO
-static void ConvertCursor(w)
-Widget w;
-#else /* FUNCPROTO */
 static void ConvertCursor(Widget w)
-#endif /* FUNCPROTO */
 {
     SimpleWidget simple = (SimpleWidget) w;
     XrmValue from, to;
@@ -188,14 +179,7 @@ static void ConvertCursor(Widget w)
     }
 }
 
-#ifndef FUNCPROTO
-static void Realize(w, valueMask, attributes)
-register Widget w;
-Mask *valueMask;
-XSetWindowAttributes *attributes;
-#else /* FUNCPROTO */
 static void Realize(Widget w, Mask *valueMask, XSetWindowAttributes *attributes)
-#endif /* FUNCPROTO */
 {
     Pixmap border_pixmap;
 

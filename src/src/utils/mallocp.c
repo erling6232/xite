@@ -60,15 +60,12 @@ ________________________________________________________________
 */
 
 #include <xite/includes.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/mallocp.h>
 
-#ifndef FUNCPROTO
-int *MallocIntP(i)
-int i;
-#else /* FUNCPROTO */
 int *MallocIntP(int i)
-#endif /* FUNCPROTO */
 {
   int *pi;
   
@@ -78,12 +75,7 @@ int *MallocIntP(int i)
   return(pi);
 } /* MallocIntP() */
 
-#ifndef FUNCPROTO
-float *MallocFloatP(f)
-float f;
-#else /* FUNCPROTO */
 float *MallocFloatP(float f)
-#endif /* FUNCPROTO */
 {
   float *pf;
   

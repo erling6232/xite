@@ -202,10 +202,18 @@ ________________________________________________________________
 #include <xite/statistics.h>
 #include <xite/utils.h>
 #include <xite/draw.h>
-#include XITE_STDIO_H
-#include XITE_TYPES_H
-#include XITE_UNISTD_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/mallocp.h>
 #include <xite/debug.h>
 
@@ -227,11 +235,7 @@ enum {
 
 #define WIDGETS (MOVIE + 1)
 
-#ifdef FUNCPROTO
 static int work(void);
-#else
-static int work();
-#endif /* FUNCPROTO */
 
 extern int rgb_e;
 extern menu_button image_menus_e;
@@ -259,15 +263,7 @@ Widget rwidgets_s[WIDGETS];
 
 
 
-#ifndef FUNCPROTO
-static void quit_xmovie(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_xmovie(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget     w = NULL;
   char name[50];
@@ -296,14 +292,7 @@ ________________________________________________________________
 #define start_workproc(wid)\
  XtAppAddWorkProc(XtWidgetToApplicationContext(wid), (XtWorkProc) work, NULL)
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   float f;
 
@@ -390,11 +379,7 @@ Cardinal *num_params;
 
 
 
-#ifndef FUNCPROTO
-static int work() 
-#else /* FUNCPROTO */
 static int work(void)
-#endif /* FUNCPROTO */
 {
   char lab[100];
   Boolean change_image = FALSE, check_title = FALSE;
@@ -510,13 +495,7 @@ static int work(void)
 } /* work() */
 
 
-#ifndef FUNCPROTO
-void main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 void main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   IBAND b;

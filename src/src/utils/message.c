@@ -219,13 +219,35 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include <xite/utils.h>
-#include XITE_STDARG_H
-#include XITE_FORK_H
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_UNISTD_H
-#include XITE_FCNTL_H
+#ifdef HAVE_VARARGS_H
+# include <varargs.h>
+#else
+# ifdef HAVE_STDARG_H
+#  include <stdarg.h>
+# endif
+#endif
+#ifdef HAVE_VFORK_H
+# include <vfork.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
+#ifdef HAVE_FCNTL_H
+# include <fcntl.h>
+#endif
 
 typedef struct messagestruct {
   int level;
@@ -237,11 +259,7 @@ typedef struct messagestruct {
   struct messagestruct *next;
 } messagest, *messageptr;
 
-#ifdef FUNCPROTO 
 int DefaultMessage(int id, char *message);
-#else /* FUNCPROTO */
-int DefaultMessage(/* int id, char *message */);
-#endif /* FUNCPROTO */
 
 static messagest base =
 {
@@ -273,14 +291,7 @@ static FILE *msgfile = NULL;
 
 
 
-#ifdef FUNCPROTO
 int InitMessage(int *argc, char *argv[], char *usage)
-#else /* FUNCPROTO */
-int InitMessage(argc, argv, usage)
-int *argc;
-char *argv[];
-char *usage;
-#endif /* FUNCPROTO */
 {
   char buf[256];
   char *ptr, *stp, *point;
@@ -522,11 +533,7 @@ char *usage;
   return(0);
 }
 
-#ifndef FUNCPROTO
-char *xite_standard_options_usage_text()
-#else /* FUNCPROTO */
 char *xite_standard_options_usage_text(void)
-#endif /* FUNCPROTO */
 {
   static char t[] =
 "  Standard XITE options: \n\
@@ -540,12 +547,7 @@ char *xite_standard_options_usage_text(void)
 
 } /* xite_standard_options_usage_text() */
 
-#ifndef FUNCPROTO
-char *xite_app_std_usage_text(usage)
-char *usage;
-#else /* FUNCPROTO */
 char *xite_app_std_usage_text(char *usage)
-#endif /* FUNCPROTO */
 {
   char *standard_usage, *full_usage;
 
@@ -562,14 +564,8 @@ char *xite_app_std_usage_text(char *usage)
 
 
 
-#ifdef FUNCPROTO
 int PushMessage(messagefunc info, messagefunc warning,
 	    messagefunc error, int exitonerror)
-#else /* FUNCPROTO */
-int PushMessage(info, warning, error, exitonerror)
-messagefunc info, warning, error;
-int exitonerror;
-#endif /* FUNCPROTO */
 {
   messageptr new;
   if (current->next) new = current->next; else
@@ -592,11 +588,7 @@ int exitonerror;
 
 
 
-#ifdef FUNCPROTO
 int PopMessage(void)
-#else /* FUNCPROTO */
-int PopMessage()
-#endif /* FUNCPROTO */
 {
   if (current->level == 0)
     Warning(0, "Message level already 0 in PopMessage\n");
@@ -607,24 +599,11 @@ int PopMessage()
 
 
 
-#ifdef FUNCPROTO
 int Info(int id, char *format, ...)
 {
   va_list ap;
   if (!verbose) return id;
   va_start(ap, format);
-#else /* FUNCPROTO */
-int Info(va_alist)
-va_dcl
-{
-  va_list ap;
-  int id;
-  char *format;
-  if (!verbose) return id;
-  va_start(ap);
-  id     = va_arg(ap, int);
-  format = va_arg(ap, char *);
-#endif /* FUNCPROTO */
   vsprintf(last_message, format, ap);
   va_end(ap);
   current->info(id, last_message);
@@ -634,22 +613,10 @@ va_dcl
 
 
 
-#ifdef FUNCPROTO
 int Message(int id, char *format, ...)
 {
   va_list ap;
   va_start(ap, format);
-#else /* FUNCPROTO */
-int Message(va_alist)
-va_dcl
-{
-  va_list ap;
-  int id;
-  char *format;
-  va_start(ap);
-  id     = va_arg(ap, int);
-  format = va_arg(ap, char *);
-#endif /* FUNCPROTO */
   vsprintf(last_message, format, ap);
   va_end(ap);
   current->info(id, last_message);
@@ -659,22 +626,10 @@ va_dcl
 
 
 
-#ifdef FUNCPROTO
 int Warning(int id, char *format, ...)
 {
   va_list ap;
   va_start(ap, format);
-#else /* FUNCPROTO */
-int Warning(va_alist)
-va_dcl
-{
-  va_list ap;
-  int id;
-  char *format;
-  va_start(ap);
-  id     = va_arg(ap, int);
-  format = va_arg(ap, char *);
-#endif /* FUNCPROTO */
   sprintf(last_message, "%s warning: ", progname);
   vsprintf(&last_message[10+prognamelen], format, ap);
   va_end(ap);
@@ -685,22 +640,10 @@ va_dcl
 
 
 
-#ifdef FUNCPROTO
 int Error(int id, char *format, ...)
 {
   va_list ap;
   va_start(ap, format);
-#else /* FUNCPROTO */
-int Error(va_alist)
-va_dcl
-{
-  va_list ap;
-  int id;
-  char *format;
-  va_start(ap);
-  id     = va_arg(ap, int);
-  format = va_arg(ap, char *);
-#endif /* FUNCPROTO */
   sprintf(last_message, "%s error: ", progname);
   vsprintf(&last_message[8+prognamelen], format, ap);
   va_end(ap);
@@ -715,22 +658,10 @@ va_dcl
 
 
 
-#ifdef FUNCPROTO
 int Usage(int id, char *format, ...)
 {
   va_list ap;
   va_start(ap, format);
-#else /* FUNCPROTO */
-int Usage(va_alist)
-va_dcl
-{
-  va_list ap;
-  int id;
-  char *format;
-  va_start(ap);
-  id     = va_arg(ap, int);
-  format = va_arg(ap, char *);
-#endif /* FUNCPROTO */
   if (format)
     {
       sprintf(last_message, "%s error: ", progname);
@@ -749,11 +680,7 @@ va_dcl
 
 
 
-#ifdef FUNCPROTO 
 int Verbose(void)
-#else /* FUNCPROTO */
-int Verbose()
-#endif /* FUNCPROTO */
 {
   return(verbose);
 }
@@ -761,11 +688,7 @@ int Verbose()
 
 
 
-#ifdef FUNCPROTO 
 int ExitOnError(void)
-#else /* FUNCPROTO */
-int ExitOnError()
-#endif /* FUNCPROTO */
 {
   return(current->exitonerror);
 }
@@ -773,11 +696,7 @@ int ExitOnError()
 
 
 
-#ifdef FUNCPROTO 
 char *LastMessage(void)
-#else /* FUNCPROTO */
-char *LastMessage()
-#endif /* FUNCPROTO */
 {
   return(last_message);
 }
@@ -785,13 +704,7 @@ char *LastMessage()
 
 
 
-#ifdef FUNCPROTO 
 int DefaultMessage(int id, char *message)
-#else /* FUNCPROTO */
-int DefaultMessage(id, message)
-int id;
-char *message;
-#endif /* FUNCPROTO */
 {
   if (!msgfile) msgfile = stderr;
 
@@ -802,24 +715,14 @@ char *message;
 
 
 
-#ifdef FUNCPROTO 
 int DefaultNoMessage(int id, char *message)
-#else /* FUNCPROTO */
-int DefaultNoMessage(id, message)
-int id;
-char *message;
-#endif /* FUNCPROTO */
 {
   return(id);
 }
 
 
 
-#ifdef FUNCPROTO 
 FILE *MessageStream(void)
-#else /* FUNCPROTO */
-FILE *MessageStream()
-#endif /* FUNCPROTO */
 {
   if (!msgfile) msgfile = stderr;
 
@@ -828,13 +731,7 @@ FILE *MessageStream()
 
 #ifdef TEST
 
-#ifdef FUNCPROTO
 int my_error(int id, char *message)
-#else /* FUNCPROTO */
-int my_error(id, message)
-int id; 
-char *message;
-#endif /* FUNCPROTO */
 {
   FILE *msg;
   msg = MessageStream();
@@ -842,13 +739,7 @@ char *message;
   return(id);
 }
 
-#ifdef FUNCPROTO
 main(int argc, char *argv[])
-#else /* FUNCPROTO */
-main(argc, argv)
-int argc;
-char *argv[];
-#endif /* FUNCPROTO */
 {
   int stat;
   InitMessage(&argc, argv, xite_app_std_usage_text(

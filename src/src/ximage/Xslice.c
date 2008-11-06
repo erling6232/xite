@@ -57,10 +57,18 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/Xdialog.h>
 #include <xite/FormDialog.h>
 #include <xite/ximage_display.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRTOL_H
-#include XITE_TYPES_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
 #include <xite/debug.h>
 
 #define PATCH_PIXEL 192
@@ -129,14 +137,7 @@ typedef enum {
 
 
 
-#ifndef FUNCPROTO
-static void xslice_notify(wid, data, call_data)
-Widget wid;
-private_data *data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void xslice_notify(Widget wid, private_data *data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   char buff[80];
   size_t scroll;
@@ -162,14 +163,7 @@ static void xslice_notify(Widget wid, private_data *data, XtPointer call_data)
 }
 
 
-#ifndef FUNCPROTO
-static void xslice_work(wid, data, wnr)
-Widget wid;
-private_data *data;
-wid_num_t wnr;
-#else /* FUNCPROTO */
 static void xslice_work(Widget wid, private_data *data, wid_num_t wnr)
-#endif /* FUNCPROTO */
 {
   unsigned short r, g, b, i, h, s;
 
@@ -207,12 +201,7 @@ static void xslice_work(Widget wid, private_data *data, wid_num_t wnr)
   LEAVE_FUNCTION_DEBUG("Xslice.c: xslice_work");
 }
 
-#ifndef FUNCPROTO
-static void fillmap(data)
-private_data *data;
-#else /* FUNCPROTO */
 static void fillmap(private_data *data)
-#endif /* FUNCPROTO */
 {
   XColor col[128];
   int i;
@@ -240,13 +229,7 @@ static void fillmap(private_data *data)
 }  
 
 
-#ifndef FUNCPROTO
-static void xslice_exit(wid, p_data, c_data)
-Widget wid;
-XtPointer p_data, c_data;
-#else /* FUNCPROTO */
 static void xslice_exit(Widget wid, XtPointer p_data, XtPointer c_data)
-#endif /* FUNCPROTO */
 {
   private_data *data;
 
@@ -263,15 +246,7 @@ static void xslice_exit(Widget wid, XtPointer p_data, XtPointer c_data)
   LEAVE_FUNCTION_DEBUG("Xslice.c: xslice_exit");
 }
 
-#ifndef FUNCPROTO
-static void quit_slice(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_slice(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget quit;
   char name[50];
@@ -287,13 +262,7 @@ static void quit_slice(Widget wid, XEvent *event, String *params, Cardinal *num_
 } /* quit_slice() */
 
 
-#ifndef FUNCPROTO
-static void setcol(data, x)
-private_data *data;
-int x;
-#else /* FUNCPROTO */
 static void setcol(private_data *data, int x)
-#endif /* FUNCPROTO */
 {
   int i, xf, xt, len, dir;
   XColor *c;
@@ -353,13 +322,7 @@ static void setcol(private_data *data, int x)
   LEAVE_FUNCTION_DEBUG("Xslice.c: setcol");
 }
 
-#ifndef FUNCPROTO
-static void xslice_mark(wid, dta, imag)
-Widget wid;
-XtPointer dta, imag;
-#else /* FUNCPROTO */
 static void xslice_mark(Widget wid, XtPointer dta, XtPointer imag)
-#endif /* FUNCPROTO */
 {
   private_data *data;
   ImageCallback img_cb;
@@ -473,13 +436,7 @@ static void xslice_mark(Widget wid, XtPointer dta, XtPointer imag)
   LEAVE_FUNCTION_DEBUG("Xslice.c: xslice_mark");
 }
 
-#ifndef FUNCPROTO
-static void SendColtabToXshow(wid, dta, imag)
-Widget wid;
-XtPointer dta, imag;
-#else /* FUNCPROTO */
 static void SendColtabToXshow(Widget wid, XtPointer dta, XtPointer imag)
-#endif /* FUNCPROTO */
 {
   private_data *data;
  
@@ -493,13 +450,7 @@ static void SendColtabToXshow(Widget wid, XtPointer dta, XtPointer imag)
   LEAVE_FUNCTION_DEBUG("Xslice.c: SendColtabToXshow");
 }
 
-#ifndef FUNCPROTO
-static void SendColtabToFile(wid, dta, imag)
-Widget wid;
-XtPointer dta, imag;
-#else /* FUNCPROTO */
 static void SendColtabToFile(Widget wid, XtPointer dta, XtPointer imag)
-#endif /* FUNCPROTO */
 {
   char *filename;
   private_data *data;
@@ -522,13 +473,7 @@ static void SendColtabToFile(Widget wid, XtPointer dta, XtPointer imag)
   LEAVE_FUNCTION_DEBUG("Xslice.c: SendColtabToFile");
 }
 
-#ifndef FUNCPROTO
-static void LoadColtabFromFile(wid, dta, imag)
-Widget wid;
-XtPointer dta, imag;
-#else /* FUNCPROTO */
 static void LoadColtabFromFile(Widget wid, XtPointer dta, XtPointer imag)
-#endif /* FUNCPROTO */
 {
   char *filename;
   int len;
@@ -558,13 +503,7 @@ static void LoadColtabFromFile(Widget wid, XtPointer dta, XtPointer imag)
 
 } /* LoadColtabFromFile() */
 
-#ifndef FUNCPROTO
-static void LoadColtabFromXshow(wid, dta, imag)
-Widget wid;
-XtPointer dta, imag;
-#else /* FUNCPROTO */
 static void LoadColtabFromXshow(Widget wid, XtPointer dta, XtPointer imag)
-#endif /* FUNCPROTO */
 {
   private_data *data;
   ImageCallback img;
@@ -585,13 +524,7 @@ static void LoadColtabFromXshow(Widget wid, XtPointer dta, XtPointer imag)
 
 } /* LoadColtabFromXshow() */
 
-#ifndef FUNCPROTO
-static void SetRange(wid, dta, imag)
-Widget wid;
-XtPointer dta, imag;
-#else /* FUNCPROTO */
 static void SetRange(Widget wid, XtPointer dta, XtPointer imag)
-#endif /* FUNCPROTO */
 {
   int mini, maxi, status;
   char *return_text;
@@ -622,13 +555,7 @@ static void SetRange(Widget wid, XtPointer dta, XtPointer imag)
 }
 
 
-#ifndef FUNCPROTO
-static void xslice_jump(wid, p_data, c_data)
-Widget wid;
-XtPointer p_data, c_data;
-#else /* FUNCPROTO */
 static void xslice_jump(Widget wid, XtPointer p_data, XtPointer c_data)
-#endif /* FUNCPROTO */
 {
   float f1;
   wid_num_t wnr;
@@ -660,13 +587,7 @@ static void xslice_jump(Widget wid, XtPointer p_data, XtPointer c_data)
   LEAVE_FUNCTION_DEBUG("Xslice.c: xslice_jump");
 }
 
-#ifndef FUNCPROTO
-static void xslice_scroll(wid, p_data, c_data)
-Widget wid;
-XtPointer p_data, c_data;
-#else /* FUNCPROTO */
 static void xslice_scroll(Widget wid, XtPointer p_data, XtPointer c_data)
-#endif /* FUNCPROTO */
 {
   wid_num_t wnr;
   ptrdiff_t scroll; 
@@ -759,17 +680,7 @@ static void xslice_scroll(Widget wid, XtPointer p_data, XtPointer c_data)
 
 static float scrollbar_init_value[6] = { 0.3, 1.0, 0.2, 0.42, 0.42, 0.06, };
 
-#ifndef FUNCPROTO
-static void CopyToPrivate(wid, image, planes, cmap, visual, private)
-Widget wid;
-IMAGE image;
-int planes;
-Colormap cmap;
-Visual *visual;
-private_data **private;
-#else /* FUNCPROTO */
 static void CopyToPrivate(Widget wid, IMAGE image, int planes, Colormap cmap, Visual *visual, private_data **private)
-#endif /* FUNCPROTO */
 {
   int colorNumber;
 
@@ -796,13 +707,7 @@ static void CopyToPrivate(Widget wid, IMAGE image, int planes, Colormap cmap, Vi
 
 } /* CopyToPrivate() */
 
-#ifndef FUNCPROTO
-static void MakeColortab(coltab, visual)
-XColor *coltab;
-Visual *visual;
-#else /* FUNCPROTO */
 static void MakeColortab(XColor *coltab, Visual *visual)
-#endif /* FUNCPROTO */
 {
   double r, g, b, i, h, s;
   int j, k, rr, gg, bb;
@@ -853,14 +758,7 @@ static void MakeColortab(XColor *coltab, Visual *visual)
 
 } /* MakeColortab() */
 
-#ifndef FUNCPROTO
-IMAGE colorbar_image(xsize, ysize, low, high, visual, title)
-long xsize, ysize, low, high;
-Visual *visual;
-char *title;
-#else /* FUNCPROTO */
 IMAGE colorbar_image(long xsize, long ysize, long low, long high, Visual *visual, char *title)
-#endif /* FUNCPROTO */
 {
   int nbands;
   IMAGE img;
@@ -908,18 +806,7 @@ IMAGE colorbar_image(long xsize, long ysize, long low, long high, Visual *visual
 
 } /* colorbar_image() */
 
-#ifndef FUNCPROTO
-Widget colorbar_widget(parent, resource_name, shell_resource_name, colortab, xsize, ysize, low, high, visual, depth, title, callbacks)
-Widget parent;
-char *resource_name, *shell_resource_name;
-int colortab, depth;
-long xsize, ysize, low, high;
-Visual *visual;
-char *title;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 Widget colorbar_widget(Widget parent, char *resource_name, char *shell_resource_name, int colortab, long xsize, long ysize, long low, long high, Visual *visual, int depth, char *title, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   Arg args[2];
   IMAGE img;
@@ -1037,12 +924,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void set_color_for_patch(data)
-private_data *data;
-#else /* FUNCPROTO */
 static void set_color_for_patch(private_data *data)
-#endif /* FUNCPROTO */
 {
   /* Set color for pixel PATCH_PIXEL. Use ihscol[PATCH_COLOR_CELL] to feed
    * this to the colormap with XStoreColors().
@@ -1075,12 +957,7 @@ static void set_color_for_patch(private_data *data)
 
 } /* set_color_for_patch() */
 
-#ifndef FUNCPROTO
-static void CreateWidgets(private)
-private_data *private;
-#else /* FUNCPROTO */
 static void CreateWidgets(private_data *private)
-#endif /* FUNCPROTO */
 {
   Dimension maxWidth = 0, sendToXshow_w = 0, sendToFile_w = 0,
             loadFromXshow_w = 0, loadFromFile_w = 0, range_w = 0, quit_w = 0,
@@ -1330,15 +1207,7 @@ static void CreateWidgets(private_data *private)
 
 } /* CreateWidgets() */
 
-#ifndef FUNCPROTO
-void xslice(wid, image, imageCmap, planes)
-Widget wid;
-IMAGE image;
-Colormap imageCmap;
-int planes;
-#else /* FUNCPROTO */
 void xslice(Widget wid, IMAGE image, Colormap imageCmap, int planes)
-#endif /* FUNCPROTO */
 {
   private_data *private;
   Window top_win;

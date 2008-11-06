@@ -44,7 +44,9 @@ static char XRNrcsid[] = "$Header$";
 #include <Xfwf/FileSel.h>
 #include <xite/ShellWids.h>
 #include <xite/Xdialog.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/utils.h>
 #include <xite/mallocp.h>
 #include <xite/strings.h>
@@ -511,12 +513,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void Next_event(parent)
-Widget parent;
-#else /* FUNCPROTO */
 static void Next_event(Widget parent)
-#endif /* FUNCPROTO */
 {
   XtAppContext appcon;
   XEvent event;
@@ -525,13 +522,7 @@ static void Next_event(Widget parent)
   XtDispatchEvent(&event);
 }
 
-#ifndef FUNCPROTO
-void xthCenterWidget(widget, x, y)
-Widget widget;
-int x, y;
-#else /* FUNCPROTO */
 void xthCenterWidget(Widget widget, int x, int y)
-#endif /* FUNCPROTO */
 {
   Dimension width, height;
   int s_w, s_h;
@@ -560,12 +551,7 @@ void xthCenterWidget(Widget widget, int x, int y)
   return;
 }
 
-#ifndef FUNCPROTO
-void xthCenterWidgetOverCursor(widget)
-Widget widget;
-#else /* FUNCPROTO */
 void xthCenterWidgetOverCursor(Widget widget)
-#endif /* FUNCPROTO */
 /*
  * center a window over the cursor
  *
@@ -591,15 +577,7 @@ void xthCenterWidgetOverCursor(Widget widget)
   return;
 }
 
-#ifndef FUNCPROTO
-static void quit_dialog(widget, event, params, num_params)
-Widget widget;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_dialog(Widget widget, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget wid = NULL;
   char name[50];
@@ -633,16 +611,6 @@ static void quit_dialog(Widget widget, XEvent *event, String *params, Cardinal *
 
 } /* quit_dialog() */
 
-#ifndef FUNCPROTO
-Widget CreateDialog(parent, title, textField, winName, iconName, args, count)
-Widget parent;           /* parent window                         */
-char *title;             /* title of the dialog box               */
-char *textField;	 /* default text field                    */
-char *winName;           /* Name of window, for use by window manager. */
-char *iconName;          /* Name of icon, for use by window manager. */
-struct DialogArg *args;  /* description of the buttons            */
-unsigned int count;      /* number of buttons                     */
-#else /* FUNCPROTO */
 Widget CreateDialog(Widget parent, char *title, char *textField, char *winName, char *iconName, struct DialogArg *args, unsigned int count)
                          /* parent window                         */
                          /* title of the dialog box               */
@@ -651,7 +619,6 @@ Widget CreateDialog(Widget parent, char *title, char *textField, char *winName, 
                          /* Name of icon, for use by window manager. */
                          /* description of the buttons            */
                          /* number of buttons                     */
-#endif /* FUNCPROTO */
 /*
  * create a simple moded dialog box
  */
@@ -778,15 +745,7 @@ Widget CreateDialog(Widget parent, char *title, char *textField, char *winName, 
 
 } /* CreateDialog() */
 
-#ifndef FUNCPROTO
-void FocusPopUp(popup, data, event, dummy)
-Widget popup;
-XtPointer data;
-XEvent *event;
-Boolean *dummy;
-#else /* FUNCPROTO */
 void FocusPopUp(Widget popup, XtPointer data, XEvent *event, Boolean *dummy)
-#endif /* FUNCPROTO */
 {
     if (event->type == MapNotify) {
 	XSetInputFocus(XtDisplay(popup), XtWindow(popup),
@@ -796,12 +755,7 @@ void FocusPopUp(Widget popup, XtPointer data, XEvent *event, Boolean *dummy)
 }
 
 
-#ifndef FUNCPROTO
-void PopUpDialog(popup)
-Widget popup;
-#else /* FUNCPROTO */
 void PopUpDialog(Widget popup)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xdialog.c: PopUpDialog");
 
@@ -813,12 +767,7 @@ void PopUpDialog(Widget popup)
   return;
 }
 
-#ifndef FUNCPROTO
-void PopUpDialogNoGrab(popup)
-Widget popup;
-#else /* FUNCPROTO */
 void PopUpDialogNoGrab(Widget popup)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xdialog.c: PopUpDialogNoGrab");
 
@@ -830,13 +779,7 @@ void PopUpDialogNoGrab(Widget popup)
   return;
 }
 
-#ifndef FUNCPROTO
-void PopDownDialog(dialog)
-Widget dialog;
-#else /* FUNCPROTO */
 void PopDownDialog(Widget dialog)
-              
-#endif /* FUNCPROTO */
 /*
  * pop down the dialog.
  */
@@ -850,14 +793,7 @@ void PopDownDialog(Widget dialog)
   return;
 }
 
-#ifndef FUNCPROTO
-void cbPopDownDialog(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 void cbPopDownDialog(Widget wid, XtPointer client_data, XtPointer call_data)
-              
-#endif /* FUNCPROTO */
 {
   Widget shell;
 
@@ -870,12 +806,7 @@ void cbPopDownDialog(Widget wid, XtPointer client_data, XtPointer call_data)
   return;
 }
 
-#ifndef FUNCPROTO
-char *GetDialogValue(popup)
-Widget popup;
-#else /* FUNCPROTO */
 char *GetDialogValue(Widget popup)
-#endif /* FUNCPROTO */
 {
     return XawDialogGetValueString(XtNameToWidget(popup, "dialog"));
 }
@@ -885,15 +816,7 @@ char *GetDialogValue(Widget popup)
  * simple confirmation box
  */
 
-#ifndef FUNCPROTO
-static void quit_file_selector(widget, event, params, num_params)
-Widget widget;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_file_selector(Widget widget, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   WidgetList children;
   Widget child;
@@ -917,15 +840,7 @@ static void quit_file_selector(Widget widget, XEvent *event, String *params, Car
 
 } /* quit_file_selector() */
 
-#ifndef FUNCPROTO
-static void button2_action(widget, event, params, num_params)
-Widget widget;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void button2_action(Widget widget, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xdialog.c: button2_action");
 
@@ -935,14 +850,7 @@ static void button2_action(Widget widget, XEvent *event, String *params, Cardina
   return;
 }
 
-#ifndef FUNCPROTO
-static void dialog_callback(widget, client_data, call_data)
-Widget widget;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void dialog_callback(Widget widget, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
     ENTER_FUNCTION_DEBUG("Xdialog.c: dialog_callback");
     FPRINTF2("    return-value=%d.\n", (int) client_data);
@@ -953,13 +861,7 @@ static void dialog_callback(Widget widget, XtPointer client_data, XtPointer call
     return;
 }
 
-#ifndef FUNCPROTO
-int InformationBox(parent, message, winName, iconName)
-Widget parent;
-char *message, *winName, *iconName;
-#else /* FUNCPROTO */
 int InformationBox(Widget parent, char *message, char *winName, char *iconName)
-#endif /* FUNCPROTO */
 {
   Widget widget;
   struct DialogArg args[1];
@@ -986,13 +888,7 @@ int InformationBox(Widget parent, char *message, char *winName, char *iconName)
 
 } /* InformationBox() */
 
-#ifndef FUNCPROTO
-Widget TextBox(parent, message, btn_text, winName, iconName)
-Widget parent;
-char *message, *winName, *iconName, *btn_text;
-#else /* FUNCPROTO */
 Widget TextBox(Widget parent, char *message, char *btn_text, char *winName, char *iconName)
-#endif /* FUNCPROTO */
 {
   Widget widget;
   struct DialogArg args[1];
@@ -1011,13 +907,7 @@ Widget TextBox(Widget parent, char *message, char *btn_text, char *winName, char
 
 } /* TextBox() */
 
-#ifndef FUNCPROTO
-int ConfirmationBox(parent, message, buttonname1, buttonname2, winName, iconName)
-Widget parent;
-char *message, *buttonname1, *buttonname2, *winName, *iconName;
-#else /* FUNCPROTO */
 int ConfirmationBox(Widget parent, char *message, char *buttonname1, char *buttonname2, char *winName, char *iconName)
-#endif /* FUNCPROTO */
 /*
  * pop up a confirmation box and return either 'BUTTON1_PUSHED' or
  * 'BUTTON2_PUSHED'. */
@@ -1055,14 +945,7 @@ int ConfirmationBox(Widget parent, char *message, char *buttonname1, char *butto
 
 
 
-#ifndef FUNCPROTO
-int SimpleDialog(parent, title, deftext, return_text, buttonname1, buttonname2, winName, iconName)
-Widget parent;
-char *title, *deftext, *buttonname1,  *buttonname2, **return_text;
-char *winName, *iconName;
-#else /* FUNCPROTO */
 int SimpleDialog(Widget parent, char *title, char *deftext, char **return_text, char *buttonname1, char *buttonname2, char *winName, char *iconName)
-#endif /* FUNCPROTO */
 {
   Widget dialog_shell, dialog;
   static char retval[2048];
@@ -1098,14 +981,7 @@ int SimpleDialog(Widget parent, char *title, char *deftext, char **return_text, 
   } /* for(;;) */
 }
 
-#ifndef FUNCPROTO
-static void OkCallbackHandler(w, client_data, ret)
-Widget w;
-XtPointer client_data;
-XfwfFileSelectorOkButtonReturnStruct *ret;
-#else /* FUNCPROTO */
 static void OkCallbackHandler(Widget w, XtPointer client_data, XfwfFileSelectorOkButtonReturnStruct *ret)
-#endif /* FUNCPROTO */
 {
   char *filename;
 
@@ -1127,14 +1003,7 @@ static void OkCallbackHandler(Widget w, XtPointer client_data, XfwfFileSelectorO
 
 } /* OkCallbackHandler() */
 
-#ifndef FUNCPROTO
-static void CancelCallbackHandler(w,client_data,call_data)
-Widget w;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void CancelCallbackHandler(Widget w, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xprog.c: CancelCallbackHandler");
 
@@ -1147,14 +1016,7 @@ static void CancelCallbackHandler(Widget w, XtPointer client_data, XtPointer cal
 
 } /* CancelCallbackHandler() */
 
-#ifndef FUNCPROTO
-static void SelectionChangeCallbackHandler(w,client_data,ret)
-Widget w;
-XtPointer client_data;
-XfwfFileSelectorSelectionChangeReturnStruct *ret;
-#else /* FUNCPROTO */
 static void SelectionChangeCallbackHandler(Widget w, XtPointer client_data, XfwfFileSelectorSelectionChangeReturnStruct *ret)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xprog.c: SelectionChangeCallbackHandler");
   if (ret->file_selected == False)
@@ -1165,14 +1027,7 @@ static void SelectionChangeCallbackHandler(Widget w, XtPointer client_data, Xfwf
 
 } /* SelectionChangeCallbackHandler() */
 
-#ifndef FUNCPROTO
-int SelectReadFile(parent, kind, return_text)
-Widget parent;
-char **return_text;
-char *kind;
-#else /* FUNCPROTO */
 int SelectReadFile(Widget parent, char *kind, char **return_text)
-#endif /* FUNCPROTO */
 {
   Widget Popup, Selector;
   FileSelInfo *texts;
@@ -1217,13 +1072,7 @@ int SelectReadFile(Widget parent, char *kind, char **return_text)
 
 } /* SelectReadFile() */
 
-#ifndef FUNCPROTO
-int SelectWriteFile(parent, kind, return_text)
-Widget parent;
-char **return_text, *kind;
-#else /* FUNCPROTO */
 int SelectWriteFile(Widget parent, char *kind, char **return_text)
-#endif /* FUNCPROTO */
 {
   Widget Popup, Selector;
   FileSelInfo *texts;

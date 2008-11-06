@@ -117,14 +117,6 @@ static XtResource imageFormConstraintResources[] = {
 };
 #undef Offset
 
-#ifndef FUNCPROTO
-static void ClassInitialize(), ClassPartInitialize(), Initialize(), Resize();
-static void ConstraintInitialize();
-static Boolean SetValues(), ConstraintSetValues();
-static XtGeometryResult GeometryManager(), PreferredGeometry();
-static void ChangeManaged();
-static Boolean Layout();
-#else /* FUNCPROTO */
 static void ClassInitialize(void);
 static void ClassPartInitialize(WidgetClass class);
 static void Initialize(Widget request, Widget new, ArgList args, Cardinal *num_args);
@@ -136,14 +128,9 @@ static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtW
 static XtGeometryResult PreferredGeometry(Widget widget, XtWidgetGeometry *request, XtWidgetGeometry *reply);
 static void ChangeManaged(Widget w);
 static Boolean Layout(ImageFormWidget fw, Dimension width, Dimension height, Boolean force_relayout);
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-static void LayoutChild(), ResizeChildren();
-#else /* FUNCPROTO */
 static void LayoutChild(Widget w);
 static void ResizeChildren(Widget w);
-#endif /* FUNCPROTO */
 
 ImageFormClassRec imageFormClassRec = {
   { /* core_class fields */
@@ -219,15 +206,7 @@ static XrmQuark	XtQChainLeft, XtQChainRight, XtQChainTop,
 	  return; \
 	}
 
-#ifndef FUNCPROTO
-static void _CvtStringToEdgeType(args, num_args, fromVal, toVal)
-    XrmValuePtr args;
-    Cardinal    *num_args;
-    XrmValuePtr fromVal;
-    XrmValuePtr toVal;
-#else /* FUNCPROTO */
 static void _CvtStringToEdgeType(XrmValuePtr args, Cardinal *num_args, XrmValuePtr fromVal, XrmValuePtr toVal)
-#endif /* FUNCPROTO */
 {
     static XtEdgeType edgeType;
     XrmQuark q;
@@ -260,11 +239,7 @@ static void _CvtStringToEdgeType(XrmValuePtr args, Cardinal *num_args, XrmValueP
     toVal->size = 0;
 }
 
-#ifndef FUNCPROTO
-static void ClassInitialize()
-#else /* FUNCPROTO */
 static void ClassInitialize(void)
-#endif /* FUNCPROTO */
 {
     static XtConvertArgRec parentCvtArgs[] = {
 	{XtBaseOffset, (XtPointer)XtOffsetOf(WidgetRec, core.parent),
@@ -283,12 +258,7 @@ static void ClassInitialize(void)
 			NULL);
 }
 
-#ifndef FUNCPROTO
-static void ClassPartInitialize(class)
-    WidgetClass class;
-#else /* FUNCPROTO */
 static void ClassPartInitialize(WidgetClass class)
-#endif /* FUNCPROTO */
 {
     register ImageFormWidgetClass c = (ImageFormWidgetClass)class;
     register ImageFormWidgetClass super = (ImageFormWidgetClass) 
@@ -298,14 +268,7 @@ static void ClassPartInitialize(WidgetClass class)
 	c->image_form_class.layout = super->image_form_class.layout;
 }
 
-#ifndef FUNCPROTO
-static void Initialize(request, new, args, num_args)
-Widget request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
     ImageFormWidget fw = (ImageFormWidget)new;
 
@@ -331,15 +294,7 @@ static void Initialize(Widget request, Widget new, ArgList args, Cardinal *num_a
  *	Returns: TRUE of children may always be resized.
  */
 
-#ifndef FUNCPROTO
-static Boolean ChangeFormGeometry(w, query_only, width, height, ret_width, ret_height)
-Widget w;
-Boolean query_only;
-Dimension width, height;
-Dimension *ret_width, *ret_height;
-#else /* FUNCPROTO */
 static Boolean ChangeFormGeometry(Widget w, Boolean query_only, Dimension width, Dimension height, Dimension *ret_width, Dimension *ret_height)
-#endif /* FUNCPROTO */
 {
     ImageFormWidget fw = (ImageFormWidget) w;
     Boolean always_resize_children;
@@ -402,14 +357,7 @@ static Boolean ChangeFormGeometry(Widget w, Boolean query_only, Dimension width,
  *               current locations to the new ones.
  */
 
-#ifndef FUNCPROTO
-static Boolean Layout(fw, width, height, force_relayout)
-    ImageFormWidget fw;
-    Dimension width, height;
-    Boolean force_relayout;
-#else /* FUNCPROTO */
 static Boolean Layout(ImageFormWidget fw, Dimension width, Dimension height, Boolean force_relayout)
-#endif /* FUNCPROTO */
 {
     int num_children = fw->composite.num_children;
     WidgetList children = fw->composite.children;
@@ -484,12 +432,7 @@ static Boolean Layout(ImageFormWidget fw, Dimension width, Dimension height, Boo
  *	Returns: none.
  */
 
-#ifndef FUNCPROTO
-static void ResizeChildren(w) 
-Widget w;
-#else /* FUNCPROTO */
 static void ResizeChildren(Widget w)
-#endif /* FUNCPROTO */
 {
     ImageFormWidget fw = (ImageFormWidget) w;
     int num_children = fw->composite.num_children;
@@ -525,12 +468,7 @@ static void ResizeChildren(Widget w)
 }
 
 
-#ifndef FUNCPROTO
-static void LayoutChild(w)
-    Widget w;
-#else /* FUNCPROTO */
 static void LayoutChild(Widget w)
-#endif /* FUNCPROTO */
 {
     ImageFormConstraints image_form =
       (ImageFormConstraints)w->core.constraints;
@@ -590,14 +528,7 @@ static void LayoutChild(Widget w)
 }
 
 
-#ifndef FUNCPROTO
-static Position TransformCoord(loc, old, new, type)
-    register Position loc;
-    Dimension old, new;
-    XtEdgeType type;
-#else /* FUNCPROTO */
 static Position TransformCoord(register Position loc, Dimension old, Dimension new, XawEdgeType type)
-#endif /* FUNCPROTO */
 {
     if (type == XtRubber) {
         if ( ((int) old) > 0)
@@ -611,12 +542,7 @@ static Position TransformCoord(register Position loc, Dimension old, Dimension n
     return (loc);
 }
 
-#ifndef FUNCPROTO
-static void Resize(w)
-    Widget w;
-#else /* FUNCPROTO */
 static void Resize(Widget w)
-#endif /* FUNCPROTO */
 {
     ImageFormWidget fw = (ImageFormWidget)w;
     WidgetList children = fw->composite.children;
@@ -746,14 +672,7 @@ static void Resize(Widget w)
  * I don't want to even think about what ``Almost'' would mean - Chris.
  */
 
-#ifndef FUNCPROTO
-static XtGeometryResult GeometryManager(w, request, reply)
-    Widget w;
-    XtWidgetGeometry *request;
-    XtWidgetGeometry *reply;	/* RETURN */
-#else /* FUNCPROTO */
 static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtWidgetGeometry *reply)
-#endif /* FUNCPROTO */
 {
     Dimension old_width, old_height;
     ImageFormWidget fw = (ImageFormWidget) XtParent(w);
@@ -881,27 +800,13 @@ static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtW
 }
 
 
-#ifndef FUNCPROTO
-static Boolean SetValues(current, request, new, args, num_args)
-Widget current, request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static Boolean SetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
     return( FALSE );
 }
 
 
-#ifndef FUNCPROTO
-static void ConstraintInitialize(request, new, args, num_args)
-Widget request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static void ConstraintInitialize(Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
     ImageFormConstraints image_form =
       (ImageFormConstraints)new->core.constraints;
@@ -923,14 +828,7 @@ static void ConstraintInitialize(Widget request, Widget new, ArgList args, Cardi
     LEAVE_FUNCTION_DEBUG("ImageForm.c: ConstraintInitialize");
 }
 
-#ifndef FUNCPROTO
-static Boolean ConstraintSetValues(current, request, new, args, num_args)
-    Widget current, request, new;
-    ArgList args;
-    Cardinal *num_args;
-#else /* FUNCPROTO */
 static Boolean ConstraintSetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   register ImageFormConstraints cfc =
     (ImageFormConstraints) current->core.constraints;
@@ -968,12 +866,7 @@ static Boolean ConstraintSetValues(Widget current, Widget request, Widget new, A
   return( FALSE );
 }
 
-#ifndef FUNCPROTO
-static void ChangeManaged(w)
-    Widget w;
-#else /* FUNCPROTO */
 static void ChangeManaged(Widget w)
-#endif /* FUNCPROTO */
 {
   ImageFormWidget fw = (ImageFormWidget)w;
   ImageFormConstraints image_form;
@@ -1015,13 +908,7 @@ static void ChangeManaged(Widget w)
 }
 
 
-#ifndef FUNCPROTO
-static XtGeometryResult PreferredGeometry( widget, request, reply  )
-    Widget widget;
-    XtWidgetGeometry *request, *reply;
-#else /* FUNCPROTO */
 static XtGeometryResult PreferredGeometry(Widget widget, XtWidgetGeometry *request, XtWidgetGeometry *reply)
-#endif /* FUNCPROTO */
 {
     ImageFormWidget w = (ImageFormWidget)widget;
     
@@ -1057,18 +944,12 @@ static XtGeometryResult PreferredGeometry(Widget widget, XtWidgetGeometry *reque
  * Set or reset figuring (ignored if not realized)
  */
 
-#ifndef FUNCPROTO
-void XawImageFormDoLayout(w, doit)
-Widget w;
-Boolean doit;
-#else /* FUNCPROTO */
 void XawImageFormDoLayout(Widget w,
 # if NeedWidePrototypes
 		int doit)
 # else
 		Boolean doit)
 # endif
-#endif /* FUNCPROTO */
 {
     register Widget *childP;
     register ImageFormWidget fw = (ImageFormWidget)w;

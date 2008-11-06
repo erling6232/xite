@@ -42,7 +42,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Xaw/SmeBSB.h>
 #include <X11/Xaw/Form.h>
 #include <xite/ImageOptionsMenu.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/ImageOverlay.h>
 #include <xite/ImageForm.h>
 #include <xite/ShellWids.h>
@@ -125,15 +127,7 @@ typedef enum {
   MENUBAR_ENTRY
 } entry_type;
 
-#ifndef FUNCPROTO
-static void OptionsHook(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void OptionsHook(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageOverlayWidget iow;
   int permanent, fill, xaspect;
@@ -191,14 +185,7 @@ static void OptionsHook(Widget wid, XEvent *event, String *params, Cardinal *num
   LEAVE_FUNCTION_DEBUG("ImageOptionMenu.c: OptionsHook");
 }
 
-#ifndef FUNCPROTO
-static void OptionsSelect(w, clos, call_data)
-Widget w;
-XtPointer clos;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void OptionsSelect(Widget w, XtPointer clos, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   Widget image_widget;
   entry_type closure = (entry_type) *((int *) clos);
@@ -306,14 +293,7 @@ static void OptionsSelect(Widget w, XtPointer clos, XtPointer call_data)
   return;
 }
 
-#ifndef FUNCPROTO
-void OptionsMenuInit(display, screenno, parent)
-Display *display;
-int screenno;
-Widget parent;
-#else /* FUNCPROTO */
 void OptionsMenuInit(Display *display, int screenno, Widget parent)
-#endif /* FUNCPROTO */
 {
   char *label = NULL;
 

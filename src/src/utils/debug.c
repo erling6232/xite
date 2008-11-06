@@ -34,8 +34,12 @@ static char *Id = "debug.c,v 1.2 1995/08/23 14:58:38 svein Exp, Blab, UiO";
 
 
 #include <xite/includes.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #ifndef DEBUG
 # define DEBUG
@@ -73,12 +77,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char *prepend_debug_blanks(t)
-char *t;
-#else /* FUNCPROTO */
 char *prepend_debug_blanks(char *t)
-#endif /* FUNCPROTO */
 {
   char *tt;
 
@@ -95,12 +94,7 @@ char *prepend_debug_blanks(char *t)
 
 } /* prepend_debug_blanks() */
 
-#ifndef FUNCPROTO
-void enter_function_debug(func_name)
-char *func_name;
-#else /* FUNCPROTO */
 void enter_function_debug(char *func_name)
-#endif /* FUNCPROTO */
 {
   char *t, *tt;
 
@@ -118,12 +112,7 @@ void enter_function_debug(char *func_name)
 
 } /* enter_function_debug() */
 
-#ifndef FUNCPROTO
-void leave_function_debug(func_name)
-char *func_name;
-#else /* FUNCPROTO */
 void leave_function_debug(char *func_name)
-#endif /* FUNCPROTO */
 {
   char *t, *tt;
 

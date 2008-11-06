@@ -38,19 +38,13 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/StringDefs.h>
 #include <xite/layout.h>
 #include <xite/callbacks.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/message.h>
 #include <xite/debug.h>
 
-#ifndef FUNCPROTO
-layout_label Make_core_part_layout(lay_out, type, resource_name, shell_resource_name, wid, id)
-layout_core lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-#else /* FUNCPROTO */
 layout_label Make_core_part_layout(layout_core lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id)
-#endif /* FUNCPROTO */
 {
   layout_core_part *core_part;
 
@@ -68,15 +62,7 @@ layout_label Make_core_part_layout(layout_core lay_out, char *type, char *resour
 
 } /* Make_core_part_layout() */
 
-#ifndef FUNCPROTO
-layout_label Make_label_layout(lay_out, type, resource_name, shell_resource_name, wid, id)
-layout_label lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-#else /* FUNCPROTO */
 layout_label Make_label_layout(layout_label lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id)
-#endif /* FUNCPROTO */
 {
   if (!lay_out) lay_out = (layout_label) XtNew(layout_label_rec);
   (void) Make_core_part_layout((layout_core) lay_out, type, resource_name,
@@ -86,17 +72,7 @@ layout_label Make_label_layout(layout_label lay_out, char *type, char *resource_
   
 } /* Make_label_layout() */
 
-#ifndef FUNCPROTO
-layout_image Make_image_layout(lay_out, type, resource_name, shell_resource_name, wid, id, img, callbacks)
-layout_image lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-IMAGE img;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 layout_image Make_image_layout(layout_image lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id, IMAGE img, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   layout_image_part *image_part;
 
@@ -112,16 +88,7 @@ layout_image Make_image_layout(layout_image lay_out, char *type, char *resource_
 
 } /* Make_image_layout() */
 
-#ifndef FUNCPROTO
-void add_callback_to_image_layout(lay_out, resource_name, callback, closure, first)
-layout_image lay_out;
-String resource_name;
-XtCallbackProc callback;
-XtPointer closure;
-Boolean first;
-#else /* FUNCPROTO */
 void add_callback_to_image_layout(layout_image lay_out, String resource_name, XtCallbackProc callback, XtPointer closure, Boolean first)
-#endif /* FUNCPROTO */
 {
   if (!lay_out) Error(2, "lay_out is NULL.\n");
   
@@ -133,17 +100,7 @@ void add_callback_to_image_layout(layout_image lay_out, String resource_name, Xt
 
 } /* add_callback_to_image_layout() */
 
-#ifndef FUNCPROTO
-layout_command Make_command_layout(lay_out, type, resource_name, shell_resource_name, wid, id, callback, closure)
-layout_command lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-XtCallbackProc callback;
-XtPointer closure;
-#else /* FUNCPROTO */
 layout_command Make_command_layout(layout_command lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id, XtCallbackProc callback, XtPointer closure)
-#endif /* FUNCPROTO */
 {
   layout_command_part *command_part;
 
@@ -158,18 +115,7 @@ layout_command Make_command_layout(layout_command lay_out, char *type, char *res
 
 } /* Make_command_layout() */
 
-#ifndef FUNCPROTO
-layout_prompt Make_prompt_layout(lay_out, type, resource_name, shell_resource_name, wid, id, callback, closure, text)
-layout_prompt lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-XtCallbackProc callback;
-XtPointer closure;
-char *text;
-#else /* FUNCPROTO */
 layout_prompt Make_prompt_layout(layout_prompt lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id, XtCallbackProc callback, XtPointer closure, char *text)
-#endif /* FUNCPROTO */
 {
   layout_prompt_part *prompt_part;
 
@@ -185,17 +131,7 @@ layout_prompt Make_prompt_layout(layout_prompt lay_out, char *type, char *resour
 
 } /* Make_prompt_layout() */
 
-#ifndef FUNCPROTO
-layout_scroll Make_scroll_layout(lay_out, type, resource_name, shell_resource_name, wid, id, jump_callback, jump_closure, scroll_callback, scroll_closure)
-layout_scroll lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-XtCallbackProc jump_callback, scroll_callback;
-XtPointer jump_closure, scroll_closure;
-#else /* FUNCPROTO */
 layout_scroll Make_scroll_layout(layout_scroll lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id, XtCallbackProc jump_callback, XtPointer jump_closure, XtCallbackProc scroll_callback, XtPointer scroll_closure)
-#endif /* FUNCPROTO */
 {
   layout_scroll_part *scroll_part;
 
@@ -213,17 +149,7 @@ layout_scroll Make_scroll_layout(layout_scroll lay_out, char *type, char *resour
 
 } /* Make_scroll_layout() */
 
-#ifndef FUNCPROTO
-layout_menu Make_menu_layout(lay_out, type, resource_name, shell_resource_name, wid, id, num_entries, menu_entries)
-layout_menu lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-int num_entries;
-layout_menu_entry *menu_entries;
-#else /* FUNCPROTO */
 layout_menu Make_menu_layout(layout_menu lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id, int num_entries, layout_menu_entry *menu_entries)
-#endif /* FUNCPROTO */
 {
   layout_menu_part *menu_part;
 
@@ -239,16 +165,7 @@ layout_menu Make_menu_layout(layout_menu lay_out, char *type, char *resource_nam
 
 } /* Make_menu_layout() */
 
-#ifndef FUNCPROTO
-layout_menu_entry Make_entry_layout(lay_out, resource_name, label, wid, id, callback, closure)
-layout_menu_entry lay_out;
-char *resource_name, *label;
-Widget wid;
-XtCallbackProc callback;
-XtPointer closure;
-#else /* FUNCPROTO */
 layout_menu_entry Make_entry_layout(layout_menu_entry lay_out, char *resource_name, char *label, Widget wid, XtCallbackProc callback, XtPointer closure)
-#endif /* FUNCPROTO */
 {
   if (!lay_out) lay_out = (layout_menu_entry) XtNew(layout_menu_entry_rec);
 
@@ -261,16 +178,7 @@ layout_menu_entry Make_entry_layout(layout_menu_entry lay_out, char *resource_na
 
 } /* Make_entry_layout() */
 
-#ifndef FUNCPROTO
-layout_menu_entry *Add_entry_layout(lay_out, resource_name, label, wid, callback, closure)
-layout_menu lay_out;
-char *resource_name, *label;
-Widget wid;
-XtCallbackProc callback;
-XtPointer closure;
-#else /* FUNCPROTO */
 layout_menu_entry *Add_entry_layout(layout_menu lay_out, char *resource_name, char *label, Widget wid, XtCallbackProc callback, XtPointer closure)
-#endif /* FUNCPROTO */
 {
   layout_menu_part  *menu_part;
   layout_menu_entry *new_entries;
@@ -302,19 +210,7 @@ layout_menu_entry *Add_entry_layout(layout_menu lay_out, char *resource_name, ch
 
 } /* Add_entry_layout() */
 
-#ifndef FUNCPROTO
-layout_list Make_list_layout(lay_out, type, resource_name, shell_resource_name, wid, id, num_entries, list_entries, callback, closure)
-layout_list lay_out;
-char *type, *resource_name, *shell_resource_name;
-Widget wid;
-int id;
-int num_entries;
-char **list_entries;
-XtCallbackProc callback;
-XtPointer closure;
-#else /* FUNCPROTO */
 layout_list Make_list_layout(layout_list lay_out, char *type, char *resource_name, char *shell_resource_name, Widget wid, int id, int num_entries, char **list_entries, XtCallbackProc callback, XtPointer closure)
-#endif /* FUNCPROTO */
 {
   layout_list_part *list_part;
 

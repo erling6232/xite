@@ -314,7 +314,9 @@ ________________________________________________________________
 
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <ctype.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
@@ -324,7 +326,9 @@ ________________________________________________________________
 #include <X11/StringDefs.h>
 #include <X11/Xaw/XawInit.h>
 #include "HistogramP.h"
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/Visual.h>
 #include <xite/Cmap.h>
 #include <xite/ShellWids.h>
@@ -334,17 +338,6 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void ClassPartInitialize();
-static Boolean SetValues();
-static void Initialize();
-static void Realize();
-static void Redisplay();
-static void Crossing();
-static void Button();
-static void ChangeMode();
-static void Kill();
-#else /* FUNCPROTO */
 static void ClassPartInitialize(WidgetClass wc);
 static Boolean SetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args);
 static void Initialize(Widget request, Widget new, ArgList args, Cardinal *num_args);
@@ -354,7 +347,6 @@ static void Crossing(Widget wid, XEvent *event, String *params, Cardinal *num_pa
 static void Button(Widget wid, XEvent *event, String *params, Cardinal *num_params);
 static void ChangeMode(Widget wid, XEvent *event, String *params, Cardinal *num_params);
 static void Kill(Widget wid);
-#endif /* FUNCPROTO */
 
 static int screen_s = 0;
  
@@ -457,12 +449,7 @@ WidgetClass histogramWidgetClass = (WidgetClass)&histogramClassRec;
 
 
 
-#ifndef FUNCPROTO
-static void ClassPartInitialize(wc)
-WidgetClass wc;
-#else /* FUNCPROTO */
 static void ClassPartInitialize(WidgetClass wc)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Histogram.c: ClassPartInitialize");
   XawInitializeWidgetSet();
@@ -474,14 +461,7 @@ static void ClassPartInitialize(WidgetClass wc)
 
 
 
-#ifndef FUNCPROTO
-static Boolean SetValues(current, request, new, args, num_args)
-Widget current, request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static Boolean SetValues(Widget current, Widget request, Widget new, ArgList args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   HistogramWidget ic = (HistogramWidget) current;
   HistogramWidget ir = (HistogramWidget) request;
@@ -508,13 +488,7 @@ static Boolean SetValues(Widget current, Widget request, Widget new, ArgList arg
 
 
 
-#ifndef FUNCPROTO
-static void CalcCumulativeHistogram(hPart, numBins)
-HistogramPart *hPart;
-int numBins;
-#else /* FUNCPROTO */
 static void CalcCumulativeHistogram(HistogramPart *hPart, int numBins)
-#endif /* FUNCPROTO */
 {
   int i, *hptr, *kptr;
 
@@ -527,13 +501,7 @@ static void CalcCumulativeHistogram(HistogramPart *hPart, int numBins)
 
 } /* CalcCumulativeHistogram() */
 
-#ifndef FUNCPROTO
-static int MaxHisto(hPart, numBins)
-HistogramPart *hPart;
-int numBins;
-#else /* FUNCPROTO */
 static int MaxHisto(HistogramPart *hPart, int numBins)
-#endif /* FUNCPROTO */
 {
   int i, max, *hi;
 
@@ -545,13 +513,7 @@ static int MaxHisto(HistogramPart *hPart, int numBins)
 
 } /* MaxHisto() */
 
-#ifndef FUNCPROTO
-static void CalcDhistogram(hPart, numBins)
-HistogramPart *hPart;
-int numBins;
-#else /* FUNCPROTO */
 static void CalcDhistogram(HistogramPart *hPart, int numBins)
-#endif /* FUNCPROTO */
 {
   int i, *dptr, *hptr, max, tmp;
 
@@ -564,13 +526,7 @@ static void CalcDhistogram(HistogramPart *hPart, int numBins)
 
 } /* CalcDhistogram() */
 
-#ifndef FUNCPROTO
-static void CalcDkumulativ(hPart, numBins, height)
-HistogramPart *hPart;
-int numBins, height;
-#else /* FUNCPROTO */
 static void CalcDkumulativ(HistogramPart *hPart, int numBins, int height)
-#endif /* FUNCPROTO */
 {
   int i, *dptr, *kptr, max;
 
@@ -583,13 +539,7 @@ static void CalcDkumulativ(HistogramPart *hPart, int numBins, int height)
 
 } /* CalcDkumulativ() */
 
-#ifndef FUNCPROTO
-static void InitMask(hPart, numBins)
-HistogramPart *hPart;
-int numBins;
-#else /* FUNCPROTO */
 static void InitMask(HistogramPart *hPart, int numBins)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -601,15 +551,8 @@ static void InitMask(HistogramPart *hPart, int numBins)
 
 
 
-#ifndef FUNCPROTO
-static void Initialize(request, new, args, num_args)
-Widget request, new;
-ArgList args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new, ArgList args,
 			     Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   HistogramWidget newhw = (HistogramWidget) new;
   HistogramPart *newhp;
@@ -663,14 +606,7 @@ static void Initialize(Widget request, Widget new, ArgList args,
 
 
 
-#ifndef FUNCPROTO
-static void Realize(wid, valueMask, attrs)
-     Widget wid;
-     XtValueMask *valueMask;
-     XSetWindowAttributes *attrs;
-#else /* FUNCPROTO */
 static void Realize(Widget wid, XtValueMask *valueMask, XSetWindowAttributes *attrs)
-#endif /* FUNCPROTO */
 {
   Display *dpy;
   HistogramWidget hWid = (HistogramWidget) wid;
@@ -766,12 +702,7 @@ static void Realize(Widget wid, XtValueMask *valueMask, XSetWindowAttributes *at
 
 
 
-#ifndef FUNCPROTO
-void HistogramRedisplay(wid)
-Widget wid;
-#else /* FUNCPROTO */
 void HistogramRedisplay(Widget wid)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Histogram.c: HistogramRedisplay");
   Redisplay(wid, NULL, NULL);
@@ -779,17 +710,7 @@ void HistogramRedisplay(Widget wid)
 }
 
 
-#ifndef FUNCPROTO
-static void Draw_lines(dpy, wid, gc, coltab, mask, line, plane, func)
-Display *dpy;
-Widget wid;
-GC gc;
-unsigned char mask[], line[];
-int plane, func;
-XColor coltab[];
-#else /* FUNCPROTO */
 static void Draw_lines(Display *dpy, Widget wid, GC gc, XColor *coltab, unsigned char *mask, unsigned char *line, int plane, int func)
-#endif /* FUNCPROTO */
 {
   /* plane: Mask to determine whether to handle red, green and/or blue color.
    * line: Manipulating line.
@@ -922,13 +843,7 @@ static void Draw_lines(Display *dpy, Widget wid, GC gc, XColor *coltab, unsigned
 } 
         
 
-#ifndef FUNCPROTO
-void Draw_all_lines(wid, func)
-Widget wid;
-int func;
-#else /* FUNCPROTO */
 void Draw_all_lines(Widget wid, int func)
-#endif /* FUNCPROTO */
 {
   XColor coltab[128];
   Display *dpy;
@@ -982,14 +897,7 @@ void Draw_all_lines(Widget wid, int func)
   LEAVE_FUNCTION_DEBUG("Histogram.c: Draw_all_lines");
 }
 
-#ifndef FUNCPROTO
-static void Redisplay(wid, event, region)
-Widget wid;
-XEvent *event;
-Region region;
-#else /* FUNCPROTO */
 static void Redisplay(Widget wid, XEvent *event, Region region)
-#endif /* FUNCPROTO */
 {
   HistogramWidget hWid = (HistogramWidget) wid;
   HistogramPart *hPart;
@@ -1041,15 +949,7 @@ static void Redisplay(Widget wid, XEvent *event, Region region)
   LEAVE_FUNCTION_DEBUG("Histogram.c: Redisplay");
 }  
 
-#ifndef FUNCPROTO
-static void Crossing(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Crossing(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   int enter = 1;
   Widget shell, form;
@@ -1089,15 +989,7 @@ static void Crossing(Widget wid, XEvent *event, String *params, Cardinal *num_pa
 
 
 
-#ifndef FUNCPROTO
-static void Button(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Button(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   HistogramWidget hWid = (HistogramWidget) wid;
   HistogramButtonCallbackRec button_callback;
@@ -1152,15 +1044,7 @@ static void Button(Widget wid, XEvent *event, String *params, Cardinal *num_para
 
 
 
-#ifndef FUNCPROTO
-static void ChangeMode(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void ChangeMode(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   HistogramWidget hWid = (HistogramWidget) wid;
 
@@ -1178,12 +1062,7 @@ static void ChangeMode(Widget wid, XEvent *event, String *params, Cardinal *num_
 
 
 
-#ifndef FUNCPROTO
-static void Kill(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static void Kill(Widget wid)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Histogram.c: Kill");
 
@@ -1196,15 +1075,7 @@ static void Kill(Widget wid)
   LEAVE_FUNCTION_DEBUG("Histogram.c: Kill");
 }
 
-#ifndef FUNCPROTO
-void HistogramKill(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 void HistogramKill(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget w;
 
@@ -1218,13 +1089,7 @@ void HistogramKill(Widget wid, XEvent *event, String *params, Cardinal *num_para
 
 
 
-#ifndef FUNCPROTO
-void HistogramInitLines(wid, col, threshold)
-HistogramWidget wid;
-int col, threshold;
-#else /* FUNCPROTO */
 void HistogramInitLines(HistogramWidget wid, int col, int threshold)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1284,12 +1149,7 @@ void HistogramInitLines(HistogramWidget wid, int col, int threshold)
 
 
 
-#ifndef FUNCPROTO
-void HistogramExitLines(wid)
-HistogramWidget wid;
-#else /* FUNCPROTO */
 void HistogramExitLines(HistogramWidget wid)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1307,13 +1167,7 @@ void HistogramExitLines(HistogramWidget wid)
 
 
 
-#ifndef FUNCPROTO
-void HistogramThreshold(wid, point, col)
-HistogramWidget wid;
-int point, col;
-#else /* FUNCPROTO */
 void HistogramThreshold(HistogramWidget wid, int point, int col)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1366,13 +1220,7 @@ void HistogramThreshold(HistogramWidget wid, int point, int col)
 
 
 
-#ifndef FUNCPROTO
-void HistogramInsertPoint(wid, point, val, col)
-HistogramWidget wid;
-int point, val, col;
-#else /* FUNCPROTO */
 void HistogramInsertPoint(HistogramWidget wid, int point, int val, int col)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Histogram.c: HistogramInsertPoint");
 
@@ -1405,13 +1253,7 @@ void HistogramInsertPoint(HistogramWidget wid, int point, int val, int col)
 
 
 
-#ifndef FUNCPROTO
-void HistogramMovePoint(wid, point, val, col)
-HistogramWidget wid;
-int point, val, col;
-#else /* FUNCPROTO */
 void HistogramMovePoint(HistogramWidget wid, int point, int val, int col)
-#endif /* FUNCPROTO */
 {
   int i, x, d;
 
@@ -1456,13 +1298,7 @@ void HistogramMovePoint(HistogramWidget wid, int point, int val, int col)
 
 
 
-#ifndef FUNCPROTO
-void HistogramDeletePoint(wid, point, val, col)
-HistogramWidget wid;
-int point, val, col;
-#else /* FUNCPROTO */
 void HistogramDeletePoint(HistogramWidget wid, int point, int val, int col)
-#endif /* FUNCPROTO */
 {
   int dev;
 
@@ -1506,13 +1342,7 @@ void HistogramDeletePoint(HistogramWidget wid, int point, int val, int col)
 
 
 
-#ifndef FUNCPROTO
-void HistogramInspect(wid, colortab)
-HistogramWidget wid;
-XColor colortab[];
-#else /* FUNCPROTO */
 void HistogramInspect(HistogramWidget wid, XColor *colortab)
-#endif /* FUNCPROTO */
 {
   int last, i, j;
   unsigned char *red, *green, *blue, *mask;
@@ -1579,14 +1409,7 @@ void HistogramInspect(HistogramWidget wid, XColor *colortab)
 
 
 
-#ifndef FUNCPROTO
-void HistogramGet(wid, tab, len)
-HistogramWidget wid;
-XColor tab[];
-int *len;
-#else /* FUNCPROTO */
 void HistogramGet(HistogramWidget wid, XColor *tab, int *len)
-#endif /* FUNCPROTO */
 {
   int i, j;
   unsigned char *red, *green, *blue, *mask;
@@ -1632,14 +1455,7 @@ void HistogramGet(HistogramWidget wid, XColor *tab, int *len)
 
 
 
-#ifndef FUNCPROTO
-void HistogramSet(wid, tab, len)
-HistogramWidget wid;
-XColor tab[];
-int len;
-#else /* FUNCPROTO */
 void HistogramSet(HistogramWidget wid, XColor *tab, int len)
-#endif /* FUNCPROTO */
 {
   int i, j;
   unsigned char *red, *green, *blue, *mask;

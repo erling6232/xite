@@ -40,20 +40,22 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/Image.h>
 #include <xite/ShellWids.h>
 #include <xite/logPos.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 /* ---- Switch dependent external variables ---- */
 
 int logpos_e = 0;
 
-#ifndef FUNCPROTO
-static char *position_text(x, y, value)
-int x, y;
-char  *value;
-#else /* FUNCPROTO */
 static char *position_text(int x, int y, char *value)
-#endif /* FUNCPROTO */
 {
   static char mess[80];
   static int oldx_s = -1, oldval_s = -1;
@@ -71,13 +73,7 @@ static char *position_text(int x, int y, char *value)
 
 } /* position_text() */
 
-#ifndef FUNCPROTO
-static void logPosition(wid, button)
-Widget wid;
-ImageCallback button;
-#else /* FUNCPROTO */
 static void logPosition(Widget wid, ImageCallback button)
-#endif /* FUNCPROTO */
 {
   char buf[80], *mess;
   Dimension width;
@@ -102,25 +98,14 @@ static void logPosition(Widget wid, ImageCallback button)
 
 } /* logPosition() */
 
-#ifndef FUNCPROTO
-void LogPositionCallback(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 void LogPositionCallback(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 
   if (call_data != NULL) logPosition(client_data, call_data);
 
 } /* LogPositionCallback() */
 
-#ifndef FUNCPROTO
-void LogPosition(image_wid, label_wid)
-Widget image_wid, label_wid;
-#else /* FUNCPROTO */
 void LogPosition(Widget image_wid, Widget label_wid)
-#endif /* FUNCPROTO */
 {
 
   XtAddCallback(image_wid, XtNcallback, LogPositionCallback,

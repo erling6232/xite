@@ -302,7 +302,9 @@ ________________________________________________________________
 #include <xite/color.h>      /* For RGBMask */
 #include <xite/message.h>
 #include <xite/debug.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #ifdef MOTIF
 #include <Xm/Xm.h> 
@@ -339,13 +341,7 @@ static int
 
 
 
-#ifndef FUNCPROTO
-static void getVisualInfoList(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void getVisualInfoList(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   XVisualInfo template;
   int i;
@@ -376,13 +372,7 @@ static void getVisualInfoList(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void registerVisualInfos(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void registerVisualInfos(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -443,14 +433,7 @@ static void registerVisualInfos(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static XVisualInfo *FindRequestedVisualInfo(visualName, planes, visualInfo)
-char *visualName;
-int planes;
-XVisualInfo *visualInfo;
-#else /* FUNCPROTO */
 static XVisualInfo *FindRequestedVisualInfo(char *visualName, int planes, XVisualInfo *visualInfo)
-#endif /* FUNCPROTO */
 {
   /* Check if 'visualInfo' is a legal reference to a registered visual-info.
    * If it is, return 'visualInfo'. If not, check whether the visual with name
@@ -518,13 +501,7 @@ static XVisualInfo *FindRequestedVisualInfo(char *visualName, int planes, XVisua
 
 
 
-#ifndef FUNCPROTO
-Visual *visualFromName(name, planes)
-char *name;
-int planes;
-#else /* FUNCPROTO */
 Visual *visualFromName(char *name, int planes)
-#endif /* FUNCPROTO */
 {
   XVisualInfo *visualInfo;
 
@@ -534,12 +511,7 @@ Visual *visualFromName(char *name, int planes)
   else return(NULL);
 }
 
-#ifndef FUNCPROTO
-Visual *visualFromClass(visualClass, planes)
-int visualClass, planes;
-#else /* FUNCPROTO */
 Visual *visualFromClass(int visualClass, int planes)
-#endif /* FUNCPROTO */
 {
   XVisualInfo *info;
 
@@ -549,12 +521,7 @@ Visual *visualFromClass(int visualClass, int planes)
   return(VisualOfVisualInfo(*info));
 }
 
-#ifndef FUNCPROTO
-int visualNameToClass(name)
-char *name;
-#else /* FUNCPROTO */
 int visualNameToClass(char *name)
-#endif /* FUNCPROTO */
 {
   if (!strcmp(name, "PseudoColor")) return(PseudoColor);
   if (!strcmp(name, "DirectColor")) return(DirectColor);
@@ -564,12 +531,7 @@ int visualNameToClass(char *name)
   return(-1);
 }
 
-#ifndef FUNCPROTO
-char *visualClassToName(visualClass)
-int visualClass;
-#else /* FUNCPROTO */
 char *visualClassToName(int visualClass)
-#endif /* FUNCPROTO */
 {
   switch(visualClass) {
   case PseudoColor: return("PseudoColor");
@@ -582,12 +544,7 @@ char *visualClassToName(int visualClass)
 }
 
 
-#ifndef FUNCPROTO
-XVisualInfo *VisualInfoFromClass(visualClass, planes)
-int visualClass, planes;
-#else /* FUNCPROTO */
 XVisualInfo *VisualInfoFromClass(int visualClass, int planes)
-#endif /* FUNCPROTO */
 {
   char *name;
 
@@ -597,13 +554,7 @@ XVisualInfo *VisualInfoFromClass(int visualClass, int planes)
   return(FindRequestedVisualInfo(name, planes, NULL));
 }
 
-#ifndef FUNCPROTO
-int DepthToReducedPlanes(depth, visual)
-int depth;
-Visual *visual;
-#else /* FUNCPROTO */
 int DepthToReducedPlanes(int depth, Visual *visual)
-#endif /* FUNCPROTO */
 {
   if (depth == 24 &&
       ClassOfVisual(visual) == DirectColor) {
@@ -619,12 +570,7 @@ int DepthToReducedPlanes(int depth, Visual *visual)
 
 } /* DepthToReducedPlanes() */
 
-#ifndef FUNCPROTO
-int DepthOfVisual(visual)
-Visual *visual;
-#else /* FUNCPROTO */
 int DepthOfVisual(Visual *visual)
-#endif /* FUNCPROTO */
 {
   int class;
   XVisualInfo *info;
@@ -642,42 +588,22 @@ int DepthOfVisual(Visual *visual)
 
 
 
-#ifndef FUNCPROTO
-XVisualInfo *Pseudo8VisualInfo()
-#else /* FUNCPROTO */
 XVisualInfo *Pseudo8VisualInfo(void)
-#endif /* FUNCPROTO */
 {
   return(pseudo8VisInfo_s);
 }
 
-#ifndef FUNCPROTO
-XVisualInfo *Direct24VisualInfo()
-#else /* FUNCPROTO */
 XVisualInfo *Direct24VisualInfo(void)
-#endif /* FUNCPROTO */
 {
   return(direct24VisInfo_s);
 }
 
-#ifndef FUNCPROTO
-XVisualInfo *True24VisualInfo()
-#else /* FUNCPROTO */
 XVisualInfo *True24VisualInfo(void)
-#endif /* FUNCPROTO */
 {
   return(true24VisInfo_s);
 }
 
-#ifndef FUNCPROTO
-void InitializeVisualInfos(dpy, screen, imageVisualClass, imageVisualInfo)
-Display *dpy;
-int screen;
-char *imageVisualClass;
-XVisualInfo **imageVisualInfo;
-#else /* FUNCPROTO */
 void InitializeVisualInfos(Display *dpy, int screen, char *imageVisualClass, XVisualInfo **imageVisualInfo)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Visual.c: InitializeVisualInfos");
@@ -769,12 +695,7 @@ void InitializeVisualInfos(Display *dpy, int screen, char *imageVisualClass, XVi
 
 
 
-#ifndef FUNCPROTO
-int RequestedPlanes(visualInfo)
-XVisualInfo *visualInfo;
-#else /* FUNCPROTO */
 int RequestedPlanes(XVisualInfo *visualInfo)
-#endif /* FUNCPROTO */
 {
   int planes;
 
@@ -798,12 +719,7 @@ int RequestedPlanes(XVisualInfo *visualInfo)
 
 } /* RequestedPlanes() */
 
-#ifndef FUNCPROTO
-int PlanesToDepth(planes)
-int planes;
-#else /* FUNCPROTO */
 int PlanesToDepth(int planes)
-#endif /* FUNCPROTO */
 {
   switch(planes) {
   case 7:  planes++;    break;
@@ -822,15 +738,7 @@ int PlanesToDepth(int planes)
 
 } /* PlanesToDepth() */
 
-#ifndef FUNCPROTO
-void RequestedImageVisual(dpy, screen, planes, visual)
-Display *dpy;
-int screen;
-int *planes;
-Visual **visual;
-#else /* FUNCPROTO */
 void RequestedImageVisual(Display *dpy, int screen, int *planes, Visual **visual)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Visual.c: RequestedImageVisual");

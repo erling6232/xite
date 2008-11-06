@@ -38,7 +38,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Xos.h>
 #include <X11/Intrinsic.h>
 #include <xite/ImageVisualsMenu.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <ctype.h>
 #include <X11/StringDefs.h>
 #include <X11/Xaw/SmeBSB.h>
@@ -67,14 +69,7 @@ static SmeBSBObject entries_s[MAXENTRIES];
 
 
 
-#ifndef FUNCPROTO
-static void get_widget_resources(iw, args, num_args)
-Widget iw;
-ArgList *args;
-Cardinal *num_args;
-#else /* FUNCPROTO */
 static void get_widget_resources(Widget iw, ArgList *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   ArgList args1, args2, args_tmp;
   Cardinal num_args1 = 0, num_args2 = 0, num = 0;
@@ -113,17 +108,7 @@ static void get_widget_resources(Widget iw, ArgList *args, Cardinal *num_args)
 
 } /* get_widget_resources() */
 
-#ifndef FUNCPROTO
-static void fix_widget_resources(args, num_args, img, visual, depth, displaymethod)
-ArgList args;
-Cardinal *num_args;
-IMAGE img;
-Visual *visual;
-int depth;
-display_method displaymethod;
-#else /* FUNCPROTO */
 static void fix_widget_resources(ArgList args, Cardinal *num_args, IMAGE img, Visual *visual, int depth, display_method displaymethod)
-#endif /* FUNCPROTO */
 {
   /* Some resources must be different in the new widget (compared to the
    * original widget). Apart from XtNvisual and XtNdepth, XtNdisplayMethod
@@ -183,14 +168,7 @@ static void fix_widget_resources(ArgList args, Cardinal *num_args, IMAGE img, Vi
 
 } /* fix_widget_resources() */
 
-#ifndef FUNCPROTO
-static void VisualsSelect(w, client_data, call_data)
-Widget w;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void VisualsSelect(Widget w, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   Widget iw, wid = NULL;
   image_disp_cb_data *cl_data = (image_disp_cb_data *) client_data;
@@ -275,15 +253,7 @@ static void VisualsSelect(Widget w, XtPointer client_data, XtPointer call_data)
   return;
 }
 
-#ifndef FUNCPROTO
-static void VisualsHook(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void VisualsHook(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageWidget iw;
   char *label;
@@ -324,16 +294,7 @@ static void VisualsHook(Widget wid, XEvent *event, String *params, Cardinal *num
 
 
 
-#ifndef FUNCPROTO
-void VisualsMenuInit(display, screenno, parent, display_func, callbacks)
-Display *display;
-int screenno;
-Widget parent;
-ximage_display_func display_func;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 void VisualsMenuInit(Display *display, int screenno, Widget parent, ximage_display_func display_func, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   image_disp_cb_data *data0, *data1, *data2;
   char *label = NULL;

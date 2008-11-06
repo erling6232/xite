@@ -37,15 +37,12 @@ ________________________________________________________________
 #elif !defined(MSDOS)
 # include <sys/time.h>
 #endif
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/utils.h>
 
-#ifndef FUNCPROTO
-void xite_usleep(n)
-unsigned long n;
-#else /* FUNCPROTO */
 void xite_usleep(unsigned long n)
-#endif /* FUNCPROTO */
 {
   struct timeval tv;
 

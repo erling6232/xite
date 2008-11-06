@@ -36,8 +36,16 @@ _XITE_CPLUSPLUS_BEGIN
 #ifdef DEBUG
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 
 #define ENTER_FUNCTION_DEBUG(a) enter_function_debug(a)
 #define LEAVE_FUNCTION_DEBUG(a) leave_function_debug(a)

@@ -122,18 +122,24 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/readarg.h>
 #include <xite/strings.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_STRTOL_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_STDLIB_H
+# include <stdlib.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
-#ifndef FUNCPROTO
-char *read_switch(argc, argv, name, args, defreturn)
-char **argv, *name, *defreturn;
-int *argc, args;
-#else /* FUNCPROTO */
 char *read_switch(int *argc, char **argv, char *name, int args, char *defreturn)
-#endif /* FUNCPROTO */
 {
   int i, argn;
   char *ret;
@@ -161,25 +167,12 @@ char *read_switch(int *argc, char **argv, char *name, int args, char *defreturn)
   return(defreturn);
 }
 
-#ifndef FUNCPROTO
-int read_bswitch(argc, argv, name)
-char **argv, *name;
-int *argc;
-#else /* FUNCPROTO */
 int read_bswitch(int *argc, char **argv, char *name)
-#endif /* FUNCPROTO */
 {
   return(read_switch(argc, argv, name, 0, NULL) != NULL);
 }
 
-#ifndef FUNCPROTO
-int read_iswitch(argc, argv, name, defval)
-char **argv, *name;
-int *argc;
-int defval;
-#else /* FUNCPROTO */
 int read_iswitch(int *argc, char **argv, char *name, int defval)
-#endif /* FUNCPROTO */
 {
   char *res, *ptr;
   int val;
@@ -195,14 +188,7 @@ int read_iswitch(int *argc, char **argv, char *name, int defval)
   return(val);
 }
 
-#ifndef FUNCPROTO
-double read_dswitch(argc, argv, name, defval)
-char **argv, *name;
-int *argc;
-double defval;
-#else /* FUNCPROTO */
 double read_dswitch(int *argc, char **argv, char *name, double defval)
-#endif /* FUNCPROTO */
 {
   char *res, *ptr;
   double val;
@@ -245,13 +231,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char *argvOptions(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 char *argvOptions(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   char *options;
   int num = 0, b;
@@ -315,12 +295,7 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
 void split_cmd_line(char *cmd_line, char **vec)
-#else /* FUNCPROTO */
-void split_cmd_line(cmd_line, vec)
-char *cmd_line, **vec;
-#endif /* FUNCPROTO */
 {
   char *ptr;
   int in_string = 0, vnr = 0;
@@ -367,13 +342,7 @@ char *cmd_line, **vec;
 
 #ifdef MAIN
 
-#ifndef FUNCPROTO
-main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int i, j;
   char *res;

@@ -52,9 +52,19 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/ShellWids.h>
 #include <xite/Xcolor.h>
 #include <xite/XmenuBar.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/utils.h>
 #include <xite/layout.h>
 #include <xite/logPos.h>
@@ -116,22 +126,11 @@ typedef enum {
   IMAGE_BLUEBAND
 } resource_index;
 
-#ifndef FUNCPROTO
-int resource_num_s = IMAGE_BLUEBAND + 1;
-#else /* FUNCPROTO */
 const int resource_num_s = IMAGE_BLUEBAND + 1;
-#endif /* FUNCPROTO */
 
 
 
-#ifndef FUNCPROTO
-static void Free_band(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void Free_band(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int i, j, num_bands;
   IMAGE img = NULL, img_old = NULL;
@@ -229,13 +228,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void Init_color(colorlistfile, colortabfile, coltabInUse)
-char *colorlistfile, *colortabfile;
-int *coltabInUse;
-#else /* FUNCPROTO */
 static void Init_color(char *colorlistfile, char *colortabfile, int *coltabInUse)
-#endif /* FUNCPROTO */
 {
   XColor tab[256];
   char *cf, *name, *filename = NULL;
@@ -263,13 +256,7 @@ static void Init_color(char *colorlistfile, char *colortabfile, int *coltabInUse
 
 } /* Init_color */
 
-#ifndef FUNCPROTO
-static void Init_overlay(colorlistfile, ovltabfile, ovltabInUse)
-char *colorlistfile, *ovltabfile;
-int *ovltabInUse;
-#else /* FUNCPROTO */
 static void Init_overlay(char *colorlistfile, char *ovltabfile, int *ovltabInUse)
-#endif /* FUNCPROTO */
 {
   XColor tab[256];
   char *cf, *name, *filename = NULL;
@@ -295,15 +282,7 @@ static void Init_overlay(char *colorlistfile, char *ovltabfile, int *ovltabInUse
 
 } /* Init_overlay */
 
-#ifndef FUNCPROTO
-void InitImageMenus(colorlistfile, colortabfile, ovltabfile, coltabInUse, ovltabInUse, menus, callbacks)
-char *colorlistfile, *colortabfile, *ovltabfile;
-int *coltabInUse, *ovltabInUse;
-menu_button menus;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 void InitImageMenus(char *colorlistfile, char *colortabfile, char *ovltabfile, int *coltabInUse, int *ovltabInUse, menu_button menus, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   screen_s = DefaultScreen(dpy_e);
   if (!colorsmenu_e && (menus & COLORS_BUTTON))
@@ -321,13 +300,7 @@ void InitImageMenus(char *colorlistfile, char *colortabfile, char *ovltabfile, i
 
 } /* InitImageMenus() */
 
-#ifndef FUNCPROTO
-static int findnumber(title, bandnr)
-char *title;
-int bandnr;
-#else /* FUNCPROTO */
 static int findnumber(char *title, int bandnr)
-#endif /* FUNCPROTO */
 {
   int i, j, len;
   namelist *element, *ptr;
@@ -382,13 +355,7 @@ static int findnumber(char *title, int bandnr)
   return(element->ant);
 }
 
-#ifndef FUNCPROTO
-static XSizeHints *Calc_size_hints(imWid, menubar)
-Widget imWid;
-int menubar;
-#else /* FUNCPROTO */
 static XSizeHints *Calc_size_hints(Widget imWid, int menubar)
-#endif /* FUNCPROTO */
 {
   XSizeHints *hints;
   Dimension core_w, core_h;
@@ -440,13 +407,7 @@ static XSizeHints *Calc_size_hints(Widget imWid, int menubar)
   
 } /* Calc_size_hints() */
 
-#ifndef FUNCPROTO
-static char *band_title(img, bandnr)
-IMAGE img;
-int bandnr;
-#else /* FUNCPROTO */
 static char *band_title(IMAGE img, int bandnr)
-#endif /* FUNCPROTO */
 {
   char *title, *rtitle, bnr[20];
   int pos, namenr;
@@ -493,13 +454,7 @@ static char *band_title(IMAGE img, int bandnr)
 
 } /* band_title() */
 
-#ifndef FUNCPROTO
-static void check_visual(visual, depth)
-Visual **visual;
-int *depth;
-#else /* FUNCPROTO */
 static void check_visual(Visual **visual, int *depth)
-#endif /* FUNCPROTO */
 {
   if (!(*visual) || (*depth) == 0) {
     /* Visual or depth is zero. Try to guess. */
@@ -544,13 +499,7 @@ static void check_visual(Visual **visual, int *depth)
 
 } /* check_visual() */
 
-#ifndef FUNCPROTO
-static XtTranslations menu_translations(buttons, widgetClass)
-int buttons;
-WidgetClass widgetClass;
-#else /* FUNCPROTO */
 static XtTranslations menu_translations(int buttons, WidgetClass widgetClass)
-#endif /* FUNCPROTO */
 {
   static char color_translations[] =
     "!Shift <Btn1Down>: ColorsHook() PopupMenu(colorsmenu)\n";
@@ -589,14 +538,7 @@ static XtTranslations menu_translations(int buttons, WidgetClass widgetClass)
 
 } /* menu_translations() */
 
-#ifndef FUNCPROTO
-static void register_parameters(img, bandno, visual, depth)
-IMAGE img;
-int bandno, *depth;
-Visual **visual;
-#else /* FUNCPROTO */
 static void register_parameters(IMAGE img, int bandno, Visual **visual, int *depth)
-#endif /* FUNCPROTO */
 {
   IBAND band;
   char *title = NULL;
@@ -618,13 +560,7 @@ static void register_parameters(IMAGE img, int bandno, Visual **visual, int *dep
 
 } /* register_parameters() */
 
-#ifndef FUNCPROTO
-static void merge_args(args, num_args, merged_args, num_merged_args)
-ArgList args, *merged_args;
-Cardinal num_args, *num_merged_args;
-#else /* FUNCPROTO */
 static void merge_args(ArgList args, Cardinal num_args, ArgList *merged_args, Cardinal *num_merged_args)
-#endif /* FUNCPROTO */
 {
   Boolean *used;
   int i;
@@ -720,16 +656,7 @@ static void merge_args(ArgList args, Cardinal num_args, ArgList *merged_args, Ca
 
 } /* merge_args() */
 
-#ifndef FUNCPROTO
-static void handle_color_resources(wid, widgetClass, visual, args, num_args)
-Widget wid;
-WidgetClass widgetClass;
-Visual *visual;
-ArgList args;
-Cardinal num_args;
-#else /* FUNCPROTO */
 static void handle_color_resources(Widget wid, WidgetClass widgetClass, Visual *visual, ArgList args, Cardinal num_args)
-#endif /* FUNCPROTO */
 {
   int color_cells, colortab, overlaytab;
   Cardinal i;
@@ -806,13 +733,7 @@ static void handle_color_resources(Widget wid, WidgetClass widgetClass, Visual *
 
 } /* handle_color_resources() */
 
-#ifndef FUNCPROTO
-static void handle_menubar(wid, menu_bar, menubar)
-Widget wid, menu_bar;
-Boolean *menubar;
-#else /* FUNCPROTO */
 static void handle_menubar(Widget wid, Widget menu_bar, Boolean *menubar)
-#endif /* FUNCPROTO */
 {
 
   if (!wid || !menu_bar) return;
@@ -834,20 +755,7 @@ static void handle_menubar(Widget wid, Widget menu_bar, Boolean *menubar)
   }
 } /* handle_menubar() */
 
-#ifndef FUNCPROTO
-static Widget Display_band(parent, resource_name, shell_resource_name, img, bandno, widgetClass, visual, depth, buttons, args, num_args)
-Widget parent;
-char *resource_name, *shell_resource_name;
-IMAGE img;
-int bandno, depth;
-WidgetClass widgetClass;
-Visual *visual;
-menu_button buttons;
-ArgList args;
-Cardinal num_args;
-#else /* FUNCPROTO */
 static Widget Display_band(Widget parent, char *resource_name, char *shell_resource_name, IMAGE img, int bandno, WidgetClass widgetClass, Visual *visual, int depth, menu_button buttons, ArgList args, Cardinal num_args)
-#endif /* FUNCPROTO */
 {
   Boolean menubar = False;
   Widget image_form = NULL, menu_bar = NULL, image, image_shell = NULL;
@@ -914,21 +822,7 @@ static Widget Display_band(Widget parent, char *resource_name, char *shell_resou
 
 } /* Display_band() */
 
-#ifndef FUNCPROTO
-Widget ximage_display(parent, resource_name, shell_resource_name, img, bandno, widgetClass, visual, depth, buttons, args, num_args, callbacks)
-Widget parent;
-char *resource_name, *shell_resource_name;
-IMAGE img;
-WidgetClass widgetClass;
-Visual *visual;
-int depth, bandno;
-menu_button buttons;
-ArgList args;
-Cardinal num_args;
-image_callbacks *callbacks;
-#else /* FUNCPROTO */
 Widget ximage_display(Widget parent, char *resource_name, char *shell_resource_name, IMAGE img, int bandno, WidgetClass widgetClass, Visual *visual, int depth, menu_button buttons, ArgList args, Cardinal num_args, image_callbacks *callbacks)
-#endif /* FUNCPROTO */
 {
   Widget image;
 

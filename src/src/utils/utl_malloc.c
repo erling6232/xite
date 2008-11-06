@@ -89,18 +89,14 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/utl_malloc.h>
-#include XITE_STDIO_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
-#ifndef FUNCPROTO
-void *Mmatrix_1d(  i_first,
-		   i_last,
-		   i_element_size,
-		   i_clear)
-int i_first, i_last, i_element_size, i_clear;
-#else /* FUNCPROTO */
 void *Mmatrix_1d(int i_first, int i_last, int i_element_size, int i_clear)
-#endif /* FUNCPROTO */
 {
   int elements;
   char *a;			/* because we will do pointer-arithmetic */
@@ -120,17 +116,7 @@ void *Mmatrix_1d(int i_first, int i_last, int i_element_size, int i_clear)
   return a;
 }				/* end of Mmatrix_1d */
 
-#ifndef FUNCPROTO
-void *Mmatrix_2d(i_row_min,
-		 i_row_max,
-		 i_col_min,
-		 i_col_max,
-		 i_element_size,
-		 i_clear)
-int i_row_min, i_row_max, i_col_min, i_col_max, i_element_size, i_clear;
-#else /* FUNCPROTO */
 void *Mmatrix_2d(int i_row_min, int i_row_max, int i_col_min, int i_col_max, int i_element_size, int i_clear)
-#endif /* FUNCPROTO */
 {
   int i, cols, rows;
   char **m;			/* because we will do pointer-arithmetic */
@@ -176,20 +162,7 @@ void *Mmatrix_2d(int i_row_min, int i_row_max, int i_col_min, int i_col_max, int
   return m;
 }				/* end of Mmatrix_2d */
 
-#ifndef FUNCPROTO
-void *Mmatrix_3d(i_x_min,
-		 i_x_max,
-		 i_y_min,
-		 i_y_max,
-		 i_z_min,
-		 i_z_max,
-		 i_element_size,
-		 i_clear)
-int i_x_min, i_x_max, i_y_min, i_y_max, i_z_min, i_z_max, i_element_size,
-    i_clear;
-#else /* FUNCPROTO */
 void *Mmatrix_3d(int i_x_min, int i_x_max, int i_y_min, int i_y_max, int i_z_min, int i_z_max, int i_element_size, int i_clear)
-#endif /* FUNCPROTO */
 {
   int i, j, xs, ys, zs;
   char ***m;			/* because we will do pointer-arithmetic */
@@ -238,13 +211,8 @@ void *Mmatrix_3d(int i_x_min, int i_x_max, int i_y_min, int i_y_max, int i_z_min
 }                                /*End of Mmatrix_3d */
 
 
-#ifndef FUNCPROTO
-void *Fmatrix_1d(array)
-char *array;
-#else /* FUNCPROTO */
 void *Fmatrix_1d(char *array)
             
-#endif /* FUNCPROTO */
 /*
   Frees memory allocated by Mmatrix_1d. Returns 0.
   Example: 
@@ -257,15 +225,8 @@ void *Fmatrix_1d(char *array)
   return 0;
 }				/* end of Fmatrix_2d */
 
-#ifndef FUNCPROTO
-void *Fmatrix_2d( i_matrix,
-	       i_rows)
-char * i_matrix, *i_rows;
-#else /* FUNCPROTO */
 void *Fmatrix_2d(char *i_matrix, char *i_rows)
                          
-#endif /* FUNCPROTO */
-
 /*
   Frees memory allocated by Mmatrix_2d. Returns 0.
   Example: 
@@ -280,15 +241,8 @@ void *Fmatrix_2d(char *i_matrix, char *i_rows)
 }				/* end of Fmatrix_2d */
 
 
-#ifndef FUNCPROTO
-void *Fmatrix_3d(i_cube,
-	       i_matrix,
-	       i_rows)
-char * i_cube, *i_matrix, *i_rows;
-#else /* FUNCPROTO */
 void *Fmatrix_3d(char *i_cube, char *i_matrix, char *i_rows)
                                   
-#endif /* FUNCPROTO */
 /* Frees memory allocated by Mmatrix_3d. Returns 0.
    Example:
       double ***m;

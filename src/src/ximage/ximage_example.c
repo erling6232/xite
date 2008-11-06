@@ -2,7 +2,9 @@
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/negate.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/Image.h>
 #include <xite/ximage.h>     /* For ximage toolkit. */
 #include <xite/message.h>    /* For InitMessage(), Usage(), Error() etc. */
@@ -177,14 +179,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void ximage_work(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   widget_type wid_typ;
   ImageCallback button;
@@ -228,13 +223,7 @@ static void ximage_work(Widget wid, XtPointer client_data, XtPointer call_data)
 
 
 
-#ifndef FUNCPROTO
-void main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 void main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   Widget toplevel;
 

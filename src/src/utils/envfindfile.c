@@ -71,13 +71,33 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/utils.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_FILE_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
 #include <stdlib.h>  /* For getenv() */
-#include XITE_UNISTD_H
-#include XITE_MALLOC_H
-#include XITE_PARAM_H
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_SYS_PARAM_H
+# include <sys/param.h>
+#endif
 
 #ifndef F_OK
 #define F_OK 0
@@ -93,12 +113,7 @@ static char dir_sep_s = '/';
 static char dir_sep_s = '\\';
 #endif /* _WIN32 */
 
-#ifndef FUNCPROTO
-char *envfindfile(environment, file)
-char *environment, *file;
-#else /* FUNCPROTO */
 char *envfindfile(char *environment, char *file)
-#endif /* FUNCPROTO */
 {
   char *env, *ptr, *tptr, *path = NULL;
   int len = 0, current_path_len = MAXPATHLEN;
@@ -173,13 +188,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char *realloc_string(path, max_path_len, extra_len, step_len)
-char *path;
-int max_path_len, extra_len, step_len;
-#else /* FUNCPROTO */
 char *realloc_string(char *path, int max_path_len, int extra_len, int step_len)
-#endif /* FUNCPROTO */
 {
 
   if (strlen(path) + extra_len > max_path_len) {
@@ -192,12 +201,7 @@ char *realloc_string(char *path, int max_path_len, int extra_len, int step_len)
 
 } /* realloc_string() */
 
-#ifndef FUNCPROTO
-char *envfindfilemulti(environment, file)
-char *environment, *file;
-#else /* FUNCPROTO */
 char *envfindfilemulti(char *environment, char *file)
-#endif /* FUNCPROTO */
 {
   char *env, *ptr, *tptr, *path = NULL, *pathptr;
   int foundOne = 0,
@@ -273,12 +277,7 @@ char *envfindfilemulti(char *environment, char *file)
 
 
 
-#ifndef FUNCPROTO
-char *String_cat(s1, s2, s3)
-char *s1, *s2, *s3;
-#else /* FUNCPROTO */
 char *String_cat(char *s1, char *s2, char *s3)
-#endif /* FUNCPROTO */
 {
   char *result = NULL,
        *fnew   = NULL;
@@ -358,12 +357,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-void NextFilename(namelist, filename)
-char **namelist, **filename;
-#else /* FUNCPROTO */
 void NextFilename(char **namelist, char **filename)
-#endif /* FUNCPROTO */
 {
   char fname[MAXPATHLEN+1], *fname2, *cptr;
 
@@ -433,12 +427,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-char *FilenamePart(filename)
-char *filename;
-#else /* FUNCPROTO */
 char *FilenamePart(char *filename)
-#endif /* FUNCPROTO */
 {
   char *cptr, *stp;
 

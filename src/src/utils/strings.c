@@ -33,15 +33,18 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <ctype.h>
 #include <xite/strings.h>
-#include XITE_STRING_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
-#ifndef FUNCPROTO
-char *nextSpace(input)
-char *input;
-#else /* FUNCPROTO */
 char *nextSpace(char *input)
-#endif /* FUNCPROTO */
 {
   /* Return first space or zero-terminating character. */
 
@@ -50,12 +53,7 @@ char *nextSpace(char *input)
   return(input);
 }
 
-#ifndef FUNCPROTO
-char *nextNonSpace(input)
-char *input;
-#else /* FUNCPROTO */
 char *nextNonSpace(char *input)
-#endif /* FUNCPROTO */
 {
   /* Return first non-space or zero-terminating character. */
 
@@ -64,12 +62,7 @@ char *nextNonSpace(char *input)
   return(input);
 }
 
-#ifndef FUNCPROTO
-char *nextWord(input)
-char *input;
-#else /* FUNCPROTO */
 char *nextWord(char *input)
-#endif /* FUNCPROTO */
 {
   char *t1, *t2, *word;
 
@@ -85,12 +78,7 @@ char *nextWord(char *input)
   return(word);
 }
 
-#ifndef FUNCPROTO
-char *remove_quotes_from_word(word)
-char *word;
-#else /* FUNCPROTO */
 char *remove_quotes_from_word(char *word)
-#endif /* FUNCPROTO */
 {
   int len;
 
@@ -139,12 +127,7 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
 char *iindex ( char *s, char c )
-#else
-char *iindex(s, c)
-char *s, c;
-#endif
 {
   char *ss;
   ss = &s[strlen(s)-1];
@@ -152,12 +135,7 @@ char *s, c;
   return(NULL);
 }
 
-#ifndef FUNCPROTO
-char *rrindex(s, c)
-char *s, c;
-#else /* FUNCPROTO */
 char *rrindex(char *s, char c)
-#endif /* FUNCPROTO */
 {
   char *ss;
   ss = &s[strlen(s)-1];
@@ -167,12 +145,7 @@ char *rrindex(char *s, char c)
 
 #ifdef DEF_STRCASECMP
 
-#ifndef FUNCPROTO
-int strcasecmp(s1, s2)
-char *s1, *s2;
-#else /* FUNCPROTO */
 int strcasecmp(char *s1, char *s2)
-#endif /* FUNCPROTO */
 {
   int c1, c2;
 
@@ -193,13 +166,7 @@ int strcasecmp(char *s1, char *s2)
 
 #endif /* DEF_STRCASECMP */
 
-#ifndef FUNCPROTO
-char *center_text(long_txt, short_txt, width)
-char *long_txt, *short_txt;
-int width;
-#else /* FUNCPROTO */
 char *center_text(char *long_txt, char *short_txt, int width)
-#endif /* FUNCPROTO */
 {
   char *ptr;
   int len;

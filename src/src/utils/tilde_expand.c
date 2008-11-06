@@ -113,40 +113,43 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/utils.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <stdlib.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 
+#ifdef HAVE_SYS_PARAM_H
+#  include <sys/param.h>
+#endif
+#ifdef HAVE_PWD_H
+#  include <pwd.h>
+#endif
 #if !defined(MSDOS) && !defined(_WIN32)
-# include <sys/param.h> 
-# include <pwd.h>
-
   static char dir_sep = '/', env_start = '$';
 #elif defined(_WIN32)
-# include XITE_UNISTD_H
   static char dir_sep = '\\', env_start = '%', env_end = '%';
 #endif
 
 #define USER_NAME_SIZE 32
 
-#ifndef FUNCPROTO
-char *tilde_expand(filename)
-char *filename;
-#else /* FUNCPROTO */
 char *tilde_expand(char *filename)
-#endif /* FUNCPROTO */
 {
 #ifdef MSDOS
   return(filename);
 #else /* MSDOS */
-# ifdef aiws
-  int current_path_len = MAXPATH;
-# else
   int current_path_len = MAXPATHLEN;
-# endif /* aiws */
   char username[USER_NAME_SIZE], *loc;
-# if !defined(_WIN32)
+# ifdef HAVE_STRUCT_PASSWD_PW_DIR
   struct passwd *pw;
 # endif
   char *path = NULL;
@@ -213,7 +216,7 @@ char *tilde_expand(char *filename)
     char *home;
     
     if ((home = getenv("HOME")) == NULL) {
-# if !defined(_WIN32)
+# ifdef HAVE_STRUCT_PASSWD_PW_DIR
       /* fall back on /etc/passwd */
       if ((pw = getpwuid(getuid())) == (struct passwd *) 0) {
 	free(path);
@@ -237,7 +240,7 @@ char *tilde_expand(char *filename)
     }
   } /* current user */
 
-# if !defined(_WIN32)
+# ifdef HAVE_STRUCT_PASSWD_PW_DIR
 
   /* Not current user. */
 
@@ -273,12 +276,7 @@ char *tilde_expand(char *filename)
 
 } /* tilde_expand() */
 
-#ifndef FUNCPROTO
-xite_filename_type xiteFilenameType(name)
-char *name;
-#else /* FUNCPROTO */
 xite_filename_type xiteFilenameType(char *name)
-#endif /* FUNCPROTO */
 {
   if (!name) return(XITE_FILENAME_NONE);
   else if (name[0] == '\0') return(XITE_FILENAME_EMPTY);
@@ -295,13 +293,7 @@ xite_filename_type xiteFilenameType(char *name)
 
 } /* xiteFilenameType() */
 
-#ifndef FUNCPROTO
-int xite_pipe_filedes(filename, reading)
-char *filename;
-int reading;
-#else /* FUNCPROTO */
 int xite_pipe_filedes(char *filename, int reading)
-#endif /* FUNCPROTO */
 {
   xite_filename_type fname_type;
   int fd = -1;

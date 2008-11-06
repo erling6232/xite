@@ -37,18 +37,19 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include <xite/ImageOverlay.h>
-#include XITE_STRING_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/callbacks.h>
 
-#ifndef FUNCPROTO
-XtCallbackList add_callback_first(callback_list, new_callback, closure)
-XtCallbackList callback_list;
-XtCallbackProc new_callback;
-XtPointer closure;
-#else /* FUNCPROTO */
 XtCallbackList add_callback_first(XtCallbackList callback_list, XtCallbackProc new_callback, XtPointer closure)
-#endif /* FUNCPROTO */
 {
   int num_cbs, i;
   Boolean new = False;
@@ -83,14 +84,7 @@ XtCallbackList add_callback_first(XtCallbackList callback_list, XtCallbackProc n
 
 } /* add_callback_first() */
 
-#ifndef FUNCPROTO
-XtCallbackList add_callback_last(callback_list, new_callback, closure)
-XtCallbackList callback_list;
-XtCallbackProc new_callback;
-XtPointer closure;
-#else /* FUNCPROTO */
 XtCallbackList add_callback_last(XtCallbackList callback_list, XtCallbackProc new_callback, XtPointer closure)
-#endif /* FUNCPROTO */
 {
   int num_cbs, i;
   Boolean new = False;
@@ -129,11 +123,7 @@ XtCallbackList add_callback_last(XtCallbackList callback_list, XtCallbackProc ne
 
 } /* add_callback_last() */
 
-#ifndef FUNCPROTO
-image_callbacks *init_image_callbacks()
-#else /* FUNCPROTO */
 image_callbacks *init_image_callbacks(void)
-#endif /* FUNCPROTO */
 {
   image_callbacks *cb;
 
@@ -149,22 +139,9 @@ image_callbacks *init_image_callbacks(void)
 
 } /* init_image_callback() */
 
-#ifndef FUNCPROTO
-image_callbacks *add_to_image_callbacks(image_cbs, resource_name, callback, closure, first)
-image_callbacks *image_cbs;
-String resource_name;
-XtCallbackProc callback;
-XtPointer closure;
-Boolean first;
-#else /* FUNCPROTO */
 image_callbacks *add_to_image_callbacks(image_callbacks *image_cbs, String resource_name, XtCallbackProc callback, XtPointer closure, Boolean first)
-#endif /* FUNCPROTO */
 {
-# ifndef FUNCPROTO
-  XtCallbackList (*func)();
-# else /* FUNCPROTO */
   XtCallbackList (*func)(XtCallbackList callback_list, XtCallbackProc new_callback, XtPointer closure);
-# endif /* FUNCPROTO */
 
   if (!image_cbs) image_cbs = init_image_callbacks();
 

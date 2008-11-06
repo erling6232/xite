@@ -1629,9 +1629,19 @@ ________________________________________________________________
 #include <Xfwf/Prompt.h>
 #include <Xfwf/Button.h>
 #include <Xfwf/Toggle.h>
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/strings.h>
 #include <xite/utils.h>
 #include <xite/layout.h>
@@ -1930,13 +1940,7 @@ static XtResource resources_s[] = {
   },
 };
 
-#ifndef FUNCPROTO
-XtResource *ximage_app_resources(resources, num_resources)
-XtResource *resources;
-int *num_resources;
-#else /* FUNCPROTO */
 XtResource *ximage_app_resources(XtResource *resources, int *num_resources)
-#endif /* FUNCPROTO */
 {
   XtResource *all_resources;
   int i, num_ximage_resources = XtNumber(resources_s);
@@ -2041,13 +2045,7 @@ static XrmOptionDescRec opTable_s[] = {
                                          XrmoptionNoArg,  (XtPointer) "True"},
 };
 
-#ifndef FUNCPROTO
-XrmOptionDescRec *ximage_app_options(options, num_options)
-XrmOptionDescRec *options;
-int *num_options;
-#else /* FUNCPROTO */
 XrmOptionDescRec *ximage_app_options(XrmOptionDescRec *options, int *num_options)
-#endif /* FUNCPROTO */
 {
   XrmOptionDescRec *all_options;
   int i, num_ximage_options = XtNumber(opTable_s);
@@ -2075,12 +2073,7 @@ XrmOptionDescRec *ximage_app_options(XrmOptionDescRec *options, int *num_options
 
 
 
-#ifndef FUNCPROTO
-static widget_type parse_widget_type(type)
-char *type;
-#else /* FUNCPROTO */
 static widget_type parse_widget_type(char *type)
-#endif /* FUNCPROTO */
 {
   /* Allow one-letter (capital) types for some so as not to break old
    * applications. */
@@ -2111,11 +2104,7 @@ static widget_type parse_widget_type(char *type)
 
 
 
-#ifndef FUNCPROTO
-char *ximage_usage_text()
-#else /* FUNCPROTO */
 char *ximage_usage_text(void)
-#endif /* FUNCPROTO */
 {
   static char t[] =
 "  Options from the ximage toolkit: \n\
@@ -2168,12 +2157,7 @@ char *ximage_usage_text(void)
                     
 } /* ximage_usage_text() */
 
-#ifndef FUNCPROTO
-char *ximage_app_usage_text(app_usage)
-char *app_usage;
-#else /* FUNCPROTO */
 char *ximage_app_usage_text(char *app_usage)
-#endif /* FUNCPROTO */
 {
   char *ximage_usage, *standard_usage, *full_usage;
 
@@ -2189,23 +2173,13 @@ char *ximage_app_usage_text(char *app_usage)
 
 } /* ximage_app_usage_text */
 
-#ifndef FUNCPROTO
-void set_init_color(color)
-int color;
-#else /* FUNCPROTO */
 void set_init_color(int color)
-#endif /* FUNCPROTO */
 {
   InitialColorTab_e = color;
 
 } /* set_init_color() */
 
-#ifndef FUNCPROTO
-void set_init_ovl_color(color)
-int color;
-#else /* FUNCPROTO */
 void set_init_ovl_color(int color)
-#endif /* FUNCPROTO */
 {
   InitialOvlTab_e = color;
 
@@ -2213,12 +2187,7 @@ void set_init_ovl_color(int color)
  
 
 
-#ifndef FUNCPROTO
-int ximage_info(wid)
-Widget wid;
-#else /* FUNCPROTO */
 int ximage_info(Widget wid)
-#endif /* FUNCPROTO */
 {
   Widget GV, shell;
   int width, height, xstart, ystart, xpan, ypan, depth = -1;
@@ -2329,13 +2298,7 @@ int ximage_info(Widget wid)
 
 } /* ximage_info() */
 
-#ifndef FUNCPROTO
-int ximage_histogram(wid, cb_data)
-Widget wid;
-image_disp_cb_data *cb_data;
-#else /* FUNCPROTO */
 int ximage_histogram(Widget wid, image_disp_cb_data *cb_data)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   IBAND band;
@@ -2393,12 +2356,7 @@ int ximage_histogram(Widget wid, image_disp_cb_data *cb_data)
 
 } /* ximage_histogram() */
 
-#ifndef FUNCPROTO
-int ximage_slice(wid)
-Widget wid;
-#else /* FUNCPROTO */
 int ximage_slice(Widget wid)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   int planes;
@@ -2453,13 +2411,7 @@ int ximage_slice(Widget wid)
 
 } /* ximage_slice() */
 
-#ifndef FUNCPROTO
-int ximage_colorbar(wid, cb_data)
-Widget wid;
-image_disp_cb_data *cb_data;
-#else /* FUNCPROTO */
 int ximage_colorbar(Widget wid, image_disp_cb_data *cb_data)
-#endif /* FUNCPROTO */
 {
   Visual *visual;
   Widget GV, bar;
@@ -2538,12 +2490,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static float ResourceVersion(version)
-char *version;
-#else /* FUNCPROTO */
 static float ResourceVersion(char *version)
-#endif /* FUNCPROTO */
 {
   double dv;
   float  rv;
@@ -2606,15 +2553,7 @@ static float ResourceVersion(char *version)
 } /* ResourceVersion() */
 
 
-#ifndef FUNCPROTO
-static void close_shell(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void close_shell(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ximage.c: close_shell");
 
@@ -2624,11 +2563,7 @@ static void close_shell(Widget wid, XEvent *event, String *params, Cardinal *num
 
 } /* close_shell() */
 
-#ifndef FUNCPROTO
-static void processXimageAppResources()
-#else /* FUNCPROTO */
 static void processXimageAppResources(void)
-#endif /* FUNCPROTO */
 {
   if (appResResult_s.version) {
     Message(1, "XITE version: %s\n", XITE_VERSION);
@@ -2684,18 +2619,7 @@ static void processXimageAppResources(void)
 
 } /* processXimageAppResources() */
 
-#ifndef FUNCPROTO
-Widget ximageInit(argc, argv, classname, resources, num_resources, resources_result, optionsTable, num_options, fallback_resources, warn)
-int *argc;
-char **argv, *classname;
-XrmOptionDescRec *optionsTable;
-XtPointer resources_result;
-String fallback_resources[];
-XtResource *resources;
-int warn, num_resources, num_options;
-#else /* FUNCPROTO */
 Widget ximageInit(int *argc, char **argv, char *classname, XtResource *resources, int num_resources, XtPointer resources_result, XrmOptionDescRec *optionsTable, int num_options, String *fallback_resources, int warn)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ximage.c: ximageInit");
 
@@ -2767,15 +2691,7 @@ Widget ximageInit(int *argc, char **argv, char *classname, XtResource *resources
 
 
 
-#ifndef FUNCPROTO
-Widget ximage_init(argc, argv, classname, fallback_resources, warn)
-int *argc;
-char **argv, *classname;
-String fallback_resources[];
-int warn;
-#else /* FUNCPROTO */
 Widget ximage_init(int *argc, char **argv, char *classname, String *fallback_resources, int warn)
-#endif /* FUNCPROTO */
 {
   Widget wid;
 
@@ -2793,13 +2709,7 @@ Widget ximage_init(int *argc, char **argv, char *classname, String *fallback_res
 
 
 
-#ifndef FUNCPROTO
-static void prepare_callbacks(callbacks_return, img_callbacks)
-image_callbacks *callbacks_return;
-image_callbacks *img_callbacks;
-#else /* FUNCPROTO */
 static void prepare_callbacks(image_callbacks *callbacks_return, image_callbacks *img_callbacks)
-#endif /* FUNCPROTO */
 {
   image_callbacks *cb = callbacks_return;
   XtCallbackList cb_list;
@@ -2837,13 +2747,7 @@ static void prepare_callbacks(image_callbacks *callbacks_return, image_callbacks
 
 } /* prepare_callbacks() */
 
-#ifndef FUNCPROTO
-static Widget ximage_image(parent, lout)
-Widget parent;
-layout lout;
-#else /* FUNCPROTO */
 static Widget ximage_image(Widget parent, layout lout)
-#endif /* FUNCPROTO */
 {
   Widget image_wid = NULL;
   WidgetClass widgetClass = NULL;
@@ -2921,12 +2825,7 @@ typedef enum {
   FWF_TOO_LOW
 } fwf_size_t;
 
-#ifndef FUNCPROTO
-static fwf_size_t check_fwf_geometry(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static fwf_size_t check_fwf_geometry(Widget wid)
-#endif /* FUNCPROTO */
 {
   Dimension width, height, top_margin, bottom_margin, left_margin,
 	    right_margin, frame_width, inner_offset, outer_offset;
@@ -2955,12 +2854,7 @@ static fwf_size_t check_fwf_geometry(Widget wid)
 
 } /* check_fwf_geometry() */
 
-#ifndef FUNCPROTO
-static Widget check_fwf_widget(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static Widget check_fwf_widget(Widget wid)
-#endif /* FUNCPROTO */
 {
   char *lab;
   XFontStruct *fontinfo;
@@ -3023,12 +2917,7 @@ static char *prompt_translations =
   Ctrl<Key>f: unselect() right() \n\
   <Key>Delete: cut() backspace()";
 
-#ifndef FUNCPROTO
-static Widget check_fwf_prompt_widget(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static Widget check_fwf_prompt_widget(Widget wid)
-#endif /* FUNCPROTO */
 {
   XFontStruct *fontinfo;
   fwf_size_t fwf_size;
@@ -3091,17 +2980,7 @@ static Widget check_fwf_prompt_widget(Widget wid)
 } /* check_fwf_prompt_widget() */
 
 
-#ifndef FUNCPROTO
-static Widget ximage_panel(parent, containerWidgetClass, layouts, first_wid, nwids, num_children, widget_set)
-Widget parent;
-WidgetClass containerWidgetClass;
-layout *layouts;
-int first_wid, nwids;
-Cardinal *num_children;
-widget_set_type widget_set;
-#else /* FUNCPROTO */
 static Widget ximage_panel(Widget parent, WidgetClass containerWidgetClass, layout *layouts, int first_wid, int nwids, Cardinal *num_children, widget_set_type widget_set)
-#endif /* FUNCPROTO */
 {
   Widget top_form, wid;
   layout lout;
@@ -3454,13 +3333,7 @@ static Widget ximage_panel(Widget parent, WidgetClass containerWidgetClass, layo
 
 } /* ximage_panel() */
 
-#ifndef FUNCPROTO
-static void adjust_wid_width(layouts, first, last)
-layout *layouts;
-int first, last;
-#else /* FUNCPROTO */
 static void adjust_wid_width(layout *layouts, int first, int last)
-#endif /* FUNCPROTO */
 {
   Dimension width, mwidth;
   int i;
@@ -3498,20 +3371,7 @@ static void adjust_wid_width(layout *layouts, int first, int last)
 
 } /* adjust_wid_width() */
 
-#ifndef FUNCPROTO
-static void process_layouts(shells, num_shells, not_shells, num_not_shells, app_parent, containerWidgetClass, layouts, nwids, separate, adjust_width, widget_set)
-WidgetList *shells, *not_shells;
-Cardinal *num_shells, *num_not_shells;
-Widget app_parent;
-WidgetClass containerWidgetClass;
-layout *layouts;
-int nwids;
-separate_type separate;
-Boolean adjust_width;
-widget_set_type widget_set;
-#else /* FUNCPROTO */
 static void process_layouts(WidgetList *shells, Cardinal *num_shells, WidgetList *not_shells, Cardinal *num_not_shells, Widget app_parent, WidgetClass containerWidgetClass, layout *layouts, int nwids, separate_type separate, Boolean adjust_width, widget_set_type widget_set)
-#endif /* FUNCPROTO */
 {
   int wid_num;
   layout lout;
@@ -3703,12 +3563,7 @@ static void process_layouts(WidgetList *shells, Cardinal *num_shells, WidgetList
 
 } /* process_layouts() */
 
-#ifndef FUNCPROTO
-static char *next_spec(s)
-char *s;
-#else /* FUNCPROTO */
 static char *next_spec(char *s)
-#endif /* FUNCPROTO */
 {
   char *t, *t2, *end;
   static char *start_s = NULL, *end_s = NULL, *pos_s = NULL;
@@ -3763,17 +3618,7 @@ static char *next_spec(char *s)
 
 } /* next_spec() */
 
-#ifndef FUNCPROTO
-Widget ximage_layout(app_parent, band, wids, rwids, nwids, ximage_work_fun, res_inst_name)
-Widget app_parent;
-IBAND band;
-char **wids, *res_inst_name;
-Widget rwids[];
-int nwids;
-XtCallbackProc ximage_work_fun;
-#else /* FUNCPROTO */
 Widget ximage_layout(Widget app_parent, IBAND band, char **wids, Widget *rwids, int nwids, XtCallbackProc ximage_work_fun, char *res_inst_name)
-#endif /* FUNCPROTO */
 {
   Widget parent;
   WidgetList shells, not_shells;
@@ -3974,14 +3819,7 @@ Widget ximage_layout(Widget app_parent, IBAND band, char **wids, Widget *rwids, 
 
 } /* ximage_layout() */
 
-#ifndef FUNCPROTO
-Widget ximageLayout(app_parent, layouts, nwids)
-Widget app_parent;
-layout *layouts;
-int nwids;
-#else /* FUNCPROTO */
 Widget ximageLayout(Widget app_parent, layout *layouts, int nwids)
-#endif /* FUNCPROTO */
 {
   int i;
   WidgetClass containerWidgetClass;
@@ -4032,11 +3870,7 @@ Widget ximageLayout(Widget app_parent, layout *layouts, int nwids)
 } /* ximageLayout() */
 
 
-#ifndef FUNCPROTO
-void ximage_mainloop()
-#else /* FUNCPROTO */
 void ximage_mainloop(void)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ximage.c: ximage_mainloop");
   XtAppMainLoop(appcon_s);
@@ -4044,14 +3878,7 @@ void ximage_mainloop(void)
 
 } /* ximage_mainloop() */
 
-#ifndef FUNCPROTO
-void ximage_exit(wid, str, dummy)
-Widget wid;
-XtPointer str;
-XtPointer dummy;
-#else /* FUNCPROTO */
 void ximage_exit(Widget wid, XtPointer str, XtPointer dummy)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("ximage.c: ximage_exit");
   XtDestroyApplicationContext(appcon_s);

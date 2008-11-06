@@ -39,7 +39,9 @@ static char *Id = "$Id$";
 #include <X11/Intrinsic.h>
 #include <xite/color.h>
 #include <xite/Cmap.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <ctype.h>
 #include <X11/Xos.h>
 #include <X11/Xlib.h>
@@ -48,7 +50,9 @@ static char *Id = "$Id$";
 #include <X11/Shell.h>
 #include <X11/Xmu/StdCmap.h>
 #include <xite/Visual.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/debug.h>
 
 #ifdef MOTIF
@@ -343,13 +347,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int RGBPixel(pix, visual)
-int pix;
-Visual *visual;
-#else /* FUNCPROTO */
 int RGBPixel(int pix, Visual *visual)
-#endif /* FUNCPROTO */
 {
 
   if (ClassOfVisual(visual) == DirectColor ||
@@ -362,13 +360,7 @@ int RGBPixel(int pix, Visual *visual)
 
 
 
-#ifndef FUNCPROTO
-static Colormap cmapOfVisualInfo(visualInfo, planes)
-XVisualInfo *visualInfo;
-int planes;
-#else /* FUNCPROTO */
 static Colormap cmapOfVisualInfo(XVisualInfo *visualInfo, int planes)
-#endif /* FUNCPROTO */
 {
   Colormap cmap;
   int depth;
@@ -406,12 +398,7 @@ static Colormap cmapOfVisualInfo(XVisualInfo *visualInfo, int planes)
 
 } /* cmapOfVisualInfo() */
 
-#ifndef FUNCPROTO
-Colormap cmapOfVisualClass(visualClass, planes)
-int visualClass, planes;
-#else /* FUNCPROTO */
 Colormap cmapOfVisualClass(int visualClass, int planes)
-#endif /* FUNCPROTO */
 {
   XVisualInfo *visInfo;
 
@@ -420,13 +407,7 @@ Colormap cmapOfVisualClass(int visualClass, int planes)
 
 } /* cmapOfVisualClass() */
 
-#ifndef FUNCPROTO
-Colormap cmapOfVisual(visual, planes)
-Visual *visual;
-int planes;
-#else /* FUNCPROTO */
 Colormap cmapOfVisual(Visual *visual, int planes)
-#endif /* FUNCPROTO */
 {
   int class;
 
@@ -437,13 +418,7 @@ Colormap cmapOfVisual(Visual *visual, int planes)
 
 
 
-#ifndef FUNCPROTO
-void InitColortablePixels(col, len, offset, composite)
-XColor *col;
-int len, offset, composite;
-#else /* FUNCPROTO */
 void InitColortablePixels(XColor *col, int len, int offset, int composite)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -463,13 +438,7 @@ void InitColortablePixels(XColor *col, int len, int offset, int composite)
     }
 }
 
-#ifndef FUNCPROTO
-void InitColortableGray(col, len, step, composite)
-XColor *col;
-int len, step, composite;
-#else /* FUNCPROTO */
 void InitColortableGray(XColor *col, int len, int step, int composite)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -493,13 +462,7 @@ void InitColortableGray(XColor *col, int len, int step, int composite)
     }
 }
 
-#ifndef FUNCPROTO
-void InitColortableGrayPart(col, min, max, step, composite)
-XColor *col;
-int min, max, step, composite;
-#else /* FUNCPROTO */
 void InitColortableGrayPart(XColor *col, int min, int max, int step, int composite)
-#endif /* FUNCPROTO */
 {
   int i;
   
@@ -528,13 +491,7 @@ void InitColortableGrayPart(XColor *col, int min, int max, int step, int composi
     }
 }
 
-#ifndef FUNCPROTO
-void SpreadGray(col, num_colors, pix_min, num_cells)
-XColor *col;
-int num_colors, pix_min, num_cells;
-#else /* FUNCPROTO */
 void SpreadGray(XColor *col, int num_colors, int pix_min, int num_cells)
-#endif /* FUNCPROTO */
 {
   int step, count, color, i, j;
 
@@ -551,14 +508,7 @@ void SpreadGray(XColor *col, int num_colors, int pix_min, int num_cells)
   }
 } /* SpreadGray() */
 
-#ifndef FUNCPROTO
-void PrintColormap(dpy, map, len, composite)
-Display *dpy;
-Colormap map;
-int len, composite;
-#else /* FUNCPROTO */
 void PrintColormap(Display *dpy, Colormap map, int len, int composite)
-#endif /* FUNCPROTO */
 {
   XColor col[256];
 
@@ -572,13 +522,7 @@ void PrintColormap(Display *dpy, Colormap map, int len, int composite)
 
 
 
-#ifndef FUNCPROTO
-void PrintWidgetColormap(dpy, wid)
-Display *dpy;
-Widget wid;
-#else /* FUNCPROTO */
 void PrintWidgetColormap(Display *dpy, Widget wid)
-#endif /* FUNCPROTO */
 {
   int cells, composite;
   Colormap map;
@@ -615,12 +559,7 @@ void PrintWidgetColormap(Display *dpy, Widget wid)
 
 
 
-#ifndef FUNCPROTO
-static void MakeGrayPseudoColor8Map(dpy)
-Display *dpy;
-#else /* FUNCPROTO */
 static void MakeGrayPseudoColor8Map(Display *dpy)
-#endif /* FUNCPROTO */
 {
   /* Create virtual colormap with the correct depth, which may be
      greater than 8. */
@@ -691,14 +630,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int CheckConsecutive(dpy, dcol, pix_ret)
-Display *dpy;
-Colormap dcol;
-unsigned long pix_ret[];
-#else /* FUNCPROTO */
 static int CheckConsecutive(Display *dpy, Colormap dcol, unsigned long pix_ret[]) 
-#endif /* FUNCPROTO */
 {
   /* 224 colorcells have been allocated. Check for 160 consecutive pixel
      values. */
@@ -790,15 +722,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void AllocateColor7Map(dpy, screen, dcol, dcolOk)
-Display *dpy;
-int screen;
-Colormap *dcol;
-int *dcolOk;
-#else /* FUNCPROTO */
 static void AllocateColor7Map(Display *dpy, int screen, Colormap *dcol, int *dcolOk)
-#endif /* FUNCPROTO */
 {
   unsigned long pix_ret[256], plane_ret[256];
   Visual *defaultVisual;
@@ -908,14 +832,7 @@ ________________________________________________________________
 */
 
 
-#ifndef FUNCPROTO
-static void StoreColors7Map(dpy, dcol, dcolOk)
-Display *dpy;
-Colormap dcol;
-int dcolOk;
-#else /* FUNCPROTO */
 static void StoreColors7Map(Display *dpy, Colormap dcol, int dcolOk)
-#endif /* FUNCPROTO */
 {
   int cells, colorStep, i, status;
   XColor col[256];
@@ -1007,13 +924,7 @@ static void StoreColors7Map(Display *dpy, Colormap dcol, int dcolOk)
 
 
 
-#ifndef FUNCPROTO
-static void MakeGrayPseudoColor7Map(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void MakeGrayPseudoColor7Map(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   /* PseudoColor, assume 8 planes. Create a 160-color map, with 128 colors
      (7-bit) map for image and 32 colors for overlay, preferably as part of
@@ -1041,13 +952,7 @@ static void MakeGrayPseudoColor7Map(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void MakeGrayPseudoColormaps(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void MakeGrayPseudoColormaps(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Cmap.c: MakeGrayPseudoColormaps");
   
@@ -1062,13 +967,7 @@ static void MakeGrayPseudoColormaps(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void MakeGrayDirectColor24Map(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void MakeGrayDirectColor24Map(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   /* Create default 24-bit DirectColor virtual colormap. Assume 8 bits for
      each of red, green and blue. */
@@ -1112,15 +1011,7 @@ static void MakeGrayDirectColor24Map(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void AllocateColor21Map(dpy, screen, dcol, dcolOk)
-Display *dpy;
-int screen;
-Colormap *dcol;
-int *dcolOk;
-#else /* FUNCPROTO */
 static void AllocateColor21Map(Display *dpy, int screen, Colormap *dcol, int *dcolOk)
-#endif /* FUNCPROTO */
 {
   Visual *defaultVisual;
 
@@ -1187,14 +1078,7 @@ static void AllocateColor21Map(Display *dpy, int screen, Colormap *dcol, int *dc
 
 
 
-#ifndef FUNCPROTO
-static void StoreColors21Map(dpy, dcol, dcolOk)
-Display *dpy;
-Colormap dcol;
-int dcolOk;
-#else /* FUNCPROTO */
 static void StoreColors21Map(Display *dpy, Colormap dcol, int dcolOk)
-#endif /* FUNCPROTO */
 {
   int cells, colorStep, i;
   XColor col[256];
@@ -1262,13 +1146,7 @@ static void StoreColors21Map(Display *dpy, Colormap dcol, int dcolOk)
 
 
 
-#ifndef FUNCPROTO
-static void MakeGrayDirectColor21Map(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void MakeGrayDirectColor21Map(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   /* Create default 21-bit DirectColor virtual colormap. Assume 8 bits for
      each of red, green and blue. */
@@ -1288,13 +1166,7 @@ static void MakeGrayDirectColor21Map(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void MakeGrayDirectColormaps(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void MakeGrayDirectColormaps(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Cmap.c: MakeGrayDirectColormaps");
   
@@ -1305,13 +1177,7 @@ static void MakeGrayDirectColormaps(Display *dpy, int screen)
 
 } /* MakeGrayDirectColormaps */
 
-#ifndef FUNCPROTO
-static void MakeTrueColormaps(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void MakeTrueColormaps(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Cmap.c: MakeTrueColormaps");
   
@@ -1323,13 +1189,7 @@ static void MakeTrueColormaps(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-static void InitializeColormaps(dpy, screen)
-Display *dpy;
-int screen;
-#else /* FUNCPROTO */
 static void InitializeColormaps(Display *dpy, int screen)
-#endif /* FUNCPROTO */
 {
   Visual *visual = NULL;
   int planes = 0;
@@ -1349,17 +1209,7 @@ static void InitializeColormaps(Display *dpy, int screen)
 
 
 
-#ifndef FUNCPROTO
-void GetImageColormap(dpy, screen, planes, visual, colormap)
-Display *dpy;
-int screen;
-int planes;
-Visual *visual;
-Colormap *colormap;
-#else /* FUNCPROTO */
 void GetImageColormap(Display *dpy, int screen, int planes, Visual *visual, Colormap *colormap)
-
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Cmap.c: GetImageColormap");
@@ -1407,15 +1257,8 @@ void GetImageColormap(Display *dpy, int screen, int planes, Visual *visual, Colo
 
 
 
-#ifndef FUNCPROTO
-void ColormapCopy(dpy, screen, dest, source, composite)
-Display *dpy;
-int screen, composite;
-Colormap dest, source;
-#else /* FUNCPROTO */
 void ColormapCopy(Display *dpy, int screen, Colormap dest, Colormap source,
 int composite)
-#endif /* FUNCPROTO */
 {
   XColor col[256];
   int cells;
@@ -1433,14 +1276,7 @@ int composite)
 }
 
 
-#ifndef FUNCPROTO
-void ColormapStd(dpy, screen, map, visualClass, nr)
-Display *dpy;
-int screen, nr, visualClass;
-Colormap map;
-#else /* FUNCPROTO */
 void ColormapStd(Display *dpy, int screen, Colormap map, int visualClass, int nr)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Cmap.c: ColormapStd");
 

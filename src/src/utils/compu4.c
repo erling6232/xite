@@ -194,17 +194,47 @@ Id:             $Id$
 #include <errno.h>
 #include <xite/includes.h>
 #include <xite/compu4.h>
-#include XITE_STDARG_H
+#ifdef HAVE_VARARGS_H
+# include <varargs.h>
+#else
+# ifdef HAVE_STDARG_H
+#  include <stdarg.h>
+# endif
+#endif
 #include <stdlib.h>
 #include "compu4_L.h"
-#include XITE_FCNTL_H
-#include XITE_FILE_H
-#include XITE_MALLOC_H
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_STRTOL_H
-#include XITE_TOUPPER_H
-#include XITE_UNISTD_H
+#ifdef HAVE_FCNTL_H
+# include <fcntl.h>
+#endif
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_STDLIB_H
+# include <stdlib.h>
+#endif
+#ifdef HAVE_CTYPE_H
+# include <ctype.h>
+#endif
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 
 
 static char empty[] = "";
@@ -262,7 +292,6 @@ typedef struct u_state
 
 ---------------------------------------------------------------
 */
-#ifdef FUNCPROTO
 static void init_compute(int);
 static int tok_type(int);
 static int token_int(char*, char**, INTEG*, char*);
@@ -293,38 +322,6 @@ static void shift_symbol(int, int);
 static int reduce_symbol(int);
 static int parse(int);
 static int compute_variable(char *, int);
-#else
-static void init_compute();
-static int tok_type();
-static int token_int();
-static int token_real();
-static int token_op();
-static int token_tok();
-static int token_st();
-static int token_arg();
-static int new_token();
-static void next_token();
-static void c_convert();
-static void d_convert();
-static int redi1();
-static int redf1();
-static int redb1();
-static int redc1();
-static int red1();
-static int redb2();
-static int redcp2();
-static int redcc2();
-static int redia2();
-static int redfa2();
-static int redir2();
-static int redfr2();
-static int red2();
-static int next_action();
-static void shift_symbol();
-static int reduce_symbol();
-static int parse();
-static int compute_variable();
-#endif
 
 
 /*
@@ -385,12 +382,7 @@ static int var_ptr = TOK_VAR;
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static  void init_compute(predef)
-int predef;
-#else /* FUNCPROTO */
 static  void init_compute(int predef)
-#endif /* FUNCPROTO */
 {
   skip = 0;
   stats = 1;
@@ -519,12 +511,7 @@ Id:             $Id$
 #define is_una(tok) ((tok) >= TOK_UNB && (tok) <= TOK_UNE)
 #define is_ctr(tok) ((tok) >= TOK_CTB)
 
-#ifndef FUNCPROTO
-static int tok_type(tok)
-int tok;
-#else /* FUNCPROTO */
 static int tok_type(int tok)
-#endif /* FUNCPROTO */
 {
   if(is_str(tok)) return(TOK_STR);
   if(is_ari(tok)) return(TOK_ARI);
@@ -555,13 +542,7 @@ static int tok_type(int tok)
 ---------------------------------------------------------------
 */
 
-#ifndef FUNCPROTO
-static int token_int(st,next,i,term)
-char *st,*term,**next;
-INTEG *i;
-#else /* FUNCPROTO */
 static int token_int(char *st, char **next, INTEG *i, char *term)
-#endif /* FUNCPROTO */
 {
   *i = strtol(st,next,0);
   if (*next == st) return(0);
@@ -587,13 +568,7 @@ static int token_int(char *st, char **next, INTEG *i, char *term)
 ---------------------------------------------------------------
 */
 
-#ifndef FUNCPROTO
-static int token_real(st,next,f,term)
-char *st,*term,**next;
-double *f;
-#else /* FUNCPROTO */
 static int token_real(char *st, char **next, double *f, char *term)
-#endif /* FUNCPROTO */
 {
 #ifndef MSDOS
   char old,*oldptr;
@@ -645,12 +620,7 @@ static int token_real(char *st, char **next, double *f, char *term)
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static int token_op(st,next)
-char *st,**next;
-#else /* FUNCPROTO */
 static int token_op(char *st, char **next)
-#endif /* FUNCPROTO */
 {
   char h1,h2;
   *next = st;
@@ -677,12 +647,7 @@ static int token_op(char *st, char **next)
 }
 
 
-#ifndef FUNCPROTO
-static int token_tok(st,next)
-char *st,**next;
-#else /* FUNCPROTO */
 static int token_tok(char *st, char **next)
-#endif /* FUNCPROTO */
 {
   static char reserved[20][6]=
   {
@@ -765,12 +730,7 @@ static int token_tok(char *st, char **next)
 ---------------------------------------------------------------
 */
 
-#ifdef FUNCPROTO
 static int token_st(char* st, char** next, char** c, char term)
-#else
-static int token_st(st, next, c, term)
-char *st, **next, **c, term;
-#endif
 {
   char *ptr;
   st++;
@@ -796,12 +756,7 @@ char *st, **next, **c, term;
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static int token_arg(st,next)
-char *st,**next;
-#else /* FUNCPROTO */
 static int token_arg(char *st, char **next)
-#endif /* FUNCPROTO */
 {
   st++;
   pre = pre+1;
@@ -825,15 +780,7 @@ static int token_arg(char *st, char **next)
 
 
 --------------------------------------------------------------- */
-#ifndef FUNCPROTO
-static int new_token(type, l, f, c)
-int type;
-INTEG l;
-double f;
-char *c;
-#else /* FUNCPROTO */
 static int new_token(int type, INTEG l, double f, char *c)
-#endif /* FUNCPROTO */
 {
   number *arg1;
   arg = arg + 1;
@@ -866,13 +813,7 @@ static int new_token(int type, INTEG l, double f, char *c)
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static void next_token(token,next_pointer)
-int *token;
-char **next_pointer;
-#else /* FUNCPROTO */
 static void next_token(int *token, char **next_pointer)
-#endif /* FUNCPROTO */
 {
   char *c, *c1, *c2;
   INTEG l;
@@ -929,12 +870,7 @@ Examples:
 Id:             $Id$
 
 ---------------------------------------------------------------	*/
-#ifndef FUNCPROTO
-static void c_convert(arg)
-number *arg;
-#else /* FUNCPROTO */
 static void c_convert(number *arg)
-#endif /* FUNCPROTO */
 {
   INTEG i;
   double f;
@@ -956,12 +892,7 @@ static void c_convert(number *arg)
   }
 }
 
-#ifndef FUNCPROTO
-static void d_convert(arg1,arg2)
-number *arg1,*arg2;
-#else /* FUNCPROTO */
 static void d_convert(number *arg1, number *arg2)
-#endif /* FUNCPROTO */
 {
     c_convert(arg1);
     c_convert(arg2);
@@ -997,13 +928,7 @@ Id:             $Id$
 
 ---------------------------------------------------------------	*/
 
-#ifndef FUNCPROTO
-static int redi1(arg1,op)
-number *arg1;
-int  op;
-#else /* FUNCPROTO */
 static int redi1(number *arg1, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i1;
   if(skip) return(E_OK);
@@ -1016,13 +941,7 @@ static int redi1(number *arg1, int op)
   i_set(arg1, i1);
   return(E_OK);
 }
-#ifndef FUNCPROTO
-static int redf1(arg1,op)
-number *arg1;
-int  op;
-#else /* FUNCPROTO */
 static int redf1(number *arg1, int op)
-#endif /* FUNCPROTO */
 {
   double f1;
   if(skip) return(E_OK);
@@ -1036,13 +955,7 @@ static int redf1(number *arg1, int op)
   return(E_OK);
 }
 
-#ifndef FUNCPROTO
-static int redb1(arg1,op)
-number *arg1;
-int  op;
-#else /* FUNCPROTO */
 static int redb1(number *arg1, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i1;
   if(skip) return(E_OK);
@@ -1054,24 +967,12 @@ static int redb1(number *arg1, int op)
   i_set(arg1, i1);
   return(E_OK);
 }
-#ifndef FUNCPROTO
-static int redc1(arg1,op)
-number *arg1;
-int  op;
-#else /* FUNCPROTO */
 static int redc1(number *arg1, int op)
-#endif /* FUNCPROTO */
 {
   return(E_TYP);
 }
 
-#ifndef FUNCPROTO
-static int red1(arg1, op)
-number *arg1;
-int  op;
-#else /* FUNCPROTO */
 static int red1(number *arg1, int op)
-#endif /* FUNCPROTO */
 {
   int tok_class;
   if (t_get(arg1) == TY_VR) *arg1 =  *(var_def[i_get(arg1)]);
@@ -1107,13 +1008,7 @@ Examples:
 Id:             $Id$
 
 ---------------------------------------------------------------	*/
-#ifndef FUNCPROTO
-static int redb2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redb2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i0,i2;
   i2 = i_get(arg2);
@@ -1127,13 +1022,7 @@ static int redb2(number *arg1, number *arg2, int op)
   return(E_OK);
 }
 
-#ifndef FUNCPROTO
-static int redcp2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redcp2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i0, i2, it;
   char c, *c1, *c2, *ct;
@@ -1217,13 +1106,7 @@ static int redcp2(number *arg1, number *arg2, int op)
   return(E_OK);
 }
 
-#ifndef FUNCPROTO
-static int redcc2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redcc2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i0, i1, i2;
   int il;
@@ -1265,13 +1148,7 @@ static int redcc2(number *arg1, number *arg2, int op)
 }
 
 
-#ifndef FUNCPROTO
-static int redia2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redia2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i0,i1,i2;
   if(skip) return(E_OK);
@@ -1286,13 +1163,7 @@ static int redia2(number *arg1, number *arg2, int op)
   i_set(arg1, i0);
   return(E_OK);
 }
-#ifndef FUNCPROTO
-static int redfa2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redfa2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   double f0,f1,f2;
   if(skip) return(E_OK);
@@ -1308,13 +1179,7 @@ static int redfa2(number *arg1, number *arg2, int op)
   return(E_OK);
 }
 
-#ifndef FUNCPROTO
-static int redir2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redir2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i0,i1,i2;
   if(skip) return(E_OK);
@@ -1331,13 +1196,7 @@ static int redir2(number *arg1, number *arg2, int op)
   i_set(arg1, i0);
   return(E_OK);
 }
-#ifndef FUNCPROTO
-static int redfr2(arg1,arg2,op)
-number *arg1, *arg2;
-int op;
-#else /* FUNCPROTO */
 static int redfr2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   INTEG i0;
   double f1,f2;
@@ -1356,13 +1215,7 @@ static int redfr2(number *arg1, number *arg2, int op)
   return(E_OK);
 }
 
-#ifndef FUNCPROTO
-static int red2(arg1, arg2, op)
-number *arg1, *arg2;
-int  op;
-#else /* FUNCPROTO */
 static int red2(number *arg1, number *arg2, int op)
-#endif /* FUNCPROTO */
 {
   int tok_class, stat;
   if (t_get(arg2) == TY_VR) *arg2 =  *(var_def[i_get(arg2)]);
@@ -1521,12 +1374,7 @@ short parse_tab[9][5] = { {PA_S1, PA_S3, PA_E1, PA_A1, PA_S5},
 			  {PA_R1, PA_E2, PA_R1, PA_R1, PA_E2},
 			  {PA_C2, PA_E2, PA_R2, PA_R2, PA_E2},
 			  {PA_S2, PA_E2, PA_S4, PA_E5, PA_E2} };
-#ifndef FUNCPROTO
-static int next_action(token)
-int  token;
-#else /* FUNCPROTO */
 static int next_action(int token)
-#endif /* FUNCPROTO */
 {
   int next,tok;
   next=parse_tab[state_stack[stats].pst][token/256];
@@ -1568,12 +1416,7 @@ static int next_action(int token)
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static void shift_symbol(next, token)
-int next,token;
-#else /* FUNCPROTO */
 static void shift_symbol(int next, int token)
-#endif /* FUNCPROTO */
 {
   int *tok = &state_stack[stats].tok;
   number *arg1 = &arg_stack[*tok-TOK_E];
@@ -1609,12 +1452,7 @@ static void shift_symbol(int next, int token)
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static int reduce_symbol(next)
-int next;
-#else /* FUNCPROTO */
 static int reduce_symbol(int next)
-#endif /* FUNCPROTO */
 {
   int red, arg1, arg2, st;
   red = next-PA_R0;
@@ -1674,12 +1512,7 @@ static int reduce_symbol(int next)
 
 ---------------------------------------------------------------
 */
-#ifndef FUNCPROTO
-static int parse(token)
-int token;
-#else /* FUNCPROTO */
 static int parse(int token)
-#endif /* FUNCPROTO */
 {
   int next, exit, err;
   exit=0;
@@ -1726,7 +1559,6 @@ Id:             $Id$
 
 --------------------------------------------------------------- */
 
-#ifdef FUNCPROTO
 int compute_line(char *inp_line, ...)
 {
   va_list ap;
@@ -1737,21 +1569,6 @@ int compute_line(char *inp_line, ...)
   char *c,*c1, *c2, *cp;
 
   va_start(ap, inp_line);
-#else
-int compute_line(va_alist)
-va_dcl
-{
-  va_list ap;
-  char *inp_line;
-  number *tos, *bos;
-  int predef[16];
-  int argno, first, last;
-  int token, exit;
-  char *c,*c1, *c2, *cp;
-
-  va_start(ap);
-  inp_line = va_arg(ap, char *);
-#endif
 
   if (inp_line == NULL) inp_line = empty;
   c = inp_line;
@@ -1872,23 +1689,14 @@ static char *err[] = {
   "E_VAR - Undefined variable",
 };
 
-#ifndef FUNCPROTO
-char *compute_error(message)
-int message;
-#else /* FUNCPROTO */
 char *compute_error(int message)
-#endif /* FUNCPROTO */
 {
   if (message) printf("\nCompute error: %s\n\n",err[global_error]);
   if (message == 2) abort();
   return(err[global_error]);
 }
 
-#ifndef FUNCPROTO
-number *compute_answer()
-#else /* FUNCPROTO */
 number *compute_answer(void)
-#endif /* FUNCPROTO */
 {
   return(global_answer);
 }
@@ -1913,13 +1721,7 @@ Id:             $Id$
 
 --------------------------------------------------------------- */
 
-#ifndef FUNCPROTO
-int compute_define(name, action)
-char *name;
-func action;
-#else /* FUNCPROTO */
 int compute_define(char *name, func action)
-#endif /* FUNCPROTO */
 {
   char *tmp;
   tmp = name;
@@ -1936,13 +1738,7 @@ int compute_define(char *name, func action)
   return(user_ptr ++);
 }
 
-#ifndef FUNCPROTO
-static int compute_variable(name, len)
-char *name;
-int len;
-#else /* FUNCPROTO */
 static int compute_variable(char *name, int len)
-#endif /* FUNCPROTO */
 {
   char *tmp;
   number *num;
@@ -1994,13 +1790,7 @@ number *arg;
 #endif
 
 #ifdef MAIN
-#ifndef FUNCPROTO
-void main(argc, argv)
-int argc;
-argarr argv;
-#else /* FUNCPROTO */
 void main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   char c[1024],*cp;
   number answer;

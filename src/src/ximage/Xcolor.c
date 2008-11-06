@@ -39,7 +39,9 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/Xaw/SmeBSB.h>
 #include <stdlib.h>
 #include <xite/Xcolor.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <ctype.h>
 #include <X11/Xos.h>
 #include <xite/color.h>
@@ -48,7 +50,9 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/Visual.h>
 #include <xite/Cmap.h>
 #include <xite/ShellWids.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/debug.h>
 
 #define MAXCOLORS 64  /* The maximum possible number of entries in the list of
@@ -404,14 +408,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void AddColormapCopy(w, visual, entryName)
-Widget w;
-Visual *visual;
-char *entryName;
-#else /* FUNCPROTO */
 void AddColormapCopy(Widget w, Visual *visual, char *entryName)
-#endif /* FUNCPROTO */
 {
   /* Add the full- and reduced-color versions of the current
    * colortable to the colortable menu, with name given by "entryName".
@@ -444,12 +441,7 @@ void AddColormapCopy(Widget w, Visual *visual, char *entryName)
 
 } /* AddColormapCopy() */
 
-#ifndef FUNCPROTO
-int *Xcolor_deftab(n)
-int n;
-#else /* FUNCPROTO */
 int *Xcolor_deftab(int n)
-#endif /* FUNCPROTO */
 {
   int *tab = NULL;
 
@@ -463,20 +455,9 @@ int *Xcolor_deftab(int n)
   return(tab);
 }
 
-#ifndef FUNCPROTO
-void Color_exit() {}
-#else /* FUNCPROTO */
 void Color_exit(void) {}
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-Boolean Has_changeable_map(dpy, screen, visual)
-Display *dpy;
-int screen;
-Visual *visual;
-#else /* FUNCPROTO */
 Boolean Has_changeable_map(Display *dpy, int screen, Visual *visual)
-#endif /* FUNCPROTO */
 {
   int color_count;
 
@@ -488,13 +469,7 @@ Boolean Has_changeable_map(Display *dpy, int screen, Visual *visual)
 
 
 
-#ifndef FUNCPROTO
-int Color_set(wid, color)
-ImageWidget wid;
-int color;
-#else /* FUNCPROTO */
 int Color_set(ImageWidget wid, int color)
-#endif /* FUNCPROTO */
 {
   int old_col;
   display_method displaymethod;
@@ -560,14 +535,7 @@ int Color_set(ImageWidget wid, int color)
 
 
 
-#ifndef FUNCPROTO
-static void ColorsSelect(w, closure, call_data)
-Widget w;
-XtPointer closure;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ColorsSelect(Widget w, XtPointer closure, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int i1;
   ImageWidget iw;
@@ -608,15 +576,7 @@ ________________________________________________________________
 
 #define MARKIF(e) (e) ? 'x' : ' '
 
-#ifndef FUNCPROTO
-static void ColorsHook(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void ColorsHook(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageWidget iw;
   char *label;
@@ -654,12 +614,7 @@ static void ColorsHook(Widget wid, XEvent *event, String *params, Cardinal *num_
   LEAVE_FUNCTION_DEBUG("Xcolor.c: ColorsHook");
 }
 
-#ifndef FUNCPROTO
-char *ColortabName(coltab)
-int coltab;
-#else /* FUNCPROTO */
 char *ColortabName(int coltab)
-#endif /* FUNCPROTO */
 {
 
   if (coltab < 0 || coltab > Color_max()) return(NULL);
@@ -668,12 +623,7 @@ char *ColortabName(int coltab)
 
 } /* ColortabName() */
 
-#ifndef FUNCPROTO
-char *OvltabName(coltab)
-int coltab;
-#else /* FUNCPROTO */
 char *OvltabName(int coltab)
-#endif /* FUNCPROTO */
 {
 
   if (coltab < 0 || coltab > Color_ovl_max()) return(NULL);
@@ -682,14 +632,7 @@ char *OvltabName(int coltab)
 
 } /* OvltabName() */
 
-#ifndef FUNCPROTO
-static char *NewColortabName(coltab, name, len)
-XColor *coltab;
-char *name;
-int len;
-#else /* FUNCPROTO */
 static char *NewColortabName(XColor *coltab, char *name, int len)
-#endif /* FUNCPROTO */
 {
   char *ptr;
   
@@ -728,14 +671,7 @@ static char *NewColortabName(XColor *coltab, char *name, int len)
 
 
 
-#ifndef FUNCPROTO
-static void AddFullColor(coltabIn, coltabOut, len, visual)
-XColor coltabIn[], coltabOut[];
-int len;
-Visual *visual;
-#else /* FUNCPROTO */
 static void AddFullColor(XColor *coltabIn, XColor *coltabOut, int len, Visual *visual)
-#endif /* FUNCPROTO */
 {
   int cells;
   Colormap cmap;
@@ -836,14 +772,7 @@ static void AddFullColor(XColor *coltabIn, XColor *coltabOut, int len, Visual *v
 
 
 
-#ifndef FUNCPROTO
-static void AddReducedColor(coltabIn, colFull, colReduced, len, visual)
-XColor coltabIn[], colFull[], colReduced[];
-int len;
-Visual *visual;
-#else /* FUNCPROTO */
 static void AddReducedColor(XColor *coltabIn, XColor *colFull, XColor *colReduced, int len, Visual *visual)
-#endif /* FUNCPROTO */
 {
   int cells;
   Colormap cmap;
@@ -933,14 +862,7 @@ static void AddReducedColor(XColor *coltabIn, XColor *colFull, XColor *colReduce
 
 
 
-#ifndef FUNCPROTO
-void Color_add(coltabIn, name, len)
-XColor *coltabIn;
-char *name;
-int len;
-#else /* FUNCPROTO */
 void Color_add(XColor *coltabIn, char *name, int len)
-#endif /* FUNCPROTO */
 {
   XColor colFull[256], colReduced[256];
   char* ptr;
@@ -995,12 +917,7 @@ void Color_add(XColor *coltabIn, char *name, int len)
 
 } /* Color_add() */
 
-#ifndef FUNCPROTO
-void Color_read(file_name)
-char *file_name;
-#else /* FUNCPROTO */
 void Color_read(char *file_name)
-#endif /* FUNCPROTO */
 {
  char *name = NULL, *filename = NULL;
  int len;
@@ -1028,22 +945,12 @@ void Color_read(char *file_name)
  LEAVE_FUNCTION_DEBUG("Xcolor.c: Color_read");
 }
 
-#ifndef FUNCPROTO
-int Color_max()
-#else /* FUNCPROTO */
 int Color_max(void)
-#endif /* FUNCPROTO */
 {
   return(maxcol_s);
 }
 
-#ifndef FUNCPROTO
-Colormap Color_map2(map, xcolors, visual)
-int map, xcolors;
-Visual *visual;
-#else /* FUNCPROTO */
 Colormap Color_map2(int map, int xcolors, Visual *visual)
-#endif /* FUNCPROTO */
 {
   Colormap cmap;
 
@@ -1092,12 +999,7 @@ Colormap Color_map2(int map, int xcolors, Visual *visual)
 
 } /* Color_map2() */
 
-#ifndef FUNCPROTO
-Colormap Color_map(map, xcolors)
-int map, xcolors;
-#else /* FUNCPROTO */
 Colormap Color_map(int map, int xcolors)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xcolor.c: Color_map");
   LEAVE_FUNCTION_DEBUG("Xcolor.c: Color_map");
@@ -1106,13 +1008,7 @@ Colormap Color_map(int map, int xcolors)
 
 } /* Color_map() */
 
-#ifndef FUNCPROTO
-int Color_ovl_set(wid, ovlcolor)
-ImageWidget wid;
-int ovlcolor;
-#else /* FUNCPROTO */
 int Color_ovl_set(ImageWidget wid, int ovlcolor)
-#endif /* FUNCPROTO */
 {
   XColor col[256];
   int old_ovl, i, color, ovl_cells;
@@ -1164,13 +1060,7 @@ int Color_ovl_set(ImageWidget wid, int ovlcolor)
   return(old_ovl);
 }
 
-#ifndef FUNCPROTO
-static void OverlaysSelect(w, closure, call_data)
-Widget w;
-XtPointer closure, call_data;
-#else /* FUNCPROTO */
 static void OverlaysSelect(Widget w, XtPointer closure, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int i1;
   ImageWidget iw;
@@ -1208,15 +1098,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void OverlaysHook(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void OverlaysHook(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ImageWidget iw;
   char *label;
@@ -1265,14 +1147,7 @@ static void OverlaysHook(Widget wid, XEvent *event, String *params, Cardinal *nu
 
 
 
-#ifndef FUNCPROTO
-static char *NewColorOvltabName(coltab, name, len)
-XColor *coltab;
-char *name;
-int len;
-#else /* FUNCPROTO */
 static char *NewColorOvltabName(XColor *coltab, char *name, int len)
-#endif /* FUNCPROTO */
 {
   char *ptr;
   
@@ -1313,14 +1188,7 @@ static char *NewColorOvltabName(XColor *coltab, char *name, int len)
 
 
 
-#ifndef FUNCPROTO
-static void AddOvlColor(coltabIn, coltabOut, len, visual)
-XColor coltabIn[], coltabOut[];
-int len;
-Visual *visual;
-#else /* FUNCPROTO */
 static void AddOvlColor(XColor *coltabIn, XColor *coltabOut, int len, Visual *visual)
-#endif /* FUNCPROTO */
 {
   Colormap cmap;
   int y;
@@ -1420,14 +1288,7 @@ static void AddOvlColor(XColor *coltabIn, XColor *coltabOut, int len, Visual *vi
 } /* AddOvlColor() */
 
 
-#ifndef FUNCPROTO
-void Color_ovl_add(coltabIn, name, len)
-XColor coltabIn[];
-char *name;
-int len;
-#else /* FUNCPROTO */
 void Color_ovl_add(XColor *coltabIn, char *name, int len)
-#endif /* FUNCPROTO */
 {
   XColor col[256];
   char* ptr;
@@ -1466,12 +1327,7 @@ void Color_ovl_add(XColor *coltabIn, char *name, int len)
   LEAVE_FUNCTION_DEBUG("Xcolor.c: Color_ovl_add");
 }
 
-#ifndef FUNCPROTO
-void Color_ovl_read(file_name)
-char *file_name;
-#else /* FUNCPROTO */
 void Color_ovl_read(char *file_name)
-#endif /* FUNCPROTO */
 {
   char *name = NULL, *filename = NULL;
   int len;
@@ -1495,24 +1351,14 @@ void Color_ovl_read(char *file_name)
   LEAVE_FUNCTION_DEBUG("Xcolor.c: Color_ovl_read");
 }
 
-#ifndef FUNCPROTO
-int Color_ovl_max()
-#else /* FUNCPROTO */
 int Color_ovl_max(void)
-#endif /* FUNCPROTO */
 {
   return(maxovl_s);
 }
 
 
 
-#ifndef FUNCPROTO
-static Boolean ProcessTableList(colorfilename, standard)
-char *colorfilename;
-int standard;
-#else /* FUNCPROTO */
 static Boolean ProcessTableList(char *colorfilename, int standard)
-#endif /* FUNCPROTO */
 {
   FILE *f;
   int len;
@@ -1568,15 +1414,7 @@ static Boolean ProcessTableList(char *colorfilename, int standard)
   return(1);
 }
 
-#ifndef FUNCPROTO
-void ColorsMenuInit(display, screenno, parent, colorfile)
-Display *display;
-int screenno;
-Widget parent;
-char *colorfile;
-#else /* FUNCPROTO */
 void ColorsMenuInit(Display *display, int screenno, Widget parent, char *colorfile)
-#endif /* FUNCPROTO */
 {
   Visual *pseudo_vis, *direct_vis;
   char *label = NULL;
@@ -1627,15 +1465,7 @@ void ColorsMenuInit(Display *display, int screenno, Widget parent, char *colorfi
   LEAVE_FUNCTION_DEBUG("Xcolor.c: ColorsMenuInit");
 }
 
-#ifndef FUNCPROTO
-void OverlaysMenuInit(display, screenno, parent, colorfile)
-Display *display;
-int screenno;
-Widget parent;
-char *colorfile;
-#else /* FUNCPROTO */
 void OverlaysMenuInit(Display *display, int screenno, Widget parent, char *colorfile)
-#endif /* FUNCPROTO */
 {
   Visual *pseudo_vis, *direct_vis;
   char *label = NULL;
