@@ -14,32 +14,46 @@ AC_PROG_LIBTOOL
 AC_PROG_SED
 
 # Checks for libraries
-AC_CHECK_LIB([libX11],  [XBell])
-AC_CHECK_LIB([libxpm],  [xpmReadFile])
-AC_CHECK_LIB([libXaw],  [XawAsciiSave])
-AC_CHECK_LIB([libXmu],  [XmuMakeAtom])
-AC_CHECK_LIB([libXt],   [XtConvert])
-AC_CHECK_LIB([libXext], [XextAddDisplay])
+AC_CHECK_LIB([X11],  [XBell])
+AC_CHECK_LIB([xpm],  [xpmReadFile])
+# AC_CHECK_LIB([Xaw],  [XawAsciiSave])
+AC_CHECK_LIB([Xmu],  [XmuMakeAtom])
+AC_CHECK_LIB([Xt],   [XtConvert])
+AC_CHECK_LIB([Xext], [XextAddDisplay])
 
 # Checks for header files
 AC_PATH_X
-AC_ARG_WITH(motif,
-	[  --with-motif=PREFIX     Compile with Motif],
-	[motif="$withval"], [motif=no])
-AC_PATH_XTRA
-if test "$motif" != no; then
-	if test "$motif" != yes; then
-		CPPFLAGS="${CPPFLAGS} -I$motif/include"
-		LDFLAGS="$LDFLAGS -L$motif/lib"
-	fi
-	AC_CHECK_LIB(Xm, XmStringFree, :,
-		[AC_MSG_ERROR(Motif library not found)])
-	# Omit the next line if you must have Motif.
-	AC_DEFINE(WITH_MOTIF)
-	# Omit the next two lines if you do not require Motif.
-else
-	AC_MSG_ERROR(This package requires Motif.)
-fi
+AC_ARG_ENABLE(gui,
+	[AS_HELP_STRING([--enable-gui=auto], [Select GUI: motif, athena or auto])],
+	[gui="$enableval"], [gui=auto])
+LIBGUI=
+AS_IF([test "x$gui" = xauto],
+	[AC_CHECK_LIB([Xaw],  [XawAsciiSave],
+		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt -lXext"])
+		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
+		],
+		[AC_CHECK_LIB([Xm],  [XmStringFree],
+			[AC_SUBST([LIBGUI], ["-lXm"])
+			 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
+			],
+			[
+			])
+		])
+	],
+      [test "x$gui" = xathena],
+	[AC_CHECK_LIB([Xaw],  [XawAsciiSave],
+		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt -lXext"])
+		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
+		],
+	],
+      [test "x$gui" = xmotif],
+	[AC_CHECK_LIB([Xm],  [XmStringFree],
+		[AC_SUBST([LIBGUI], ["-lXm"])
+		 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
+		],
+	]
+)
+
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
