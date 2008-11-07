@@ -14,9 +14,17 @@
 #ifdef VMS
 #include "sys$library:string.h"
 #else
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
 #endif
-#include XITE_MALLOC_H
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 LFUNC(WriteData, int, (xpmData * mdata,
 		    xpmInternAttrib * attrib, XpmAttributes * attributes));

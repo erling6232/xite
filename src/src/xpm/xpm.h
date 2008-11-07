@@ -19,7 +19,9 @@
 #else
 #include <X11/Xlib.h>
 #include <X11/Intrinsic.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #endif
 
 /* we keep the same codes as for Bitmap management */

@@ -17,7 +17,9 @@
 #else
 #include <ctype.h>
 #endif
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 LFUNC(SetColor, int, (Display * display, Colormap colormap, char *colorname,
 		      unsigned int color_index, Pixel * image_pixel,

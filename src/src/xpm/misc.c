@@ -10,7 +10,9 @@
 
 #include <xite/includes.h>
 #include "xpmP.h"
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 /*
  * Free the computed color table
