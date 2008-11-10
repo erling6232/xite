@@ -46,16 +46,36 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "Xcontrol.h"
 #include <xite/Xdialog.h>
 #include "xshow.h"
-#include XITE_STDIO_H
-#include XITE_UNISTD_H
-#include XITE_FILE_H
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/Xpty.h>
 #include <xite/utils.h>
 #include "Macro.h"
 #include <xite/debug.h>
-#include XITE_PARAM_H
+#ifdef HAVE_SYS_PARAM_H
+#  include <sys/param.h>
+#endif
 #include <xite/strings.h>
 
 #define NOT_EXPECTING 0
@@ -148,12 +168,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int String_is_duplicate(string, strings)
-char *string, *strings;
-#else /* FUNCPROTO */
 static int String_is_duplicate(char *string, char *strings)
-#endif /* FUNCPROTO */
 {
   char *next_string;
   
@@ -180,13 +195,7 @@ static int String_is_duplicate(char *string, char *strings)
 
 } /* String_is_duplicate() */
 
-#ifndef FUNCPROTO
-void Init_prog(filename, envir_also)
-char *filename;
-int envir_also;
-#else /* FUNCPROTO */
 void Init_prog(char *filename, int envir_also)
-#endif /* FUNCPROTO */
 {
   char *flist = NULL, *frc = NULL, *fmen = NULL, *fname = NULL;
 
@@ -221,12 +230,7 @@ void Init_prog(char *filename, int envir_also)
 
 
 
-#ifndef FUNCPROTO
-int ProgOpen(prog)
-program *prog;
-#else /* FUNCPROTO */
 int ProgOpen(program *prog)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xprog.c: ProgOpen");
 
@@ -246,12 +250,7 @@ int ProgOpen(program *prog)
   return(0);
 }
 
-#ifndef FUNCPROTO
-int ProgClose(prog)
-program *prog;
-#else /* FUNCPROTO */
 int ProgClose(program *prog)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xprog.c: ProgClose");
 
@@ -273,12 +272,7 @@ int ProgClose(program *prog)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static int ReadImage(prog)
-program *prog;
-#else /* FUNCPROTO */
 static int  ReadImage(program *prog)
-#endif /* FUNCPROTO */
 {
   int status, mess;
 
@@ -302,12 +296,7 @@ static int  ReadImage(program *prog)
   return(status);
 }
 
-#ifndef FUNCPROTO
-static char *parseCode(code)
-char *code;
-#else /* FUNCPROTO */
 static char *parseCode(char *code)
-#endif /* FUNCPROTO */
 {
   if (!strncmp(code,XTERMOUT,strlen(XTERMOUT)))         return(XTERMOUT);
   if (!strncmp(code,XSHOWINFILE,strlen(XSHOWINFILE)))   return(XSHOWINFILE);
@@ -334,12 +323,7 @@ static char *parseCode(char *code)
 
 } /* parseCode() */
 
-#ifndef FUNCPROTO
-static void filterDialogReturn(return_text, out, start)
-char *return_text, **out, *start;
-#else /* FUNCPROTO */
 static void filterDialogReturn(char *return_text, char **out, char *start)
-#endif /* FUNCPROTO */
 {
   /* Filter out everything between matching pairs of '#'.
    * This is only necessary for old-style dialogs, those which CallDialog()
@@ -370,12 +354,7 @@ static void filterDialogReturn(char *return_text, char **out, char *start)
 
 } /* filterDialogReturn() */
 
-#ifndef FUNCPROTO
-static int processDialog(in, out, start)
-char **in, **out, *start;
-#else /* FUNCPROTO */
 static int processDialog(char **in, char **out, char *start)
-#endif /* FUNCPROTO */
 {
   char *input, *dialog_name, *return_text, *command_name;
   int status;
@@ -413,12 +392,7 @@ static int processDialog(char **in, char **out, char *start)
 
 } /* processDialog() */
 
-#ifndef FUNCPROTO
-static int processCode(in, out, start)
-char **in, **out, *start;
-#else /* FUNCPROTO */
 static int processCode(char **in, char **out, char *start)
-#endif /* FUNCPROTO */
 {
   /* Start of a menu-file code. */
 
@@ -480,14 +454,7 @@ static int processCode(char **in, char **out, char *start)
 
 } /* processCode() */
 
-#ifndef FUNCPROTO
-static void substEnv(vec, vnr, macro_item)
-char **vec;
-macroItemPtr *macro_item;
-int vnr;
-#else /* FUNCPROTO */
 static void substEnv(char **vec, int vnr, macroItemPtr *macro_item)
-#endif /* FUNCPROTO */
 {
   int i;
   char *env, *tmp;
@@ -520,12 +487,7 @@ static void substEnv(char **vec, int vnr, macroItemPtr *macro_item)
 
 } /* substEnv() */
 
-#ifndef FUNCPROTO
-void Start_program(client_data)
-char * client_data;
-#else /* FUNCPROTO */
 void Start_program(char *client_data)
-#endif /* FUNCPROTO */
 {
   char *qmark, data[1024], *entry, *tmp;
   char *vec[132];
@@ -641,15 +603,7 @@ void Start_program(char *client_data)
 
 
 
-#ifndef FUNCPROTO
-int Prog_button(wid, img, band, button, xo, yo, xw, yw)
-Widget wid;
-IMAGE img;
-IBAND band;
-int button, xo, yo, xw, yw;
-#else /* FUNCPROTO */
 int Prog_button(Widget wid, IMAGE img, IBAND band, int button, int xo, int yo, int xw, int yw)
-#endif /* FUNCPROTO */
 {
   char name[6];
   int x, y;
@@ -710,13 +664,7 @@ int Prog_button(Widget wid, IMAGE img, IBAND band, int button, int xo, int yo, i
 
 
 
-#ifndef FUNCPROTO
-void Prog_mouse(wid, c_data, call_data)
-Widget wid;
-XtPointer c_data, call_data;
-#else /* FUNCPROTO */
 extern void Prog_mouse(Widget wid, XtPointer c_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xprog.c: Prog_mouse");
 

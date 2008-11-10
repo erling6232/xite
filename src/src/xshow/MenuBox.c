@@ -46,13 +46,11 @@ SOFTWARE.
 #include "MenuCommand.h"
 #include <xite/debug.h>
 #include <xite/ShellWids.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
-#ifndef FUNCPROTO
-static void ChangeManaged();
-#else /* FUNCPROTO */
 static void ChangeManaged(Widget w);
-#endif /* FUNCPROTO */
 
 static Dimension defVSpace = 1;
 
@@ -62,11 +60,7 @@ static XtResource resources[] = {
 	          (XtPointer) &defVSpace },
 };
 
-#ifndef FUNCPROTO
-static void ChangeEntry();
-#else /* FUNCPROTO */
 static void ChangeEntry(Widget wid, XEvent *event, String *params, Cardinal *num_params);
-#endif /* FUNCPROTO */
 
 static XtActionsRec actionsList[] = {
   {"change_entry",       ChangeEntry},
@@ -131,15 +125,7 @@ WidgetClass menuboxWidgetClass = (WidgetClass)&menuboxClassRec;
  *
  ****************************************************************/
 
-#ifndef FUNCPROTO
-static void ChangeEntry(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void ChangeEntry(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget child, menBox, menShell;
   int root_x, root_y, win_x, win_y, child_num, found_child = -1, direction;
@@ -231,15 +217,7 @@ static void ChangeEntry(Widget wid, XEvent *event, String *params, Cardinal *num
 
 } /* ChangeEntry() */
 
-#ifndef FUNCPROTO
-static void accLabel(wid, lab_width, acc_lab, acc_lab_width, font)
-Widget wid;
-char **acc_lab;
-int *lab_width, *acc_lab_width;
-XFontStruct **font;
-#else /* FUNCPROTO */
 static void accLabel(Widget wid, int *lab_width, char **acc_lab, int *acc_lab_width, XFontStruct **font)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("MenuBox.c: accLabel");
 
@@ -276,14 +254,7 @@ static void accLabel(Widget wid, int *lab_width, char **acc_lab, int *acc_lab_wi
 
 } /* accLabel() */
 
-#ifndef FUNCPROTO
-static void modLabel(wid, width, max_lab_width, max_acc_width)
-Widget wid;
-Dimension width;
-int max_lab_width, max_acc_width;
-#else /* FUNCPROTO */
 static void modLabel(Widget wid, Dimension width, int max_lab_width, int max_acc_width)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("MenuBox.c: modLabel");
 
@@ -336,12 +307,7 @@ don't bother.
 
 /* ARGSUSED */
 static void
-#ifndef FUNCPROTO
-ChangeManaged(w)
-	Widget w;
-#else /* FUNCPROTO */
 ChangeManaged(Widget w)
-#endif /* FUNCPROTO */
 {
   int j, lab_width, acc_width, max_lab_width, max_acc_width;
   Dimension width = 0, internal_width;

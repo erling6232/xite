@@ -36,10 +36,14 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 
 
 #include <xite/includes.h>
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <stdlib.h>
 #include <sys/wait.h>
-#include XITE_PARAM_H
+#ifdef HAVE_SYS_PARAM_H
+#  include <sys/param.h>
+#endif
 #include <errno.h>
 #include <ctype.h>
 #include <xite/biff.h>
@@ -48,10 +52,24 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "Xcontrol.h"
 #include <xite/Xcolor.h>
 #include "Xdisplay.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/utils.h>
-#include XITE_STRING_H
-#include XITE_FILE_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
 #include <X11/Xlib.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -70,7 +88,9 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "Macro.h"
 #include <xite/message.h>
 #include <xite/debug.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 
 #define CW XtCreateManagedWidget
 #define VW XtVaCreateManagedWidget
@@ -91,21 +111,9 @@ static int
 
 
 
-#ifdef FUNCPROTO
 void HelpXshow(Widget wid, XtPointer c_data, XtPointer call_data);
-#else
-void HelpXshow(/* Widget wid, XtPointer c_data, XtPointer call_data */);
-#endif /* FUNCPROTO */
 
-#ifndef FUNCPROTO
-static void MessageAction(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void MessageAction(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   int width, height;
   float zoom;
@@ -150,13 +158,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void cbHandler(wid, closure, call_data)
-Widget wid;
-XtPointer closure, call_data;
-#else /* FUNCPROTO */
 static void cbHandler(Widget wid, XtPointer closure, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   PopMessage();
   Message(2, "xshow aborted ...\n");
@@ -166,15 +168,7 @@ static void cbHandler(Widget wid, XtPointer closure, XtPointer call_data)
 
 
 
-#ifndef FUNCPROTO
-static void quit_xshow(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_xshow(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xcontrol.c: quit_xshow");
@@ -204,11 +198,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void Init_control()
-#else /* FUNCPROTO */
 void Init_control(void)
-#endif /* FUNCPROTO */
 {
   Widget w[4];
   Dimension ww, wm, Mw, Cw, Iw, Mh;
@@ -348,12 +338,7 @@ void Init_control(void)
 
 
 
-#ifndef FUNCPROTO
-void Message_images(delta)
-int delta;
-#else /* FUNCPROTO */
 void Message_images(int delta)
-#endif /* FUNCPROTO */
 {
   static char mess[20];
   Dimension w;
@@ -364,12 +349,7 @@ void Message_images(int delta)
   XtVaSetValues(Images_s, XtNlabel, mess, XtNwidth, w, NULL);
 }
 
-#ifndef FUNCPROTO
-void Message_jobs(delta)
-int delta;
-#else /* FUNCPROTO */
 void Message_jobs(int delta)
-#endif /* FUNCPROTO */
 {
   static char mess[20];
   Dimension w;
@@ -380,12 +360,7 @@ void Message_jobs(int delta)
   XtVaSetValues(Jobs_s, XtNlabel, mess, XtNwidth, w, NULL);
 }
 
-#ifndef FUNCPROTO
-void Message_mouse(state)
-char *state;
-#else /* FUNCPROTO */
 void Message_mouse(char *state)
-#endif /* FUNCPROTO */
 {
   Cardinal arg_cnt;
   Dimension w;
@@ -403,12 +378,7 @@ void Message_mouse(char *state)
 		XtNsensitive, mouse_s, NULL); 
 }
 
-#ifndef FUNCPROTO
-void Message_name(name)
-char *name;
-#else /* FUNCPROTO */
 void Message_name(char *name)
-#endif /* FUNCPROTO */
 {
   static char mess[80];
   Dimension w;
@@ -418,12 +388,7 @@ void Message_name(char *name)
   XtVaSetValues(Name_s, XtNlabel, mess, XtNwidth, w, NULL);
 }
 
-#ifndef FUNCPROTO
-void Message_zoom(f, zoom)
-double f, zoom;
-#else /* FUNCPROTO */
 void Message_zoom(double f, double zoom)
-#endif /* FUNCPROTO */
 {
   static char mess[80];
   Dimension w;
@@ -434,12 +399,7 @@ void Message_zoom(double f, double zoom)
   XtVaSetValues(Zoom_s, XtNlabel, mess, XtNwidth, w, NULL);
 }
 
-#ifndef FUNCPROTO
-void Message_size(x, y)
-int x, y;
-#else /* FUNCPROTO */
 void Message_size(int x, int y)
-#endif /* FUNCPROTO */
 {
   static char mess[80];
   Dimension w;
@@ -451,12 +411,7 @@ void Message_size(int x, int y)
   XtVaSetValues(Pos_s, XtNlabel, mess, XtNwidth, w, NULL);
 }
 
-#ifndef FUNCPROTO
-void Message_roi(x, y, w, h)
-int x, y, w, h;
-#else /* FUNCPROTO */
 void Message_roi(int x, int y, int w, int h)
-#endif /* FUNCPROTO */
 {
   static char mess[80];
   Dimension ww;
@@ -468,13 +423,7 @@ void Message_roi(int x, int y, int w, int h)
 
 
 
-#ifndef FUNCPROTO
-int MessageToWidget(id, message)
-int id;
-char *message;
-#else /* FUNCPROTO */
 int MessageToWidget(int id, char *message)
-#endif /* FUNCPROTO */
 {
   char *buffer;
 
@@ -496,13 +445,7 @@ int MessageToWidget(int id, char *message)
 
 } /* MessageToWidget() */
 
-#ifndef FUNCPROTO
-int MessageToStdout(id, fmt)
-int id;
-char *fmt;
-#else /* FUNCPROTO */
 int MessageToStdout(int id, char *fmt)
-#endif /* FUNCPROTO */
 {
   char *buffer;
 
@@ -517,12 +460,7 @@ int MessageToStdout(int id, char *fmt)
 
 
 
-#ifndef FUNCPROTO
-static int startHelper(browser, option, html_filename, URL)
-char *browser, *option, *html_filename, *URL;
-#else /* FUNCPROTO */
 static int startHelper(char *browser, char *option, char *html_filename, char *URL)
-#endif /* FUNCPROTO */
 {
   int errNo;
 
@@ -588,12 +526,7 @@ static int startHelper(char *browser, char *option, char *html_filename, char *U
 
 } /* startHelper() */
 
-#ifndef FUNCPROTO
-static void getHelperEnv(xiteHelper, helperOption, html_filename, URL, cat_filename)
-char **xiteHelper, **helperOption, **html_filename, **URL, **cat_filename;
-#else /* FUNCPROTO */
 static void getHelperEnv(char **xiteHelper, char **helperOption, char **html_filename, char **URL, char **cat_filename)
-#endif /* FUNCPROTO */
 {
   *xiteHelper   = getenv("XITE_HELPER");
   if (*xiteHelper == NULL && xiteHelper_e != NULL)
@@ -627,13 +560,7 @@ static void getHelperEnv(char **xiteHelper, char **helperOption, char **html_fil
 
 } /* getHelperEnv() */
 
-#ifndef FUNCPROTO
-static int checkHelper(browser, option, html_filename, cat_filename, attempt)
-char *browser, **option, *html_filename, **cat_filename;
-int attempt;
-#else /* FUNCPROTO */
 static int checkHelper(char *browser, char **option, char *html_filename, char **cat_filename, int attempt)
-#endif /* FUNCPROTO */
 {
   if (browser == NULL && attempt == 1) {
     Warning(1, "No help program specified.\n");
@@ -672,13 +599,7 @@ static int checkHelper(char *browser, char **option, char *html_filename, char *
 
 } /* checkHelper() */
 
-#ifndef FUNCPROTO
-static pid_t runHelperChild(browser, option, html_filename, URL, fd)
-char *browser, *option, *html_filename, *URL;
-int fd[];
-#else /* FUNCPROTO */
 static pid_t runHelperChild(char *browser, char *option, char *html_filename, char *URL, int fd[])
-#endif /* FUNCPROTO */
 {
   pid_t pid;
 
@@ -754,12 +675,7 @@ static pid_t runHelperChild(char *browser, char *option, char *html_filename, ch
 
 } /* runHelperChild() */
 
-#ifndef FUNCPROTO
-static int checkHelperSuccess(fd)
-int fd[];
-#else /* FUNCPROTO */
 static int checkHelperSuccess(int fd[])
-#endif /* FUNCPROTO */
 {
   char  ptr[MAXPATHLEN], browser[MAXPATHLEN];
   int   n, ok = 1;
@@ -878,13 +794,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-void HelpXshow(wid, c_data, call_data)
-Widget wid;
-XtPointer c_data, call_data;
-#else /* FUNCPROTO */
 void HelpXshow(Widget wid, XtPointer c_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   pid_t pid;
   char *browser = NULL, *option = NULL,

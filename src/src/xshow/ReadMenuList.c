@@ -35,9 +35,19 @@ ________________________________________________________________
 #include <xite/debug.h>
 #include <xite/message.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_MALLOC_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <xite/utils.h>
 #include <xite/strings.h>
 
@@ -75,13 +85,7 @@ static dialog_entry *dialog_list_s = NULL;
 static char         submenu_indicator_s[4] = "...";
 static menu         *toplevel_s = NULL;
 
-#ifndef FUNCPROTO
-static void Make_submenu(menuname, current)
-char *menuname;
-menu **current;
-#else /* FUNCPROTO */
 static void Make_submenu(char *menuname, menu **current)
-#endif /* FUNCPROTO */
 {
   menu *new;
   char *ptr, *com;
@@ -118,13 +122,7 @@ static void Make_submenu(char *menuname, menu **current)
 } /* Make_submenu() */
 
 
-#ifndef FUNCPROTO
-static void Make_menuentry(entryname, item, current)
-char *entryname, *item;
-menu *current;
-#else /* FUNCPROTO */
 static void Make_menuentry(char *entryname, char *item, menu *current)
-#endif /* FUNCPROTO */
 {
   char *com, *ptr;
   menu *men_entry;
@@ -152,13 +150,7 @@ static void Make_menuentry(char *entryname, char *item, menu *current)
 
 } /* Make_menuentry() */
 
-#ifndef FUNCPROTO
-static void Make_menumenu(entryname, current)
-char *entryname;
-menu **current;
-#else /* FUNCPROTO */
 static void Make_menumenu(char *entryname, menu **current)
-#endif /* FUNCPROTO */
 {
   char *com, *ptr;
   menu *men = NULL;
@@ -189,13 +181,7 @@ static void Make_menumenu(char *entryname, menu **current)
 
 } /* Make_menumenu() */
 
-#ifndef FUNCPROTO
-static void Make_menuline(entryname, current)
-char *entryname;
-menu *current;
-#else /* FUNCPROTO */
 static void Make_menuline(char *entryname, menu *current)
-#endif /* FUNCPROTO */
 {
   menu *men_entry;
 
@@ -216,13 +202,7 @@ static void Make_menuline(char *entryname, menu *current)
 
 } /* Make_menuline() */
 
-#ifndef FUNCPROTO
-static int Make_dialog(name, menu_file)
-char *name;
-FILE *menu_file;
-#else /* FUNCPROTO */
 static int Make_dialog(char *name, FILE *menu_file)
-#endif /* FUNCPROTO */
 {
   char buf[5000], *tmp;
   int len, tot, line_num;
@@ -286,12 +266,7 @@ static int Make_dialog(char *name, FILE *menu_file)
 
 } /* Make_dialog() */
 
-#ifndef FUNCPROTO
-static entry_type EntryType(buf)
-char *buf;
-#else /* FUNCPROTO */
 static entry_type EntryType(char *buf)
-#endif /* FUNCPROTO */
 {
 
   if (buf[0] == ':') return(SUBMENU);
@@ -305,13 +280,7 @@ static entry_type EntryType(char *buf)
 
 } /* EntryType() */
 
-#ifndef FUNCPROTO
-static entry_type interpret_line(buf, entry_start, entry_end, command_start, line_end)
-char *buf;
-int *entry_start, *entry_end, *command_start, *line_end;
-#else /* FUNCPROTO */
 static entry_type interpret_line(char *buf, int *entry_start, int *entry_end, int *command_start, int *line_end)
-#endif /* FUNCPROTO */
 {
   int first1, first2, last1, last2;
   entry_type kind;
@@ -372,12 +341,7 @@ static entry_type interpret_line(char *buf, int *entry_start, int *entry_end, in
 
 } /* interpret_line() */
 
-#ifndef FUNCPROTO
-static int Read_menulist(filename)
-char *filename;
-#else /* FUNCPROTO */
 static int Read_menulist(char *filename)
-#endif /* FUNCPROTO */
 {
   FILE *menu_file;
   char *next, *command, buf[2048];
@@ -456,12 +420,7 @@ static int Read_menulist(char *filename)
   return(0);
 }
 
-#ifndef FUNCPROTO
-static void Init_menu(filename)
-char *filename;
-#else /* FUNCPROTO */
 static void Init_menu(char *filename)
-#endif /* FUNCPROTO */
 {
   char *fname, *fname2 = NULL;
 
@@ -478,13 +437,7 @@ static void Init_menu(char *filename)
 
 } /* Init_menu() */
 
-#ifndef FUNCPROTO
-static void Print_menu(ptr, file)
-menu *ptr;
-FILE *file;
-#else /* FUNCPROTO */
 static void Print_menu(menu *ptr, FILE *file)
-#endif /* FUNCPROTO */
 {
   menu **menP;
   char index_filename[132];
@@ -565,12 +518,7 @@ static void Print_menu(menu *ptr, FILE *file)
 
 } /* Print_menu() */
   
-#ifndef FUNCPROTO
-static void Print_menus(filename)
-char *filename;
-#else /* FUNCPROTO */
 static void Print_menus(char *filename)
-#endif /* FUNCPROTO */
 {
   menu *men;
   FILE *file = NULL;
@@ -610,13 +558,7 @@ static void Print_menus(char *filename)
 
 } /* Print_menus() */
 
-#ifdef FUNCPROTO
 int main(int argc, char **argv)
-#else
-int main(argc, argv)
-int argc;
-char **argv;
-#endif
 {
   int dump = 0, prnt = 0;
 

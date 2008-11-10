@@ -39,13 +39,27 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/StringDefs.h>
 #include <stdlib.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/message.h>
 #include <xite/Xdialog.h>
 #include <xite/FormDialog.h>
 #include "Xbuild_menu.h"
-#include XITE_STRING_H
-#include XITE_FILE_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
 #include <ctype.h>
 #include <X11/Xlib.h>
 #include <X11/Xos.h>
@@ -60,19 +74,17 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "MenuBox.h"
 #include <xite/ShellWids.h>
 #include "Xprog.h"
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 #include <xite/utils.h>
 #include <xite/strings.h>
 #include <xite/debug.h>
 
 
 
-#ifndef FUNCPROTO
-static void select_menu(), select_entry();
-#else /* FUNCPROTO */
 static void select_menu(Widget w, XtPointer client_data, XtPointer call_data);
 static void select_entry(Widget w, XtPointer client_data, XtPointer call_data);
-#endif /* FUNCPROTO */
 
 typedef struct _dialog_entry {
    char *name;
@@ -137,12 +149,7 @@ static keptMenu kept_tail_s = {
   NULL
 };
 
-#ifndef FUNCPROTO
-static void InitKeptMenu(kept)
-keptMenuP *kept;
-#else /* FUNCPROTO */
 static void InitKeptMenu(keptMenuP *kept)
-#endif /* FUNCPROTO */
 {
   *kept = XtNew(keptMenu);
   (*kept)->name = NULL;
@@ -151,12 +158,7 @@ static void InitKeptMenu(keptMenuP *kept)
 
 } /* InitKeptMenu() */
 
-#ifndef FUNCPROTO
-static keptMenuP NewKeptMenu(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static keptMenuP NewKeptMenu(Widget wid)
-#endif /* FUNCPROTO */
 {
   char *t;
   keptMenuP p;
@@ -174,12 +176,7 @@ static keptMenuP NewKeptMenu(Widget wid)
 
 } /* NewKeptMenu() */
 
-#ifndef FUNCPROTO
-static int Find_kept_menu(kept, after)
-keptMenuP kept, *after;
-#else /* FUNCPROTO */
 static int Find_kept_menu(keptMenuP kept, keptMenuP *after)
-#endif /* FUNCPROTO */
 {
   keptMenuP p, pp;
 
@@ -204,12 +201,7 @@ static int Find_kept_menu(keptMenuP kept, keptMenuP *after)
 
 } /* Find_kept_menu() */
 
-#ifndef FUNCPROTO
-static int Find_kept_menu_wid(wid)
-Widget wid;
-#else /* FUNCPROTO */
 static int Find_kept_menu_wid(Widget wid)
-#endif /* FUNCPROTO */
 {
 
   return(Find_kept_menu(NewKeptMenu(wid), NULL));
@@ -218,12 +210,7 @@ static int Find_kept_menu_wid(Widget wid)
 
 #define Find_kept_menu_wid(a) 0
 
-#ifndef FUNCPROTO
-static void Insert_kept_menu(after, new)
-keptMenuP after, new;
-#else /* FUNCPROTO */
 static void Insert_kept_menu(keptMenuP after, keptMenuP new)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xbuild_menu.c: Insert_kept_menu");
 
@@ -239,12 +226,7 @@ static void Insert_kept_menu(keptMenuP after, keptMenuP new)
 
 } /* Insert_kept_menu() */
 
-#ifndef FUNCPROTO
-static void Add_kept_menu(new)
-keptMenuP new;
-#else /* FUNCPROTO */
 static void Add_kept_menu(keptMenuP new)
-#endif /* FUNCPROTO */
 {
   keptMenuP p;
 
@@ -259,30 +241,17 @@ static void Add_kept_menu(keptMenuP new)
 
 static dialog_entry *dialog_list_s = NULL;
 
-#ifndef FUNCPROTO
-static void DisplayMenu();
-static void UndisplayMenu();
-static void KeepMenu();
-static void CopyMenu();
-static void quit_xshow();
-static void quit_menu();
-#else /* FUNCPROTO */
 static void DisplayMenu(Widget w, XEvent *event, String *params, Cardinal *num_params);
 static void UndisplayMenu(Widget w, XEvent *event, String *params, Cardinal *num_params);
 static void KeepMenu(Widget w, XEvent *event, String *params, Cardinal *num_params);
 static void CopyMenu(Widget w, XEvent *event, String *params, Cardinal *num_params);
 static void quit_xshow(Widget wid, XEvent *event, String *params, Cardinal *num_params);
 static void quit_menu(Widget wid, XEvent *event, String *params, Cardinal *num_params);
-#endif /* FUNCPROTO */
 
 static XtActionsRec actions[] =
 {
   /* {name, procedure}, */
-#ifndef FUNCPROTO
     {"DisplayMenu",    (XtActionProc) DisplayMenu},
-#else /* FUNCPROTO */
-    {"DisplayMenu",    (XtActionProc) DisplayMenu},
-#endif /* FUNCPROTO */
     {"UndisplayMenu",  (XtActionProc) UndisplayMenu},
     {"CopyMenu",       (XtActionProc) CopyMenu},
     {"QuitXshow",      (XtActionProc) quit_xshow},
@@ -294,16 +263,8 @@ static Display *dpy_s;
 
 
 
-#ifndef FUNCPROTO
-static void quit_menu(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_menu(Widget wid, XEvent *event, String *params, Cardinal *
 num_params)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xbuild_menu.c: quit_menu");
 
@@ -324,15 +285,7 @@ num_params)
 /* Same as static function in Xcontrol.c. Redefined here to avoid needing
  * to include Xcontrol functions in libxite.
  */
-#ifndef FUNCPROTO
-static void quit_xshow(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void quit_xshow(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 
   ENTER_FUNCTION_DEBUG("Xbuild_menu.c: quit_xshow");
@@ -346,13 +299,7 @@ static void quit_xshow(Widget wid, XEvent *event, String *params, Cardinal *num_
 
 } /* quit_xshow() */
 
-#ifndef FUNCPROTO
-static void Make_submenu(menuname, prev, next)
-Widget *prev, *next;
-char *menuname;
-#else /* FUNCPROTO */
 static void Make_submenu(char *menuname, Widget *prev, Widget *next)
-#endif /* FUNCPROTO */
 {
   Widget wid, mainForm;
 
@@ -419,13 +366,7 @@ static void Make_submenu(char *menuname, Widget *prev, Widget *next)
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: Make_submenu");
 }
 
-#ifndef FUNCPROTO
-static void dispAcc(wid, str)
-Widget wid;
-String str;
-#else /* FUNCPROTO */
 static void dispAcc(Widget wid, String str)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xbuild_menu.c: dispAcc");
 
@@ -514,13 +455,7 @@ static void dispAcc(Widget wid, String str)
 
 
 
-#ifndef FUNCPROTO
-static void Make_menuentry(entryname, command, parent)
-char *entryname, *command;
-Widget parent;
-#else /* FUNCPROTO */
 static void Make_menuentry(char *entryname, char *command, Widget parent)
-#endif /* FUNCPROTO */
 {
   char entry[500];
   int i;
@@ -547,13 +482,7 @@ static void Make_menuentry(char *entryname, char *command, Widget parent)
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: Make_menuentry");
 }
 
-#ifndef FUNCPROTO
-static void Make_menuline(entryname, parent)
-char *entryname;
-Widget parent;
-#else /* FUNCPROTO */
 static void Make_menuline(char *entryname, Widget parent)
-#endif /* FUNCPROTO */
 {
   char entry[500];
   int i;
@@ -574,13 +503,7 @@ static void Make_menuline(char *entryname, Widget parent)
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: Make_menuline");
 }
 
-#ifndef FUNCPROTO
-static void Make_menumenu(entryname, parent)
-char *entryname;
-Widget parent;
-#else /* FUNCPROTO */
 static void Make_menumenu(char *entryname, Widget parent)
-#endif /* FUNCPROTO */
 {
   char entry[500], label[500];
   int i;
@@ -622,12 +545,7 @@ typedef enum {
   COMMENT
 } entry_type;
 
-#ifndef FUNCPROTO
-static entry_type EntryType(buf)
-char *buf;
-#else /* FUNCPROTO */
 static entry_type EntryType(char *buf)
-#endif /* FUNCPROTO */
 {
 
   if (buf[0] == ':') return(SUBMENU);
@@ -641,13 +559,7 @@ static entry_type EntryType(char *buf)
 
 } /* EntryType() */
 
-#ifndef FUNCPROTO
-static entry_type interpret_line(buf, entry_start, entry_end, command_start, line_end)
-char *buf;
-int *entry_start, *entry_end, *command_start, *line_end;
-#else /* FUNCPROTO */
 static entry_type interpret_line(char *buf, int *entry_start, int *entry_end, int *command_start, int *line_end)
-#endif /* FUNCPROTO */
 {
   int first1, first2, last1, last2;
   entry_type kind;
@@ -708,12 +620,7 @@ static entry_type interpret_line(char *buf, int *entry_start, int *entry_end, in
 
 } /* interpret_line() */
 
-#ifndef FUNCPROTO
-static int find_level(w)
-Widget w;
-#else /* FUNCPROTO */
 static int find_level(Widget w)
-#endif /* FUNCPROTO */
 {
   int i = level_s;
   Widget wid;
@@ -734,15 +641,7 @@ static int find_level(Widget w)
   return(i);
 }
 
-#ifndef FUNCPROTO
-static void UndisplayMenu(w,event,params,num_params)
-     Widget w;
-     XEvent *event;
-     String *params;            /* unused */
-     Cardinal *num_params;      /* unused */
-#else /* FUNCPROTO */
 static void UndisplayMenu(Widget w, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   int nlevel;
   Dimension width, height;
@@ -792,15 +691,7 @@ static void UndisplayMenu(Widget w, XEvent *event, String *params, Cardinal *num
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: UndisplayMenu");
 }
 
-#ifndef FUNCPROTO
-static void KeepMenu(w,event,params,num_params)
-     Widget w;
-     XEvent *event;
-     String *params;            /* unused */
-     Cardinal *num_params;      /* unused */
-#else /* FUNCPROTO */
 static void KeepMenu(Widget w, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("Xbuild_menu.c: KeepMenu");
 
@@ -810,15 +701,7 @@ static void KeepMenu(Widget w, XEvent *event, String *params, Cardinal *num_para
   
 } /* KeepMenu() */
 
-#ifndef FUNCPROTO
-static void DisplayMenu(wid,event,params,num_params)
-     Widget wid;
-     XEvent *event;
-     String *params;            /* unused */
-     Cardinal *num_params;      /* unused */
-#else /* FUNCPROTO */
 static void DisplayMenu(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Dimension width;
   char *label, labelCpy[132], *label_extension;
@@ -897,15 +780,7 @@ static void DisplayMenu(Widget wid, XEvent *event, String *params, Cardinal *num
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: DisplayMenu");
 }
 
-#ifndef FUNCPROTO
-static void CopyMenu(wid, event, params, num_params)
-Widget wid;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void CopyMenu(Widget wid, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
   Widget menShell, menBox, newMenu, newBox, child, child2;
   Cardinal num_children;
@@ -1047,14 +922,7 @@ static void CopyMenu(Widget wid, XEvent *event, String *params, Cardinal *num_pa
 
 
 
-#ifndef FUNCPROTO
-static void select_menu(sub_btn, client_data, call_data)
-Widget sub_btn;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void select_menu(Widget sub_btn, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   Widget sub_menu;
   XEvent *event = (XEvent *) call_data;
@@ -1148,14 +1016,7 @@ static void select_menu(Widget sub_btn, XtPointer client_data, XtPointer call_da
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: select_menu");
 }
 
-#ifndef FUNCPROTO
-static void select_entry(w, client_data, call_data)
-Widget w;
-XtPointer client_data;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void select_entry(Widget w, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   int i;
 
@@ -1183,13 +1044,7 @@ static void select_entry(Widget w, XtPointer client_data, XtPointer call_data)
   LEAVE_FUNCTION_DEBUG("Xbuild_menu.c: select_entry");
 }
 
-#ifndef FUNCPROTO
-static int Make_dialog(name, menu)
-char *name;
-FILE *menu;
-#else /* FUNCPROTO */
 static int Make_dialog(char *name, FILE *menu)
-#endif /* FUNCPROTO */
 {
   char buf[5000], *tmp;
   int len, tot, line_num;
@@ -1261,12 +1116,7 @@ static int Make_dialog(char *name, FILE *menu)
       
 
 
-#ifndef FUNCPROTO
-static int Read_menulist(filename)
-char *filename;
-#else /* FUNCPROTO */
 static int Read_menulist(char *filename)
-#endif /* FUNCPROTO */
 {
   FILE *menu;
   char *next, *command, buf[2048];
@@ -1380,13 +1230,7 @@ static int Read_menulist(char *filename)
 
 } /* Read_menulist() */
 
-#ifndef FUNCPROTO
-void Init_menu(filename, menuname, parent)
-  char *filename, *menuname;
-  Widget parent;
-#else /* FUNCPROTO */
 void Init_menu(char *filename, char *menuname, Widget parent)
-#endif /* FUNCPROTO */
 {
   char *fname, *fname2 = NULL;
 
@@ -1451,12 +1295,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int type_of_dialog(dialog)
-char *dialog;
-#else /* FUNCPROTO */
 static int type_of_dialog(char *dialog)
-#endif /* FUNCPROTO */
 {
   char *d, *p;
   int found = 0;
@@ -1476,12 +1315,7 @@ static int type_of_dialog(char *dialog)
 
 } /* type_of_dialog() */
 
-#ifndef FUNCPROTO
-int CallDialog(dialog_name, command_name, return_txt)
-char *dialog_name, *command_name, **return_txt;
-#else /* FUNCPROTO */
 int CallDialog(char *dialog_name, char *command_name, char **return_txt)
-#endif /* FUNCPROTO */
 {
   int status;
   dialog_entry *entry;

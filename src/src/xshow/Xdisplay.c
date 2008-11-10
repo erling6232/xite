@@ -50,7 +50,9 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/ximage.h>
 #include <xite/logPos.h>
 #include "Macro.h"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <xite/debug.h>
 
 /* External global variables. */
@@ -65,13 +67,7 @@ static IBAND lastband_s = NULL;
 
 
 
-#ifndef FUNCPROTO
-static void Button_prog(wid, client_data, btn)
-Widget wid;
-XtPointer client_data, btn;
-#else /* FUNCPROTO */
 static void Button_prog(Widget wid, XtPointer client_data, XtPointer btn)
-#endif /* FUNCPROTO */
 {
   ImageCallback button = (ImageCallback) btn;
 
@@ -84,13 +80,7 @@ static void Button_prog(Widget wid, XtPointer client_data, XtPointer btn)
 
 } /* Button_prog() */
 
-#ifndef FUNCPROTO
-static void Roi(wid, client_data, btn)
-Widget wid;
-XtPointer client_data, btn;
-#else /* FUNCPROTO */
 static void Roi(Widget wid, XtPointer client_data, XtPointer btn)
-#endif /* FUNCPROTO */
 {
   int w, h;
   ImageOverlayCallback button = (ImageOverlayCallback) btn;
@@ -112,13 +102,7 @@ static void Roi(Widget wid, XtPointer client_data, XtPointer btn)
 
 } /* Roi() */
 
-#ifndef FUNCPROTO
-static void MRoi(wid, client_data, btn)
-Widget wid;
-XtPointer client_data, btn;
-#else /* FUNCPROTO */
 static void MRoi(Widget wid, XtPointer client_data, XtPointer btn)
-#endif /* FUNCPROTO */
 {
   ImageOverlayCallback button = (ImageOverlayCallback) btn;
 
@@ -131,13 +115,7 @@ static void MRoi(Widget wid, XtPointer client_data, XtPointer btn)
 
 } /* MRoi() */
 
-#ifndef FUNCPROTO
-static void decrease_image_num(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 static void decrease_image_num(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 
   Message_images(-1);
@@ -146,12 +124,7 @@ static void decrease_image_num(Widget wid, XtPointer client_data, XtPointer call
 
 
 
-#ifndef FUNCPROTO
-int Add_overlay(img)
-IMAGE img;
-#else /* FUNCPROTO */
 int Add_overlay(IMAGE img)
-#endif /* FUNCPROTO */
 {
   IBAND band;
 
@@ -175,14 +148,7 @@ int Add_overlay(IMAGE img)
 
 } /* Add_overlay() */
 
-#ifndef FUNCPROTO
-int Display_picture(img, visual, depth)
-IMAGE img;
-Visual *visual;
-int depth;
-#else /* FUNCPROTO */
 int Display_picture(IMAGE img, Visual *visual, int depth)
-#endif /* FUNCPROTO */
 {
   Widget imageShell;
   IBAND rband = NULL;

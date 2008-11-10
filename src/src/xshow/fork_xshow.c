@@ -37,9 +37,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/biff.h>
-#include XITE_STDIO_H
-#include XITE_FORK_H
-#include XITE_UNISTD_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_VFORK_H
+# include <vfork.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/arithmetic.h>
 #include <xite/fork_xshow.h>
 
@@ -86,12 +92,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-pid_t start_xshow(pipe_io)
-int *pipe_io;
-#else /* FUNCPROTO */
 pid_t start_xshow(int *pipe_io)
-#endif /* FUNCPROTO */
 {
   int status;
   pid_t child = 0;
@@ -171,13 +172,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int main(argc, argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   char *args; /* To hold input arguments. */
   char buf[50];

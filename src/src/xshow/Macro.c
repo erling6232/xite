@@ -35,15 +35,29 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <stdlib.h>
 #include <errno.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include <X11/cursorfont.h>
-#include XITE_STAT_H
-#include XITE_TIME_H
-#include XITE_UNISTD_H
-#include XITE_MKTEMP_H
+#ifdef HAVE_SYS_STAT_H
+#  include <sys/stat.h>
+#endif
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
+#include <stdlib.h>
 #include "Macro.h"
 #include <Xfwf/Toggle.h>
 #include <xite/ShellWids.h>
@@ -52,7 +66,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/debug.h>
 #include <xite/utils.h>
 #include <xite/strings.h>
-#include XITE_PARAM_H
+#ifdef HAVE_SYS_PARAM_H
+#  include <sys/param.h>
+#endif
 #include "Xprog.h"
 
 extern char *menufilename_e;  /* If non-NULL, don't read
@@ -70,12 +86,7 @@ static FILE *logfile_s;
 static char *logfileName_s                = NULL;
 static char *file_args_s                  = NULL;
 
-#ifndef FUNCPROTO
-void Add_macro_entry(entry)
-macroEntryPtr entry;
-#else /* FUNCPROTO */
 void Add_macro_entry(macroEntryPtr entry)
-#endif /* FUNCPROTO */
 {
   macroEntryPtr p;
 
@@ -95,11 +106,7 @@ void Add_macro_entry(macroEntryPtr entry)
   }
 } /* Add_macro_entry() */
 
-#ifndef FUNCPROTO
-void Remove_current_entry()
-#else /* FUNCPROTO */
 void Remove_current_entry(void)
-#endif /* FUNCPROTO */
 {
   if (make_macro_e == 0) return;
 
@@ -125,13 +132,7 @@ void Remove_current_entry(void)
 
 } /* Remove_current_entry() */
 
-#ifndef FUNCPROTO
-void Add_macro_item(entry, item)
-macroEntryPtr entry;
-macroItemPtr item;
-#else /* FUNCPROTO */
 void Add_macro_item(macroEntryPtr entry, macroItemPtr item)
-#endif /* FUNCPROTO */
 {
   macroItemPtr p;
 
@@ -146,13 +147,7 @@ void Add_macro_item(macroEntryPtr entry, macroItemPtr item)
 
 } /* Add_macro_item() */
 
-#ifndef FUNCPROTO
-void Add_macro_widget(entry, wid)
-macroEntryPtr entry;
-Widget wid;
-#else /* FUNCPROTO */
 void Add_macro_widget(macroEntryPtr entry, Widget wid)
-#endif /* FUNCPROTO */
 {
   macroItemPtr p;
 
@@ -172,13 +167,7 @@ void Add_macro_widget(macroEntryPtr entry, Widget wid)
 
 } /* Add_macro_widget() */
 
-#ifndef FUNCPROTO
-static void CheckItem(itemPrev, itemP, found)
-macroItemPtr itemPrev, itemP;
-int *found;
-#else /* FUNCPROTO */
 static void CheckItem(macroItemPtr itemPrev, macroItemPtr itemP, int *found)
-#endif /* FUNCPROTO */
 {
   /* Check if itemPrev has the same widget reference as the input item itemP.
    */
@@ -202,14 +191,7 @@ static void CheckItem(macroItemPtr itemPrev, macroItemPtr itemP, int *found)
   }
 } /* CheckItem() */
 
-#ifndef FUNCPROTO
-static void CheckEntry(entryP, itemP, found)
-macroEntryPtr entryP;
-macroItemPtr  itemP;
-int *found;
-#else /* FUNCPROTO */
 static void CheckEntry(macroEntryPtr entryP, macroItemPtr itemP, int *found)
-#endif /* FUNCPROTO */
 {
   /* Search for an output item with the same widget reference as the input
    * item itemP.
@@ -227,13 +209,7 @@ static void CheckEntry(macroEntryPtr entryP, macroItemPtr itemP, int *found)
 
 } /* CheckEntry() */
 
-#ifndef FUNCPROTO
-static void MateItem(entryP, itemP)
-macroEntryPtr entryP;
-macroItemPtr  itemP;
-#else /* FUNCPROTO */
 static void MateItem(macroEntryPtr entryP, macroItemPtr itemP)
-#endif /* FUNCPROTO */
 {
   /* Check if this input item comes from a previous output. */
 
@@ -249,12 +225,7 @@ static void MateItem(macroEntryPtr entryP, macroItemPtr itemP)
 
 } /* MateItem() */
 
-#ifndef FUNCPROTO
-static void FindMates(entryP)
-macroEntryPtr entryP;
-#else /* FUNCPROTO */
 static void FindMates(macroEntryPtr entryP)
-#endif /* FUNCPROTO */
 {
   macroItemPtr itemP;
   char *tmpFileName;
@@ -295,11 +266,7 @@ static void FindMates(macroEntryPtr entryP)
 
 } /* FindMates() */
 
-#ifndef FUNCPROTO
-static void FindAllMates()
-#else /* FUNCPROTO */
 static void FindAllMates(void)
-#endif /* FUNCPROTO */
 {
   macroEntryPtr entryP;
 
@@ -314,13 +281,7 @@ static void FindAllMates(void)
 
 } /* FindAllMates() */
 
-#ifndef FUNCPROTO
-static void AssignVarNumber(itemP, var_num)
-macroItemPtr itemP;
-int *var_num;
-#else /* FUNCPROTO */
 static void AssignVarNumber(macroItemPtr itemP, int *var_num)
-#endif /* FUNCPROTO */
 {
   /* No mate. Assign variable number. */
   char var[10];
@@ -340,13 +301,7 @@ static void AssignVarNumber(macroItemPtr itemP, int *var_num)
 
 } /* AssignVarNumber() */
 
-#ifndef FUNCPROTO
-static void AssignVarTmpStorage(itemP, var_num)
-macroItemPtr itemP;
-int *var_num;
-#else /* FUNCPROTO */
 static void AssignVarTmpStorage(macroItemPtr itemP, int *var_num)
-#endif /* FUNCPROTO */
 {
   /* Mate is XSHOWINFILE with variable number assigned.
    * Use temporary storage (add initial macroEntry).
@@ -380,13 +335,7 @@ static void AssignVarTmpStorage(macroItemPtr itemP, int *var_num)
 
 } /* AssignVarTmpStorage() */
 
-#ifndef FUNCPROTO
-static void AssignItemVarNumber(itemP, var_num)
-macroItemPtr itemP;
-int *var_num;
-#else /* FUNCPROTO */
 static void AssignItemVarNumber(macroItemPtr itemP, int *var_num)
-#endif /* FUNCPROTO */
 {
 
   if (itemP->type != 1 && itemP->type != 2) return;
@@ -432,13 +381,7 @@ static void AssignItemVarNumber(macroItemPtr itemP, int *var_num)
 
 } /* AssignItemVarNumber() */
 
-#ifndef FUNCPROTO
-static void AssignVariableNumbers(entryP, var_num)
-macroEntryPtr entryP;
-int *var_num;
-#else /* FUNCPROTO */
 static void AssignVariableNumbers(macroEntryPtr entryP, int *var_num)
-#endif /* FUNCPROTO */
 {
   /* Search for input and output items. */
   
@@ -466,11 +409,7 @@ static void AssignVariableNumbers(macroEntryPtr entryP, int *var_num)
 
 } /* AssignVariableNumbers() */
 
-#ifndef FUNCPROTO
-static int AssignAllVariableNumbers()
-#else /* FUNCPROTO */
 static int AssignAllVariableNumbers(void)
-#endif /* FUNCPROTO */
 {
   macroEntryPtr entryP;
   int var_num = 1;
@@ -486,11 +425,7 @@ static int AssignAllVariableNumbers(void)
 
 } /* AssignAllVariableNumbers() */
 
-#ifndef FUNCPROTO
-static int ProcessMacro()
-#else /* FUNCPROTO */
 static int ProcessMacro(void)
-#endif /* FUNCPROTO */
 {
   int numbers;
 
@@ -505,13 +440,7 @@ static int ProcessMacro(void)
 
 } /* ProcessMacro() */
 
-#ifndef FUNCPROTO
-static void PrintMacro(file, numVars)
-FILE *file;
-int numVars;
-#else /* FUNCPROTO */
 static void PrintMacro(FILE *file, int numVars)
-#endif /* FUNCPROTO */
 {
   macroEntryPtr entryP;
   macroItemPtr  itemP;
@@ -554,12 +483,7 @@ static void PrintMacro(FILE *file, int numVars)
 
 } /* PrintMacro() */
 
-#ifndef FUNCPROTO
-void InitMacroEntry(macro_entry)
-macroEntryPtr *macro_entry;
-#else /* FUNCPROTO */
 void InitMacroEntry(macroEntryPtr *macro_entry)
-#endif /* FUNCPROTO */
 {
   *macro_entry               = XtNew(macroEntry);
   (*macro_entry)->entry_name = NULL;
@@ -568,12 +492,7 @@ void InitMacroEntry(macroEntryPtr *macro_entry)
 
 } /* InitMacroEntry() */
 
-#ifndef FUNCPROTO
-void InitMacroItem(macro_item)
-macroItemPtr *macro_item;
-#else /* FUNCPROTO */
 void InitMacroItem(macroItemPtr *macro_item)
-#endif /* FUNCPROTO */
 {
   *macro_item              = XtNew(macroItem);
   (*macro_item)->item      = NULL;
@@ -584,11 +503,7 @@ void InitMacroItem(macroItemPtr *macro_item)
 
 } /* InitMacroItem() */
 
-#ifndef FUNCPROTO
-void FreeMacro()
-#else /* FUNCPROTO */
 void FreeMacro(void)
-#endif /* FUNCPROTO */
 {
   macroEntryPtr entryP, entryNext;
   macroItemPtr  itemP, itemNext;
@@ -635,12 +550,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int menufile_dialog(new_file)
-char **new_file;
-#else /* FUNCPROTO */
 static int menufile_dialog(char **new_file)
-#endif /* FUNCPROTO */
 {
   char dialog_spec[1000], *filenames = NULL, *filename = NULL;
   char *home_menu_file = NULL, *std_menu_files = NULL, *return_text = NULL;
@@ -773,12 +683,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int EditMenuFile(filename)
-char *filename;
-#else /* FUNCPROTO */
 static int EditMenuFile(char *filename)
-#endif /* FUNCPROTO */
 {
   FILE *menufile;
   char *fname;
@@ -834,11 +739,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static int AddMenuEntry()
-#else /* FUNCPROTO */
 static int AddMenuEntry(void)
-#endif /* FUNCPROTO */
 {
   char *return_text = NULL;
   int status;
@@ -905,13 +806,7 @@ static int AddMenuEntry(void)
   
 } /* AddMenuEntry() */
 
-#ifndef FUNCPROTO
-void LogMacro(wid, client_data, call_data)
-Widget wid;
-XtPointer client_data, call_data;
-#else /* FUNCPROTO */
 void LogMacro(Widget wid, XtPointer client_data, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
   char mess[80];
   Dimension w;

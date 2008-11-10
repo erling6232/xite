@@ -31,8 +31,12 @@ ________________________________________________________________
 static char *Id = "$Id$";
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_TIME_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_TIME_H
+#  include <time.h>
+#endif
 #include <math.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -60,16 +64,7 @@ static void error_handler(value)
 
 
 
-#ifdef FUNCPROTO
 static int zer_pol_R(int n, int m_in, double x, double y, double *res) 
-#else
-static int zer_pol_R(n, m_in, x, y, res)
-int n; 
-int m_in;
-double x;
-double y;
-double *res;
-#endif
 {
   int i;
   int m;
@@ -130,16 +125,7 @@ double *res;
 
 
 
-#ifdef FUNCPROTO
 int zer_pol(int n, int m, double x, double y, DCOMPLEX *res) 
-#else
-int zer_pol(n, m, x, y, res)
-int n; 
-int m;
-double x;
-double y;
-DCOMPLEX *res;
-#endif
 {
   double R;
   double arg;
@@ -237,15 +223,7 @@ ________________________________________________________________
 
 
 
-#ifdef FUNCPROTO
 int zer_mom(IBAND inband, int n, int m, DCOMPLEX *res) 
-#else
-int zer_mom(inband, n, m, res)
-IBAND inband;
-int n; 
-int m;
-DCOMPLEX *res;
-#endif
 {
   int i,j;
   double i_0, j_0;
@@ -294,14 +272,7 @@ DCOMPLEX *res;
 
 
 
-#ifdef FUNCPROTO
 int zer_con(int n, IBAND inband, IBAND outband)
-#else
-int zer_con(n, inband, outband)
-IBAND inband;
-int n; 
-IBAND outband;
-#endif
 {
   IDC_BAND transformed;
   int m;
@@ -393,14 +364,7 @@ IBAND outband;
 
 
 
-#ifdef FUNCPROTO
 int zer_rec(int order, IBAND inband, IBAND outband)
-#else
-int zer_rec(order, inband, outband)
-IBAND inband;
-int order; 
-IBAND outband;
-#endif
 {
   IDC_BAND transformed;
   int n, m;
@@ -574,13 +538,7 @@ ________________________________________________________________
 
 */
 
-#ifdef FUNCPROTO
 int main(int argc, char *argv[])
-#else
-int main(argc, argv)
-int argc;
-char *argv[];
-#endif
 {
   int order;
   char *infile, *outfile, *args, *title;

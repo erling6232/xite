@@ -1233,9 +1233,13 @@ ________________________________________________________________
 #include <X11/StringDefs.h>
 #include "xshow.h"
 #include <signal.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <stdlib.h>
-#include XITE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -1248,8 +1252,20 @@ ________________________________________________________________
 #include "Xdisplay.h"
 #include "Xprog.h"
 #include <xite/Xpty.h>
-#include XITE_STRING_H
-#include XITE_FILE_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_SYS_FILE_H
+# include <sys/file.h>
+#else
+# ifdef HAVE_SYS_IO_H
+#  include <sys/io.h>
+# endif
+#endif
 #include <xite/debug.h>
 
 #define FALSE 0
@@ -1265,14 +1281,7 @@ static XtAppContext appcon_s;
 
 
 
-#ifndef FUNCPROTO
-static void ReadImage2(client_data, fid, id)
-XtPointer client_data;
-int *fid;
-XtInputId *id;
-#else /* FUNCPROTO */
 static void ReadImage2(XtPointer client_data, int *fid, XtInputId *id)
-#endif /* FUNCPROTO */
 {
   int status, mess;
 
@@ -1294,12 +1303,7 @@ static void ReadImage2(XtPointer client_data, int *fid, XtInputId *id)
 
 } /* ReadImage2() */
 
-#ifndef FUNCPROTO
-static void Open_pipe(pipe, val)
-int pipe, val;
-#else /* FUNCPROTO */
 static void Open_pipe(int pipe, int val)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("xshow.c: Open_pipe");
 
@@ -1310,11 +1314,7 @@ static void Open_pipe(int pipe, int val)
 
 } /* Open_pipe() */
 
-#ifndef FUNCPROTO
-static void Main_loop()
-#else /* FUNCPROTO */
 static void Main_loop(void)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("xshow.c: Main_loop");
 
@@ -1345,14 +1345,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-int Read_ipipe(ipipe, name, prog)
-int ipipe;
-char *name;
-program *prog;
-#else /* FUNCPROTO */
 int Read_ipipe(int ipipe, char *name, program *prog)
-#endif /* FUNCPROTO */
 {
   IMAGE img;
   Color_tab ctab;
@@ -1475,12 +1468,7 @@ ________________________________________________________________
 
 
 
-#ifndef FUNCPROTO
-static void Handler(signl)
-int signl;
-#else /* FUNCPROTO */
 static void Handler(int signl)
-#endif /* FUNCPROTO */
 {
   PopMessage();
   Message(2, "xshow aborted ...\n");
@@ -1489,11 +1477,7 @@ static void Handler(int signl)
 }
 
 
-#ifndef FUNCPROTO
-static void Setup_handler()  
-#else /* FUNCPROTO */
 static void Setup_handler(void)
-#endif /* FUNCPROTO */
 {
   ENTER_FUNCTION_DEBUG("xshow.c: Setup_handler");
   signal(SIGHUP,Handler);
@@ -1524,13 +1508,7 @@ ________________________________________________________________
 
 */
 
-#ifndef FUNCPROTO
-static void Read_args(argc,argv)
-int argc;
-char *argv[];
-#else /* FUNCPROTO */
 static void Read_args(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int inp, arg, status = 0;
   char *arga;
@@ -1581,13 +1559,7 @@ static void Read_args(int argc, char **argv)
 
 
 
-#ifndef FUNCPROTO
-int main(argc,argv)
-int argc;
-char **argv;
-#else /* FUNCPROTO */
 int main(int argc, char **argv)
-#endif /* FUNCPROTO */
 {
   int i;
 

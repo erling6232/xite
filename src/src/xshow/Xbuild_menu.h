@@ -42,7 +42,9 @@ _XITE_CPLUSPLUS_BEGIN
 
 #include <X11/Intrinsic.h>
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 
 extern int CallDialog  _XITE_PARAMS(( char *dialog_name, char *command_name, char **txt ));
