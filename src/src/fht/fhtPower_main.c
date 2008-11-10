@@ -46,95 +46,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:fhtPower*
-
-________________________________________________________________
-
-		fhtPower
-________________________________________________________________
-
-Name:		fhtPower - calculate power specter from Hartley transform
-
-Syntax:         | #include <xite/fht.h>
-		|
-                | int fhtPower( IR_BAND inband, IR_BAND outband );
-
-Description:    'fhtPower' calculates the power spectrum from a
-                Hartley transform. The power spectrum is identical
-		to the power spectrum calculated from the Fourier
-		transform, and the Hartley transform is significantly
-		faster.
-
-		The power spectrum is
-		|
-		| P(u,v) = [Re{F(u,v)}]^2 + [Im{F(u,v)}]^2
-		|        = H_e(u,v)^2 + H_o(u,v)^2
-		|        = (H(u,v)^2 + H(-u,-v)^2)/2
-
-		For images with horizontal and vertical even symmetry,
-		the power spectrum simplifies to
-		|
-		| P(u,v) = ( H(u,v)^2 + H(-u,-v)^2 ) / 2
-		|        = H(u,v)^2
-
-Restrictions:	Bands should have equal size. Currently, only single
-		precision float values are accepted.
-
-See also:	fhtPower(1), fht2d(3), fft2d(3), ft2ht(3), ht2ft(3),
-                fhtPhase(3)
-
-Return value:   | 0 => ok
-                | 1 => bad pixel type input
-		| 2 => bad pixel type output
-		| 3 => bad sizes
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-
-int fhtPower(IR_BAND inband, IR_BAND outband)
-{
-  int x, y, xsize, ysize, xsizep2, ysizep2;
-
-  if (Ipixtyp((IBAND) inband) NE Ireal_typ) return(1);
-  if (Ipixtyp((IBAND) outband) NE Ireal_typ) return(2);
-  xsize = Ixsize((IBAND) inband);
-  ysize = Iysize((IBAND) inband);
-  if (xsize NE Ixsize((IBAND) outband)) return(3);
-  if (ysize NE Iysize((IBAND) outband)) return(3);
-  xsizep2 = xsize+2;
-  ysizep2 = ysize+2;
-
-  /* dc component */
-  outband[1][1] = inband[1][1]*inband[1][1];
-
-  /* first line */
-  for (x=2; x LE xsize; x++)
-    outband[1][x] = (inband[1][x]*inband[1][x] 
-      + inband[1][xsizep2-x]*inband[1][xsizep2-x])/2.0;
-
-  /* general line loop */
-  FOR (y=2; y LE ysize; y++)
-    /* first sample */
-    outband[y][1] = (inband[y][1]*inband[y][1] 
-      + inband[ysizep2-y][1]*inband[ysizep2-y][1])/2.0;
-
-    /* general sample loop */
-    for (x=2; x LE xsize; x++)
-      outband[y][x] = (inband[y][x]*inband[y][x] 
-        + inband[ysizep2-y][xsizep2-x]*inband[ysizep2-y][xsizep2-x])/2.0;
-  ENDFOR
-  return(0);
-}
-
-#endif /* not MAIN */
-
 /*P:fhtPower*
 
 ________________________________________________________________
@@ -183,8 +94,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE img1, img2;
@@ -226,5 +135,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
