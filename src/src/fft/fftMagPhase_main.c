@@ -125,8 +125,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE img, img2;
@@ -248,5 +246,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
