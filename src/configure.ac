@@ -58,7 +58,7 @@ AS_IF([test "x$gui" = xauto],
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([ctype.h fcntl.h float.h sys/io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/time.h sys/times.h time.h unistd.h values.h])
+AC_CHECK_HEADERS([ctype.h fcntl.h float.h sys/io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/stat.h sys/time.h sys/times.h time.h unistd.h values.h])
 AC_CHECK_HEADER([src/biff/biff.h])
 AC_CHECK_HEADERS([direct.h regex.h varargs.h stdarg.h pwd.h])
 
@@ -132,6 +132,7 @@ AC_CONFIG_FILES([
     lib/copy/Makefile
     lib/dither/Makefile
     lib/draw/Makefile
+    lib/extrema/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -147,5 +148,6 @@ AC_CONFIG_FILES([
     src/copy/Makefile
     src/dither/Makefile
     src/draw/Makefile
+    src/extrema/Makefile
     ])
 AC_OUTPUT
