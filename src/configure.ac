@@ -140,6 +140,17 @@ AC_CONFIG_FILES([
     lib/fwf/Makefile
     lib/fwf/Board/Makefile
     lib/fwf/Button/Makefile
+    lib/fwf/Common/Makefile
+    lib/fwf/converters/Makefile
+    lib/fwf/Dir/Makefile
+    lib/fwf/FileSelector/Makefile
+    lib/fwf/Frame/Makefile
+    lib/fwf/Group/Makefile
+    lib/fwf/Label/Makefile
+    lib/fwf/MenuBar/Makefile
+    lib/fwf/MultiList/Makefile
+    lib/fwf/OptButton/Makefile
+    lib/fwf/Prompt/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -162,5 +173,16 @@ AC_CONFIG_FILES([
     src/fwf/Makefile
     src/fwf/Board/Makefile
     src/fwf/Button/Makefile
+    src/fwf/Common/Makefile
+    src/fwf/converters/Makefile
+    src/fwf/Dir/Makefile
+    src/fwf/FileSelector/Makefile
+    src/fwf/Frame/Makefile
+    src/fwf/Group/Makefile
+    src/fwf/Label/Makefile
+    src/fwf/MenuBar/Makefile
+    src/fwf/MultiList/Makefile
+    src/fwf/OptButton/Makefile
+    src/fwf/Prompt/Makefile
     ])
 AC_OUTPUT

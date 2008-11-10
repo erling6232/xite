@@ -7,6 +7,12 @@ libfwf_la_LIBADD = converters/libfwfconverters.la
 libfwf_la_LIBADD = Dir/libfwfDir.la
 libfwf_la_LIBADD = FileSelector/libfwfFileSelector.la
 libfwf_la_LIBADD = Frame/libfwfFrame.la
+libfwf_la_LIBADD = Group/libfwfGroup.la
+libfwf_la_LIBADD = Label/libfwfLabel.la
+libfwf_la_LIBADD = MenuBar/libfwfMenuBar.la
+libfwf_la_LIBADD = MultiList/libfwfMultiList.la
+libfwf_la_LIBADD = OptButton/libfwfOptButton.la
+libfwf_la_LIBADD = Prompt/libfwfPrompt.la
 
 SUBDIRS = \
 	Board \
