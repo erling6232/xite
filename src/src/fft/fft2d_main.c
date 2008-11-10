@@ -44,7 +44,7 @@ static char *Id = "$Id$, Blab, UiO";
 #endif
 #include <xite/blab.h>
 #include <xite/convert.h>
-#include "fft_L.h"
+/*#include "fft_L.h"*/
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>

@@ -133,6 +133,7 @@ AC_CONFIG_FILES([
     lib/dither/Makefile
     lib/draw/Makefile
     lib/extrema/Makefile
+    lib/fft/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -149,5 +150,6 @@ AC_CONFIG_FILES([
     src/dither/Makefile
     src/draw/Makefile
     src/extrema/Makefile
+    src/fft/Makefile
     ])
 AC_OUTPUT
