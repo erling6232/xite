@@ -1,6 +1,7 @@
 lib_LTLIBRARIES = libfwf.la
 libfwf_la_SOURCES =
 libfwf_la_LIBADD = Board/libfwfBoard.la
+libfwf_la_LIBADD = Button/libfwfButton.la
 
 SUBDIRS = \
 	Board \

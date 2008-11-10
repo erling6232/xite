@@ -137,6 +137,9 @@ AC_CONFIG_FILES([
     lib/fft/Makefile
     lib/fht/Makefile
     lib/fractal/Makefile
+    lib/fwf/Makefile
+    lib/fwf/Board/Makefile
+    lib/fwf/Button/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -156,5 +159,8 @@ AC_CONFIG_FILES([
     src/fft/Makefile
     src/fht/Makefile
     src/fractal/Makefile
+    src/fwf/Makefile
+    src/fwf/Board/Makefile
+    src/fwf/Button/Makefile
     ])
 AC_OUTPUT
