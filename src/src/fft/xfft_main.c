@@ -31,8 +31,6 @@ ________________________________________________________________
 
 static char *Id = "$Id$, Blab, UiO";
 
-#ifdef MAIN
-
 /*P:xfft*
 
 ________________________________________________________________
@@ -747,5 +745,3 @@ int main(int argc, char **argv)
   ximage_mainloop();
   return(0);
 }
-
-#endif /* MAIN */
