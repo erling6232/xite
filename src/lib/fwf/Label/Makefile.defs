@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/Label
+#
+FWFOBJ  = Label.o
+FWFINCL = Label.i LabelP.i
+ROFF3   = XfwfLabel.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  
