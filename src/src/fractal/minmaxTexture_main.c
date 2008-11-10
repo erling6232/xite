@@ -112,8 +112,6 @@ ________________________________________________________________
 #  include <unistd.h>
 #endif
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE img2,img3,img;
@@ -161,5 +159,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
