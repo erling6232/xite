@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/MenuBar
+#
+FWFOBJ  = MenuBar.o
+FWFINCL = MenuBar.i MenuBarP.i
+ROFF3   = XfwfMenuBar.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  
