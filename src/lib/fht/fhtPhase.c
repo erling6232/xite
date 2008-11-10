@@ -51,8 +51,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:fhtPhase*
 
 ________________________________________________________________
@@ -132,86 +130,3 @@ int fhtPhase(IR_BAND inband, IR_BAND outband)
 
   return(0);
 }
-
-#endif /* not MAIN */
-
-/*P:fhtPhase*
-
-________________________________________________________________
-
-		fhtPhase
-________________________________________________________________
-
-Name:		fhtPhase - find Fourier transform phase from Hartley transform
-
-Syntax:		fhtPhase [-t <title>] <inimage> <outimage>
-
-Description:	'fhtPhase' calculates the Fourier transform phase 
-		from a Hartley transform. The phase is identical
-		to the phase calculated from the Fourier transform,
-		and the hartley transform is significantly faster.
-		The phase values are in the interval 0..2PI.
-
-See also:	fhtPhase(3), fht2d(1), fft2d(1), ft2ht(1), ht2ft(1),
-                fhtPower(1)
-
-Restrictions:   Input must be a single precision Hartley transform.
-
-Return value:   | 0 => ok
-                | 1 => bad number of arguments
-		| 2 => couldn't read input file
-		| 3 => couldn't write output file
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:	fhtPhase monah.img monaf.img
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE img1, img2;
-  int bn, nbands, stat;
-  char *title, *args;
-
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [-t <title>] <input> <output>\n"));
-
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-
-  title = read_switch(&argc, argv, "-t", 1, (char*)0);
-  title = read_switch(&argc, argv, "-title", 1, title);
-
-  if (argc != 3) Usage(1, "Illegal number of arguments.\n");
-
-  img1 = Iread_image(argv[1]);
-  if (NOT img1) Error(2, "Can't read input %s.\n", argv[1]);
-
-  nbands = Inbands(img1);
-  if (NOT title) title = Ititle(img1);
-  
-  img2 = Icopy_init(img1);
-
-  for (bn=1; bn LE nbands; bn++)
-    stat = fhtPhase((IR_BAND)img1[bn], (IR_BAND)img2[bn]);
-    if (stat == 1)
-      Error(2, "Bad input pixel type band %d.\n", bn);
-
-  Ihistory(img2, argv[0], args);
-  if (Iwrite_image(img2, argv[2])) {
-    Error(2,  "Can't write output %s.\n", argv[2]);
-    exit(3);
-  }
-
-  return(0);
-}
-
-#endif /* MAIN */
