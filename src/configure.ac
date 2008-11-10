@@ -116,6 +116,7 @@ AC_CONFIG_FILES([
     Makefile.def
     Makefile
     include/Makefile
+    include/Xfwf/Makefile
     include/xite/Makefile
     lib/Makefile
     lib/arithmetic/Makefile

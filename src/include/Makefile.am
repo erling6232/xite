@@ -1,1 +1,1 @@
-SUBDIRS = xite
+SUBDIRS = xite Xfwf
