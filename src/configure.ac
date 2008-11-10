@@ -135,6 +135,7 @@ AC_CONFIG_FILES([
     lib/extrema/Makefile
     lib/fft/Makefile
     lib/fht/Makefile
+    lib/fractal/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -153,5 +154,6 @@ AC_CONFIG_FILES([
     src/extrema/Makefile
     src/fft/Makefile
     src/fht/Makefile
+    src/fractal/Makefile
     ])
 AC_OUTPUT

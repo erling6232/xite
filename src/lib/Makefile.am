@@ -17,6 +17,7 @@ libxite_la_LIBADD = draw/libxitedraw.la
 libxite_la_LIBADD = draw/libxiteextrema.la
 libxite_la_LIBADD = draw/libxitefft.la
 libxite_la_LIBADD = draw/libxitefht.la
+libxite_la_LIBADD = draw/libxitefractal.la
 
 SUBDIRS = \
 	arithmetic \
