@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/FileSelector
+#
+FWFOBJ  = FileSel.o
+FWFINCL = FileSel.i FileSelP.i
+ROFF3   = XfwfFileSelector.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  
