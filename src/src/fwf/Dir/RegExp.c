@@ -32,26 +32,15 @@
 # include <regexp.h>
 #endif /* !REGEX */
 #include <xite/message.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
-#ifndef FUNCPROTO
-# ifdef REGEX
-void RegExpCompile(regexp, fsm_ptr, fsm_length)
-char *regexp;
-regex_t *fsm_ptr;
-int fsm_length;
-# else /* REGEX */
-void RegExpCompile(regexp, fsm_ptr, fsm_length)
-char *regexp, *fsm_ptr;
-int fsm_length;
-# endif /* REGEX */
-#else /* FUNCPROTO */
 # ifdef REGEX
 void RegExpCompile(char *regexp, regex_t *fsm_ptr, int fsm_length)
 # else /* REGEX */
 void RegExpCompile(char *regexp, char *fsm_ptr, int fsm_length)
 # endif /* REGEX */
-#endif /* FUNCPROTO */
 {
 #ifndef NO_REGEXP
 # ifdef REGEX
@@ -72,22 +61,11 @@ void RegExpCompile(char *regexp, char *fsm_ptr, int fsm_length)
 } /* End RegExpCompile */
 
 
-#ifndef FUNCPROTO
-# ifdef REGEX
-int RegExpMatch(string, fsm_ptr)
-char *string;
-regex_t *fsm_ptr;
-# else /* REGEX */
-int RegExpMatch(string, fsm_ptr)
-char *string, *fsm_ptr;
-# endif /* REGEX */
-#else /* FUNCPROTO */
 # ifdef REGEX
 int RegExpMatch(char *string, regex_t *fsm_ptr)
 # else /* REGEX */
 int RegExpMatch(char *string, char *fsm_ptr)
 # endif /* REGEX */
-#endif /* FUNCPROTO */
 {
 #ifndef NO_REGEXP
 # ifdef REGEX
@@ -117,24 +95,14 @@ int RegExpMatch(char *string, char *fsm_ptr)
 } /* End RegExpMatch */
 
 
-#ifndef FUNCPROTO
-void _RegExpError(val)
-int val;
-#else /* FUNCPROTO */
 void _RegExpError(int val)
-#endif /* FUNCPROTO */
 {
 	fprintf(stderr,"Regular Expression Error %d\n",val);
 	exit(-1);
 } /* End _RegExpError */
 
 
-#ifndef FUNCPROTO
-void RegExpPatternToRegExp(pattern,reg_exp)
-char *pattern,*reg_exp;
-#else /* FUNCPROTO */
 void RegExpPatternToRegExp(char *pattern, char *reg_exp)
-#endif /* FUNCPROTO */
 {
 	int in_bracket;
 

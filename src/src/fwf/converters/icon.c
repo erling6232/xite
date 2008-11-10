@@ -76,11 +76,7 @@ static Boolean initialized = False;
 
 /* This function initializes the quarks. */
 
-#ifndef FUNCPROTO
-static void init_icon_quarks()
-#else /* FUNCPROTO */
 static void init_icon_quarks(void)
-#endif /* FUNCPROTO */
 {
     filleddiamondq = XrmPermStringToQuark("filleddiamond");
     emptydiamondq = XrmPermStringToQuark("emptydiamond");
@@ -101,14 +97,7 @@ static void init_icon_quarks(void)
 messages in case of failure.  Of the XPM attributes, only the color
 symbols are retained. */
 
-#ifndef FUNCPROTO
-static void file_to_icon(dpy, file, icon)
-    Display *dpy;
-    String file;
-    Icon *icon;
-#else /* FUNCPROTO */
 static void file_to_icon(Display *dpy, String file, Icon *icon)
-#endif /* FUNCPROTO */
 {
     Cardinal one = 1;
     int status;
@@ -151,14 +140,7 @@ static void file_to_icon(Display *dpy, String file, Icon *icon)
 messages in case of failure.  Of the XPM attributes, only the color
 symbols are retained. */
 
-#ifndef FUNCPROTO
-static void data_to_icon(dpy, data, icon)
-    Display *dpy;
-    String *data;
-    Icon *icon;
-#else /* FUNCPROTO */
 static void data_to_icon(Display *dpy, String *data, Icon *icon)
-#endif /* FUNCPROTO */
 {
     int status;
 
@@ -205,15 +187,7 @@ first converted to an unsigned long, tehn the offset is added to it and
 the result is converted back to a pointer, in this case a pointer to a
 |Pixel|. */
 
-#ifndef FUNCPROTO
-static void build_colortable(self, table, size, n)
-    Widget self;
-    XpmColorSymbol *table;
-    Cardinal size;
-    Cardinal *n;
-#else /* FUNCPROTO */
 static void build_colortable(Widget self, XpmColorSymbol *table, Cardinal size, Cardinal *n)
-#endif /* FUNCPROTO */
 {
     Cardinal nres, i;
     XtResourceList res;
@@ -232,17 +206,7 @@ static void build_colortable(Widget self, XpmColorSymbol *table, Cardinal size, 
 
 
 
-#ifndef FUNCPROTO
-Boolean cvtStringToIcon(dpy, args, num_args, from, to, converter_data)
-    Display *dpy;
-    XrmValue *args;
-    Cardinal *num_args;
-    XrmValue *from;
-    XrmValue *to;
-    XtPointer *converter_data;
-#else /* FUNCPROTO */
 Boolean cvtStringToIcon(Display *dpy, XrmValue *args, Cardinal *num_args, XrmValue *from, XrmValue *to, XtPointer *converter_data)
-#endif /* FUNCPROTO */
 {
     static XpmColorSymbol table[MAXCOLORSYM];
     Cardinal n;

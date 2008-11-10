@@ -7,22 +7,16 @@ original, the color gray75 is returned instead.
 */
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #include "Converters.h"
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 
-#ifndef FUNCPROTO
-Boolean choose_color(self, factor, base, result)
-Widget self;
-double factor;
-Pixel base;
-Pixel *result;
-#else /* FUNCPROTO */
 Boolean choose_color(Widget self, double factor, Pixel base, Pixel *result)
-#endif /* FUNCPROTO */
 {
     Colormap colormap;
     XColor color, dummy;

@@ -8,12 +8,7 @@
  *	Converts a string list of tabs to an array of tabs
  */
 int *
-#ifndef FUNCPROTO
-XfwfTablist2Tabs(tablist)
-char *tablist;
-#else /* FUNCPROTO */
 XfwfTablist2Tabs(char *tablist)
-#endif /* FUNCPROTO */
 {
 	register int	*tabs;
 	register int	ntabs = 0;

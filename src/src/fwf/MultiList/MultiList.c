@@ -56,7 +56,9 @@
 #endif
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <ctype.h>
 
 #include <X11/IntrinsicP.h>
@@ -68,7 +70,9 @@
 #include <Xfwf/MultiListP.h>
 #include <Xfwf/TabString.h>
 
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 /*===========================================================================*
 
@@ -341,12 +345,7 @@ WidgetClass xfwfMultiListWidgetClass = (WidgetClass)&xfwfMultiListClassRec;
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Initialize(request,new)
-Widget request,new;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListWidget mlw;
 
@@ -369,14 +368,7 @@ static void Initialize(Widget request, Widget new)
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Redisplay(mlw,event,rectangle_union)
-XfwfMultiListWidget mlw;
-XEvent *event;
-Region rectangle_union;
-#else /* FUNCPROTO */
 static void Redisplay(XfwfMultiListWidget mlw, XEvent *event, Region rectangle_union)
-#endif /* FUNCPROTO */
 {
 	GC shade_gc;
 	int i,x1,y1,w,h,x2,y2,row,col,ul_row,ul_col,lr_row,lr_col;
@@ -427,13 +419,7 @@ static void Redisplay(XfwfMultiListWidget mlw, XEvent *event, Region rectangle_u
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static XtGeometryResult PreferredGeometry(mlw,parent_idea,our_idea)
-XfwfMultiListWidget mlw;
-XtWidgetGeometry *parent_idea,*our_idea;
-#else /* FUNCPROTO */
 static XtGeometryResult PreferredGeometry(XfwfMultiListWidget mlw, XtWidgetGeometry *parent_idea, XtWidgetGeometry *our_idea)
-#endif /* FUNCPROTO */
 {
 	Dimension nw,nh;
 	Boolean parent_wants_w,parent_wants_h,we_changed_size;
@@ -475,12 +461,7 @@ static XtGeometryResult PreferredGeometry(XfwfMultiListWidget mlw, XtWidgetGeome
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Resize(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 static void Resize(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	Dimension width,height;
 
@@ -503,12 +484,7 @@ static void Resize(XfwfMultiListWidget mlw)
  *---------------------------------------------------------------------------*/
 
 /*ARGSUSED*/
-#ifndef FUNCPROTO
-static Boolean SetValues(cpl,rpl,npl)
-XfwfMultiListWidget cpl,rpl,npl;
-#else /* FUNCPROTO */
 static Boolean SetValues(XfwfMultiListWidget cpl, XfwfMultiListWidget rpl, XfwfMultiListWidget npl)
-#endif /* FUNCPROTO */
 {
 	Boolean redraw,recalc;
 
@@ -622,12 +598,7 @@ static Boolean SetValues(XfwfMultiListWidget cpl, XfwfMultiListWidget rpl, XfwfM
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void DestroyOldData(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 static void DestroyOldData(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	int i;
 
@@ -666,12 +637,7 @@ static void DestroyOldData(XfwfMultiListWidget mlw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void InitializeNewData(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 static void InitializeNewData(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	int i;
 	XfwfMultiListItem *item;
@@ -744,12 +710,7 @@ static void InitializeNewData(XfwfMultiListWidget mlw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void CreateNewGCs(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 static void CreateNewGCs(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	XGCValues values;
 	unsigned int attribs;
@@ -1037,12 +998,7 @@ Dimension *w_ptr,*h_ptr;
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void RedrawAll(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 static void RedrawAll(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	Redisplay(mlw,NULL,NULL);
 } /* End RedrawAll */
@@ -1057,13 +1013,7 @@ static void RedrawAll(XfwfMultiListWidget mlw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void RedrawItem(mlw,item_index)
-XfwfMultiListWidget mlw;
-int item_index;
-#else /* FUNCPROTO */
 static void RedrawItem(XfwfMultiListWidget mlw, int item_index)
-#endif /* FUNCPROTO */
 {
 	int row,column;
 
@@ -1085,13 +1035,7 @@ static void RedrawItem(XfwfMultiListWidget mlw, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void RedrawRowColumn(mlw,row,column)
-XfwfMultiListWidget mlw;
-int row,column;
-#else /* FUNCPROTO */
 static void RedrawRowColumn(XfwfMultiListWidget mlw, int row, int column)
-#endif /* FUNCPROTO */
 {
 	GC bg_gc,fg_gc;
 	XfwfMultiListItem *item;
@@ -1176,13 +1120,7 @@ static void RedrawRowColumn(XfwfMultiListWidget mlw, int row, int column)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void PixelToRowColumn(mlw,x,y,row_ptr,column_ptr)
-XfwfMultiListWidget mlw;
-int x,y,*row_ptr,*column_ptr;
-#else /* FUNCPROTO */
 static void PixelToRowColumn(XfwfMultiListWidget mlw, int x, int y, int *row_ptr, int *column_ptr)
-#endif /* FUNCPROTO */
 {
 	*row_ptr = y / (int)MultiListRowHeight(mlw);
 	*column_ptr = x / (int)MultiListColWidth(mlw);
@@ -1197,13 +1135,7 @@ static void PixelToRowColumn(XfwfMultiListWidget mlw, int x, int y, int *row_ptr
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void RowColumnToPixels(mlw,row,col,x_ptr,y_ptr,w_ptr,h_ptr)
-XfwfMultiListWidget mlw;
-int row,col,*x_ptr,*y_ptr,*w_ptr,*h_ptr;
-#else /* FUNCPROTO */
 static void RowColumnToPixels(XfwfMultiListWidget mlw, int row, int col, int *x_ptr, int *y_ptr, int *w_ptr, int *h_ptr)
-#endif /* FUNCPROTO */
 {
 	*x_ptr = col * MultiListColWidth(mlw);
 	*y_ptr = row * MultiListRowHeight(mlw);
@@ -1223,13 +1155,7 @@ static void RowColumnToPixels(XfwfMultiListWidget mlw, int row, int col, int *x_
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static Boolean RowColumnToItem(mlw,row,column,item_ptr)
-XfwfMultiListWidget mlw;
-int row,column,*item_ptr;
-#else /* FUNCPROTO */
 static Boolean RowColumnToItem(XfwfMultiListWidget mlw, int row, int column, int *item_ptr)
-#endif /* FUNCPROTO */
 {
 	register int x_stride,y_stride;
 
@@ -1268,13 +1194,7 @@ static Boolean RowColumnToItem(XfwfMultiListWidget mlw, int row, int column, int
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static Boolean ItemToRowColumn(mlw,item_index,row_ptr,column_ptr)
-XfwfMultiListWidget mlw;
-int item_index,*row_ptr,*column_ptr;
-#else /* FUNCPROTO */
 static Boolean ItemToRowColumn(XfwfMultiListWidget mlw, int item_index, int *row_ptr, int *column_ptr)
-#endif /* FUNCPROTO */
 {
 	if (item_index < 0 || item_index >= MultiListNumItems(mlw))
 	{
@@ -1316,15 +1236,7 @@ static Boolean ItemToRowColumn(XfwfMultiListWidget mlw, int item_index, int *row
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Select(mlw,event,params,num_params)
-XfwfMultiListWidget mlw;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Select(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 	int click_x,click_y;
 	int status,item_index,row,column;
@@ -1363,15 +1275,7 @@ static void Select(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardi
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Unselect(mlw,event,params,num_params)
-XfwfMultiListWidget mlw;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Unselect(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 	int click_x,click_y;
 	int status,item_index,row,column;
@@ -1412,15 +1316,7 @@ static void Unselect(XfwfMultiListWidget mlw, XEvent *event, String *params, Car
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Toggle(mlw,event,params,num_params)
-XfwfMultiListWidget mlw;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Toggle(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 	int click_x,click_y;
 	int status,item_index,row,column;
@@ -1458,15 +1354,7 @@ static void Toggle(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardi
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Extend(mlw,event,params,num_params)
-XfwfMultiListWidget mlw;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Extend(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 	int click_x,click_y;
 	int status,item_index,row,column;
@@ -1503,15 +1391,7 @@ static void Extend(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardi
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Notify(mlw,event,params,num_params)
-XfwfMultiListWidget mlw;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Notify(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 	char *buffer;
 	String string;
@@ -1558,15 +1438,7 @@ static void Notify(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardi
 /* Same as Notify(), but with different return value for
  * ret_value.multiple.
  */
-#ifndef FUNCPROTO
-static void Notify2(mlw,event,params,num_params)
-XfwfMultiListWidget mlw;
-XEvent *event;
-String *params;
-Cardinal *num_params;
-#else /* FUNCPROTO */
 static void Notify2(XfwfMultiListWidget mlw, XEvent *event, String *params, Cardinal *num_params)
-#endif /* FUNCPROTO */
 {
 	char *buffer;
 	String string;
@@ -1631,13 +1503,7 @@ static void Notify2(XfwfMultiListWidget mlw, XEvent *event, String *params, Card
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-Boolean XfwfMultiListHighlightItem(mlw,item_index)
-XfwfMultiListWidget mlw;
-int item_index;
-#else /* FUNCPROTO */
 Boolean XfwfMultiListHighlightItem(XfwfMultiListWidget mlw, int item_index)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListItem *item;
 
@@ -1673,12 +1539,7 @@ Boolean XfwfMultiListHighlightItem(XfwfMultiListWidget mlw, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfMultiListHighlightAll(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 void XfwfMultiListHighlightAll(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	int i;
 	XfwfMultiListItem *item;
@@ -1714,13 +1575,7 @@ void XfwfMultiListHighlightAll(XfwfMultiListWidget mlw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfMultiListUnhighlightItem(mlw,item_index)
-XfwfMultiListWidget mlw;
-int item_index;
-#else /* FUNCPROTO */
 void XfwfMultiListUnhighlightItem(XfwfMultiListWidget mlw, int item_index)
-#endif /* FUNCPROTO */
 {
 	int i;
 	XfwfMultiListItem *item;
@@ -1749,12 +1604,7 @@ void XfwfMultiListUnhighlightItem(XfwfMultiListWidget mlw, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfMultiListUnhighlightAll(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 void XfwfMultiListUnhighlightAll(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	int i;
 	XfwfMultiListItem *item;
@@ -1780,13 +1630,7 @@ void XfwfMultiListUnhighlightAll(XfwfMultiListWidget mlw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int XfwfMultiListToggleItem(mlw,item_index)
-XfwfMultiListWidget mlw;
-int item_index;
-#else /* FUNCPROTO */
 int XfwfMultiListToggleItem(XfwfMultiListWidget mlw, int item_index)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListItem *item;
 
@@ -1822,12 +1666,7 @@ int XfwfMultiListToggleItem(XfwfMultiListWidget mlw, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-XfwfMultiListReturnStruct *XfwfMultiListGetHighlighted(mlw)
-XfwfMultiListWidget mlw;
-#else /* FUNCPROTO */
 XfwfMultiListReturnStruct *XfwfMultiListGetHighlighted(XfwfMultiListWidget mlw)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListItem *item;
 	static XfwfMultiListReturnStruct ret_value;
@@ -1862,13 +1701,7 @@ XfwfMultiListReturnStruct *XfwfMultiListGetHighlighted(XfwfMultiListWidget mlw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-Boolean XfwfMultiListIsHighlighted(mlw,item_index)
-XfwfMultiListWidget mlw;
-int item_index;
-#else /* FUNCPROTO */
 Boolean XfwfMultiListIsHighlighted(XfwfMultiListWidget mlw, int item_index)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListItem *item;
 
@@ -1890,15 +1723,7 @@ Boolean XfwfMultiListIsHighlighted(XfwfMultiListWidget mlw, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-Boolean XfwfMultiListGetItemInfo(mlw,item_index,str_ptr,h_ptr,s_ptr)
-XfwfMultiListWidget mlw;
-int item_index;
-String *str_ptr;
-Boolean *h_ptr,*s_ptr;
-#else /* FUNCPROTO */
 Boolean XfwfMultiListGetItemInfo(XfwfMultiListWidget mlw, int item_index, String *str_ptr, Boolean *h_ptr, Boolean *s_ptr)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListItem *item;
 

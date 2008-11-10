@@ -5,7 +5,9 @@
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #line 470 "Board.w"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #line 471 "Board.w"
 #include <stdlib.h>
 #line 472 "Board.w"

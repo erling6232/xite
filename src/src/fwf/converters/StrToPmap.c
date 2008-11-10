@@ -50,12 +50,7 @@ static char	** PIXMAPFILEPATHCACHE = NULL;
  * split_path_string - split a colon-separated list into its constituent
  * parts; to release, free list[0] and list.
  */
-#ifndef FUNCPROTO
-static char **split_path_string (src)
-    register char *src;
-#else /* FUNCPROTO */
 static char **split_path_string (register char *src)
-#endif /* FUNCPROTO */
 {
     int nelems = 1;
     register char *dst;
@@ -109,32 +104,7 @@ void _XmuStringToPixmapFreeCache (c)
  * XmuLocatePixmapFile - read a pixmap file using the normal defaults
  */
 
-#ifndef FUNCPROTO
-int XfwfLocatePixmapFile (screen, colormap, visual, name,
-			  rval, mask,
-			  name_ret, widthp, heightp,
-			  pixels, npixels)
-     Screen	*screen;
-     Colormap	colormap;
-     Visual	*visual;
-     char *name;
-     Pixmap	*rval, *mask;	/* RETURN */
-     char **name_ret;		/* RETURN */
-     int *widthp, *heightp;	/* RETURN */
-     Pixel	**pixels;	/* RETURN */
-     unsigned	*npixels;
-#else /* FUNCPROTO */
 int XfwfLocatePixmapFile (Screen *screen, Colormap colormap, Visual *visual, char *name, Pixmap *rval, Pixmap *mask, char **name_ret, int *widthp, int *heightp, Pixel **pixels, unsigned int *npixels)
-           	        
-             	         
-           	        
-                
-           	             	/* RETURN */
-                     		/* RETURN */
-                           	/* RETURN */
-          	         	/* RETURN */
-             	         
-#endif /* FUNCPROTO */
 {
   Display *dpy = DisplayOfScreen (screen);
   Window root = RootWindowOfScreen (screen);
@@ -264,18 +234,7 @@ int Xfwf_StringToPixmap_AssumeDefaultVisual = 1;
 
 /* write linked list to store Pixel arrays for freeing with destructor */
 
-#ifndef FUNCPROTO
-Boolean XfwfCvtStringToPixmap(dpy, args, num_args, fromVal, toVal,
-			      converter_data)
-   Display   *dpy;
-   XrmValue  *args;
-   Cardinal  *num_args;
-   XrmValue  *fromVal;
-   XrmValue  *toVal;
-   XtPointer *converter_data;
-#else /* FUNCPROTO */
 Boolean XfwfCvtStringToPixmap(Display *dpy, XrmValue *args, Cardinal *num_args, XrmValue *fromVal, XrmValue *toVal, XtPointer *converter_data)
-#endif /* FUNCPROTO */
 {
   Screen	*screen;
   Colormap	colormap;
@@ -351,16 +310,7 @@ Boolean XfwfCvtStringToPixmap(Display *dpy, XrmValue *args, Cardinal *num_args, 
   }
 }
 
-#ifndef FUNCPROTO
-static void XfwfStringToPixmapDestructor(app, to, converter_data, args, num_args)
-      XtAppContext app;
-      XrmValue *to;
-      XtPointer converter_data;
-      XrmValue *args;
-      Cardinal *num_args;
-#else /* FUNCPROTO */
 static void XfwfStringToPixmapDestructor(XtAppContext app, XrmValue *to, XtPointer converter_data, XrmValue *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
 #ifndef NO_XPM
   Screen	*screen = *((Screen* *)args[0].addr);
@@ -400,11 +350,7 @@ static void XfwfStringToPixmapDestructor(XtAppContext app, XrmValue *to, XtPoint
 
 }
 
-#ifndef FUNCPROTO
-void XfwfInstallStringToPixmapConverter()
-#else /* FUNCPROTO */
 void XfwfInstallStringToPixmapConverter(void)
-#endif /* FUNCPROTO */
 {
   XtSetTypeConverter
     (XtRString, XtRPixmap, XfwfCvtStringToPixmap,

@@ -15,7 +15,13 @@
 #include <X11/Xmu/Atoms.h>
 #include <X11/Xmu/StdSel.h>
 #include <Xfwf/TabString.h>
-#include XITE_STRING_H
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
 #include <Xfwf/PromptP.h>
 /* #line 306 "Prompt.w" */
 static void activate(

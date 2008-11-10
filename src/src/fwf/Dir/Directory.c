@@ -29,9 +29,15 @@
 
 #include <Xfwf/Directory.h>
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_UNISTD_H
-#include XITE_STAT_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+#  include <sys/stat.h>
+#endif
 
 /*--------------------------------------------------------------------------*
 
@@ -39,13 +45,7 @@
 
  *--------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int DirectoryOpen(dir_name,dp)
-char *dir_name;
-Directory *dp;
-#else /* FUNCPROTO */
 int DirectoryOpen(char *dir_name, Directory *dp)
-#endif /* FUNCPROTO */
 {
 	if (DirectoryPathExpand(dir_name,DirectoryPath(dp)) == NULL)
 	{
@@ -57,58 +57,31 @@ int DirectoryOpen(char *dir_name, Directory *dp)
 } /* End DirectoryOpen */
 
 
-#ifndef FUNCPROTO
-void DirectoryRestart(dp)
-Directory *dp;
-#else /* FUNCPROTO */
 void DirectoryRestart(Directory *dp)
-#endif /* FUNCPROTO */
 {
 	rewinddir(DirectoryDir(dp));
 } /* End DirectoryRestart */
 
 
-#ifndef FUNCPROTO
-void DirectoryClose(dp)
-Directory *dp;
-#else /* FUNCPROTO */
 void DirectoryClose(Directory *dp)
-#endif /* FUNCPROTO */
 {
 	closedir(DirectoryDir(dp));
 } /* End DirectoryClose */
 
 
-#ifndef FUNCPROTO
-long DirectoryTellPosition(dp)
-Directory *dp;
-#else /* FUNCPROTO */
 long DirectoryTellPosition(Directory *dp)
-#endif /* FUNCPROTO */
 {
 	return(telldir(DirectoryDir(dp)));
 } /* End DirectoryTellPosition */
 
 
-#ifndef FUNCPROTO
-void DirectorySetPosition(dp,pos)
-Directory *dp;
-long pos;
-#else /* FUNCPROTO */
 void DirectorySetPosition(Directory *dp, long int pos)
-#endif /* FUNCPROTO */
 {
 	seekdir(dp->filep,pos);                 /* BB, 8 Mar 95 */
 } /* End DirectorySetPosition */
 
 
-#ifndef FUNCPROTO
-int DirectoryReadNextEntry(dp,de)
-Directory *dp;
-DirEntry *de;
-#else /* FUNCPROTO */
 int DirectoryReadNextEntry(Directory *dp, DirEntry *de)
-#endif /* FUNCPROTO */
 {
 	u_short orig_file_type;
 	static struct dirent *_ep;
@@ -206,12 +179,7 @@ int DirectoryReadNextEntry(Directory *dp, DirEntry *de)
 } /* End DirectoryReadNextEntry */
 
 
-#ifndef FUNCPROTO
-char *DirectoryPathExpand(old_path,new_path)
-char *old_path,*new_path;
-#else /* FUNCPROTO */
 char *DirectoryPathExpand(char *old_path, char *new_path)
-#endif /* FUNCPROTO */
 {
 	register char *p;
 	char path[MAXPATHLEN + 2];
@@ -236,13 +204,7 @@ char *DirectoryPathExpand(char *old_path, char *new_path)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void DirEntryDump(fp,de)
-FILE *fp;
-DirEntry *de;
-#else /* FUNCPROTO */
 void DirEntryDump(FILE *fp, DirEntry *de)
-#endif /* FUNCPROTO */
 {
 	fprintf(fp,"%20s, Size %7ld, Prot %3o\n",
 		DirEntryFileName(de),DirEntryFileSize(de),DirEntryProt(de));

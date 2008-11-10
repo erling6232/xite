@@ -28,10 +28,14 @@
 #include <xite/includes.h>
 #include <X11/Xfuncproto.h>
 #ifdef REGEX
-# include XITE_TYPES_H
+# ifdef HAVE_SYS_TYPES_H
+#   include <sys/types.h>
+# endif
 # include <regex.h>
 #endif /* REGEX */
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 
 #if (!NeedFunctionPrototypes)
 

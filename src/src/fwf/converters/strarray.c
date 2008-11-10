@@ -1,22 +1,13 @@
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #include "Converters.h"
 
 
-#ifndef FUNCPROTO
-Boolean cvtStringToStringArray(display, args, num_args, from, to,
-			       converter_data)
-    Display *display;
-    XrmValuePtr args;
-    Cardinal *num_args;
-    XrmValuePtr from;
-    XrmValuePtr to;
-    XtPointer *converter_data;
-#else /* FUNCPROTO */
 Boolean cvtStringToStringArray(Display *display, XrmValuePtr args, Cardinal *num_args, XrmValuePtr from, XrmValuePtr to, XtPointer *converter_data)
-#endif /* FUNCPROTO */
 {
     String t, s;
     StringArray a = NULL;
@@ -47,12 +38,7 @@ Boolean cvtStringToStringArray(Display *display, XrmValuePtr args, Cardinal *num
 }
 
 
-#ifndef FUNCPROTO
-StringArray newStringArray(a)
-    StringArray a;
-#else /* FUNCPROTO */
 StringArray newStringArray(StringArray a)
-#endif /* FUNCPROTO */
 {
     Cardinal n, i;
     StringArray s;
@@ -66,12 +52,7 @@ StringArray newStringArray(StringArray a)
 }
 
 
-#ifndef FUNCPROTO
-void freeStringArray(a)
-    StringArray a;
-#else /* FUNCPROTO */
 void freeStringArray(StringArray a)
-#endif /* FUNCPROTO */
 {
     Cardinal i;
 

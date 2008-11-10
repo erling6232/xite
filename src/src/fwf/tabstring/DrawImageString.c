@@ -11,19 +11,7 @@
  *	counterpart.
  */
 void
-#ifndef FUNCPROTO
-XfwfDrawImageString(display, drawable, gc, x, y, string, length, tabs)
-     Display *display;
-     Drawable drawable;
-     GC gc;
-     int x;
-     int y;
-     String string;
-     int length;
-     int *tabs;
-#else /* FUNCPROTO */
 XfwfDrawImageString(Display *display, Drawable drawable, GC gc, int x, int y, String string, int length, int *tabs)
-#endif /* FUNCPROTO */
 {
 	register char	*p, *ep;
 	register int	tx, tab;

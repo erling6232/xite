@@ -5,7 +5,9 @@
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #line 81 "OptButton.w"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #line 82 "OptButton.w"
 #include <Xfwf/TextMenu.h>
 #include <Xfwf/OptButtonP.h>

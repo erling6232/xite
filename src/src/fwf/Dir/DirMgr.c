@@ -32,8 +32,12 @@
 #endif
 #include <stdlib.h>
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_MALLOC_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 #define	DIR_MGR_FSM_SIZE 1024
 
@@ -43,14 +47,7 @@
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-DirectoryMgr *DirectoryMgrSimpleOpen(path,sort_type,pattern)
-char *path;
-int sort_type;
-char *pattern;
-#else /* FUNCPROTO */
 DirectoryMgr *DirectoryMgrSimpleOpen(char *path, int sort_type, char *pattern)
-#endif /* FUNCPROTO */
 {
 	DirectoryMgr *dm;
 	PFI f_func;
@@ -80,13 +77,7 @@ DirectoryMgr *DirectoryMgrSimpleOpen(char *path, int sort_type, char *pattern)
 } /* End DirectoryMgrSimpleOpen */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrSimpleRefilter(dm,pattern)
-DirectoryMgr *dm;
-char *pattern;
-#else /* FUNCPROTO */
 int DirectoryMgrSimpleRefilter(DirectoryMgr *dm, char *pattern)
-#endif /* FUNCPROTO */
 {
 	PFI f_func;
 # ifdef REGEX
@@ -104,13 +95,7 @@ int DirectoryMgrSimpleRefilter(DirectoryMgr *dm, char *pattern)
 } /* End DirectoryMgrSimpleRefilter */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrSimpleResort(dm,sort_type)
-DirectoryMgr *dm;
-int sort_type;
-#else /* FUNCPROTO */
 int DirectoryMgrSimpleResort(DirectoryMgr *dm, int sort_type)
-#endif /* FUNCPROTO */
 {
 	PSI c_func;
 
@@ -129,12 +114,7 @@ int DirectoryMgrSimpleResort(DirectoryMgr *dm, int sort_type)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int DirectoryMgrCanOpen(path)
-char *path;
-#else /* FUNCPROTO */
 int DirectoryMgrCanOpen(char *path)
-#endif /* FUNCPROTO */
 {
 	int status;
 	Directory dir;
@@ -145,24 +125,11 @@ int DirectoryMgrCanOpen(char *path)
 } /* End DirectoryMgrCanOpen */
 
 
-#ifndef FUNCPROTO
-DirectoryMgr *DirectoryMgrOpen(path,c_func,f_func,f_data,free_data)
-char *path;
-PSI c_func;
-PFI f_func;
-int free_data;
-# ifdef REGEX
-regex_t *f_data;
-# else /* REGEX */
-char *f_data;
-# endif /* REGEX */
-#else /* FUNCPROTO */
 # ifdef REGEX
 DirectoryMgr *DirectoryMgrOpen(char *path, PSI c_func, PFI f_func, regex_t *f_data, int free_data)
 # else /* REGEX */
 DirectoryMgr *DirectoryMgrOpen(char *path, PSI c_func, PFI f_func, char *f_data, int free_data)
 # endif /* REGEX */
-#endif /* FUNCPROTO */
 {
 	DirectoryMgr *dm;
 
@@ -199,12 +166,7 @@ DirectoryMgr *DirectoryMgrOpen(char *path, PSI c_func, PFI f_func, char *f_data,
 } /* End DirectoryMgrOpen */
 
 
-#ifndef FUNCPROTO
-void DirectoryMgrClose(dm)
-DirectoryMgr *dm;
-#else /* FUNCPROTO */
 void DirectoryMgrClose(DirectoryMgr *dm)
-#endif /* FUNCPROTO */
 {
 	free(DirectoryMgrData(dm));
 	free(DirectoryMgrSortedPtrs(dm));
@@ -217,23 +179,11 @@ void DirectoryMgrClose(DirectoryMgr *dm)
 } /* End DirectoryMgrClose */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrRefilter(dm,f_func,f_data,f_free)
-DirectoryMgr *dm;
-PFI f_func;
-int f_free;
-# ifdef REGEX
-regex_t *f_data;
-# else /* REGEX */
-char *f_data;
-# endif /* REGEX */
-#else /* FUNCPROTO */
 # ifdef REGEX
 int DirectoryMgrRefilter(DirectoryMgr *dm, PFI f_func, regex_t *f_data, int f_free)
 # else /* REGEX */
 int DirectoryMgrRefilter(DirectoryMgr *dm, PFI f_func, char *f_data, int f_free)
 # endif /* REGEX */
-#endif /* FUNCPROTO */
 {
 	if (DirectoryMgrFilterData(dm) && DirectoryMgrFreeFilterData(dm))
 	{
@@ -249,12 +199,7 @@ int DirectoryMgrRefilter(DirectoryMgr *dm, PFI f_func, char *f_data, int f_free)
 } /* End DirectoryMgrRefilter */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrRefresh(dm)
-DirectoryMgr *dm;
-#else /* FUNCPROTO */
 int DirectoryMgrRefresh(DirectoryMgr *dm)
-#endif /* FUNCPROTO */
 {
 	int err,data_size,ptrs_size,i;
 	DirEntryCons *head,*tail,*cons;
@@ -347,22 +292,14 @@ int DirectoryMgrRefresh(DirectoryMgr *dm)
 } /* End DirectoryMgrRefresh */
 
 
-#ifndef FUNCPROTO
-void DirectoryMgrResort(dm,c_func)
-DirectoryMgr *dm;
-PSI c_func;
-#else /* FUNCPROTO */
 void DirectoryMgrResort(DirectoryMgr *dm, PSI c_func)
-#endif /* FUNCPROTO */
 {
 	DirectoryMgrCompFunc(dm) = c_func;
 	if (c_func != NULL)
 	{
 	        qsort(DirectoryMgrSortedPtrs(dm),DirectoryMgrFilteredCount(dm),
 		      sizeof(DirEntry *),
-# ifdef FUNCPROTO
 		      (int (*)(const void*, const void*))
-# endif
 		      DirectoryMgrCompFunc(dm));
 	}
 	DirectoryMgrRestart(dm);
@@ -374,13 +311,7 @@ void DirectoryMgrResort(DirectoryMgr *dm, PSI c_func)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int DirectoryMgrGotoItem(dm,i)
-DirectoryMgr *dm;
-int i;
-#else /* FUNCPROTO */
 int DirectoryMgrGotoItem(DirectoryMgr *dm, int i)
-#endif /* FUNCPROTO */
 {
 	if (i < 0 || i >= DirectoryMgrFilteredCount(dm)) return(FALSE);
 	DirectoryMgrCurrentIndex(dm) = i;
@@ -388,13 +319,7 @@ int DirectoryMgrGotoItem(DirectoryMgr *dm, int i)
 } /* End DirectoryMgrGotoItem */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrGotoNamedItem(dm,name)
-DirectoryMgr *dm;
-char *name;
-#else /* FUNCPROTO */
 int DirectoryMgrGotoNamedItem(DirectoryMgr *dm, char *name)
-#endif /* FUNCPROTO */
 {
 	int i;
 	DirEntry *entry;
@@ -412,23 +337,13 @@ int DirectoryMgrGotoNamedItem(DirectoryMgr *dm, char *name)
 } /* End DirectoryMgrGotoNamedItem */
 
 
-#ifndef FUNCPROTO
-void DirectoryMgrRestart(dm)
-DirectoryMgr *dm;
-#else /* FUNCPROTO */
 void DirectoryMgrRestart(DirectoryMgr *dm)
-#endif /* FUNCPROTO */
 {
 	DirectoryMgrCurrentIndex(dm) = 0;
 } /* End DirectoryMgrRestart */
 
 
-#ifndef FUNCPROTO
-DirEntry *DirectoryMgrCurrentEntry(dm)
-DirectoryMgr *dm;
-#else /* FUNCPROTO */
 DirEntry *DirectoryMgrCurrentEntry(DirectoryMgr *dm)
-#endif /* FUNCPROTO */
 {
 	int index;
 
@@ -438,12 +353,7 @@ DirEntry *DirectoryMgrCurrentEntry(DirectoryMgr *dm)
 } /* End DirectoryMgrCurrentEntry */
 
 
-#ifndef FUNCPROTO
-DirEntry *DirectoryMgrNextEntry(dm)
-DirectoryMgr *dm;
-#else /* FUNCPROTO */
 DirEntry *DirectoryMgrNextEntry(DirectoryMgr *dm)
-#endif /* FUNCPROTO */
 {
 	int index;
 
@@ -454,12 +364,7 @@ DirEntry *DirectoryMgrNextEntry(DirectoryMgr *dm)
 } /* End DirectoryMgrNextEntry */
 
 
-#ifndef FUNCPROTO
-DirEntry *DirectoryMgrPrevEntry(dm)
-DirectoryMgr *dm;
-#else /* FUNCPROTO */
 DirEntry *DirectoryMgrPrevEntry(DirectoryMgr *dm)
-#endif /* FUNCPROTO */
 {
 	int index;
 
@@ -475,22 +380,11 @@ DirEntry *DirectoryMgrPrevEntry(DirectoryMgr *dm)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int DirectoryMgrSimpleFilterFunc(pattern,ff_ptr,fd_ptr)
-char *pattern;
-PFI *ff_ptr;
-# ifdef REGEX
-regex_t **fd_ptr;
-# else /* REGEX */
-char **fd_ptr;
-# endif /* !REGEX */
-#else /* FUNCPROTO */
 # ifdef REGEX
 int DirectoryMgrSimpleFilterFunc(char *pattern, PFI *ff_ptr, regex_t **fd_ptr)
 # else /* REGEX */
 int DirectoryMgrSimpleFilterFunc(char *pattern, PFI *ff_ptr, char **fd_ptr)
 # endif /* !REGEX */
-#endif /* FUNCPROTO */
 {
 #ifndef	NO_REGEXP
 	char regexp[2048];
@@ -509,13 +403,7 @@ int DirectoryMgrSimpleFilterFunc(char *pattern, PFI *ff_ptr, char **fd_ptr)
 } /* End DirectoryMgrSimpleFilterFunc */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrSimpleSortingFunc(sort_type,sf_ptr)
-int sort_type;
-PSI *sf_ptr;
-#else /* FUNCPROTO */
 int DirectoryMgrSimpleSortingFunc(int sort_type, PSI *sf_ptr)
-#endif /* FUNCPROTO */
 {
 	*sf_ptr = NULL;
 	switch (sort_type)
@@ -553,23 +441,13 @@ int DirectoryMgrSimpleSortingFunc(int sort_type, PSI *sf_ptr)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int DirectoryMgrCompareName(e1p,e2p)
-DirEntry **e1p,**e2p;
-#else /* FUNCPROTO */
 int DirectoryMgrCompareName(DirEntry **e1p, DirEntry **e2p)
-#endif /* FUNCPROTO */
 {
 	return(strcmp(DirEntryFileName(*e1p),DirEntryFileName(*e2p)));
 } /* End DirectoryMgrCompareName */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrCompareNameDirsFirst(e1p,e2p)
-DirEntry **e1p,**e2p;
-#else /* FUNCPROTO */
 int DirectoryMgrCompareNameDirsFirst(DirEntry **e1p, DirEntry **e2p)
-#endif /* FUNCPROTO */
 {
 	if (DirEntryLeadsToDir(*e1p))
 	{
@@ -583,12 +461,7 @@ int DirectoryMgrCompareNameDirsFirst(DirEntry **e1p, DirEntry **e2p)
 } /* End DirectoryMgrCompareNameDirsFirst */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrCompareSizeAscending(e1p,e2p)
-DirEntry **e1p,**e2p;
-#else /* FUNCPROTO */
 int DirectoryMgrCompareSizeAscending(DirEntry **e1p, DirEntry **e2p)
-#endif /* FUNCPROTO */
 {
 	if (DirEntryFileSize(*e1p) < DirEntryFileSize(*e2p))
 		return (-1);
@@ -599,12 +472,7 @@ int DirectoryMgrCompareSizeAscending(DirEntry **e1p, DirEntry **e2p)
 } /* End DirectoryMgrCompareSizeAscending */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrCompareSizeDescending(e1p,e2p)
-DirEntry **e1p,**e2p;
-#else /* FUNCPROTO */
 int DirectoryMgrCompareSizeDescending(DirEntry **e1p, DirEntry **e2p)
-#endif /* FUNCPROTO */
 {
 	if (DirEntryFileSize(*e1p) > DirEntryFileSize(*e2p))
 		return (-1);
@@ -615,24 +483,14 @@ int DirectoryMgrCompareSizeDescending(DirEntry **e1p, DirEntry **e2p)
 } /* End DirectoryMgrCompareSizeDescending */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrCompareLastAccessAscending(e1p,e2p)
-DirEntry **e1p,**e2p;
-#else /* FUNCPROTO */
 int DirectoryMgrCompareLastAccessAscending(DirEntry **e1p, DirEntry **e2p)
-#endif /* FUNCPROTO */
 {
 	return((long)DirEntryLastAccess(*e1p) >
 	       (long)DirEntryLastAccess(*e2p));
 } /* End DirectoryMgrCompareLastAccessAscending */
 
 
-#ifndef FUNCPROTO
-int DirectoryMgrCompareLastAccessDescending(e1p,e2p)
-DirEntry **e1p,**e2p;
-#else /* FUNCPROTO */
 int DirectoryMgrCompareLastAccessDescending(DirEntry **e1p, DirEntry **e2p)
-#endif /* FUNCPROTO */
 {
 	return((long)DirEntryLastAccess(*e1p) <
 	       (long)DirEntryLastAccess(*e2p));
@@ -644,21 +502,11 @@ int DirectoryMgrCompareLastAccessDescending(DirEntry **e1p, DirEntry **e2p)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-int DirectoryMgrFilterName(de,fsm)
-DirEntry *de;
-# ifdef REGEX
-regex_t *fsm;
-# else /* REGEX */
-char *fsm;
-# endif /* REGEX */
-#else /* FUNCPROTO */
 # ifdef REGEX
 int DirectoryMgrFilterName(DirEntry *de, regex_t *fsm)
 # else /* REGEX */
 int DirectoryMgrFilterName(DirEntry *de, char *fsm)
 # endif /* REGEX */
-#endif /* FUNCPROTO */
 {
 #ifndef	NO_REGEXP
 # ifdef REGEX

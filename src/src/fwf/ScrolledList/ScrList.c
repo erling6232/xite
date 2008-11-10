@@ -25,7 +25,9 @@
 #endif
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/Xos.h>
 #include <X11/Xlib.h>
 #include <X11/StringDefs.h>
@@ -189,14 +191,7 @@ WidgetClass xfwfScrolledListWidgetClass =
 
  *---------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void MultiListCallbackHandler(w,self,call_data)
-Widget w;
-Widget self;
-XfwfMultiListReturnStruct *call_data;
-#else /* FUNCPROTO */
 static void MultiListCallbackHandler(Widget w, Widget self, XfwfMultiListReturnStruct *call_data)
-#endif /* FUNCPROTO */
 {
 	Boolean highlighted,sensitive;
 	XfwfScrolledListReturnStruct ret_value;
@@ -229,11 +224,7 @@ static void MultiListCallbackHandler(Widget w, Widget self, XfwfMultiListReturnS
 
  *---------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ClassInitialize()
-#else /* FUNCPROTO */
 static void ClassInitialize(void)
-#endif /* FUNCPROTO */
 {
 } /* End ClassInitialize */
 
@@ -250,12 +241,7 @@ static void ClassInitialize(void)
  *---------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Initialize(request,new)
-Widget request,new;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget w;
 	Arg args[10];
@@ -307,14 +293,7 @@ static void Initialize(Widget request, Widget new)
 
  *---------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Realize(gw,valueMask,attrs)
-Widget gw;
-XtValueMask *valueMask;
-XSetWindowAttributes *attrs;
-#else /* FUNCPROTO */
 static void Realize(Widget gw, XtValueMask *valueMask, XSetWindowAttributes *attrs)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget w;
 
@@ -336,12 +315,7 @@ static void Realize(Widget gw, XtValueMask *valueMask, XSetWindowAttributes *att
 
  *---------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Destroy(gw)
-Widget gw;
-#else /* FUNCPROTO */
 static void Destroy(Widget gw)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget w;
 
@@ -365,12 +339,7 @@ static void Destroy(Widget gw)
 
  *---------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Resize(gw) 
-Widget gw;
-#else /* FUNCPROTO */
 static void Resize(Widget gw)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget w;
 
@@ -390,12 +359,7 @@ static void Resize(Widget gw)
  *---------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static Boolean SetValues(wcurrent,wrequest,wnew)
-Widget wcurrent,wrequest,wnew;
-#else /* FUNCPROTO */
 static Boolean SetValues(Widget wcurrent, Widget wrequest, Widget wnew)
-#endif /* FUNCPROTO */
 {
 	Boolean redraw,recalc;
 	XfwfScrolledListWidget csl,rsl,nsl;
@@ -435,14 +399,7 @@ static Boolean SetValues(Widget wcurrent, Widget wrequest, Widget wnew)
  *---------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static XtGeometryResult GeometryManager(w,request,reply)
-Widget w;
-XtWidgetGeometry *request;
-XtWidgetGeometry *reply;
-#else /* FUNCPROTO */
 static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtWidgetGeometry *reply)
-#endif /* FUNCPROTO */
 {
 	return(XtGeometryYes);
 } /* End GeometryManager */
@@ -459,13 +416,7 @@ static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtW
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static XtGeometryResult PreferredGeometry(slw,parent_idea,our_idea)
-XfwfScrolledListWidget slw;
-XtWidgetGeometry *parent_idea,*our_idea;
-#else /* FUNCPROTO */
 static XtGeometryResult PreferredGeometry(XfwfScrolledListWidget slw, XtWidgetGeometry *parent_idea, XtWidgetGeometry *our_idea)
-#endif /* FUNCPROTO */
 {
 	Arg multilist_args[2],slist_args[2];
 	Dimension col_width,row_height,num_rows,current_width,current_height;
@@ -517,12 +468,7 @@ static XtGeometryResult PreferredGeometry(XfwfScrolledListWidget slw, XtWidgetGe
 
  *---------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ReCalcChildren(w)
-XfwfScrolledListWidget w;
-#else /* FUNCPROTO */
 static void ReCalcChildren(XfwfScrolledListWidget w)
-#endif /* FUNCPROTO */
 {
 	int wid_h,wid_w;
 
@@ -553,16 +499,7 @@ static void ReCalcChildren(XfwfScrolledListWidget w)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfScrolledListSetList(w,newlist,items,resize,sensitive_array)
-Widget w;
-char **newlist;
-int items;
-Boolean resize;
-Boolean *sensitive_array;
-#else /* FUNCPROTO */
 void XfwfScrolledListSetList(Widget w, char **newlist, int items, Boolean resize, Boolean *sensitive_array)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget sw;
 
@@ -584,12 +521,7 @@ void XfwfScrolledListSetList(Widget w, char **newlist, int items, Boolean resize
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfScrolledListUnhighlightAll(w)
-Widget w;
-#else /* FUNCPROTO */
 void XfwfScrolledListUnhighlightAll(Widget w)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget sw;
 
@@ -606,13 +538,7 @@ void XfwfScrolledListUnhighlightAll(Widget w)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfScrolledListHighlightItem(w,item_index)
-Widget w;
-int item_index;
-#else /* FUNCPROTO */
 void XfwfScrolledListHighlightItem(Widget w, int item_index)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget sw;
 
@@ -630,12 +556,7 @@ void XfwfScrolledListHighlightItem(Widget w, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-XfwfScrolledListReturnStruct *XfwfScrolledListGetHighlighted(sw)
-XfwfScrolledListWidget sw;
-#else /* FUNCPROTO */
 XfwfScrolledListReturnStruct *XfwfScrolledListGetHighlighted(XfwfScrolledListWidget sw)
-#endif /* FUNCPROTO */
 {
 	XfwfMultiListReturnStruct *pl_ret;
 	XfwfScrolledListReturnStruct *sl_ret;
@@ -670,13 +591,7 @@ XfwfScrolledListReturnStruct *XfwfScrolledListGetHighlighted(XfwfScrolledListWid
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-Boolean XfwfScrolledListIsHighlighted(w,item_index)
-Widget w;
-int item_index;
-#else /* FUNCPROTO */
 Boolean XfwfScrolledListIsHighlighted(Widget w, int item_index)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget sw;
 
@@ -697,15 +612,7 @@ Boolean XfwfScrolledListIsHighlighted(Widget w, int item_index)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-Boolean XfwfScrolledListGetItem(w,item_index,str_ptr,high_ptr,sens_ptr)
-Widget w;
-int item_index;
-String *str_ptr;
-Boolean *high_ptr,*sens_ptr;
-#else /* FUNCPROTO */
 Boolean XfwfScrolledListGetItem(Widget w, int item_index, String *str_ptr, Boolean *high_ptr, Boolean *sens_ptr)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListWidget sw;
 

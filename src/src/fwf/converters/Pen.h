@@ -81,21 +81,10 @@ typedef struct _XfwfPen {
 extern XtConvertArgRec	Xfwf_StringToPen_Args[];
 extern int Xfwf_Num_StringToPen_Args;
 
-#ifdef FUNCPROTO
-
 extern int SameXfwfPen( XfwfPen *a, XfwfPen *b );
 extern int ValidateXfwfPen( Widget w, XfwfPen *pen );
 extern int FreeXfwfPen( Widget w, XfwfPen *pen );
 extern void XfwfInstallStringToPenConverter( void );
-
-#else /* FUNCPROTO */
-
-extern int SameXfwfPen(/* XfwfPen *a, XfwfPen *b */);
-extern int ValidateXfwfPen(/* Widget w, XfwfPen *pen */);
-extern int FreeXfwfPen(/* Widget w, XfwfPen *pen */);
-extern void XfwfInstallStringToPenConverter(/* void */);
-
-#endif /* FUNCPROTO */
 
 #ifdef __cplusplus
 }	/* extern C */

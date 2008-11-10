@@ -11,15 +11,7 @@
  *	counterpart.
  */
 int
-#ifndef FUNCPROTO
-XfwfTextWidth(font, str, length, tabs)
-     XFontStruct *font;
-     String str;
-     int length;
-     int *tabs;
-#else /* FUNCPROTO */
 XfwfTextWidth(XFontStruct *font, String str, int length, int *tabs)
-#endif /* FUNCPROTO */
 {
 	register char	*p, *ep;
 	register int	tx, tab, rc;

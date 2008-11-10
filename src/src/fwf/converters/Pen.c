@@ -11,7 +11,9 @@
 #include <X11/CoreP.h>
 #include <X11/Shell.h>
 
-#include XITE_MALLOC_H
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
 
 /* I have observed that resource converters can be called before the
    widgets initialize methods have been called.
@@ -25,23 +27,12 @@
 
    */
 
-#ifndef FUNCPROTO
-int SameXfwfPen(a,b)
-     XfwfPen	*a,*b;
-#else /* FUNCPROTO */
 int SameXfwfPen(XfwfPen *a, XfwfPen *b)
-#endif /* FUNCPROTO */
 {
   return 0 == memcmp((char*)a,(char*)b,sizeof(*a));
 }
 
-#ifndef FUNCPROTO
-int ValidateXfwfPen(w, pen)
-     Widget	w;
-     XfwfPen	*pen;
-#else /* FUNCPROTO */
 int ValidateXfwfPen(Widget w, XfwfPen *pen)
-#endif /* FUNCPROTO */
 {
   Drawable	win = w->core.window;
 
@@ -57,13 +48,7 @@ int ValidateXfwfPen(Widget w, XfwfPen *pen)
   return pen->gc != 0;
 }
 
-#ifndef FUNCPROTO
-int FreeXfwfPen(w, pen)
-     Widget	w;
-     XfwfPen	*pen;
-#else /* FUNCPROTO */
 int FreeXfwfPen(Widget w, XfwfPen *pen)
-#endif /* FUNCPROTO */
 {
   Screen	*screen;
   Display	*dpy;
@@ -103,16 +88,7 @@ int FreeXfwfPen(Widget w, XfwfPen *pen)
   return 1;			/* no failure */
 }
 
-#ifndef FUNCPROTO
-static int convert_pixel(dpy, screen, cmap, name, pixel)
-     Display	*dpy;
-     Screen	*screen;
-     Colormap	cmap;
-     char	*name;
-     unsigned long *pixel;
-#else /* FUNCPROTO */
 static int convert_pixel(Display *dpy, Screen *screen, Colormap cmap, char *name, long unsigned int *pixel)
-#endif /* FUNCPROTO */
 {
   if (0 == XmuCompareISOLatin1(name, XtDefaultBackground)) {
     *pixel = BlackPixelOfScreen(screen);
@@ -140,18 +116,8 @@ XtConvertArgRec  Xfwf_StringToPen_Args[] = {
 
 int Xfwf_Num_StringToPen_Args = XtNumber(Xfwf_StringToPen_Args);
 
-#ifndef FUNCPROTO
-static Boolean ConvertStringToPen(dpy, screen, colormap, w, src, dest)
-     Display	*dpy;
-     Screen	*screen;
-     Colormap	colormap;
-     Widget	w;		/* could be an Object */
-     char	*src;
-     XfwfPen	*dest;
-#else /* FUNCPROTO */
 static Boolean ConvertStringToPen(Display *dpy, Screen *screen, Colormap colormap, Widget w, char *src, XfwfPen *dest)
            	  		/* 'w' could be an Object */
-#endif /* FUNCPROTO */
 {
   char		*scan, *s;
 
@@ -343,18 +309,7 @@ static Boolean ConvertStringToPen(Display *dpy, Screen *screen, Colormap colorma
 }
      
 
-#ifndef FUNCPROTO
-static Boolean XfwfCvtStringToPen(dpy, args, num_args, fromVal, toVal,
-			   converter_data)
-     Display   *dpy;
-     XrmValue  *args;
-     Cardinal  *num_args;
-     XrmValue  *fromVal;
-     XrmValue  *toVal;
-     XtPointer *converter_data;
-#else /* FUNCPROTO */
 static Boolean XfwfCvtStringToPen(Display *dpy, XrmValue *args, Cardinal *num_args, XrmValue *fromVal, XrmValue *toVal, XtPointer *converter_data)
-#endif /* FUNCPROTO */
 {
   Screen	*screen;
   Colormap	colormap;
@@ -396,27 +351,14 @@ static Boolean XfwfCvtStringToPen(Display *dpy, XrmValue *args, Cardinal *num_ar
   }
 }
 
-#ifndef FUNCPROTO
-static void XfwfStringToPenDestructor(app, to, converter_data, args, num_args)
-      XtAppContext app;
-      XrmValue *to;
-      XtPointer converter_data;
-      XrmValue *args;
-      Cardinal *num_args;
-#else /* FUNCPROTO */
 static void XfwfStringToPenDestructor(XtAppContext app, XrmValue *to, XtPointer converter_data, XrmValue *args, Cardinal *num_args)
-#endif /* FUNCPROTO */
 {
   XfwfPen	*pen = *(XfwfPen**)to->addr;
   FreeXfwfPen((Widget)*(Object*)args[2].addr, pen);
   XtFree((char*)pen);
 }
 
-#ifndef FUNCPROTO
-void XfwfInstallStringToPenConverter()
-#else /* FUNCPROTO */
 void XfwfInstallStringToPenConverter(void)
-#endif /* FUNCPROTO */
 {
   XtSetTypeConverter
     (XtRString, XtRXfwfPenPtr, XfwfCvtStringToPen,

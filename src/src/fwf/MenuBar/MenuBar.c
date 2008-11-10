@@ -9,7 +9,9 @@
 #line 146 "MenuBar.w"
 #include <X11/Shell.h>
 #line 147 "MenuBar.w"
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <Xfwf/MenuBarP.h>
 #line 116 "MenuBar.w"
 static void menu_popdown(

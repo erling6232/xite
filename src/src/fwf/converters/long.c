@@ -7,22 +7,14 @@
 */
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #include "Converters.h"
 
-#ifndef FUNCPROTO
-Boolean XfwfCvtLongToString(display, args, num_args, from, to, converter_data)
-    Display *display;
-    XrmValuePtr args;
-    Cardinal *num_args;
-    XrmValuePtr from;
-    XrmValuePtr to;
-    XtPointer *converter_data;
-#else /* FUNCPROTO */
 Boolean XfwfCvtLongToString(Display *display, XrmValuePtr args, Cardinal *num_args, XrmValuePtr from, XrmValuePtr to, XtPointer *converter_data)
-#endif /* FUNCPROTO */
 {
     char s[30];
 

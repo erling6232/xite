@@ -28,11 +28,25 @@
 
 #include <xite/includes.h>
 #include <X11/Xfuncproto.h>
-#include XITE_STDIO_H
-#include XITE_STRING_H
-#include XITE_UNISTD_H
-#include XITE_TYPES_H
-#include XITE_STAT_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#else
+# ifdef HAVE_STRING_H
+#  include <string.h>
+# endif
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+#  include <sys/stat.h>
+#endif
 
 #if defined(SYSV) || defined(SVR4)
 #define getwd(path) getcwd(path, MAXPATHLEN)

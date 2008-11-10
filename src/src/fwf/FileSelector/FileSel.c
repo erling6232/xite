@@ -24,9 +24,15 @@
 #endif
 
 #include <xite/includes.h>
-#include XITE_STDIO_H
-#include XITE_MALLOC_H
-#include XITE_UNISTD_H
+#ifdef HAVE_STDIO_H
+#  include <stdio.h>
+#endif
+#ifdef HAVE_MALLOC_H
+# include <malloc.h>
+#endif
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 #include <ctype.h>
 
 #include <X11/Xos.h>
@@ -316,12 +322,7 @@ WidgetClass xfwfFileSelectorWidgetClass =
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static void Initialize(request,new)
-Widget request,new;
-#else /* FUNCPROTO */
 static void Initialize(Widget request, Widget new)
-#endif /* FUNCPROTO */
 {
 	int i;
 	XfwfFileSelectorWidget fsw;
@@ -380,14 +381,7 @@ static void Initialize(Widget request, Widget new)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Realize(gw,valueMask,attrs)
-Widget gw;
-XtValueMask *valueMask;
-XSetWindowAttributes *attrs;
-#else /* FUNCPROTO */
 static void Realize(Widget gw, XtValueMask *valueMask, XSetWindowAttributes *attrs)
-#endif /* FUNCPROTO */
 {
 	XfwfFileSelectorWidget fsw;
 
@@ -412,12 +406,7 @@ static void Realize(Widget gw, XtValueMask *valueMask, XSetWindowAttributes *att
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Destroy(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void Destroy(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	int i;
 
@@ -449,12 +438,7 @@ static void Destroy(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void Resize(gw) 
-Widget gw;
-#else /* FUNCPROTO */
 static void Resize(Widget gw)
-#endif /* FUNCPROTO */
 {
 	XfwfFileSelectorWidget w;
 
@@ -472,12 +456,7 @@ static void Resize(Widget gw)
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static Boolean SetValues(gcurrent,grequest,gnew)
-Widget gcurrent,grequest,gnew;
-#else /* FUNCPROTO */
 static Boolean SetValues(Widget gcurrent, Widget grequest, Widget gnew)
-#endif /* FUNCPROTO */
 {
 	XfwfFileSelectorWidget current,new;
 
@@ -561,14 +540,7 @@ static Boolean SetValues(Widget gcurrent, Widget grequest, Widget gnew)
  *---------------------------------------------------------------------------*/
 
 /* ARGSUSED */
-#ifndef FUNCPROTO
-static XtGeometryResult GeometryManager(w,request,reply)
-Widget w;
-XtWidgetGeometry *request;
-XtWidgetGeometry *reply;
-#else /* FUNCPROTO */
 static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtWidgetGeometry *reply)
-#endif /* FUNCPROTO */
 {
 	return(XtGeometryYes);
 } /* End GeometryManager */
@@ -591,12 +563,7 @@ static XtGeometryResult GeometryManager(Widget w, XtWidgetGeometry *request, XtW
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ChildrenCreate(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void ChildrenCreate(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	Arg args[10];
 	static char *dummy_string_list[] = { NULL };
@@ -750,12 +717,7 @@ static void ChildrenCreate(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ChildrenRealize(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void ChildrenRealize(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	int i;
 	Widget widget;
@@ -793,12 +755,7 @@ static void ChildrenRealize(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ChildrenRecalculate(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void ChildrenRecalculate(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	BOX *coords;
 	Widget widget;
@@ -1077,12 +1034,7 @@ static void ChildrenRecalculate(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ChildrenUpdate(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void ChildrenUpdate(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	int i;
 	Widget widget;
@@ -1123,28 +1075,14 @@ static void ChildrenUpdate(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ButtonUp(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ButtonUp(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	strcat(FSCurrentDirectory(fsw),"..");
 	Chdir(fsw);
 } /* End ButtonUp */
 
 
-#ifndef FUNCPROTO
-static void ButtonOk(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ButtonOk(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	XfwfFileSelectorOkButtonReturnStruct *ret;
 
@@ -1160,27 +1098,13 @@ static void ButtonOk(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
 } /* End ButtonOk */
 
 
-#ifndef FUNCPROTO
-static void ButtonCancel(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ButtonCancel(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	XtCallCallbacks((Widget)fsw,XtNcancelButtonCallback,NULL);
 } /* End ButtonCancel */
 
 
-#ifndef FUNCPROTO
-static void ButtonGoto(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ButtonGoto(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	Widget cur_dir_text;
 	Arg args[10];
@@ -1199,14 +1123,7 @@ static void ButtonGoto(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data
 } /* End ButtonGoto */
 
 
-#ifndef FUNCPROTO
-static void ButtonSelect(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ButtonSelect(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	String file;
 
@@ -1220,12 +1137,7 @@ static void ButtonSelect(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_da
 } /* End ButtonSelect */
 
 
-#ifndef FUNCPROTO
-static char *GetFileBoxText(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static char *GetFileBoxText(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	char *text;
 	Arg args[1];
@@ -1238,14 +1150,7 @@ static char *GetFileBoxText(XfwfFileSelectorWidget fsw)
 } /* End GetFileBoxText */
 
 
-#ifndef FUNCPROTO
-static void ClickOnPathList(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ClickOnPathList(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	int i;
 	XfwfScrolledListReturnStruct *ret;
@@ -1266,14 +1171,7 @@ static void ClickOnPathList(Widget w, XfwfFileSelectorWidget fsw, XtPointer call
 } /* End ClickOnPathList */
 
 
-#ifndef FUNCPROTO
-static void ClickOnFileList(w,fsw,call_data)
-Widget w;
-XfwfFileSelectorWidget fsw;
-XtPointer call_data;
-#else /* FUNCPROTO */
 static void ClickOnFileList(Widget w, XfwfFileSelectorWidget fsw, XtPointer call_data)
-#endif /* FUNCPROTO */
 {
 	XfwfScrolledListReturnStruct *ret;
 
@@ -1294,12 +1192,7 @@ static void ClickOnFileList(Widget w, XfwfFileSelectorWidget fsw, XtPointer call
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static char *strip_blanks(t)
-char *t;
-#else /* FUNCPROTO */
 static char *strip_blanks(char *t)
-#endif /* FUNCPROTO */
 {
   int len;
   char *t2, *t3;
@@ -1323,13 +1216,7 @@ static char *strip_blanks(char *t)
 
 } /* strip_blanks() */
 
-#ifndef FUNCPROTO
-static void SelectFileByIndex(fsw,index)
-XfwfFileSelectorWidget fsw;
-int index;
-#else /* FUNCPROTO */
 static void SelectFileByIndex(XfwfFileSelectorWidget fsw, int index)
-#endif /* FUNCPROTO */
 {
 	DirEntry *dir_entry;
 
@@ -1367,13 +1254,7 @@ static void SelectFileByIndex(XfwfFileSelectorWidget fsw, int index)
 } /* End SelectFileByIndex */
 
 
-#ifndef FUNCPROTO
-static Boolean SelectFileByName(fsw,name)
-XfwfFileSelectorWidget fsw;
-char *name;
-#else /* FUNCPROTO */
 static Boolean SelectFileByName(XfwfFileSelectorWidget fsw, char *name)
-#endif /* FUNCPROTO */
 {
 	if (DirectoryMgrGotoNamedItem(FSDirMgr(fsw),name) == FALSE)
 	{
@@ -1384,12 +1265,7 @@ static Boolean SelectFileByName(XfwfFileSelectorWidget fsw, char *name)
 } /* End SelectFileByName */
 
 
-#ifndef FUNCPROTO
-static void UnselectAll(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void UnselectAll(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	Boolean old_file_selected_flag;
 
@@ -1408,12 +1284,7 @@ static void UnselectAll(XfwfFileSelectorWidget fsw)
 } /* End UnselectAll */
 
 
-#ifndef FUNCPROTO
-static void NotifySelectionChange(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void NotifySelectionChange(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	XfwfFileSelectorSelectionChangeReturnStruct ret;
 
@@ -1445,12 +1316,7 @@ static void NotifySelectionChange(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void ParentizeDirectory(dir)
-char *dir;
-#else /* FUNCPROTO */
 static void ParentizeDirectory(char *dir)
-#endif /* FUNCPROTO */
 {
 	char *end_of_dir;
 
@@ -1494,12 +1360,7 @@ static void ParentizeDirectory(char *dir)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void GotoDeepestLegalDirectory(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void GotoDeepestLegalDirectory(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	char dir[MAXPATHLEN + 2];
 
@@ -1541,12 +1402,7 @@ static void GotoDeepestLegalDirectory(XfwfFileSelectorWidget fsw)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-static void UpdateLists(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void UpdateLists(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	int i,count;
 	char *dir,*start;
@@ -1635,12 +1491,7 @@ static void UpdateLists(XfwfFileSelectorWidget fsw)
 } /* End UpdateLists */
 
 
-#ifndef FUNCPROTO
-static void UpdateTextLines(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void UpdateTextLines(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	TextWidgetSetText(FSNthWidget(fsw,FS_I_CUR_DIR_TEXT),
 			  FSCurrentDirectory(fsw));
@@ -1649,12 +1500,7 @@ static void UpdateTextLines(XfwfFileSelectorWidget fsw)
 } /* End UpdateTextLines */
 
 
-#ifndef FUNCPROTO
-static void Chdir(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 static void Chdir(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	DoBusyCursor((Widget)fsw);
 	GotoDeepestLegalDirectory(fsw);
@@ -1663,12 +1509,7 @@ static void Chdir(XfwfFileSelectorWidget fsw)
 } /* End Chdir */
 
 
-#ifndef FUNCPROTO
-static void DoBusyCursor(w)
-Widget w;
-#else /* FUNCPROTO */
 static void DoBusyCursor(Widget w)
-#endif /* FUNCPROTO */
 {
 #ifndef NO_BUSY_GRAB
 	if (XtIsRealized(w))
@@ -1681,12 +1522,7 @@ static void DoBusyCursor(Widget w)
 } /* End DoBusyCursor */
 
 
-#ifndef FUNCPROTO
-static void UndoBusyCursor(w)
-Widget w;
-#else /* FUNCPROTO */
 static void UndoBusyCursor(Widget w)
-#endif /* FUNCPROTO */
 {
 #ifndef NO_BUSY_GRAB
 	if (XtIsRealized(w))
@@ -1697,13 +1533,7 @@ static void UndoBusyCursor(Widget w)
 } /* End UndoBusyCursor */
 
 
-#ifndef FUNCPROTO
-static void TextWidgetSetText(tw,text)
-Widget tw;
-char *text;
-#else /* FUNCPROTO */
 static void TextWidgetSetText(Widget tw, char *text)
-#endif /* FUNCPROTO */
 {
 	Arg args[3];
 	int length,insert_position;
@@ -1741,37 +1571,20 @@ static void TextWidgetSetText(Widget tw, char *text)
 
  *---------------------------------------------------------------------------*/
 
-#ifndef FUNCPROTO
-void XfwfFileSelectorChangeDirectory(fsw,dir)
-XfwfFileSelectorWidget fsw;
-char *dir;
-#else /* FUNCPROTO */
 void XfwfFileSelectorChangeDirectory(XfwfFileSelectorWidget fsw, char *dir)
-#endif /* FUNCPROTO */
 {
 	strcpy(FSCurrentDirectory(fsw),dir);
 	Chdir(fsw);
 } /* End XfwfFileSelectorChangeDirectory */
 
 
-#ifndef FUNCPROTO
-void XfwfFileSelectorRefresh(fsw)
-XfwfFileSelectorWidget fsw;
-#else /* FUNCPROTO */
 void XfwfFileSelectorRefresh(XfwfFileSelectorWidget fsw)
-#endif /* FUNCPROTO */
 {
 	XfwfFileSelectorChangeDirectory(fsw,".");
 } /* End XfwfFileSelectorRefresh */
 
 
-#ifndef FUNCPROTO
-void XfwfFileSelectorGetStatus(fsw,ssp)
-XfwfFileSelectorWidget fsw;
-XfwfFileSelectorStatusStruct *ssp;
-#else /* FUNCPROTO */
 void XfwfFileSelectorGetStatus(XfwfFileSelectorWidget fsw, XfwfFileSelectorStatusStruct *ssp)
-#endif /* FUNCPROTO */
 {	
 	ssp->file_selected = FSFileSelected(fsw);
 	ssp->path = FSCurrentDirectory(fsw);
