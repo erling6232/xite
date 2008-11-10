@@ -5,6 +5,7 @@ libfwf_la_LIBADD = Button/libfwfButton.la
 libfwf_la_LIBADD = Common/libfwfCommon.la
 libfwf_la_LIBADD = converters/libfwfconverters.la
 libfwf_la_LIBADD = Dir/libfwfDir.la
+libfwf_la_LIBADD = FileSelector/libfwfFileSelector.la
 
 SUBDIRS = \
 	Board \
