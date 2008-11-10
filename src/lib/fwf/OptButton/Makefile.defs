@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/OptButton
+#
+FWFOBJ  = OptButton.o
+FWFINCL = OptButton.i OptButtonP.i
+ROFF3   = XfwfOptionButton.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  
