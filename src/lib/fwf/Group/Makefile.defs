@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/Group
+#
+FWFOBJ  = Group.o
+FWFINCL = Group.i GroupP.i
+ROFF3   = XfwfGroup.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  
