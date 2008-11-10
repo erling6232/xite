@@ -51,90 +51,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:fhtPhase*
-
-________________________________________________________________
-
-		fhtPhase
-________________________________________________________________
-
-Name:		fhtPhase - find Fourier transform phase from Hartley transform
-
-Syntax:         | #include <xite/fht.h>
-		|
-                | int fhtPhase( IR_BAND inband, IR_BAND outband );
-
-Description:    'fhtPhase' calculates the Fourier transform phase
-		from a Hartley transform. The phase is identical to
-		the phase calculated from the Fourier transform,
-		and the Hartley transform is significantly faster.
-		The phase values are in the interval 0..2PI.
-
-Restrictions:	Bands should have equal size. Currently, only single
-		precision float values are accepted.
-
-See also:	fhtPhase(1), fht2d(3), fft2d(3), ft2ht(3), ht2ft(3),
-                fhtPower(3)
-
-Return value:   | 0 => ok
-                | 1 => bad pixel type input
-		| 2 => bad pixel type output
-		| 3 => bad sizes
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-int fhtPhase(IR_BAND inband, IR_BAND outband)
-{
-  int x, y, xsize, ysize, xsizep2, ysizep2;
-
-  if (Ipixtyp((IBAND) inband) NE Ireal_typ) return(1);
-  if (Ipixtyp((IBAND) outband) NE Ireal_typ) return(2);
-  xsize = Ixsize((IBAND) inband);
-  ysize = Iysize((IBAND) inband);
-  if (xsize NE Ixsize((IBAND) outband)) return(3);
-  if (ysize NE Iysize((IBAND) outband)) return(3);
-  xsizep2 = xsize+2;
-  ysizep2 = ysize+2;
-
-  /* dc component */
-  outband[1][1] = 0.0;
-
-  /* first line */
-  for (x=2; x LE xsize; x++)
-    outband[1][x] = (float)atan2((double)(-inband[1][x] +
-					  inband[1][xsizep2-x]),
-				 (double)(inband[1][x] +
-					  inband[1][xsizep2-x])) + PI;
-
-  /* general line loop */
-  for (y=2; y LE ysize; y++) {
-    /* first sample */
-    outband[y][1] = (float)atan2((double)(-inband[y][1] +
-					  inband[ysizep2-y][1]),
-				 (double)(inband[y][1] +
-					  inband[ysizep2-y][1])) + PI;
-
-    /* general sample loop */
-    for (x=2; x LE xsize; x++)
-      outband[y][x] = (float)atan2((double)(-inband[y][x] +
-					    inband[ysizep2-y][xsizep2-x]),
-				   (double)(inband[y][x] +
-					    inband[ysizep2-y][xsizep2-x])) +
-	PI;
-  }
-
-  return(0);
-}
-
-#endif /* not MAIN */
-
 /*P:fhtPhase*
 
 ________________________________________________________________
@@ -170,8 +86,6 @@ Id: 		$Id$
 ________________________________________________________________
 
 */
-
-#ifdef MAIN
 
 int main(int argc, char **argv)
 {
@@ -213,5 +127,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
