@@ -22,4 +22,4 @@ bin_PROGRAMS=$(PROG) $(XPROG)
 
 LDADD = libxite.la
 
-contourbine_SOURCES = contour_main.c
+contour_SOURCES = contour_main.c

@@ -20,7 +20,7 @@ libfwf_la_LIBADD = \
 	ScrolledList/libfwfScrolledList.la \
 	tabstring/libfwftabstring.la \
 	TextMenu/libfwfTextMenu.la \
-	Toggle/libfwfToggle.la \
+	Toggle/libfwfToggle.la
 
 SUBDIRS = \
 	Board \

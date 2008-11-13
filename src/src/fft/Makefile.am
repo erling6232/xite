@@ -15,8 +15,8 @@ include $(configdir)/@common_makefile@
 #
 PROG    = fft2d fftMagPhase
 XPROG   = xfft
-SCRIPTS = fftReal fftImag fftAmp fftPhase fftPower fftMult fftMakeLp \
-	  fftMakeHp fftMakeBp fftMakeBs fftDisplay
+#SCRIPTS = fftReal fftImag fftAmp fftPhase fftPower fftMult fftMakeLp \
+#	  fftMakeHp fftMakeBp fftMakeBs fftDisplay
 MANP    = fft2d.m xfft.m fftMagPhase.m
 CINCL   = fft.i
 
