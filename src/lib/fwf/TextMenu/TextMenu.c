@@ -24,51 +24,35 @@
 #include <Xfwf/TextMenuP.h>
 #line 292 "TextMenu.w"
 static void init(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 297 "TextMenu.w"
 static void add_keyboard_grab(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 302 "TextMenu.w"
 static void remove_keyboard_grab(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 313 "TextMenu.w"
 static void highlight(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 339 "TextMenu.w"
 static void notify(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 355 "TextMenu.w"
 static void previous(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 374 "TextMenu.w"
 static void next(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 399 "TextMenu.w"
 static void shortcut(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -96,39 +80,27 @@ static char defaultTranslations[] = "\
 <Unmap>: remove_keyboard_grab() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 163 "TextMenu.w"
 static void class_initialize(
-#if NeedFunctionPrototypes
 void
-#endif
 );
 #line 177 "TextMenu.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 198 "TextMenu.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 235 "TextMenu.w"
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 #line 256 "TextMenu.w"
 static void destroy(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 433 "TextMenu.w"
 #define is_active(n) (n >=8 *sizeof (((XfwfTextMenuWidget)self)->xfwfTextMenu.active )||(((XfwfTextMenuWidget)self)->xfwfTextMenu.active &(1 <<n )))
@@ -152,27 +124,19 @@ Widget
 
 #line 451 "TextMenu.w"
 static void draw_label(
-#if NeedFunctionPrototypes
 Widget,int ,GC 
-#endif
 );
 #line 482 "TextMenu.w"
 static void draw_normal(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 #line 491 "TextMenu.w"
 static void draw_highlight(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 #line 500 "TextMenu.w"
 static void draw_grayed(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 #line 520 "TextMenu.w"
 #define LINEWD 2 
@@ -180,33 +144,23 @@ Widget,int
 
 #line 522 "TextMenu.w"
 static void parse_menu(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 572 "TextMenu.w"
 static void make_gc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 588 "TextMenu.w"
 static void make_rvgc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 605 "TextMenu.w"
 static void make_graygc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 624 "TextMenu.w"
 static void add_cursor_cb(
-#if NeedFunctionPrototypes
 Widget,XtPointer ,XtPointer 
-#endif
 );
 #line 451 "TextMenu.w"
 /*ARGSUSED*/static void draw_label(self,n,gc)Widget self;int  n;GC  gc;
