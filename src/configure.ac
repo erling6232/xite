@@ -15,7 +15,7 @@ AC_PROG_SED
 
 # Checks for libraries
 AC_CHECK_LIB([X11],  [XBell])
-AC_CHECK_LIB([xpm],  [xpmReadFile])
+# Internal xpm # AC_CHECK_LIB([xpm],  [xpmReadFile])
 # AC_CHECK_LIB([Xaw],  [XawAsciiSave])
 AC_CHECK_LIB([Xmu],  [XmuMakeAtom])
 AC_CHECK_LIB([Xt],   [XtConvert])
