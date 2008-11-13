@@ -8,21 +8,15 @@
 #include <Xfwf/ToggleP.h>
 #line 63 "Toggle.w"
 static void toggle(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 74 "Toggle.w"
 static void switch_on(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 87 "Toggle.w"
 static void switch_off(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -37,39 +31,27 @@ static char defaultTranslations[] = "\
 <Key>Return: toggle() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 119 "Toggle.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 140 "Toggle.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 177 "Toggle.w"
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 #line 207 "Toggle.w"
 static void create_on_gc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 227 "Toggle.w"
 static void create_off_gc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 207 "Toggle.w"
 /*ARGSUSED*/static void create_on_gc(self)Widget self;

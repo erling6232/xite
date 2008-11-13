@@ -19,6 +19,7 @@ libfwf_la_LIBADD = Rows/libfwfRows.la
 libfwf_la_LIBADD = ScrolledList/libfwfScrolledList.la
 libfwf_la_LIBADD = tabstring/libfwftabstring.la
 libfwf_la_LIBADD = TextMenu/libfwfTextMenu.la
+libfwf_la_LIBADD = Toggle/libfwfToggle.la
 
 SUBDIRS = \
 	Board \

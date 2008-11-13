@@ -155,6 +155,9 @@ AC_CONFIG_FILES([
     lib/fwf/RowCol/Makefile
     lib/fwf/Rows/Makefile
     lib/fwf/ScrolledList/Makefile
+    lib/fwf/tabstring/Makefile
+    lib/fwf/TextMenu/Makefile
+    lib/fwf/Toggle/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -192,5 +195,8 @@ AC_CONFIG_FILES([
     src/fwf/RowCol/Makefile
     src/fwf/Rows/Makefile
     src/fwf/ScrolledList/Makefile
+    src/fwf/tabstring/Makefile
+    src/fwf/TextMenu/Makefile
+    src/fwf/Toggle/Makefile
     ])
 AC_OUTPUT
