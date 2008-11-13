@@ -151,6 +151,10 @@ AC_CONFIG_FILES([
     lib/fwf/MultiList/Makefile
     lib/fwf/OptButton/Makefile
     lib/fwf/Prompt/Makefile
+    lib/fwf/PullDown/Makefile
+    lib/fwf/RowCol/Makefile
+    lib/fwf/Rows/Makefile
+    lib/fwf/ScrolledList/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -184,5 +188,9 @@ AC_CONFIG_FILES([
     src/fwf/MultiList/Makefile
     src/fwf/OptButton/Makefile
     src/fwf/Prompt/Makefile
+    src/fwf/Pulldown/Makefile
+    src/fwf/RowCol/Makefile
+    src/fwf/Rows/Makefile
+    src/fwf/ScrolledList/Makefile
     ])
 AC_OUTPUT

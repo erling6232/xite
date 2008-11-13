@@ -16,6 +16,7 @@ libfwf_la_LIBADD = Prompt/libfwfPrompt.la
 libfwf_la_LIBADD = PullDown/libfwfPullDown.la
 libfwf_la_LIBADD = RowCol/libfwfRowCol.la
 libfwf_la_LIBADD = Rows/libfwfRows.la
+libfwf_la_LIBADD = ScrolledList/libfwfScrolledList.la
 
 SUBDIRS = \
 	Board \

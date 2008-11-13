@@ -56,21 +56,6 @@
 #define	MyData(w)		((w)->scrolledList)
 #define	CoreData(w)		((w)->core)
 
-#if (!NeedFunctionPrototypes)
-
-static void		MultiListCallbackHandler();
-static void		ClassInitialize();
-static void		Initialize();
-static void		Realize();
-static void		Destroy();
-static void		Resize();
-static Boolean		SetValues();
-static XtGeometryResult	GeometryManager();
-static XtGeometryResult	PreferredGeometry();
-static void		ReCalcChildren();
-
-#else
-
 static void		MultiListCallbackHandler(Widget w, Widget self,
 				XfwfMultiListReturnStruct *call_data);
 static void		ClassInitialize(void);
@@ -87,8 +72,6 @@ static XtGeometryResult	PreferredGeometry(XfwfScrolledListWidget slw,
 				XtWidgetGeometry *parent_idea,
 				XtWidgetGeometry *our_idea);
 static void		ReCalcChildren(XfwfScrolledListWidget w);
-
-#endif
 
 /*---------------------------------------------------------------------------*
 
