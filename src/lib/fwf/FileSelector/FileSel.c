@@ -112,42 +112,6 @@ static char *text_box_translations =
 
  *---------------------------------------------------------------------------*/
 
-#if (!NeedFunctionPrototypes)
-
-static void		Initialize();
-static void		Realize();
-static void		Destroy();
-static void		Resize();
-static Boolean		SetValues();
-static XtGeometryResult	GeometryManager();
-static void		ChildrenCreate();
-static void		ChildrenRealize();
-static void		ChildrenRecalculate();
-static void		ChildrenUpdate();
-static void		ButtonUp();
-static void		ButtonOk();
-static void		ButtonCancel();
-static void		ButtonGoto();
-static void		ButtonSelect();
-static char *		GetFileBoxText();
-static void		ClickOnPathList();
-static void		ClickOnFileList();
-static void		SelectFileByIndex();
-static Boolean		SelectFileByName();
-static void		UnselectAll();
-static void		NotifySelectionChange();
-static void		ParentizeDirectory();
-static void		GotoDeepestLegalDirectory();
-static void		UpdateLists();
-static void		UpdateTextLines();
-static void		Chdir();
-static void		DoBusyCursor();
-static void		UndoBusyCursor();
-static void		TextWidgetSetText();
-static char *           strip_blanks();
-
-#else
-
 static void		Initialize(Widget request, Widget new);
 static void		Realize(Widget gw, XtValueMask *valueMask,
 				XSetWindowAttributes *attrs);
@@ -192,8 +156,6 @@ static void		DoBusyCursor(Widget w);
 static void		UndoBusyCursor(Widget w);
 static void		TextWidgetSetText(Widget tw, char *text);
 static char *           strip_blanks(char *t);
-
-#endif
 
 /*---------------------------------------------------------------------------*
 

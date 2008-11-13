@@ -39,28 +39,22 @@
 typedef String * StringArray;
 
 Boolean cvtStringToStringArray(
-#if NeedFunctionPrototypes
     Display *display,
     XrmValuePtr args,
     Cardinal *num_args,
     XrmValuePtr from,
     XrmValuePtr to,
     XtPointer *converter_data
-#endif
 );
 
 
 StringArray newStringArray(
-#if NeedFunctionPrototypes
     StringArray a
-#endif
 );
 
 
 void freeStringArray(
-#if NeedFunctionPrototypes
     StringArray a
-#endif
 );
 
 

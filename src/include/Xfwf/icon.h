@@ -7,14 +7,12 @@
 #include <xpm/xpm.h>
 
 Boolean cvtStringToIcon(
-#if NeedFunctionPrototypes
     Display *dpy,
     XrmValue *args,
     Cardinal *num_args,
     XrmValue *from,
     XrmValue *to,
     XtPointer *converter_data
-#endif
 );
 
 /* The |Icon| type is a convenient combination of a pixmap, a mask and

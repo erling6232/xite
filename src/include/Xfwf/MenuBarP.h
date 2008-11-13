@@ -6,9 +6,7 @@
 #include <Xfwf/RowsP.h>
 #include <Xfwf/MenuBar.h>
 typedef void (*process_menu_Proc)(
-#if NeedFunctionPrototypes
 Widget,Widget ,Cursor 
-#endif
 );
 #define XtInherit_process_menu ((process_menu_Proc) _XtInherit)
 

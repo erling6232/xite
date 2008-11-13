@@ -7,9 +7,7 @@
 #include <Xfwf/ButtonP.h>
 #line 60 "Button.w"
 static void activate(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -23,9 +21,7 @@ Button1<Leave>: set_shadow() \n\
 <Key>Return: set_shadow(sunken) activate() set_shadow() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 
 static XtResource resources[] = {

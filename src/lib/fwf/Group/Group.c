@@ -14,63 +14,43 @@
 #include <Xfwf/Converters.h>
 #include <Xfwf/GroupP.h>
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 /* #line 147 "Group.w" */
 static void class_initialize(
-#if NeedFunctionPrototypes
 void
-#endif
 );
 /* #line 160 "Group.w" */
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 /* #line 177 "Group.w" */
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 /* #line 203 "Group.w" */
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 /* #line 230 "Group.w" */
 static void insert_child(
-#if NeedFunctionPrototypes
 Widget 
-#endif
 );
 /* #line 256 "Group.w" */
 static void make_textgc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 /* #line 274 "Group.w" */
 static void on_cb(
-#if NeedFunctionPrototypes
 Widget ,XtPointer ,XtPointer 
-#endif
 );
 /* #line 307 "Group.w" */
 static void off_cb(
-#if NeedFunctionPrototypes
 Widget ,XtPointer ,XtPointer 
-#endif
 );
 /* #line 333 "Group.w" */
 static void set_toggles(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 /* #line 358 "Group.w" */
 #define done(type, value) do {\
@@ -92,15 +72,11 @@ Widget
 
 /* #line 375 "Group.w" */
 static Boolean  cvtStringToSelectionType(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 /* #line 407 "Group.w" */
 static Boolean  cvtSelectionTypeToString(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 /* #line 256 "Group.w" */
 /*ARGSUSED*/static void make_textgc(self)Widget self;

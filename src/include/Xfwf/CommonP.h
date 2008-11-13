@@ -16,51 +16,35 @@
 #endif
 
 typedef void (*compute_inside_Proc)(
-#if NeedFunctionPrototypes
 Widget,Position *,Position *,Dimension *,Dimension *
-#endif
 );
 #define XtInherit_compute_inside ((compute_inside_Proc) _XtInherit)
 typedef Dimension  (*total_frame_width_Proc)(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #define XtInherit_total_frame_width ((total_frame_width_Proc) _XtInherit)
 typedef void (*highlight_border_Proc)(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #define XtInherit_highlight_border ((highlight_border_Proc) _XtInherit)
 typedef void (*unhighlight_border_Proc)(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #define XtInherit_unhighlight_border ((unhighlight_border_Proc) _XtInherit)
 typedef Boolean  (*would_accept_focus_Proc)(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #define XtInherit_would_accept_focus ((would_accept_focus_Proc) _XtInherit)
 typedef void (*traverse_Proc)(
-#if NeedFunctionPrototypes
 Widget,TraversalDirection ,Widget ,Time *
-#endif
 );
 #define XtInherit_traverse ((traverse_Proc) _XtInherit)
 typedef Boolean  (*lighter_color_Proc)(
-#if NeedFunctionPrototypes
 Widget,Pixel ,Pixel *
-#endif
 );
 #define XtInherit_lighter_color ((lighter_color_Proc) _XtInherit)
 typedef Boolean  (*darker_color_Proc)(
-#if NeedFunctionPrototypes
 Widget,Pixel ,Pixel *
-#endif
 );
 #define XtInherit_darker_color ((darker_color_Proc) _XtInherit)
 

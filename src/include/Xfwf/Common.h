@@ -39,14 +39,10 @@ typedef enum {
 	    TraverseNext, TraversePrev, TraverseHome, TraverseNextTop } TraversalDirection;
 
 void XfwfCallComputeInside(
-#if NeedFunctionPrototypes
 Widget,Position *,Position *,Dimension *,Dimension *
-#endif
 );
 Dimension  XfwfCallFrameWidth(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #ifndef XtNtraversalOn
 #define XtNtraversalOn "traversalOn"

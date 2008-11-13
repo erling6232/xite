@@ -25,93 +25,63 @@
 #include <Xfwf/PromptP.h>
 /* #line 306 "Prompt.w" */
 static void activate(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 315 "Prompt.w" */
 static void leave(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 330 "Prompt.w" */
 static void start_select(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 347 "Prompt.w" */
 static void extend_select(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 368 "Prompt.w" */
 static void end_select(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 386 "Prompt.w" */
 static void paste(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 396 "Prompt.w" */
 static void unselect(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 411 "Prompt.w" */
 static void cut(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 456 "Prompt.w" */
 static void self_insert(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 492 "Prompt.w" */
 static void bol(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 507 "Prompt.w" */
 static void eol(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 527 "Prompt.w" */
 static void left(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 545 "Prompt.w" */
 static void right(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 566 "Prompt.w" */
 static void delete(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 /* #line 606 "Prompt.w" */
 static void backspace(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -158,96 +128,66 @@ Ctrl<Key>e: unselect() eol() \n\
 <Key>: cut() self_insert() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 /* #line 175 "Prompt.w" */
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 /* #line 194 "Prompt.w" */
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 /* #line 225 "Prompt.w" */
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 /* #line 648 "Prompt.w" */
 static Boolean  find_cursor(
-#if NeedFunctionPrototypes
 Widget,XButtonEvent *,int *
-#endif
 );
 /* #line 687 "Prompt.w" */
 static void find_cursor_in_line(
-#if NeedFunctionPrototypes
 Widget,XRectangle ,int ,int ,int ,int ,int *
-#endif
 );
 /* #line 745 "Prompt.w" */
 static int  find_end_of_run(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 /* #line 763 "Prompt.w" */
 static void insert_in_run(
-#if NeedFunctionPrototypes
 Widget,int ,int ,int 
-#endif
 );
 /* #line 776 "Prompt.w" */
 static void delete_from_run(
-#if NeedFunctionPrototypes
 Widget,int ,int ,int 
-#endif
 );
 /* #line 788 "Prompt.w" */
 static Boolean  matches(
-#if NeedFunctionPrototypes
 int ,int 
-#endif
 );
 /* #line 805 "Prompt.w" */
 static void insert_char(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 /* #line 842 "Prompt.w" */
 #define pattern_char(c) (c =='9'||c =='a'||c =='A'||c =='F'||c =='f'||c =='X'||c =='z'||c =='Z')
 
 /* #line 846 "Prompt.w" */
 static void set_text_start(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 /* #line 905 "Prompt.w" */
 static Boolean  convert_proc(
-#if NeedFunctionPrototypes
 Widget,Atom *,Atom *,Atom *,XtPointer *,unsigned  long *,int *
-#endif
 );
 /* #line 946 "Prompt.w" */
 static void lose_ownership_proc(
-#if NeedFunctionPrototypes
 Widget,Atom *
-#endif
 );
 /* #line 955 "Prompt.w" */
 static void paste_callback(
-#if NeedFunctionPrototypes
 Widget,XtPointer ,Atom *,Atom *,XtPointer ,unsigned  long *,int *
-#endif
 );
 /* #line 648 "Prompt.w" */
 /*ARGSUSED*/static Boolean  find_cursor(self,event,pos)Widget self;XButtonEvent * event;int * pos;

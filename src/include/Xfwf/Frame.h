@@ -12,29 +12,19 @@ typedef enum {XfwfAuto, XfwfColor, XfwfStipple} ShadowScheme;
 typedef Pixmap  Bitmap;
 
 void XfwfDrawFrame(
-#if NeedFunctionPrototypes
 Widget,int ,int ,int ,int ,FrameType ,int ,GC ,GC 
-#endif
 );
 Boolean  cvtStringToFrameType(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 Boolean  cvtFrameTypeToString(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 Boolean  cvtStringToShadowScheme(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 Boolean  cvtShadowSchemeToString(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 #ifndef XtNcursor
 #define XtNcursor "cursor"

@@ -5,9 +5,7 @@
 #define _XfwfMenuBar_H_
 #include <Xfwf/Rows.h>
 Boolean  XfwfCallProcessMenu(
-#if NeedFunctionPrototypes
 Widget,Widget ,Cursor 
-#endif
 );
 typedef struct _XfwfMenuBarClassRec *XfwfMenuBarWidgetClass;
 typedef struct _XfwfMenuBarRec *XfwfMenuBarWidget;

@@ -6,39 +6,27 @@
 #include <X11/StringDefs.h>
 #include <Xfwf/RowsP.h>
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 32 "Rows.w"
 static void change_managed(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 41 "Rows.w"
 static void layout(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 84 "Rows.w"
 static XtGeometryResult  geometry_manager(
-#if NeedFunctionPrototypes
 Widget ,XtWidgetGeometry *,XtWidgetGeometry *
-#endif
 );
 #line 109 "Rows.w"
 static void resize(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 119 "Rows.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 
 static XtResource resources[] = {

@@ -37,15 +37,6 @@
 #  include <stdio.h>
 #endif
 
-#if (!NeedFunctionPrototypes)
-
-void	RegExpCompile();
-int	RegExpMatch();
-void	_RegExpError();
-void	RegExpPatternToRegExp();
-
-#else
-
 #ifdef REGEX
 void    RegExpCompile(char *regexp, regex_t *fsm_ptr, int fsm_length);
 int     RegExpMatch(char *string, regex_t *fsm_ptr);
@@ -57,8 +48,6 @@ int	RegExpMatch(char *string, char *fsm_ptr);
 void	_RegExpError(int val);
 void	RegExpPatternToRegExp(char *pattern, char *reg_exp);
 #endif /* REGEX */
-
-#endif /* NeedFunctionPrototypes */
 
 #ifndef TRUE
 #define TRUE				1

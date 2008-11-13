@@ -19,27 +19,19 @@ Button1<Enter>: prepare() open_menu() \n\
 <Btn1Up>: popdown_maybe() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 35 "OptButton.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 44 "OptButton.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 68 "OptButton.w"
 static void set_label_cb(
-#if NeedFunctionPrototypes
 Widget ,XtPointer ,XtPointer 
-#endif
 );
 #line 68 "OptButton.w"
 /*ARGSUSED*/static void set_label_cb(menu,client_data,call_data)Widget  menu;XtPointer  client_data;XtPointer  call_data;

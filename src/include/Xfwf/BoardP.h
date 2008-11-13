@@ -9,9 +9,7 @@
 
 
 typedef void (*set_abs_location_Proc)(
-#if NeedFunctionPrototypes
 Widget,unsigned  int ,int ,int ,int ,int 
-#endif
 );
 #define XtInherit_set_abs_location ((set_abs_location_Proc) _XtInherit)
 

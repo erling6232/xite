@@ -85,17 +85,12 @@
  *---------------------------------------------------------------------------*/
 
 #ifndef PFI
-# if (!NeedFunctionPrototypes)
-    typedef int (*PFI)();
-    typedef int (*PSI)();
-# else
     typedef int (*PSI)(DirEntry **e1p, DirEntry **e2p);
 #  ifdef REGEX
     typedef int (*PFI)(DirEntry *de, regex_t *fsm);
 #  else /* REGEX */
     typedef int (*PFI)(DirEntry *de, char *fsm);
 #  endif /* !REGEX */
-# endif
 #endif
 
 typedef struct entry_cons
@@ -144,41 +139,6 @@ typedef	DIRECTORY_MGR DirectoryMgr;
 #define	DirectoryMgrTotalCount(dm)	((dm)->total_count)
 #define	DirectoryMgrFilteredCount(dm)	((dm)->filtered_count)
 #define	DirectoryMgrCurrentIndex(dm)	((dm)->current_index)
-
-#if (!NeedFunctionPrototypes)
-
-DirectoryMgr *	DirectoryMgrSimpleOpen();
-int		DirectoryMgrSimpleRefilter();
-int		DirectoryMgrSimpleResort();
-
-int		DirectoryMgrCanOpen();
-DirectoryMgr *	DirectoryMgrOpen();
-void		DirectoryMgrClose();
-int		DirectoryMgrRefilter();
-int		DirectoryMgrRefresh();
-void		DirectoryMgrResort();
-
-int		DirectoryMgrGotoItem();
-int		DirectoryMgrGotoNamedItem();
-void		DirectoryMgrRestart();
-int		DirectoryMgrGetIndex();
-DirEntry *	DirectoryMgrCurrentEntry();
-DirEntry *	DirectoryMgrNextEntry();
-DirEntry *	DirectoryMgrPrevEntry();
-
-int		DirectoryMgrSimpleFilterFunc();
-int		DirectoryMgrSimpleSortingFunc();
-
-int		DirectoryMgrCompareName();
-int		DirectoryMgrCompareNameDirsFirst();
-int		DirectoryMgrCompareSizeAscending();
-int		DirectoryMgrCompareSizeDescending();
-int		DirectoryMgrCompareLastAccessAscending();
-int		DirectoryMgrCompareLastAccessDescending();
-
-int		DirectoryMgrFilterName();
-
-#else
 
 DirectoryMgr *	DirectoryMgrSimpleOpen(char *path, int sort_type,
 			char *pattern);
@@ -237,7 +197,5 @@ int		DirectoryMgrFilterName(DirEntry *de, regex_t *fsm);
 # else /* REGEX */
 int		DirectoryMgrFilterName(DirEntry *de, char *fsm);
 # endif /* !REGEX */
-
-#endif
 
 #endif

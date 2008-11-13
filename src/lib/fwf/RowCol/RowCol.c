@@ -5,53 +5,37 @@
 #include <X11/StringDefs.h>
 #include <Xfwf/RowColP.h>
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 86 "RowCol.w"
 static void change_managed(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 104 "RowCol.w"
 static void layout(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 #line 186 "RowCol.w"
 static XtGeometryResult  geometry_manager(
-#if NeedFunctionPrototypes
 Widget ,XtWidgetGeometry *,XtWidgetGeometry *
-#endif
 );
 #line 211 "RowCol.w"
 static void resize(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 220 "RowCol.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 230 "RowCol.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 249 "RowCol.w"
 static char  rcsid[] = "$Header$";
 #line 254 "RowCol.w"
 static void align_child(
-#if NeedFunctionPrototypes
 Widget,int ,int ,int ,int ,Alignment 
-#endif
 );
 #line 254 "RowCol.w"
 /*ARGSUSED*/static void align_child(self,cx,cy,width,height,alignment)Widget self;int  cx;int  cy;int  width;int  height;Alignment  alignment;

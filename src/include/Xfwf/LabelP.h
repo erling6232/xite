@@ -6,9 +6,7 @@
 #include <Xfwf/BoardP.h>
 #include <Xfwf/Label.h>
 typedef void (*set_label_Proc)(
-#if NeedFunctionPrototypes
 Widget,String 
-#endif
 );
 #define XtInherit_set_label ((set_label_Proc) _XtInherit)
 

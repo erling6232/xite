@@ -15,9 +15,7 @@
 #include <Xfwf/MenuBarP.h>
 #line 116 "MenuBar.w"
 static void menu_popdown(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -28,27 +26,19 @@ static char defaultTranslations[] = "\
 <Btn1Up>: menu_popdown() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 69 "MenuBar.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 84 "MenuBar.w"
 static void process_menu(
-#if NeedFunctionPrototypes
 Widget,Widget ,Cursor 
-#endif
 );
 #line 130 "MenuBar.w"
 static void popdown_cb(
-#if NeedFunctionPrototypes
 Widget ,XtPointer ,XtPointer 
-#endif
 );
 #line 130 "MenuBar.w"
 /*ARGSUSED*/static void popdown_cb(menu,client_data,call_data)

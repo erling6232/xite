@@ -20,69 +20,47 @@
 
 #line 804 "Common.w"
 static void focusIn(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 825 "Common.w"
 static void focusOut(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 841 "Common.w"
 static void traverseDown(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 850 "Common.w"
 static void traverseUp(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 859 "Common.w"
 static void traverseLeft(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 868 "Common.w"
 static void traverseRight(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 880 "Common.w"
 static void traverseNext(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 889 "Common.w"
 static void traversePrev(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 900 "Common.w"
 static void traverseNextTop(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 909 "Common.w"
 static void traverseHome(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 919 "Common.w"
 static void traverseCurrent(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -99,93 +77,63 @@ static XtActionsRec actionsList[] = {
 {"traverseCurrent", traverseCurrent},
 };
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 176 "Common.w"
 static void class_initialize(
-#if NeedFunctionPrototypes
 void
-#endif
 );
 #line 205 "Common.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 234 "Common.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 271 "Common.w"
 static void compute_inside(
-#if NeedFunctionPrototypes
 Widget,Position *,Position *,Dimension *,Dimension *
-#endif
 );
 #line 283 "Common.w"
 static Dimension  total_frame_width(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 290 "Common.w"
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 #line 302 "Common.w"
 static void destroy(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 320 "Common.w"
 static void highlight_border(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 349 "Common.w"
 static void unhighlight_border(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 374 "Common.w"
 static Boolean  accept_focus(
-#if NeedFunctionPrototypes
 Widget,Time *
-#endif
 );
 #line 396 "Common.w"
 static Boolean  would_accept_focus(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 506 "Common.w"
 static void traverse(
-#if NeedFunctionPrototypes
 Widget,TraversalDirection ,Widget ,Time *
-#endif
 );
 #line 764 "Common.w"
 static Boolean  lighter_color(
-#if NeedFunctionPrototypes
 Widget,Pixel ,Pixel *
-#endif
 );
 #line 774 "Common.w"
 static Boolean  darker_color(
-#if NeedFunctionPrototypes
 Widget,Pixel ,Pixel *
-#endif
 );
 #line 541 "Common.w"
 #define done(type, value) do {\
@@ -207,15 +155,11 @@ Widget,Pixel ,Pixel *
 
 #line 558 "Common.w"
 static Boolean  cvtStringToAlignment(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 #line 593 "Common.w"
 static Boolean  cvtAlignmentToString(
-#if NeedFunctionPrototypes
 Display *,XrmValuePtr ,Cardinal *,XrmValuePtr ,XrmValuePtr ,XtPointer *
-#endif
 );
 #line 622 "Common.w"
 static char  extraTranslations[] = "\
@@ -233,33 +177,23 @@ static char  extraTranslations[] = "\
 	<Key>Home: traverseHome()";
 #line 640 "Common.w"
 static void create_bordergc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 667 "Common.w"
 static Boolean  traverse_to_direction(
-#if NeedFunctionPrototypes
 Widget,TraversalDirection ,int ,int ,Widget *,int *
-#endif
 );
 #line 716 "Common.w"
 static void traverse_to_next(
-#if NeedFunctionPrototypes
 Widget,Widget ,Time *
-#endif
 );
 #line 733 "Common.w"
 static void traverse_to_prev(
-#if NeedFunctionPrototypes
 Widget,Widget ,Time *
-#endif
 );
 #line 746 "Common.w"
 static void traverse_to_next_top(
-#if NeedFunctionPrototypes
 Widget,Widget ,Time *
-#endif
 );
 #line 558 "Common.w"
 /*ARGSUSED*/static Boolean  cvtStringToAlignment(display,args,num_args,from,to,converter_data)Display * display;XrmValuePtr  args;Cardinal * num_args;XrmValuePtr  from;XrmValuePtr  to;XtPointer * converter_data;

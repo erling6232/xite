@@ -25,84 +25,58 @@
 #include <Xfwf/FrameP.h>
 #line 521 "Frame.w"
 static void set_shadow(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
 {"set_shadow", set_shadow},
 };
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 201 "Frame.w"
 static void class_initialize(
-#if NeedFunctionPrototypes
 void
-#endif
 );
 #line 224 "Frame.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 248 "Frame.w"
 static void realize(
-#if NeedFunctionPrototypes
 Widget,XtValueMask *,XSetWindowAttributes *
-#endif
 );
 #line 276 "Frame.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 338 "Frame.w"
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 #line 362 "Frame.w"
 static void compute_inside(
-#if NeedFunctionPrototypes
 Widget,Position *,Position *,Dimension *,Dimension *
-#endif
 );
 #line 375 "Frame.w"
 static Dimension  total_frame_width(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 385 "Frame.w"
 static XtGeometryResult  query_geometry(
-#if NeedFunctionPrototypes
 Widget,XtWidgetGeometry *,XtWidgetGeometry *
-#endif
 );
 #line 438 "Frame.w"
 static XtGeometryResult  geometry_manager(
-#if NeedFunctionPrototypes
 Widget ,XtWidgetGeometry *,XtWidgetGeometry *
-#endif
 );
 #line 465 "Frame.w"
 static void resize(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 486 "Frame.w"
 static void change_managed(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 547 "Frame.w"
 #define done(type, value) do {\
@@ -126,27 +100,19 @@ Widget
 static char  rcsid[] = "$Header$";
 #line 664 "Frame.w"
 static void create_darkgc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 703 "Frame.w"
 static void create_lightgc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 741 "Frame.w"
 static void compute_topcolor(
-#if NeedFunctionPrototypes
 Widget,int ,XrmValue *
-#endif
 );
 #line 752 "Frame.w"
 static void compute_bottomcolor(
-#if NeedFunctionPrototypes
 Widget,int ,XrmValue *
-#endif
 );
 #line 664 "Frame.w"
 /*ARGSUSED*/static void create_darkgc(self)Widget self;

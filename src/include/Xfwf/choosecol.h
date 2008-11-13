@@ -7,12 +7,10 @@
  * factor = 1.0 means same color.
  */
 Boolean choose_color(
-#if NeedFunctionPrototypes
     Widget self,
     double factor,
     Pixel base,
     Pixel* result
-#endif
 );
 
 #endif

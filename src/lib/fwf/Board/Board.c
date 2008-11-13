@@ -16,51 +16,35 @@
 #include <ctype.h>
 #include <Xfwf/BoardP.h>
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 142 "Board.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 189 "Board.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 212 "Board.w"
 static void set_abs_location(
-#if NeedFunctionPrototypes
 Widget,unsigned  int ,int ,int ,int ,int 
-#endif
 );
 #line 231 "Board.w"
 static void resize(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 256 "Board.w"
 static XtGeometryResult  query_geometry(
-#if NeedFunctionPrototypes
 Widget,XtWidgetGeometry *,XtWidgetGeometry *
-#endif
 );
 #line 267 "Board.w"
 static XtGeometryResult  geometry_manager(
-#if NeedFunctionPrototypes
 Widget ,XtWidgetGeometry *,XtWidgetGeometry *
-#endif
 );
 #line 289 "Board.w"
 static void change_managed(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 301 "Board.w"
 #define ceil(r) (-(int )(-(r )))
@@ -68,21 +52,15 @@ Widget
 
 #line 306 "Board.w"
 static void generate_location(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 327 "Board.w"
 static void get_core_geometry(
-#if NeedFunctionPrototypes
 Widget,Position *,Position *,Dimension *,Dimension *
-#endif
 );
 #line 357 "Board.w"
 static void set_location(
-#if NeedFunctionPrototypes
 Widget,unsigned  int 
-#endif
 );
 #line 398 "Board.w"
 #define skip_blanks(s) while (isspace (*s ))s ++
@@ -102,15 +80,11 @@ Widget,unsigned  int
 
 #line 420 "Board.w"
 static String  scan(
-#if NeedFunctionPrototypes
 String ,Position *,float *
-#endif
 );
 #line 455 "Board.w"
 static void interpret_location(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 306 "Board.w"
 /*ARGSUSED*/static void generate_location(self)Widget self;

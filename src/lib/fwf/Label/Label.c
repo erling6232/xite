@@ -14,51 +14,35 @@
 #include <Xfwf/TabString.h>
 #include <Xfwf/LabelP.h>
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 154 "Label.w"
 static void set_label(
-#if NeedFunctionPrototypes
 Widget,String 
-#endif
 );
 #line 178 "Label.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 241 "Label.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 308 "Label.w"
 static void expose(
-#if NeedFunctionPrototypes
 Widget,XEvent *,Region 
-#endif
 );
 #line 365 "Label.w"
 static void make_gc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 396 "Label.w"
 static void make_graygc(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 415 "Label.w"
 static void count_lines(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 365 "Label.w"
 /*ARGSUSED*/static void make_gc(self)Widget self;

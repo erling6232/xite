@@ -6,9 +6,7 @@
 #include <Xfwf/BoardP.h>
 #include <Xfwf/RowCol.h>
 typedef void (*layout_Proc)(
-#if NeedFunctionPrototypes
 Widget,int 
-#endif
 );
 #define XtInherit_layout ((layout_Proc) _XtInherit)
 

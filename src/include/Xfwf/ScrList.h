@@ -51,17 +51,6 @@ typedef struct
 
  *===========================================================================*/
 
-#if (!NeedFunctionPrototypes)
-
-extern void		XfwfScrolledListSetList();
-extern void		XfwfScrolledListUnhighlightAll();
-extern XfwfScrolledListReturnStruct *
-			XfwfScrolledListGetHighlighted();
-extern Boolean		XfwfScrolledListIsHighlighted();
-extern Boolean		XfwfScrolledListGetItem();
-
-#else
-
 extern void		XfwfScrolledListSetList(Widget w, char **newlist,
 				int items, Boolean resize,
 				Boolean *sensitive_array);
@@ -76,6 +65,5 @@ extern Boolean		XfwfScrolledListGetItem(Widget w, int item_index,
 				String *str_ptr, Boolean *high_ptr,
 				Boolean *sens_ptr);
 
-#endif
 #endif
 

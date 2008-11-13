@@ -15,27 +15,19 @@
 #include <Xfwf/PullDownP.h>
 #line 178 "PullDown.w"
 static void note(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 198 "PullDown.w"
 static void prepare(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 210 "PullDown.w"
 static void open_menu(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 #line 226 "PullDown.w"
 static void popdown_maybe(
-#if NeedFunctionPrototypes
 Widget,XEvent*,String*,Cardinal*
-#endif
 );
 
 static XtActionsRec actionsList[] = {
@@ -52,45 +44,31 @@ Button1<Enter>: prepare() open_menu() \n\
 <Btn1Up>: popdown_maybe() \n\
 ";
 static void _resolve_inheritance(
-#if NeedFunctionPrototypes
 WidgetClass
-#endif
 );
 #line 106 "PullDown.w"
 static void class_initialize(
-#if NeedFunctionPrototypes
 void
-#endif
 );
 #line 120 "PullDown.w"
 static void initialize(
-#if NeedFunctionPrototypes
 Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 140 "PullDown.w"
 static Boolean  set_values(
-#if NeedFunctionPrototypes
 Widget ,Widget ,Widget,ArgList ,Cardinal *
-#endif
 );
 #line 257 "PullDown.w"
 static void create_accelerator(
-#if NeedFunctionPrototypes
 Widget
-#endif
 );
 #line 273 "PullDown.w"
 static void activate_cb(
-#if NeedFunctionPrototypes
 Widget ,XtPointer ,XtPointer 
-#endif
 );
 #line 285 "PullDown.w"
 static void change_cb(
-#if NeedFunctionPrototypes
 Widget ,XtPointer ,XtPointer 
-#endif
 );
 #line 257 "PullDown.w"
 /*ARGSUSED*/static void create_accelerator(self)Widget self;
