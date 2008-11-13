@@ -15,6 +15,7 @@ libfwf_la_LIBADD = OptButton/libfwfOptButton.la
 libfwf_la_LIBADD = Prompt/libfwfPrompt.la
 libfwf_la_LIBADD = PullDown/libfwfPullDown.la
 libfwf_la_LIBADD = RowCol/libfwfRowCol.la
+libfwf_la_LIBADD = Rows/libfwfRows.la
 
 SUBDIRS = \
 	Board \
