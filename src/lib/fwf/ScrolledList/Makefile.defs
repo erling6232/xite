@@ -1,0 +1,14 @@
+#
+#   Makefile definitions for fwf/ScrolledList
+#
+FWFOBJ  = ScrList.o
+FWFINCL = ScrList.i ScrListP.i
+ROFF3   = XfwfScrolledList.man
+
+include:fwfincl
+object: fwfobj
+lib:    fwflib
+dso:    fwf_dso
+program:
+doc:    roff3
+xprog:  
