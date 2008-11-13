@@ -37,7 +37,7 @@ AS_IF([test "x$gui" = xauto],
 			 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
 			 AC_DEFINE([MOTIF], [], [Define when you have Motif])
 			],
-			[
+			[AC_MSG_FAILURE([Motif test failed])
 			])
 		])
 	],
@@ -46,13 +46,13 @@ AS_IF([test "x$gui" = xauto],
 		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt -lXext"])
 		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
 		],
-	],
+	)],
       [test "x$gui" = xmotif],
 	[AC_CHECK_LIB([Xm],  [XmStringFree],
 		[AC_SUBST([LIBGUI], ["-lXm"])
 		 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
 		],
-	]
+	)]
 )
 
 AC_HEADER_DIRENT
@@ -177,26 +177,5 @@ AC_CONFIG_FILES([
     src/fft/Makefile
     src/fht/Makefile
     src/fractal/Makefile
-    src/fwf/Makefile
-    src/fwf/Board/Makefile
-    src/fwf/Button/Makefile
-    src/fwf/Common/Makefile
-    src/fwf/converters/Makefile
-    src/fwf/Dir/Makefile
-    src/fwf/FileSelector/Makefile
-    src/fwf/Frame/Makefile
-    src/fwf/Group/Makefile
-    src/fwf/Label/Makefile
-    src/fwf/MenuBar/Makefile
-    src/fwf/MultiList/Makefile
-    src/fwf/OptButton/Makefile
-    src/fwf/Prompt/Makefile
-    src/fwf/Pulldown/Makefile
-    src/fwf/RowCol/Makefile
-    src/fwf/Rows/Makefile
-    src/fwf/ScrolledList/Makefile
-    src/fwf/tabstring/Makefile
-    src/fwf/TextMenu/Makefile
-    src/fwf/Toggle/Makefile
     ])
 AC_OUTPUT
