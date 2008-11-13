@@ -20,6 +20,7 @@ AC_CHECK_LIB([X11],  [XBell])
 AC_CHECK_LIB([Xmu],  [XmuMakeAtom])
 AC_CHECK_LIB([Xt],   [XtConvert])
 AC_CHECK_LIB([Xext], [XextAddDisplay])
+AC_CHECK_LIB([m],    [sqrt])
 
 # Checks for header files
 AC_PATH_X
