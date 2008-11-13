@@ -1,23 +1,24 @@
 lib_LTLIBRARIES = libxite.la
 libxite_la_SOURCES =
-libxite_la_LIBADD = arithmetic/libxitearithmetic.la
-libxite_la_LIBADD = biff/libxitebiff.la
-libxite_la_LIBADD = binarize/libxitebinarize.la
-libxite_la_LIBADD = canny/libxitecanny.la
-libxite_la_LIBADD = cdoc/libxitecdoc.la
-libxite_la_LIBADD = classification/libxiteclassification.la
-libxite_la_LIBADD = color/libxitecolor.la
-libxite_la_LIBADD = combine/libxitecombine.la
-libxite_la_LIBADD = contour/libxitecontour.la
-libxite_la_LIBADD = convert/libxiteconvert.la
-libxite_la_LIBADD = convolve/libxiteconvolve.la
-libxite_la_LIBADD = copy/libxitecopy.la
-libxite_la_LIBADD = dither/libxitedither.la
-libxite_la_LIBADD = draw/libxitedraw.la
-libxite_la_LIBADD = draw/libxiteextrema.la
-libxite_la_LIBADD = draw/libxitefft.la
-libxite_la_LIBADD = draw/libxitefht.la
-libxite_la_LIBADD = draw/libxitefractal.la
+libxite_la_LIBADD = \
+	arithmetic/libxitearithmetic.la \
+	biff/libxitebiff.la \
+	binarize/libxitebinarize.la \
+	canny/libxitecanny.la \
+	cdoc/libxitecdoc.la \
+	classification/libxiteclassification.la \
+	color/libxitecolor.la \
+	combine/libxitecombine.la \
+	contour/libxitecontour.la \
+	convert/libxiteconvert.la \
+	convolve/libxiteconvolve.la \
+	copy/libxitecopy.la \
+	dither/libxitedither.la \
+	draw/libxitedraw.la \
+	draw/libxiteextrema.la \
+	draw/libxitefft.la \
+	draw/libxitefht.la \
+	draw/libxitefractal.la \
 
 SUBDIRS = \
 	arithmetic \
