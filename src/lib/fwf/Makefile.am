@@ -13,6 +13,7 @@ libfwf_la_LIBADD = MenuBar/libfwfMenuBar.la
 libfwf_la_LIBADD = MultiList/libfwfMultiList.la
 libfwf_la_LIBADD = OptButton/libfwfOptButton.la
 libfwf_la_LIBADD = Prompt/libfwfPrompt.la
+libfwf_la_LIBADD = PullDown/libfwfPullDown.la
 
 SUBDIRS = \
 	Board \
