@@ -35,6 +35,8 @@ ________________________________________________________________
 #ifndef _XITE_INCLUDES_H_
 #define _XITE_INCLUDES_H_
 
+#include <xite/config.h>
+
 #if defined(ANSI) && !defined(__STDC__)
 /* Define __STDC__ */
 # define __STDC__
@@ -69,108 +71,57 @@ ________________________________________________________________
 #define XITE_TYPES_H      <xite/xite_types.h>
 #define XITE_UNISTD_H     <xite/xite_unistd.h>
 
-#ifdef SunOS
-/*
-# ifndef SYSV
-#  define XITE_STRING_H    <strings.h>
-# else
-#  define XITE_STRING_H    <string.h>
-# endif
-*/
+#ifdef HAVE_FCNTL_H
+#  define XITE_FCNTL_H      <fcntl.h>
+#else
+#  ifdef HAVE_SYS_FCNTL_H
+#    define XITE_FCNTL_H      <sys/fcntl.h>
+#  else
+#    define XITE_FCNTL_H   Error: fcntl.h is required
+#  endif
+#endif
 
-# define XITE_FCNTL_H      <sys/fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <memory.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* SunOS */
+#ifdef HAVE_IO_H
+#  define XITE_IO_H         <io.h>
+#else
+#  define XITE_IO_H         <xite/dummy.h>
+#endif
 
-#ifdef SunOS5
-# define XITE_FCNTL_H      <sys/fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* SunOS5 */
+#ifdef HAVE_MALLOC
+#  define XITE_MALLOC_H     <stdlib.h>
+#else
+#  ifdef HAVE_MALLOC_H
+#    define XITE_MALLOC_H   <malloc.h>
+#  else
+#    define XITE_MALLOC_H   Error: malloc() is required
+#  endif
+#endif
 
-#ifdef ULTRIX
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* ULTRIX */
+#ifdef HAVE_MEMORY_H
+#  define XITE_MEMORY_H     <memory.h>
+#else
+#  ifdef HAVE_STRING_H
+#    define XITE_MEMORY_H   <string.h>
+#  else
+#    define XITE_MEMORY_H   Error: memory.h or string.h is required
+#  endif
+#endif
 
-#ifdef AIX
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* AIX */
+#ifdef HAVE_STRING_H
+#  define XITE_STRING_H     <string.h>
+#else
+#  ifdef HAVE_STRINGS_H
+#    define XITE_STRING_H   <strings.h>
+#  else
+#    define XITE_STRING_H   Error: string.h or strings.h is required
+#  endif
+#endif
 
-#if defined(IRIX) || defined(IRIX64)
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* IRIX || IRIX64 */
-
-#ifdef HPUX
-# ifndef SYSV
-#  define XITE_MALLOC_H    <malloc.h>
-#  define XITE_STRING_H    <strings.h>
-# else
-#  define XITE_MALLOC_H    <stdlib.h>
-#  define XITE_STRING_H    <string.h>
-# endif
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* HPUX */
-
-#ifdef OSF1
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* OSF1 */
-
-#ifdef CYGWIN32
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* CYGWIN32 */
-
-#ifdef _WIN32
-# define XITE_FCNTL_H      <fcntl.h>
-# define XITE_IO_H         <io.h>
-# define XITE_MALLOC_H     <malloc.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <xite/dummy.h>
-#endif /* _WIN32 */
-
-#ifndef XITE_MALLOC_H
-# define XITE_FCNTL_H      <sys/fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
-# define XITE_MALLOC_H     <stdlib.h>
-# define XITE_MEMORY_H     <string.h>
-# define XITE_STRING_H     <string.h>
-# define XITE_PARAM_H      <sys/param.h>
-#endif /* Default case */
+#ifdef HAVE_SYS_PARAM_H
+#  define XITE_PARAM_H      <sys/param.h>
+#else
+#  define XITE_PARAM_H      <xite/dummy.h>
+#endif
 
 #endif /* _XITE_INCLUDES_H_ */
 
