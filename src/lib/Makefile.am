@@ -18,7 +18,7 @@ libxite_la_LIBADD = \
 	draw/libxiteextrema.la \
 	draw/libxitefft.la \
 	draw/libxitefht.la \
-	draw/libxitefractal.la \
+	draw/libxitefractal.la
 
 SUBDIRS = \
 	arithmetic \
@@ -39,7 +39,9 @@ SUBDIRS = \
 	fft \
 	fht \
 	fractal \
-	fwf \
+	fwf
+
+tt = \
 	geometry \
 	gradInv \
 	histo \

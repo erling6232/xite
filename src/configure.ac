@@ -59,9 +59,9 @@ AS_IF([test "x$gui" = xauto],
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([ctype.h fcntl.h float.h sys/io.h limits.h malloc.h math.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/stat.h sys/time.h sys/times.h time.h unistd.h values.h])
+AC_CHECK_HEADERS([ctype.h fcntl.h sys/fcntl.h float.h io.h sys/io.h limits.h malloc.h math.h memory.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/stat.h sys/time.h sys/times.h time.h unistd.h values.h])
 # AC_CHECK_HEADER([include/xite/biff.h])
-AC_CHECK_HEADERS([direct.h regex.h varargs.h stdarg.h pwd.h])
+AC_CHECK_HEADERS([direct.h regex.h varargs.h stdarg.h pwd.h process.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -97,16 +97,14 @@ AC_FUNC_VPRINTF
 AC_FUNC_WAIT3
 AC_CHECK_FUNCS([dup2 getcwd isascii pow regcomp select sqrt strcasecmp strchr strcspn strerror strrchr strspn strstr strtol])
 AC_CHECK_FUNCS([link setmode symlink random srandom toupper tolower umask])
-AC_CHECK_FUNCS([times])
+AC_CHECK_FUNCS([flock times])
 
-# define XITE_FCNTL_H      <sys/fcntl.h>
-# define XITE_IO_H         <xite/dummy.h>
 # define XITE_MALLOC_H     <stdlib.h>
 # define XITE_MEMORY_H     <string.h>
 # define XITE_STRING_H     <string.h>
 # define XITE_PARAM_H      <sys/param.h>
 
-# Checks for library functions
+
 
 # Common Makefile.def
 AC_SUBST(configdir, [\${top_builddir}])

@@ -31,74 +31,25 @@ ________________________________________________________________
 */
 
 #ifndef _XITE_FORK_H_
+#define _XITE_FORK_H_
 
 _XITE_CPLUSPLUS_BEGIN
 
-#ifdef SunOS
-# define _XITE_FORK_H_
-# include <unistd.h>
-# include <vfork.h>
-#endif /* SunOS */
+#ifdef HAVE_WORKING_FORK
+#  ifdef HAVE_VFORK_H
+#    include <vfork.h>
+#  endif
+#else
+#  define vfork fork
+#endif
 
-#ifdef SunOS5
-# define _XITE_FORK_H_
-# include <unistd.h>
-# include <vfork.h>
-#endif /* SunOS5 */
+#ifdef HAVE_UNISTD_H
+#  include <unistd.h>
+#endif
 
-#ifdef ULTRIX
-# define _XITE_FORK_H_
-# include <unistd.h>
-  int vfork();
-#endif /* ULTRIX */
-
-#ifdef AIX
-# define _XITE_FORK_H_
-# include <unistd.h>
-#endif /* AIX */
-
-#if defined(IRIX) || defined(IRIX64)
-# define _XITE_FORK_H_
-# include <unistd.h>
-#endif /* IRIX || IRIX64 */
-
-#ifdef HPUX
-# define _XITE_FORK_H_
-# include <unistd.h>
-#endif /* HPUX */
-
-#ifdef OSF1
-# define _XITE_FORK_H_
-# include <unistd.h>
-#endif /* OSF1 */
-
-#if defined(Linux)
-# define _XITE_FORK_H_
-# include <unistd.h>
-#endif /* Linux */
-
-#ifdef CYGWIN32
-# define _XITE_FORK_H_
-# include <unistd.h>
-  int vfork _XITE_PARAMS(( void ));
-#endif /* CYGWIN32 */
-
-#ifdef MSDOS
-# define _XITE_FORK_H_
-  int fork();
-  int vfork();
-#endif /* MSDOS */
-
-#ifdef _WIN32
-# define _XITE_FORK_H_
-# include <process.h>
-#endif /* _WIN32 */
-
-#ifndef _XITE_FORK_H_
-# define _XITE_FORK_H_
-  int fork _XITE_PARAMS(( void ));
-  int vfork _XITE_PARAMS(( void ));
-#endif /* Default case */
+#ifdef HAVE_PROCESS_H
+#  include <process.h>
+#endif
 
 _XITE_CPLUSPLUS_END
 
