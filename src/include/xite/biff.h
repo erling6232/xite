@@ -77,14 +77,10 @@ ________________________________________________________________
 _XITE_CPLUSPLUS_BEGIN
 
 #ifdef _XITE_INCLUDES_H_
-# ifdef FUNCPROTO
-#   include XITE_STDIO_H
-# endif
+# include XITE_STDIO_H
 # include XITE_LIMITS_H    /* For pixel type definitions and limits */
 #else
-# ifdef FUNCPROTO
-#   include <stdio.h>
-# endif
+# include <stdio.h>
 # include <limits.h>       /* For integral type limits */
 #endif
 
