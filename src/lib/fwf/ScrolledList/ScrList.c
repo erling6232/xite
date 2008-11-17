@@ -25,9 +25,7 @@
 #endif
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <X11/Xos.h>
 #include <X11/Xlib.h>
 #include <X11/StringDefs.h>

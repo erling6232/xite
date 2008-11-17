@@ -9,9 +9,7 @@
 #line 295 "PullDown.w"
 #include <Xfwf/MenuBar.h>
 #line 296 "PullDown.w"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <Xfwf/PullDownP.h>
 #line 178 "PullDown.w"
 static void note(

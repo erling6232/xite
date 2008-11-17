@@ -5,9 +5,7 @@
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #line 930 "Common.w"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <ctype.h>
 #line 931 "Common.w"
 #include <X11/Xmu/Converters.h>

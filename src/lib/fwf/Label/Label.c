@@ -7,9 +7,7 @@
 #line 441 "Label.w"
 #include <Xfwf/stip4.h>
 #line 443 "Label.w"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #line 444 "Label.w"
 #include <Xfwf/TabString.h>
 #include <Xfwf/LabelP.h>

@@ -56,9 +56,7 @@
 #endif
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <ctype.h>
 
 #include <X11/IntrinsicP.h>
@@ -70,9 +68,7 @@
 #include <Xfwf/MultiListP.h>
 #include <Xfwf/TabString.h>
 
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 /*===========================================================================*
 

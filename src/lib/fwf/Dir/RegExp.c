@@ -32,9 +32,7 @@
 # include <regexp.h>
 #endif /* !REGEX */
 #include <xite/message.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 # ifdef REGEX
 void RegExpCompile(char *regexp, regex_t *fsm_ptr, int fsm_length)

@@ -24,15 +24,9 @@
 #endif
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_MALLOC_H
+#include XITE_UNISTD_H
 #include <ctype.h>
 
 #include <X11/Xos.h>

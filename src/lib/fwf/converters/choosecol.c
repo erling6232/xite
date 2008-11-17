@@ -7,9 +7,7 @@ original, the color gray75 is returned instead.
 */
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
 #include "Converters.h"

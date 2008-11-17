@@ -10,9 +10,7 @@
 #line 635 "TextMenu.w"
 #include <Xfwf/stip4.h>
 #line 636 "TextMenu.w"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #line 637 "TextMenu.w"
 #include <Xfwf/TabString.h>
 #line 638 "TextMenu.w"

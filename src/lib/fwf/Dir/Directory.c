@@ -29,15 +29,9 @@
 
 #include <Xfwf/Directory.h>
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-#ifdef HAVE_SYS_STAT_H
-#  include <sys/stat.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_UNISTD_H
+#include XITE_STAT_H
 
 /*--------------------------------------------------------------------------*
 

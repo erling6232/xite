@@ -11,9 +11,7 @@
 #include <X11/CoreP.h>
 #include <X11/Shell.h>
 
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 /* I have observed that resource converters can be called before the
    widgets initialize methods have been called.
