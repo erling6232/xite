@@ -28,14 +28,10 @@
 #include <xite/includes.h>
 #include <X11/Xfuncproto.h>
 #ifdef REGEX
-# ifdef HAVE_SYS_TYPES_H
-#   include <sys/types.h>
-# endif
+# include XITE_TYPES_H
 # include <regex.h>
 #endif /* REGEX */
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 #ifdef REGEX
 void    RegExpCompile(char *regexp, regex_t *fsm_ptr, int fsm_length);
