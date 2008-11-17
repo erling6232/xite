@@ -61,18 +61,14 @@ ________________________________________________________________
 
 /*
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
- #include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/readarg.h>
 #include <math.h>
 #include <xite/binarize.h>
 */
-#ifdef HAVE_MALLOC_H
- #include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 static int sort(int *c, int n)
 {

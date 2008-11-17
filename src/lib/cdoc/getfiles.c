@@ -121,19 +121,10 @@ ________________________________________________________________
 #include <xite/cdoc.h>     /* Must be included prior to <stdlib.h> */
 #include <stdlib.h>
 #include <xite/strings.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
- #include <strings.h>
-#else
- #ifdef HAVE_STRING_H
-   #include <string.h>
-  #endif
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_MKTEMP_H
+#include XITE_STDIO_H
+#include XITE_STRING_H
+#include XITE_UNISTD_H
 
 static char input_name_s[MAXPATHLEN], output_name_s[MAXPATHLEN],
   temp_name_s[MAXPATHLEN];

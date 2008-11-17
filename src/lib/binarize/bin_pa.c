@@ -70,9 +70,7 @@ ________________________________________________________________
 
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
- #include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <math.h>
 #include <xite/blab.h>
 #include <xite/histo.h>

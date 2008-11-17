@@ -103,9 +103,7 @@ ________________________________________________________________
 
 #include <math.h>
 #include <xite/includes.h>
-#ifdef HAVE_MALLOC_H
- #include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/histo.h>

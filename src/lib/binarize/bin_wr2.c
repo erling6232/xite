@@ -191,9 +191,7 @@ ________________________________________________________________
 #include <stdlib.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
- #include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/stdiff.h>

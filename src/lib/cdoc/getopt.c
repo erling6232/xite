@@ -27,24 +27,14 @@
 #include <xite/includes.h>
 #include <xite/cdoc.h>
 #include <xite/strings.h>
-#ifdef HAVE_STRINGS_H
- #include <strings.h>
-#else
- #ifdef HAVE_STRING_H
-   #include <string.h>
-  #endif
-#endif
-#ifdef HAVE_SYS_TYPES_H    /* For ptrdiff_t. */
-#  include <sys/types.h>
-#endif
+#include XITE_STRING_H
+#include XITE_TYPES_H      /* For ptrdiff_t. */
 
 #ifndef NULL
 # define NULL	0
 #endif
 #define EOF	(-1)
-#ifdef HAVE_UNISTD_H        /* To get declaration of write() */
-#  include <unistd.h>
-#endif
+#include XITE_UNISTD_H      /* To get declaration of write() */
 #define ERR(s, c)	if(att_opterr){\
 	char errbuf[2];\
 	errbuf[0] = c; errbuf[1] = '\n';\

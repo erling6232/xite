@@ -95,9 +95,8 @@ ________________________________________________________________
 #include <math.h>
 #include <stdlib.h>
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
- #include <stdio.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_RANDOM_H
 #include <xite/blab.h>
 #include <xite/histo.h>
 #include <xite/binarize.h>
