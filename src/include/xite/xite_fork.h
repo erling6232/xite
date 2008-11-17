@@ -35,20 +35,25 @@ ________________________________________________________________
 
 _XITE_CPLUSPLUS_BEGIN
 
-#ifdef HAVE_WORKING_FORK
-#  ifdef HAVE_VFORK_H
-#    include <vfork.h>
-#  endif
-#else
-#  define vfork fork
-#endif
-
 #ifdef HAVE_UNISTD_H
 #  include <unistd.h>
 #endif
 
+#ifdef HAVE_WORKING_VFORK
+#  ifdef HAVE_VFORK_H
+#    include <vfork.h>
+#  endif
+#else
+#  ifdef HAVE_WORKING_FORK
+#    ifdef HAVE_FORK_H
+#      include <fork.h>
+#    endif
+#    define vfork fork
+#  endif
+#endif
+
 #ifdef HAVE_PROCESS_H
-#  include <process.h>
+#  include <process.h>         /* Win32 */
 #endif
 
 _XITE_CPLUSPLUS_END

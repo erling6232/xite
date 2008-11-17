@@ -41,12 +41,14 @@ _XITE_CPLUSPLUS_BEGIN
 #include <limits.h>
 
 /* Get limits for floating types. */
-#ifndef SunOS
+#ifdef HAVE_FLOAT_H
 # include <float.h>
 #else
+# ifdef HAVE_VALUES_H
 /* <float.h> does not exist under SunOS. */
-# include <values.h>
-#endif /* SunOS */
+#  include <values.h>
+# endif /* values.h */
+#endif /* float.h */
 
 #define UNS_BYTE_MAX UCHAR_MAX
 #define SIGN_BYTE_MAX SCHAR_MAX
@@ -61,7 +63,7 @@ _XITE_CPLUSPLUS_BEGIN
 # define INTEGER_MAX LONG_MAX
 # define INTEGER_MIN LONG_MIN
 #endif
-#ifndef SunOS
+#ifdef HAVE_FLOAT_H
 # define REAL_MAX FLT_MAX
 # define REAL_MIN FLT_MIN
 # define DOUBLE_MAX DBL_MAX
@@ -80,4 +82,3 @@ _XITE_CPLUSPLUS_BEGIN
 _XITE_CPLUSPLUS_END
 
 #endif /* _XITE_LIMITS_H_ */
-

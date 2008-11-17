@@ -70,10 +70,8 @@ _XITE_CPLUSPLUS_BEGIN
   int unlink _XITE_PARAMS(( char *path ));
 #endif /* SunOS5 */
 
-#if defined(SYSTEM_V)
-# ifndef getwd
-#   define getwd(path) getcwd(path, MAXPATHLEN)
-# endif
+#ifndef HAVE_GETWD
+#  define getwd(path) getcwd(path, MAXPATHLEN)
 #endif
 
 _XITE_CPLUSPLUS_END

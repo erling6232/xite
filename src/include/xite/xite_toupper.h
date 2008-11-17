@@ -32,65 +32,20 @@ ________________________________________________________________
 
 
 #ifndef _XITE_TOUPPER_H_
+#define _XITE_TOUPPER_H_
 
 _XITE_CPLUSPLUS_BEGIN
 
-#ifdef SunOS
-# define _XITE_TOUPPER_H_
+#ifdef HAVE_CTYPE_H
+#  include <ctype.h>
+#endif
+
+#ifndef HAVE_TOLOWER
   int tolower _XITE_PARAMS(( int ));
+#endif
+#ifndef HAVE_TOUPPER
   int toupper _XITE_PARAMS(( int ));
-#endif /* SunOS */
-
-#ifdef SunOS5
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* SunOS5 */
-
-#ifdef ULTRIX
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* ULTRIX */
-
-#ifdef AIX
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* AIX */
-
-#if defined(IRIX) || defined(IRIX64)
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* IRIX || IRIX64 */
-
-#ifdef HPUX
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* HPUX */
-
-#ifdef OSF1
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* OSF1 */
-
-#ifdef CYGWIN32
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* CYGWIN32 */
-
-#if defined(Linux)
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* Linux */
-
-#ifdef _WIN32
-# define _XITE_TOUPPER_H_
-# include <ctype.h>
-#endif /* _WIN32 */
-
-#ifndef _XITE_TOUPPER_H_
-# define _XITE_TOUPPER_H_
-  int tolower _XITE_PARAMS(( int ));
-  int toupper _XITE_PARAMS(( int ));
-#endif /* Default case */
+#endif
 
 _XITE_CPLUSPLUS_END
 

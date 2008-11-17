@@ -31,74 +31,29 @@ ________________________________________________________________
 */
 
 #ifndef _XITE_TIME_H_
+#define _XITE_TIME_H_
 
 _XITE_CPLUSPLUS_BEGIN
 
-#ifdef SunOS
-# define _XITE_TIME_H_
+#ifdef TIME_WITH_SYS_TIME
+# include <sys/time.h>
 # include <time.h>
-# ifdef FUNCPROTO
-    clock_t clock( void );
-    time_t time( time_t * );
+#else
+# ifdef HAVE_SYS_TIME_H
+#  include <sys/time.h>
 # else
-    long clock();
-    time_t time();
+#  include <time.h>
 # endif
-#endif /* SunOS */
+#endif
 
-#ifdef SunOS5
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* SunOS5 */
+#ifndef HAVE_TIME
+  time_t time( time_t * );
+#endif
 
-#ifdef ULTRIX
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* ULTRIX */
-
-#ifdef AIX
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* AIX */
-
-#if defined(IRIX) || defined(IRIX64)
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* IRIX || IRIX64 */
-
-#ifdef HPUX
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* HPUX */
-
-#ifdef OSF1
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* OSF1 */
-
-#ifdef CYGWIN32
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* CYGWIN32 */
-
-#ifdef _WIN32
-# define _XITE_TIME_H_
-# include <time.h>
-#endif /* _WIN32 */
-
-#ifndef _XITE_TIME_H_
-# define _XITE_TIME_H_
-# include <time.h>
-# ifdef FUNCPROTO
-    clock_t clock( void );
-    time_t time( time_t * );
-# else
-    long clock();
-    time_t time();
-# endif
-#endif /* Default case */
+#ifndef HAVE_CLOCK
+  clock_t clock( void );
+#endif
 
 _XITE_CPLUSPLUS_END
 
 #endif /* _XITE_TIME_H_ */
-

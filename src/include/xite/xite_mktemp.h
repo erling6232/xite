@@ -31,58 +31,19 @@ ________________________________________________________________
 */
 
 #ifndef _XITE_MKTEMP_H_
+#define _XITE_MKTEMP_H_
 
 _XITE_CPLUSPLUS_BEGIN
 
-#ifdef SunOS
-# define _XITE_MKTEMP_H_
+#include XITE_STDLIB_H
+#include XITE_UNISTD_H
+
+#ifndef HAVE_MKTEMP
   char *mktemp _XITE_PARAMS(( char * ));
-#endif /* SunOS */
-
-#ifdef SunOS5
-# define _XITE_MKTEMP_H_
-# include <stdlib.h>
-#endif /* SunOS5 */
-
-#ifdef ULTRIX
-# define _XITE_MKTEMP_H_
-  char *mktemp _XITE_PARAMS(( char * ));
-#endif /* ULTRIX */
-
-#ifdef AIX
-# define _XITE_MKTEMP_H_
-  char *mktemp _XITE_PARAMS(( char * ));
-#endif /* AIX */
-
-#if defined (IRIX) || defined(IRIX64)
-# define _XITE_MKTEMP_H_
-# include <stdlib.h>
-#endif /* IRIX || IRIX64 */
-
-#ifdef HPUX
-# define _XITE_MKTEMP_H_
-# include <unistd.h>
-#endif /* HPUX */
-
-#ifdef OSF1
-# define _XITE_MKTEMP_H_
-  char *mktemp _XITE_PARAMS(( char * ));
-#endif /* OSF1 */
-
-#ifdef CYGWIN32
-# define _XITE_MKTEMP_H_
+#endif
+#ifndef HAVE_TEMPNAM
   char *tempnam _XITE_PARAMS(( const char *, const char * ));
-  char *mktemp _XITE_PARAMS(( char * ));
-#endif /* CYGWIN32 */
-
-#ifdef _WIN32
-# define _XITE_MKTEMP_H_
-#endif /* _WIN32 */
-
-#ifndef _XITE_MKTEMP_H_
-# define _XITE_MKTEMP_H_
-  char *mktemp _XITE_PARAMS(( char * ));
-#endif /* Default case */
+#endif
 
 _XITE_CPLUSPLUS_END
 

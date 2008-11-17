@@ -31,96 +31,38 @@ ________________________________________________________________
 */
 
 #ifndef _XITE_RANDOM_H_
+# define _XITE_RANDOM_H_
 
 _XITE_CPLUSPLUS_BEGIN
 
-#ifdef SunOS
-# define _XITE_RANDOM_H_
-# define RANDOM_MAX 2147483653.0
-  int srandom _XITE_PARAMS(( int ));
-  long random _XITE_PARAMS(( void ));
-#endif /* SunOS */
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
+#ifdef HAVE_MATH_H
+#  include <math.h>
+#endif
 
-#ifdef SunOS5
-# define _XITE_RANDOM_H_
-# define RANDOM_MAX 2147483653.0
-# include <stdlib.h>
-#endif /* SunOS5 */
-
-#ifdef ULTRIX
-# define _XITE_RANDOM_H_
-# define RANDOM_MAX 2147483653.0
-  int srandom _XITE_PARAMS(( int ));
-  long random _XITE_PARAMS(( void ));
-#endif /* ULTRIX */
-
-#ifdef AIX
-# define _XITE_RANDOM_H_
-# include <stdlib.h>
-# define RANDOM_MAX 2147483653.0
-#endif /* AIX */
-
-#if defined (IRIX) || defined(IRIX64)
-# define _XITE_RANDOM_H_
-# include <math.h>
-# define RANDOM_MAX 2147483653.0
-#endif /* IRIX || IRIX64 */
-
-#ifdef HPUX
-# define _XITE_RANDOM_H_
-# include <stdlib.h>
-# ifdef RAND_MAX
+#ifdef RAND_MAX
 #   define RANDOM_MAX RAND_MAX
-# else
+#else
 #  define RANDOM_MAX 32767.0
-# endif
-# define random  rand
-# define srandom srand
-#endif /* HPUX */
+#  define RANDOM_MAX 2147483653.0
+#endif
 
-#ifdef OSF1
-# define _XITE_RANDOM_H_
-# define RANDOM_MAX 2147483653.0
-  int srandom _XITE_PARAMS(( unsigned seed ));
-  int random _XITE_PARAMS(( void ));
-#endif /* OSF1 */
-
-#if defined(Linux)
-# define _XITE_RANDOM_H_
-# include <stdlib.h>
-# define RANDOM_MAX 2147483653.0
-#endif /* Linux */
-
-#ifdef CYGWIN32
-# define _XITE_RANDOM_H_
-# include <stdlib.h>
-# ifdef RAND_MAX
-#   define RANDOM_MAX RAND_MAX
-# else
-#  define RANDOM_MAX 32767.0
-# endif
-# define random     rand
-# define srandom(a) srand((unsigned int) (a))
-#endif /* CYGWIN32 */
-
-#ifdef _WIN32
-# define _XITE_RANDOM_H_
-# include <stdlib.h>
-# ifdef RAND_MAX
-#   define RANDOM_MAX RAND_MAX
-# else
-#  define RANDOM_MAX 32767.0
-# endif
-# define random  rand
-# define srandom srand
-#endif /* _WIN32 */
-
-#ifndef _XITE_RANDOM_H_
-# define _XITE_RANDOM_H_
-# define RANDOM_MAX 2147483653.0
-  int srandom _XITE_PARAMS(( int ));
-  long random _XITE_PARAMS(( void ));
-#endif /* Default case */
+#ifndef HAVE_RANDOM
+#  ifdef HAVE_RAND
+#    define random  rand
+#  else
+     long random _XITE_PARAMS(( void ));
+#  endif
+#endif
+#ifndef HAVE_SRANDOM
+#  ifdef HAVE_SRAND
+#    define srandom srand
+#  else
+     int srandom _XITE_PARAMS(( int ));
+#  endif
+#endif
 
 _XITE_CPLUSPLUS_END
 

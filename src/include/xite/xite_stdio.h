@@ -38,35 +38,6 @@ _XITE_CPLUSPLUS_BEGIN
 
 #include <stdio.h>
 
-#if defined(SunOS) || defined(SunOSSun3) || defined(_WIN32)
-# ifndef FUNCPROTO
-    extern int fflush();
-    extern int fgetc();
-    extern int fprintf();
-    extern int fputs();
-    extern int fread();
-    extern int printf();
-
-    extern int vfprintf();
-    extern int vprintf();
-
-#   ifndef SYSTEM_V
-#     ifndef SunOS
-        extern char * sprintf();
-#     endif
-      extern char * vsprintf();
-#   else
-      extern int sprintf(); 
-      extern int vsprintf();
-#   endif
-    extern int fscanf();
-    extern int scanf();
-    extern int sscanf(); 
-
-    extern void perror();
-# endif /* FUNCPROTO */
-#endif
-
 _XITE_CPLUSPLUS_END
 
 #endif /* _XITE_STDIO_H_ */
