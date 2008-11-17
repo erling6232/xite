@@ -38,13 +38,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/biff.h>
 #include <xite/combine.h>
 #include <xite/message.h>
-#ifdef HAVE_STRINGS_H
-#  include <strings.h>
-#else
-#  ifdef HAVE_STRING_H
-#    include <string.h>
-#  endif
-#endif
+#include XITE_STRING_H
 
 /*F:combine*
 
