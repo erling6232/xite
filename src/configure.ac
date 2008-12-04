@@ -95,9 +95,9 @@ AC_FUNC_STAT
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
 AC_FUNC_WAIT3
-AC_CHECK_FUNCS([dup2 getcwd isascii pow regcomp select sqrt strcasecmp strchr strcspn strerror strrchr strspn strstr strtol])
-AC_CHECK_FUNCS([link setmode symlink random srandom toupper tolower umask])
-AC_CHECK_FUNCS([flock times])
+AC_CHECK_FUNCS([dup2 getcwd getwd isascii pow regcomp select sqrt strcasecmp strchr strcspn strerror strrchr strspn strstr strtod strtol])
+AC_CHECK_FUNCS([link setmode symlink rand random srand srandom toupper tolower umask])
+AC_CHECK_FUNCS([clock flock mktemp mkstemp tempnam time times])
 
 # define XITE_MALLOC_H     <stdlib.h>
 # define XITE_MEMORY_H     <string.h>
