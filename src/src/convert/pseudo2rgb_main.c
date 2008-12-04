@@ -38,9 +38,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 
 

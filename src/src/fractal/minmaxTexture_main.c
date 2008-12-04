@@ -101,16 +101,8 @@ ________________________________________________________________
 #include <xite/minmax.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_STRING_H
+#include XITE_UNISTD_H
 
 int main(int argc, char **argv)
 {

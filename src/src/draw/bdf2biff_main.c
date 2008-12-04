@@ -2,9 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STRING_H
 #include <xite/draw.h>
 #include <xite/message.h>
 

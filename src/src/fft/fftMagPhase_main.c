@@ -42,9 +42,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/geometry.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 
 
 /*P:fftMagPhase*

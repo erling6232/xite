@@ -39,24 +39,12 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/convert.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-#  include <strings.h>
-#else
-#  ifdef HAVE_STRING_H
-#    include <string.h>
-#  endif
-#endif
+#include XITE_STDIO_H
+#include XITE_STRING_H
 #include <xite/blab.h>
 #include <xite/utils.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_LIMITS_H
-# include <limits.h>
-#endif
+#include XITE_MALLOC_H
+#include XITE_LIMITS_H
 
 static char *ascii2biff_errors_s[] = {
   "ascii2biff: OK.\n",

@@ -39,22 +39,10 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/convert.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_SYS_FILE_H
-#  include <sys/file.h>
-#endif
-#ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-#  include <strings.h>
-#else
-#  ifdef HAVE_STRING_H
-#    include <string.h>
-#  endif
-#endif
+#include XITE_FILE_H
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
+#include XITE_STRING_H
 
 #define MAX_TITLE_LENGTH 32
 

@@ -101,16 +101,12 @@ ________________________________________________________________
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/copy.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/blab.h>
 #include <xite/draw.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 #define MAXIMAGES 100
 #ifndef MAX

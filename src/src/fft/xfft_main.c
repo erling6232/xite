@@ -184,9 +184,7 @@ ________________________________________________________________
 #include <xite/ImageOverlay.h>
 #include <xite/Xdialog.h>
 #include <xite/ShellWids.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/statistics.h>
 #include <xite/mallocp.h>
 #include <xite/debug.h>

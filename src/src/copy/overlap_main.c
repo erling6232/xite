@@ -72,9 +72,7 @@ ________________________________________________________________
 
 */
 
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 int main(int argc, char **argv)
 {
