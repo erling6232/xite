@@ -74,12 +74,8 @@ static char *Id = "$Id$ $Revision$";
 #include <xite/biff.h>
 #include <stdlib.h>
 #include <xite/message.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_TYPES_H
 
 int main(int argc, char *argv[])
 {

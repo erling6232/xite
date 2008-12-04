@@ -162,49 +162,31 @@ ________________________________________________________________
 #include <errno.h>
 #include <xite/blab.h>
 #include <xite/utils.h>
-
-#ifdef HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
-
-#ifdef HAVE_IO_H
-#  include <io.h>
-#endif
+#include XITE_TYPES_H
 
 #ifdef HAVE_DIRENT_H
-#  include <dirent.h>
+# include <dirent.h>
+# define NAMLEN(dirent) strlen ((dirent)->d_name)
 #else
-#  if HAVE_DIRECT_H
-#    include <direct.h>
-#  else
-#    if HAVE_SYS_DIR_H
-#      include <sys/dir.h>
-#    endif
-#  endif
+# define dirent direct
+# define NAMLEN(dirent) ((dirent)->d_namlen)
+# ifdef HAVE_SYS_NDIR_H
+#  include <sys/ndir.h>
+# endif
+# ifdef HAVE_SYS_DIR_H
+#  include <sys/dir.h>
+# endif
+# ifdef HAVE_NDIR_H
+#  include <ndir.h>
+# endif
 #endif
 
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
- #include <strings.h>
-#else
-#ifdef HAVE_STRING_H
- #include <string.h>
-#endif
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-#ifdef HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
-#ifdef HAVE_SYS_STAT_H
-#  include <sys/stat.h>
-#endif
-#ifdef HAVE_SYS_PARAM_H
-#  include <sys/param.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_STRING_H
+#include XITE_UNISTD_H
+#include XITE_TYPES_H
+#include XITE_STAT_H
+#include XITE_PARAM_H
 #include <xite/debug.h>
 
 #ifdef HAVE_DIR
