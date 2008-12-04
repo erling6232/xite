@@ -102,9 +102,7 @@ ________________________________________________________________
 #include <X11/Intrinsic.h>
 #include <xite/ImageFormat.h>
 #include "ImagePixName.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 static char *pixname[] =
 {

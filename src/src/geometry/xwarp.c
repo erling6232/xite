@@ -224,24 +224,11 @@ ________________________________________________________________
 #include <X11/StringDefs.h>
 #include <X11/Xaw/Toggle.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_UNISTD_H
 #include <xite/ximage.h>
-#ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include XITE_STDARG_H
-#ifdef HAVE_VARARGS_H
-#  include <varargs.h>
-#else
-#  ifdef HAVE_STDARG_H
-#    include <stdarg.h>
-#  endif
-#endif
 #include <xite/readarg.h>
 #include <xite/histo.h>
 #include <xite/region.h>

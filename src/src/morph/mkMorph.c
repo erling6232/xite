@@ -39,9 +39,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/histo.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/morph.h>
 
 #ifndef MAIN

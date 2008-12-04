@@ -651,9 +651,7 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <ctype.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <stdlib.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>

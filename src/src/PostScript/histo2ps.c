@@ -38,15 +38,11 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/readarg.h>
 #include <xite/histo.h>
 #include <xite/message.h>
-#ifdef HAVE_TIME_H
-#  include <time.h>
-#endif
+#include XITE_TIME_H
 
 static void print_all(FILE *outfile, double *h, double max, char *header, int ps)
 {

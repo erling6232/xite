@@ -35,18 +35,12 @@ static int of=0, uf=0;
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/principal.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/blab.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_SYS_TYPES_H
-# include <sys/types.h>
-#endif
+#include XITE_MALLOC_H
+#include XITE_TYPES_H
 
 #ifndef MAIN
 

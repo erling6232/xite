@@ -59,9 +59,7 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageSignedBytePix.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 /* 'btrans_s' is a look-up table for scaling and tresholding of incoming byte
    pixel values.

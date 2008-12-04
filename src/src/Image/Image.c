@@ -1233,9 +1233,7 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <ctype.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <stdlib.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
@@ -1257,9 +1255,7 @@ ________________________________________________________________
 #include <xite/color.h>
 #include <xite/Visual.h>
 #include <xite/ShellWids.h>
-#ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/message.h>
 #include <xite/statistics.h>
 #include <xite/debug.h>

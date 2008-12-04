@@ -121,12 +121,8 @@ ________________________________________________________________
 #include <xite/ximage.h>
 #include <xite/Cmap.h>
 #include <xite/Visual.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
 #include <xite/mallocp.h>
 #include <xite/debug.h>
 

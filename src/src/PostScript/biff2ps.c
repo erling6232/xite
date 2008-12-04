@@ -253,22 +253,10 @@ ________________________________________________________________
 #include <xite/blab.h>
 #include <xite/readarg.h>
 #include <xite/message.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_TIME_H
-#  include <time.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_STRING_H
+#include XITE_TIME_H
+#include XITE_UNISTD_H
 
 #define	INCH		* 72
 #define	PG_SIZE_X	( 595 )	/* Canvas is 7.5" x 9.0" area on a

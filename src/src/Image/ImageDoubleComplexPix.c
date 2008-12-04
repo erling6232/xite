@@ -31,9 +31,7 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include "ImageDoubleComplexPix.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 static ipixel doublecomplexpixel =
 {

@@ -35,12 +35,8 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <stdlib.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_MALLOC_H
 #include <xite/message.h>
 #include "matrix.h"
 

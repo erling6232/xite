@@ -36,14 +36,10 @@ static char *Id = "$Id$, Blab, UiO";
 #include <stdlib.h>
 #include <xite/negate.h>
 #include <math.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 
 #ifndef MAIN
 
