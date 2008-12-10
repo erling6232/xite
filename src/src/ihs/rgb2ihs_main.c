@@ -42,58 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:rgb2ihs_img*
-
-________________________________________________________________
-
-		rgb2ihs_img
-________________________________________________________________
-
-Name:		rgb2ihs_img - Convert image from RGB to IHS
-Syntax:         | #include <xite/ihs.h>
-		|
-                | int rgb2ihs_img( IBAND r, IBAND g, IBAND b,
-                |    IBAND i, IBAND h, IBAND s );
-Description:	For each pixel convert (r, g, b) to (i, h, s).
-Return value:	| 0 - Ok
-                | 1 - Bad pixtyp
-		| 2 - Bad size
-See also:       rgb2ihs(1), ihs2rgb(1), ihs2rgb_img(3), ihs(3)
-Author:		Otto Milvang
-________________________________________________________________
-
-*/
-
-
-int rgb2ihs_img(IBAND r, IBAND g, IBAND b, IBAND i, IBAND h, IBAND s)
-{
-  int xsize, ysize, x, y;
-  if (Ipixtyp(r) != Iu_byte_typ ||
-      Ipixtyp(g) != Iu_byte_typ ||
-      Ipixtyp(b) != Iu_byte_typ ||
-      Ipixtyp(i) != Iu_byte_typ ||
-      Ipixtyp(h) != Iu_byte_typ ||
-      Ipixtyp(s) != Iu_byte_typ) return(1); 
-  xsize = Ixsize(r);  
-  ysize = Iysize(r);
-  if (Ixsize(g) != xsize || Iysize(g) != ysize ||
-      Ixsize(b) != xsize || Iysize(b) != ysize ||
-      Ixsize(i) != xsize || Iysize(i) != ysize ||
-      Ixsize(h) != xsize || Iysize(h) != ysize ||
-      Ixsize(s) != xsize || Iysize(s) != ysize) return(2);
-  for(y=1; y<=ysize; y++)
-    for(x=1; x<=xsize; x++)
-      rgb2ihs_byte( r[y][x],  g[y][x],  b[y][x], 
-		   &i[y][x], &h[y][x], &s[y][x]);
-  return(0);
-}
-
-#endif /* not MAIN */
-
-
-
 /*P:rgb2ihs*
 
 ________________________________________________________________
@@ -112,8 +60,6 @@ Id: 		$Id$
 ________________________________________________________________
 
 */
-
-#ifdef MAIN
 
 int main(int argc, char **argv)
 {
@@ -138,5 +84,3 @@ int main(int argc, char **argv)
   Iwrite_image(img, argv[2]);
   return(0);
 }
-
-#endif /* MAIN */
