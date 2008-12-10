@@ -36,8 +36,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include XITE_MALLOC_H
 
-#ifdef MAIN
-
 /*P:pixel_mapper*
 
 ________________________________________________________________
@@ -131,5 +129,3 @@ int main(int argc, char **argv)
   return(0);
 
 } /* main() */
-
-#endif /* MAIN */
