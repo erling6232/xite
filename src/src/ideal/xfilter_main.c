@@ -32,8 +32,6 @@ ________________________________________________________________
 
 static char *Id = "$Id$, Blab, UiO";
 
-#ifdef MAIN
-
 #include <xite/includes.h>
 #include <math.h>
 #include <X11/Xos.h>
@@ -2885,5 +2883,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
