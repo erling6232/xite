@@ -47,91 +47,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:rotate*
-
-________________________________________________________________
-
-		rotate
-________________________________________________________________
-
-Name:		rotate - rotate transform
-
-Syntax:         | #include <xite/geometry.h>
-		|
-                | int rotate( IBAND inband, IBAND outband,
-                |    double theta, double rx, double ry, int ip,
-                |    int bg );
-
-Description:	The input band is rotated around the point (rx, ry) in the
-		global coordinate system. Thus, a band of size 25x25 with
-		xstart=ystart=100 should have rx=ry=112 to be rotated around
-		its center. If xstart=ystart=1, global coordinates equal local
-		coordinates.
-
-		'theta' is in radians.
-
-		| outband (x,y) = inband (u,v)
-                | u = cos(theta) *  x - sin(theta) *  y 
-		|   - cos(theta) * rx + sin(theta) * ry + rx
-		| v = sin(theta) *  x + cos(theta) *  y
-		|   - sin(theta) * rx - cos(theta) * ry + ry
-
-		The interpolation method 'ip' is one of
-		&0
-		Nearest neighbor
-
-		&1
-		Bilinear interpolation
-		|      g(x) = bi(f(x), f(x+1), d)
-		|      bi(x, y, d) = x(1-d) + yd
-		
-		&3
-		Cubic interpolation
-		|      g(x) = cc(f(x-1), f(x), f(x+1), f(x+2), d)
-		|      cc(x, y, z, v, d) = y + d((-x+z) +
-		|             d((2x-2y+z-v) + d(-x+y-z+v)))
-
-		-&
-		'bg' specifies the background pixel value.
-
-Restrictions:   'inband' and 'outband' must have pixel type unsigned byte.
-
-Return value:   | 0 : Ok
-                | 1 : Bad input or output pixel type
-
-Reference:	Wayne Niblack. Digital Image Processing, p 131-150
-
-See also:       rotate(1), shift_band(3), transpose_band(3), affine(3),
-                quadratic(3)
-
-Author:		Otto Milvang
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-int rotate(IBAND inband, IBAND outband, double theta, double rx, double ry, int ip, int bg)
-{
-  return(affine(inband, outband, 
-		-cos(theta) * rx + sin(theta) * ry + rx,
-		cos(theta),
-		-sin(theta),
-		-sin(theta) * rx - cos(theta) * ry + ry,
-		sin(theta),
-		cos(theta), 
-		ip, 
-		bg));
-}
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
 /*P:rotate*
 
 ________________________________________________________________
@@ -229,5 +144,3 @@ int main(int argc, char **argv)
   
   return(0);
 }
-
-#endif /* MAIN */
