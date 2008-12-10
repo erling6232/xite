@@ -41,66 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/histo.h>
 #include <xite/message.h>
 
-#ifndef MAIN
-
-/*F:histoNorm*
-
-________________________________________________________________
-
-		histoNorm
-________________________________________________________________
-
-Name:		histoNorm - histogram normalization
-
-Syntax:         | #include <xite/histo.h>
-                |
-                | int histoNorm( IBAND b1, IBAND b2, double my,
-                |    double sigma );
-Description:    Perform histogram normalization; approximate hi-
-                stogram of output image to the normal (gaussian)
-                distribution with mean value my and st.dev.=sigma.
-                Input and output may be identical. Only the largest
-                rectangle common to b1 and b2 is transformed.
-
-                | b1 - input band
-                | b2 - output band
-                | my - desired mean value
-                | sigma - desired standard deviation
-
-Return value:   | 0 => ok
-                | 1 => bad input pixel type
-                | 2 => bad output pixel type
-
-Author:		Tor L|nnestad
-
-Id:             $Id$
-________________________________________________________________
-*/
-
-int histoNorm(IBAND b1, IBAND b2, double my, double sigma)
-{
-  int n;
-  histogram normHisto;
-  double sigma2_2 = 2*sigma*sigma;
-
-  if (Ipixtyp(b1) != Iu_byte_typ)
-    return(Error(1, "histoNorm: Bad input pixel type\n"));
-  if (Ipixtyp(b2) != Iu_byte_typ)
-    return(Error(2, "histoNorm: Bad output pixel type\n"));
-
-  /* make normal distribution */
-  FOR (n=0; n LE 255; INC n)
-    normHisto[n] =
-      (int)(exp(-((double)n-my)*((double)n-my)/sigma2_2)*100000.0+0.5);
-  ENDFOR;
-  histoSpecify(b1, b2, normHisto);
-  return(0);
-}
-
-#endif /* not MAIN */
-
-
-
 /*P:histoNorm*
 
 ________________________________________________________________
@@ -135,8 +75,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
    IMAGE i;
@@ -163,5 +101,3 @@ int main(int argc, char **argv)
    Iwrite_image(i,argv[2]);
    return(0);
 }
-
-#endif /* MAIN */
