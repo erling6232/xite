@@ -302,9 +302,7 @@ ________________________________________________________________
 #include <xite/color.h>      /* For RGBMask */
 #include <xite/message.h>
 #include <xite/debug.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 #ifdef MOTIF
 #include <Xm/Xm.h> 

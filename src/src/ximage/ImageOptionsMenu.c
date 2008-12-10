@@ -42,9 +42,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Xaw/SmeBSB.h>
 #include <X11/Xaw/Form.h>
 #include <xite/ImageOptionsMenu.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/ImageOverlay.h>
 #include <xite/ImageForm.h>
 #include <xite/ShellWids.h>

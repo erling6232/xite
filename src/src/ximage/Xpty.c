@@ -48,32 +48,12 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/ImageOverlay.h>
 #include <signal.h>
 #include <errno.h>
-#ifdef HAVE_SYS_FILE_H
-# include <sys/file.h>
-#else
-# ifdef HAVE_SYS_IO_H
-#  include <sys/io.h>
-# endif
-#endif
-#ifdef HAVE_VFORK_H
-# include <vfork.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_FILE_H
+#include XITE_FORK_H
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
+#include XITE_STRING_H
+#include XITE_UNISTD_H
 #include <xite/debug.h>
 #include <X11/StringDefs.h>
 #include <X11/Shell.h>

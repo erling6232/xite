@@ -202,18 +202,10 @@ ________________________________________________________________
 #include <xite/statistics.h>
 #include <xite/utils.h>
 #include <xite/draw.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_TYPES_H
+#include XITE_UNISTD_H
+#include XITE_MALLOC_H
 #include <xite/mallocp.h>
 #include <xite/debug.h>
 

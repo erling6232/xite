@@ -2,9 +2,7 @@
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/negate.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/Image.h>
 #include <xite/ximage.h>     /* For ximage toolkit. */
 #include <xite/message.h>    /* For InitMessage(), Usage(), Error() etc. */

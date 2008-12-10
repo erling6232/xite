@@ -57,18 +57,10 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/Xdialog.h>
 #include <xite/FormDialog.h>
 #include <xite/ximage_display.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
-#endif
-#ifdef HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
+#include XITE_STRTOL_H
+#include XITE_TYPES_H
 #include <xite/debug.h>
 
 #define PATCH_PIXEL 192

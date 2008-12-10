@@ -39,9 +39,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/Xaw/SmeBSB.h>
 #include <stdlib.h>
 #include <xite/Xcolor.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <ctype.h>
 #include <X11/Xos.h>
 #include <xite/color.h>
@@ -50,9 +48,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/Visual.h>
 #include <xite/Cmap.h>
 #include <xite/ShellWids.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/debug.h>
 
 #define MAXCOLORS 64  /* The maximum possible number of entries in the list of

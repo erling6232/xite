@@ -37,9 +37,7 @@ ________________________________________________________________
 #elif !defined(MSDOS)
 # include <sys/time.h>
 #endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 #include <xite/utils.h>
 
 void xite_usleep(unsigned long n)

@@ -36,9 +36,7 @@ static char *Id = "$Id$";
 
 #include <xite/includes.h>
 #include <stdlib.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <X11/Intrinsic.h>
 #include <xite/Visual.h>
 #include <xite/Cmap.h>

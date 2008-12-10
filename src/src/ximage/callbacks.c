@@ -37,16 +37,8 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include <xite/ImageOverlay.h>
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_STRING_H
+#include XITE_MALLOC_H
 #include <xite/callbacks.h>
 
 XtCallbackList add_callback_first(XtCallbackList callback_list, XtCallbackProc new_callback, XtPointer closure)

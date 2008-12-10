@@ -41,9 +41,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
 #include <xite/Xhistogram.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <X11/Shell.h>
 #include <X11/StringDefs.h>
 #include <Xfwf/MultiList.h>
@@ -68,9 +66,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/Xdialog.h>
 #include <xite/readarg.h>
 #include "Colormap.h"
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/debug.h>
 
 extern Widget   Control_e;

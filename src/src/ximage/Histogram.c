@@ -314,9 +314,7 @@ ________________________________________________________________
 
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <ctype.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
@@ -326,9 +324,7 @@ ________________________________________________________________
 #include <X11/StringDefs.h>
 #include <X11/Xaw/XawInit.h>
 #include "HistogramP.h"
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/Visual.h>
 #include <xite/Cmap.h>
 #include <xite/ShellWids.h>

@@ -38,9 +38,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Xos.h>
 #include <X11/Intrinsic.h>
 #include <xite/ImageVisualsMenu.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <ctype.h>
 #include <X11/StringDefs.h>
 #include <X11/Xaw/SmeBSB.h>

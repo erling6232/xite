@@ -44,9 +44,7 @@ static char XRNrcsid[] = "$Header$";
 #include <Xfwf/FileSel.h>
 #include <xite/ShellWids.h>
 #include <xite/Xdialog.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/utils.h>
 #include <xite/mallocp.h>
 #include <xite/strings.h>
