@@ -37,15 +37,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_VFORK_H
-# include <vfork.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_FORK_H
+#include XITE_UNISTD_H
 #include <xite/arithmetic.h>
 #include <xite/fork_xshow.h>
 

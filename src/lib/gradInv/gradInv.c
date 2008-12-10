@@ -51,8 +51,6 @@ static char *Id = "$Id$, Blab, UiO";
 # define MIN(a,b) ((a)<(b) ? a : b)
 #endif
 
-#ifndef MAIN
-          
 /*F:gradInv*
 
 ________________________________________________________________
@@ -143,82 +141,3 @@ int gradInv(IBAND input, IBAND output, int dx, int dy)
    return(0);
 
 }  /* gradInv */
-
-#endif /* not MAIN */
-
-
-
-/*P:gradInv*
-
-________________________________________________________________
-
-		gradInv
-________________________________________________________________
-
-Name:		gradInv - gradient invers noise reduction
-
-Syntax:		gradInv <inimage> <outimage> [<dx> [<dy>]]
-
-Description:    Noise reduction by gradient invers smoothing.
-
-		'dx' is the horizontal window size. Default is 3.
-		'dy' is the vertical window size. Default is 'dx'.
-
-                The image border is filtered as good as possible.
-
-Restrictions:   'input' and 'output' must have pixel type unsigned byte.
-                'dx' and 'dy' must be greater than 1.
-		If 'dx' (or 'dy') are even, 'dx'+1 (or 'dy'+1) is used.
-
-See also:	gradInv(3)
-
-References:     &Wang, Vagnucci and Li,
-                "Gradient Inverse Weighted Smoothing Scheme and the Evaluation
-		of Its Performance",
-		Comp. Graph. and Im. Proc. '15', 167-181 (1981).
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       | gradInv mona.img monaGrad.img
-                | gradInv mona.img monaGrad.img 5
-                | gradInv mona.img monaGrad.img 5 7
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE input, output;
-   int bn, dx, dy;
-   char *args;
-
-   Iset_message(TRUE);
-   Iset_abort(TRUE);
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <outimage> [<dx> [<dy>]]\n"));
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-
-   if ((argc < 3) OR (argc > 5)) Usage(1, "Illegal number of arguments.\n");
-
-   input = Iread_image(argv[1]);
-   if (argc GE 4) dx = atoi(argv[3]); else dx = 3;
-   if (argc GE 5) dy = atoi(argv[4]); else dy = dx;
-
-   output = Icopy_init(input);
-   for (bn=1; bn LE Inbands(input); INC bn)
-     if (gradInv(input[bn], output[bn], dx, dy))
-       Error(2, "Error in gradInv() for band %d.\n", bn);
-
-   Ihistory(output, argv[0], args);
-   Iwrite_image(output, argv[2]);
-
-   return(0);
-}
-
-#endif /* MAIN */

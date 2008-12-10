@@ -1233,13 +1233,9 @@ ________________________________________________________________
 #include <X11/StringDefs.h>
 #include "xshow.h"
 #include <signal.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <stdlib.h>
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
@@ -1252,20 +1248,8 @@ ________________________________________________________________
 #include "Xdisplay.h"
 #include "Xprog.h"
 #include <xite/Xpty.h>
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_SYS_FILE_H
-# include <sys/file.h>
-#else
-# ifdef HAVE_SYS_IO_H
-#  include <sys/io.h>
-# endif
-#endif
+#include XITE_STRING_H
+#include XITE_FILE_H
 #include <xite/debug.h>
 
 #define FALSE 0

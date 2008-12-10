@@ -31,12 +31,8 @@ ________________________________________________________________
 static char *Id = "$Id$";
 
 #include <xite/includes.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_TIME_H
-#  include <time.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_TIME_H
 #include <math.h>
 #include <stdlib.h>
 #include <signal.h>

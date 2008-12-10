@@ -35,29 +35,15 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <stdlib.h>
 #include <errno.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
+#include XITE_STDIO_H
+#include XITE_STRING_H
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include <X11/cursorfont.h>
-#ifdef HAVE_SYS_STAT_H
-#  include <sys/stat.h>
-#endif
-#ifdef HAVE_TIME_H
-#  include <time.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-#include <stdlib.h>
+#include XITE_STAT_H
+#include XITE_TIME_H
+#include XITE_UNISTD_H
+#include XITE_MKTEMP_H
 #include "Macro.h"
 #include <Xfwf/Toggle.h>
 #include <xite/ShellWids.h>
@@ -66,9 +52,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/debug.h>
 #include <xite/utils.h>
 #include <xite/strings.h>
-#ifdef HAVE_SYS_PARAM_H
-#  include <sys/param.h>
-#endif
+#include XITE_PARAM_H
 #include "Xprog.h"
 
 extern char *menufilename_e;  /* If non-NULL, don't read

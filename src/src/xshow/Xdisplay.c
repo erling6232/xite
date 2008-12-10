@@ -50,9 +50,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/ximage.h>
 #include <xite/logPos.h>
 #include "Macro.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/debug.h>
 
 /* External global variables. */

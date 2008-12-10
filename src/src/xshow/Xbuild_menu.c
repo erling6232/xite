@@ -39,27 +39,13 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <X11/StringDefs.h>
 #include <stdlib.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/message.h>
 #include <xite/Xdialog.h>
 #include <xite/FormDialog.h>
 #include "Xbuild_menu.h"
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_SYS_FILE_H
-# include <sys/file.h>
-#else
-# ifdef HAVE_SYS_IO_H
-#  include <sys/io.h>
-# endif
-#endif
+#include XITE_STRING_H
+#include XITE_FILE_H
 #include <ctype.h>
 #include <X11/Xlib.h>
 #include <X11/Xos.h>
@@ -74,9 +60,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "MenuBox.h"
 #include <xite/ShellWids.h>
 #include "Xprog.h"
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/utils.h>
 #include <xite/strings.h>
 #include <xite/debug.h>

@@ -60,8 +60,15 @@ AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([ctype.h fcntl.h sys/fcntl.h float.h io.h sys/io.h limits.h malloc.h math.h memory.h stddef.h stdio.h stdlib.h sys/file.h sys/param.h sys/stat.h sys/time.h sys/times.h time.h unistd.h values.h])
-# AC_CHECK_HEADER([include/xite/biff.h])
-AC_CHECK_HEADERS([direct.h regex.h varargs.h stdarg.h pwd.h process.h])
+AC_CHECK_HEADERS([direct.h varargs.h stdarg.h pwd.h process.h])
+AC_CHECK_HEADER([regex.h],
+                [AC_DEFINE([HAVE_REGEX_H], [1], [Define if you have regex.h])]
+                [AC_DEFINE([REGEX], [1], [Define if you have regex.h])],
+		[AC_CHECK_HEADER([regexp.h],
+		                 [AC_DEFINE([HAVE_REGEXP_H], [1], [Define if you have regexp.h])],
+				 [AC_DEFINE([NO_REGEXP], [1], [Define if you dont have regex])]
+				)
+	       ])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -157,6 +164,8 @@ AC_CONFIG_FILES([
     lib/fwf/tabstring/Makefile
     lib/fwf/TextMenu/Makefile
     lib/fwf/Toggle/Makefile
+    lib/geometry/Makefile
+    lib/gradInv/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -176,5 +185,7 @@ AC_CONFIG_FILES([
     src/fft/Makefile
     src/fht/Makefile
     src/fractal/Makefile
+    src/geometry/Makefile
+    src/gradInv/Makefile
     ])
 AC_OUTPUT

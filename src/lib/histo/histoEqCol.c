@@ -41,8 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/histo.h>
 #include <xite/message.h>
 
-#ifndef MAIN
-
 /*F:histoEqCol*
 
 ________________________________________________________________
@@ -77,62 +75,3 @@ void histoEqCol(IBAND b, Color_cell *ct, int graylevels)
   scaleHisto(histo,histo, graylevels);
   scaled2col(histo,ct);
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:histoEqCol*
-
-________________________________________________________________
-
-		histoEqCol
-________________________________________________________________
-
-Name:		histoEqCol - histogram equalization color table
-
-Syntax:		histoEqCol <input image> <output color table>
-
-Description:    histoEqCol makes a color table based on the
-                cumulative histogram of THE FIRST BAND of the
-                input image. If you display the first band with
-                the new color table, the effect will be histogram
-                equalization of that band.
-
-Files:	        biff.h histo.h color.h
-See also:	
-Diagnostics:
-
-Restrictions:   first band of input image should have byte pixels.
-Return value:
-
-Author:		Tor Lønnestad
-
-Examples:       histoEqCol mona.img monaEq.col
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE i;
-  int k;
-  Color_tab ct;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <output color table> [<graylevels>]\n"));
-  Iset_message(TRUE);
-  if(argc == 1) Usage(1, (char*)0);
-  if ((argc LT 3) OR (argc GT 4))
-    Usage(2, "Bad number of arguments\n");
-  if (argc GE 4) k = atoi(argv[3]); else k = 256;
-
-  i = Iread_image(argv[1]);
-  histoEqCol(i[1],ct, k); /* only using band 1 !!! */
-  color_write(argv[2], ct, "HistoEq", 256);
-   return(0);
-}
-
-#endif /* MAIN */

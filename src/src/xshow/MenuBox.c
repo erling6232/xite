@@ -46,9 +46,7 @@ SOFTWARE.
 #include "MenuCommand.h"
 #include <xite/debug.h>
 #include <xite/ShellWids.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 
 static void ChangeManaged(Widget w);
 

@@ -38,9 +38,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <X11/Xos.h>
 #include <X11/Intrinsic.h>
 #include "xshowImageOptionsMenu.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <ctype.h>
 #include <X11/StringDefs.h>
 #include <X11/Xaw/SmeBSB.h>

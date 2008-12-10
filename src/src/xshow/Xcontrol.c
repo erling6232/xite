@@ -36,14 +36,10 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 
 
 #include <xite/includes.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <stdlib.h>
 #include <sys/wait.h>
-#ifdef HAVE_SYS_PARAM_H
-#  include <sys/param.h>
-#endif
+#include XITE_PARAM_H
 #include <errno.h>
 #include <ctype.h>
 #include <xite/biff.h>
@@ -52,24 +48,10 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "Xcontrol.h"
 #include <xite/Xcolor.h>
 #include "Xdisplay.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/utils.h>
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_SYS_FILE_H
-# include <sys/file.h>
-#else
-# ifdef HAVE_SYS_IO_H
-#  include <sys/io.h>
-# endif
-#endif
+#include XITE_STRING_H
+#include XITE_FILE_H
 #include <X11/Xlib.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -88,9 +70,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "Macro.h"
 #include <xite/message.h>
 #include <xite/debug.h>
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 
 #define CW XtCreateManagedWidget
 #define VW XtVaCreateManagedWidget

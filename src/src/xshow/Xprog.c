@@ -46,36 +46,16 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include "Xcontrol.h"
 #include <xite/Xdialog.h>
 #include "xshow.h"
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-#ifdef HAVE_SYS_FILE_H
-# include <sys/file.h>
-#else
-# ifdef HAVE_SYS_IO_H
-#  include <sys/io.h>
-# endif
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
+#include XITE_STDIO_H
+#include XITE_UNISTD_H
+#include XITE_FILE_H
+#include XITE_MALLOC_H
+#include XITE_STRING_H
 #include <xite/Xpty.h>
 #include <xite/utils.h>
 #include "Macro.h"
 #include <xite/debug.h>
-#ifdef HAVE_SYS_PARAM_H
-#  include <sys/param.h>
-#endif
+#include XITE_PARAM_H
 #include <xite/strings.h>
 
 #define NOT_EXPECTING 0

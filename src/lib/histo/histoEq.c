@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
 /*F:histoEq*
 
 ________________________________________________________________
@@ -96,69 +94,3 @@ BiffStatus histoEq(IBAND b1, IBAND b2, int graylevels)
   histoTransf(b1, b2, histo);
   return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:histoEq*
-
-________________________________________________________________
-
-		histoEq
-________________________________________________________________
-
-Name:		histoEq - histogram equalization
-
-Syntax:		histoEq <inimage> <outimage>  [<graylevels>]  
-
-Description:    'histoEq' makes a new image with the size of  the
-		input image. Every band in the output image is a
-		histogram equalized version of the corresponding
-		band in the input image.  Default number of 
-		'graylevels' in the output image is 256.
-
-Restrictions:   'inimage' must have bands with pixel type unsigned byte.
-
-See also:	
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       | histoEq mona.img monaEq.img 
-		| histoEq mona.img monaEq.img 127
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE img;
-  int bn, k;
-  char *args;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <oldfile> <newfile> [<graylevels>]\n"));
-  Iset_message(TRUE);
-
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-
-  if ((argc LT 3) OR (argc GT 4)) Usage(2, "Illegal number of arguments.\n");
-  if (argc == 4) k = atoi(argv[3]); else k = 256;
-
-  img = Iread_image(argv[1]);
-  for (bn=1; bn LE Inbands(img); bn++)
-    if (histoEq(img[bn], img[bn], k))
-      Warning(3, " - in band %d\n", bn);
-
-  Ihistory(img, argv[0], args);
-  Iwrite_image(img, argv[2]);
-
-  return(0);
-}
-
-#endif /* MAIN */

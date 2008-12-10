@@ -44,8 +44,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_MALLOC_H
 #include XITE_STDIO_H
 
-#ifndef MAIN
-
 static int gcd(int a, int b)
 {
   int r;
@@ -179,66 +177,3 @@ BiffStatus shift_band(IBAND in_band, IBAND out_band, int shiftx, int shifty)
     }
   return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
-/*P:shift_img*
-
-________________________________________________________________
-
-                shift_img
-________________________________________________________________
-
-Name:           shift_img - Set new origo on a BIFF image
-
-Syntax:         | shift_img <infile> <outfile> <xshift> <yshift>
-
-Description:    Set new origo on a BIFF image. Pixels outside the
-                new coordinate system are wrapped around.
-                Works on all pixel types. 
-
-Return value:   0 if success, nonzero otherwise
-
-See also:       shift_band(3), transpose_img(1), affine(1), quadratic(1),
-                reorganize(1), rotate(1), warp(1)
-
-Author:         Otto Milvang
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-int main(int argc, char **argv)
-{
-  IMAGE img;
-  int bn;
-  char *args;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <infile> <outfile> <xshift> <yshift>\n"));
-
-  Iset_abort(TRUE);
-  Iset_message(TRUE);
-
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-
-  if (argc != 5) Usage(2, "Illegal number of arguments.\n");
-
-  img = Iread_image(argv[1]);
-
-  for (bn=1; bn LE Inbands(img); bn++)
-    shift_band(img[bn], img[bn], atoi(argv[3]), atoi(argv[4]));
-
-  Ihistory(img, argv[0], args);
-  Iwrite_image(img, argv[2]);
-
-  return(0);
-}
-
-#endif /* MAIN */
