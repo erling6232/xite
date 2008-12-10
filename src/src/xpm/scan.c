@@ -10,9 +10,7 @@
 
 #include <xite/includes.h>
 #include "xpmP.h"
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 #define MAXPRINTABLE 93			/* number of printable ascii chars
 					 * minus \ and " for string compat

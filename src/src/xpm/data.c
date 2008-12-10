@@ -20,14 +20,10 @@ static char *RCS_Id = "$Id$";
 #include "sys$library:stat.h"
 #include "sys$library:ctype.h"
 #else
-#ifdef HAVE_SYS_STAT_H
-# include <sys/stat.h>
-#endif
+#include XITE_STAT_H
 #include <ctype.h>
 #endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 LFUNC(atoui, unsigned int, (char *p, unsigned int l, unsigned int *ui_return));
 

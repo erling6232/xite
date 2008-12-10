@@ -24,9 +24,7 @@
 #else
 #include <X11/Xlib.h>
 #include <X11/Intrinsic.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #endif
 
 #include "xpm.h"
