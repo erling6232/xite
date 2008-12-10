@@ -269,9 +269,7 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <X11/Xos.h>
 #include <X11/Intrinsic.h>
 #include <X11/Shell.h>
@@ -293,9 +291,7 @@ ________________________________________________________________
 #include <xite/ShellWids.h>
 #include <xite/mallocp.h>
 #include <xite/debug.h>
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 #include <signal.h>
 
 #define GREEN  202

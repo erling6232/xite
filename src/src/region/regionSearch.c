@@ -83,14 +83,10 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/biff.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/message.h>
 #include <xite/region.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 
 typedef struct
 {

@@ -35,9 +35,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <stdlib.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_STDIO_H
 #include <xite/blab.h>
 #include <xite/color.h>
 #include <xite/compu4.h>
@@ -47,16 +45,8 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/region.h>
 #include <xite/readarg.h>
 #include <xite/statistics.h>
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_STRING_H
+#include XITE_MALLOC_H
 
 
 /*P:regionAnalyse*

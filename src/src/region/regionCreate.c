@@ -37,9 +37,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/region.h>
 #include <xite/blab.h>
 #include <xite/message.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+nclude XITE_MALLOC_H
 
 
 
