@@ -51,55 +51,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-int bandpass(IBAND band, double low_cut_frequency, double high_cut_frequency, int filter_size, window_type win_type)
-{
-  int stat;
-  IBAND b2;
-
-  stat = lowpass(band, high_cut_frequency, filter_size, win_type);
-  if (stat != 0) return(Error(stat, "%s\n", e_s[stat]));
-
-  b2 = Imake_band(Ipixtyp(band), Ixsize(band), Iysize(band));
-
-  stat = lowpass(b2, low_cut_frequency, filter_size, win_type);
-  if (stat != 0) return(Error(stat, "%s\n", e_s[stat]));
-
-  stat = signDiff(band, b2, band, 1.0, 0.0);
-  if (stat != 0) return(1);
-
-  Idel_band(&b2);
-
-  return(0);
-
-} /* bandpass() */
-
-
-
-BiffStatus bandpassf (IBAND band, double low_cut_frequency, double high_cut_frequency, int filter_size, window_type win_type)
-{
-  int stat;
-
-  if (Ipixtyp(band) != Icomplex_typ)
-    return(Error(E_PIXTYP, "%d\n", e_s[E_PIXTYP]));
-
-  stat = bandpass(band, low_cut_frequency, high_cut_frequency, filter_size,
-		  win_type);
-  if (stat != 0) return(Error(stat, "%s\n", e_s[stat]));
-
-  if (fft2d(band, band, 0, 1.0))
-    return(Error(E_FFT, "%s\n", e_s[E_FFT]));
-
-  return(0);
-}
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   int     filter_size, xsize, ysize, spatial;
@@ -183,5 +134,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif  /* MAIN */
