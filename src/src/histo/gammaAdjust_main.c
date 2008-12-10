@@ -41,109 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
-static void logaritmic_color(int *col, double x)
-{
-  int i;
-  double a, b;
-  a = (x) / 0.400;
-  a = a*a;
-  b = 255.0 / log(a*255.0+1.0);
-  for (i = 0; i<256; i++) 
-    {
-      col[i] = 256.0/a * log(1.0 + (exp(a) - 1.0) * (double) i / 256.0);
-    }
-}
-
-static void exp_color(int *col, double x)
-{
-  int i;
-  double a, b;
-  a = (x) / 0.400;
-  a = a*a;
-  b = 255.0 / log(a*255.0+1.0);
-  for (i = 0; i<256; i++) 
-    {
-      col[255-i] = 256.0/a * log(1.0 + (exp(a) - 1.0) * (double) i / 256.0);
-      col[255-i] = 255-col[255-i];
-    }
-}
-
-
-
-
-
-/*F:gammaAdjust*
-
-________________________________________________________________
-
-                gammaAdjust
-________________________________________________________________
-
-Name:           gammaAdjust - Simple gamma correction
-Syntax:         | #include <xite/histo.h>
-		|
-                | BiffStatus gammaAdjust( IBAND inband,
-                |    IBAND outband, double adjust );
-Description:    A simple gamma corretion to make images
-                darker or brigter. The 'adjust' parameter must be 
-		in the range -1.0 (much darker) to 1 (much brighter).
-		If adjust = 0.0 the band is not changed.
-
-		| If adjust > 0:
-		| a= adjust**2/0.16;
-		| b= 255.0 / log(a*255.0+1.0);
-		| c= 256.0/a * log(1.0 + (exp(a) - 1.0) * i / 256.0);
-		| col[i] = c;
-		|
-		| If adjust < 0;
-		| a= adjust**2/0.16;
-		| b= 255.0 / log(a*255.0+1.0);
-		| c= 256.0/a * log(1.0 + (exp(a) - 1.0) * (255-i) / 256.0);
-		| col[i] = 255-c;
-
-Return value:   | 0 - OK
-                | 2 - Bad pixtype
-		| 3 - Bad size
-		| 4 - Illegal value for adjust.
-Restrictions:   Works on unsigned byte bands only.
-Author:         Otto Milvang
-________________________________________________________________
-
-*/
-
-
-BiffStatus gammaAdjust(IBAND inband, IBAND outband, double adjust)
-{
-  int xsize, ysize, x, y;
-  int col[256];
-  
-  if (adjust < -1.0 || adjust > 1.0)
-    return(Error(4, "gammaAdjust: Bad pixeltype, must be Unsigned byte\n"));
-  if (Ipixtyp(inband) !=  Iu_byte_typ || Ipixtyp(outband) !=  Iu_byte_typ)
-    return(Error(2, "gammaAdjust: Bad pixeltype, must be Unsigned byte\n"));
-  if (adjust < 0.01 && adjust > -0.01) adjust = 0.01;
-  if (adjust > 1.0) adjust = 1.0;
-  if (adjust < -1.0) adjust = -1.0;
-  if (adjust > 0) logaritmic_color(col, adjust); else exp_color(col, adjust);
-
-  xsize = Ixsize(inband);
-  ysize = Iysize(inband);
-  if (xsize != Ixsize(outband) || ysize != Iysize(outband))
-   return(Error(3, "gammaAdjust: Inband and outband must be of equal size\n"));
-
-  for(y=1; y<=ysize; y++)
-    for(x=1; x<=xsize; x++)
-      outband[y][x] = col[inband[y][x]];
-
-  return(Iok);
-}
-
-#endif /* not MAIN */
-
-#ifdef MAIN
-
 /*P:gammaAdjust*
 
 ________________________________________________________________
@@ -215,5 +112,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
