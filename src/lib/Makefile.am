@@ -15,10 +15,17 @@ libxite_la_LIBADD = \
 	copy/libxitecopy.la \
 	dither/libxitedither.la \
 	draw/libxitedraw.la \
-	draw/libxiteextrema.la \
-	draw/libxitefft.la \
-	draw/libxitefht.la \
-	draw/libxitefractal.la
+	extrema/libxiteextrema.la \
+	fft/libxitefft.la \
+	fht/libxitefht.la \
+	fractal/libxitefractal.la \
+	geometry/libxitegeometry.la \
+	gradInv/libxitegradInv.la \
+	histo/libxitehisto.la \
+	hough/libxitehough.la \
+	haar/libxitehaar.la \
+	ideal/libxiteideal.la \
+	ihs/libxiteihs.la \
 
 SUBDIRS = \
 	arithmetic \
@@ -39,9 +46,7 @@ SUBDIRS = \
 	fft \
 	fht \
 	fractal \
-	fwf
-
-tt = \
+	fwf \
 	geometry \
 	gradInv \
 	histo \
@@ -49,6 +54,8 @@ tt = \
 	haar \
 	ideal \
 	ihs \
+
+tt = \
 	Image \
 	kncn \
 	knn \

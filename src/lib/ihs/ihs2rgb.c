@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:ihs2rgb_img*
 
 ________________________________________________________________
@@ -89,57 +87,3 @@ int ihs2rgb_img(IBAND i, IBAND h, IBAND s, IBAND r, IBAND g, IBAND b)
 		   &r[y][x], &g[y][x], &b[y][x]);
   return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:ihs2rgb*
-
-________________________________________________________________
-
-		ihs2rgb
-________________________________________________________________
-
-Name:		ihs2rgb - Convert from IHS to RGB
-Syntax:		| ihs2rgb <inimage> <outimage>
-Description:	'inimage' must be an 3 band image. Assume
-                band 1 as intesity, band 2 as hue and band 3 as saturation.
-                For each pixel convert (i, h, s) to (r, g, b).		
-Author:		Otto Milvang
-See also:       ihs2rgb_img(3), rgb2ihs(1), rgb2ihs_img(3), ihs(3)
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-
-#ifdef MAIN
-
-
-int main(int argc, char **argv)
-{
-  IMAGE img;
-  int stat;
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s  <inimage> <outimage>\n"));
-
-  if (argc == 1) Usage(1, NULL);
-  if (argc != 3) Usage(1, "Illegal number of arguments.\n");
-
-  img = Iread_image(argv[1]);
-  if (Inbands(img) != 3)
-    Error(2, "Inimage must be a 3-band image.\n");
-
-  stat = ihs2rgb_img(img[1], img[2], img[3], img[1], img[2], img[3]);
-  if (stat == 1) Error(2, "All bands must be usigned byte band.\n");
-  if (stat == 2) Error(2, "All bands must be of same size.\n");
-
-  Ihistory(img, argv[0], "");
-  Iwrite_image(img, argv[2]);
-  return(0);
-}
-
-#endif /* MAIN */
