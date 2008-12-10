@@ -32,25 +32,15 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 #include <xite/includes.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
+#include XITE_MALLOC_H
+#include XITE_STRING_H
 #include <xite/blab.h>
 #include <xite/biff.h>
 #include <xite/color.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
 #include <xite/tiff.h>
+#include XITE_STDIO_H
 
 #ifndef MAIN
 
