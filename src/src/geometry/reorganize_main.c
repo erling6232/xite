@@ -43,8 +43,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/readarg.h>
 #include XITE_STRING_H
 
-#ifdef MAIN
-
 static char *txt_s[8] = { "Identity-transform",
 			"Vertical mirror",
 			"Horizontal mirror",
@@ -269,5 +267,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
