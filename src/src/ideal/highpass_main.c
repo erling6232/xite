@@ -52,102 +52,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-int highpass(IBAND band, double cut_frequency, int *filter_size, window_type win_type)
-{
-  int stat;
-  long xsize, ysize;
-  double sum;
-  IPIXTYP pt;
-
-  xsize = Ixsize(band);
-  ysize = Iysize(band);
-
-  if (((*filter_size) % 2 == 0) && (*filter_size) < xsize &&
-      (*filter_size) < ysize) {
-    (*filter_size)++;
-    Warning(1, "Filter-size must be odd, increased by one.\n");
-  } else if ((*filter_size) % 2 == 0) {
-    (*filter_size)--;
-    Warning(1, "Filter-size must be odd, decreased by one.\n");
-  }
-
-  stat = lowpassu(band, cut_frequency, (*filter_size), win_type, &sum);
-  if (stat != 0) return(Error(stat, "%s\n", e_s[stat]));
-
-  /* Change sign and normalize to get sum of coefficients (DC-value) of
-   * lowpass-filter equal to -1.0.
-   */
-
-  if (sum != 0.0) {
-    stat = scale(band, band, -(1 / sum), 0.0);
-    if (stat) return(Error(E_PIXTYP, "%s\n", e_s[E_PIXTYP]));
-  }
-
-  /* Transform to highpass filter. */
-
-  stat = 0;
-  pt = Ipixtyp(band);
-  switch ((int) pt) {
-  case Ireal_typ: {
-    IR_BAND bnd = (IR_BAND) band;
-
-    bnd[1][1]++;
-  }
-    break;
-  case Idouble_typ: {
-    ID_BAND bnd = (ID_BAND) band;
-
-    bnd[1][1]++;
-  }
-    break;
-  case Icomplex_typ: {
-    IC_BAND bnd = (IC_BAND) band;
-
-    bnd[1][1].re++;
-  }
-    break;
-  case Id_complex_typ: {
-    IDC_BAND bnd = (IDC_BAND) band;
-
-    bnd[1][1].re++;
-  }
-    break;
-  default:
-    stat = E_PIXTYP;
-    break;
-  } /* switch */
-  
-  if (stat != 0) return(Error(stat, "%s\n", e_s[E_PIXTYP]));
-
-  return(0);
-
-} /* highpass() */
-
-
-BiffStatus highpassf(IBAND band, double cut_frequency, int *filter_size, window_type win_type)
-{
-   int stat;
-
-   if (Ipixtyp(band) != Icomplex_typ)
-     return(Error(E_PIXTYP, "%d\n", e_s[E_PIXTYP]));
-
-   stat = highpass(band, cut_frequency, filter_size, win_type);
-   if (stat != 0) return(Error(stat, "%s\n", e_s[stat]));
-
-   if (fft2d(band, band, 0, 1.0))
-      return(Error(E_FFT, "%s\n", e_s[E_FFT]));
-
-   return(0);
-}
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   int      filter_size, xsize, ysize, stat, r, spatial;
@@ -227,5 +131,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
