@@ -32,8 +32,6 @@ ________________________________________________________________
 
 static char *Id = "$Id$, Blab, UiO";
 
-#ifdef MAIN
-
 /*P:rainbow*
 
 ________________________________________________________________
@@ -172,5 +170,3 @@ int main(int argc, char **argv)
   fprintf(stderr, "Min = %ld, Max = %ld\n", min, max);
   return(0);
 }
-
-#endif /* MAIN */
