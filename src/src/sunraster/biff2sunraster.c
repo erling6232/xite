@@ -41,28 +41,16 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/includes.h>
 #include <xite/biff.h>
 #include <xite/sunraster.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_UNISTD_H
 #include <xite/color.h>
 #include <xite/readarg.h>
 #include <xite/utils.h>
 #include <xite/convert.h>
-#ifdef HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
-#ifdef HAVE_FCNTL_H
-#  include <fcntl.h>
-#endif
-#ifdef HAVE_SYS_FILE_H
-#  include <sys/file.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_TYPES_H
+#include XITE_FCNTL_H
+#include XITE_FILE_H
+#include XITE_MALLOC_H
 #include "rast.h"
 
 #define ERR_NONE   0

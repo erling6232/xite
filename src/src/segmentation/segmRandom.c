@@ -36,15 +36,9 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/segmentation.h>
 #include <xite/message.h>
 #include <xite/readarg.h>
-#ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_TIME_H
-#  include <time.h>
-#endif
+#include XITE_RANDOM_H
+#include XITE_STDIO_H
+#include XITE_TIME_H
 
 #ifndef MAIN
 
