@@ -51,8 +51,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 int bandstop(IBAND band, double low_cut_frequency, double high_cut_frequency, int *filter_size, window_type win_type)
 {
   int stat;
@@ -139,86 +137,3 @@ BiffStatus bandstopf(IBAND band, double low_cut_frequency, double high_cut_frequ
 
    return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE img;
-  int     filter_size, xsize, ysize, stat, spatial;
-  window_type win_type;
-  double  lcut, hcut;
-  char    *arg, *title, *pta, *wt;
-  IPIXTYP pt;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [<option>...] <outimage>\n\
-       where <option> is\n\
-        -x <xsize>         : Horizontal size of image\n\
-        -y <ysize>         : Vertical size of image\n\
-        -l <cut_frequency> : Low cutoff-frequency (rel. to 0.5*sampl.freq)\n\
-        -h <cut_frequency> : High Cutoff-frequency (rel. to 0.5*sampl.freq)\n\
-        -f <filter size>   : Diameter of filter in spatial domain\n\
-        -t <image title>   : Title of filter image\n\
-        -s                 : Return filter in spatial domain\n\
-        -w <window-type>   : Choice of window (default Hamming)\n\
-        -pt <pixtyp>       : Pixeltype for filter (when spatial domain)\n"));
-
-  if (argc == 1) Usage(E_ARG, NULL);
-  arg = argvOptions(argc, argv);
-
-  xsize       = read_iswitch (&argc, argv, "-x", 512);
-  ysize       = read_iswitch (&argc, argv, "-y", 512);
-  lcut        = read_dswitch (&argc, argv, "-l", 0.2);
-  hcut        = read_dswitch (&argc, argv, "-h", 0.7);
-  filter_size = read_iswitch (&argc, argv, "-f", 41);
-  title       = read_switch (&argc, argv, "-t", 1, "Windowed ideal BS filter");
-  if (strcmp(title, "Windowed ideal BS filter") == 0)
-  title       = read_switch (&argc, argv, "-title", 1,
-			     "Windowed ideal BS filter");
-  spatial     = read_bswitch(&argc, argv, "-s");
-  wt          = read_switch(&argc, argv, "-w", 1, "hm");
-  if (spatial) pta = read_switch(&argc, argv, "-pt", 1, "r");
-  else pta = read_switch(&argc, argv, "-pt", 1, "c");
-
-  pt = IparsePixtyp(pta);
-  if (pt < Iu_byte_typ) Usage(E_PIXTYP, "Illegal value for option '-pt'.\n");
-  win_type = parseWindowName(wt);
-  if (win_type < 0) Usage(E_WINDOW, "%s\n", e_s[E_WINDOW]);
-
-  if (!spatial && pt != Icomplex_typ) {
-    Usage(E_PIXTYP,
-          "For a Fourier-domain result, pixeltype must be complex.\n");
-    exit(1);
-  }
-
-  if (pt != Ireal_typ    && pt != Idouble_typ    &&
-      pt != Icomplex_typ && pt != Id_complex_typ) {
-    Usage(E_PIXTYP, "Illegal value for option '-pt'.\n");
-    exit(1);
-  }
-
-  if (argc != 2) Usage(E_ARG, "%s\n", e_s[E_ARG]);
-
-  img = Imake_image (1, title, pt, xsize, ysize);
-  if (!img) exit(Error(E_MALLOC, "%s\n", e_s[E_MALLOC]));
-
-  if (!spatial) {
-    if ( (stat = bandstopf(img[1], lcut, hcut, &filter_size, win_type)) )
-      exit(Error(stat, "%s\n", e_s[stat]));
-  } else {
-    if ( (stat = bandstop(img[1], lcut, hcut, &filter_size, win_type)) )
-      exit(Error(stat, "%s\n", e_s[stat]));
-  }
-
-  Ihistory(img, argv[0], arg);
-  Iwrite_image(img, argv[1]);
-
-  return(0);
-}
-
-#endif  /* MAIN */

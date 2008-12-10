@@ -57,8 +57,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 int butterworthf(IBAND band, double cut_frequency, int filter_order)
 {
   int x, y, xsize, ysize, xhalf, yhalf, feven, xeven, yeven, low, filter_size;
@@ -358,82 +356,3 @@ int butterworthf(IBAND band, double cut_frequency, int filter_order)
   else return(0);
 
 } /* butterworthf() */
-
-#endif /* not MAIN */
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE   img;
-  int     filter_order, xsize, ysize, stat, spatial;
-  double  cut;
-  char    *arg, *title, *pta;
-  IPIXTYP pt;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [<option>...] <outimage>\n\
-       where <option> is\n\
-        -x  <xsize>         : Horizontal size of image\n\
-        -y  <ysize>         : Vertical size of image\n\
-        -c  <cut_frequency> : Cutoff-frequency (rel. to 0.5*sampl.freq)\n\
-	-f  <filter order>  : Filter order\n\
-        -t  <image title>   : Title of filter image\n\
-        -s                  : Return filter in spatial domain\n\
-        -pt <pixtyp>        : Pixeltype for filter\n"));
-
-  if (argc == 1) Usage(E_ARG, NULL);
-  arg = argvOptions(argc, argv);
-
-  xsize        = read_iswitch(&argc, argv, "-x", 512);
-  ysize        = read_iswitch(&argc, argv, "-y", 512);
-  cut          = read_dswitch(&argc, argv, "-c", 0.2);
-  filter_order = read_iswitch(&argc, argv, "-f", 5);
-  title        = read_switch(&argc, argv, "-t", 1, "Butterworth LP filter");
-  title        = (strcmp(title, "Lowpass filter") == 0) ?
-                 read_switch(&argc, argv, "-title", 1, "Lowpass filter") :
-		 title;  
-  spatial      = read_bswitch(&argc, argv, "-s");
-  pta          = spatial ? read_switch(&argc, argv, "-pt", 1, "r") :
-                           read_switch(&argc, argv, "-pt", 1, "c");
-
-  pt = IparsePixtyp(pta);
-  if (pt < Iu_byte_typ) Usage(E_PIXTYP, "Illegal value for option '-pt'.\n");
-
-  if (pt != Ireal_typ    && pt != Idouble_typ    &&
-      pt != Icomplex_typ && pt != Id_complex_typ) {
-    Usage(E_PIXTYP, "Illegal value for option '-pt'.\n");
-    exit(1);
-  }
-
-  if (argc != 2) Usage(E_ARG, "%s\n", e_s[E_ARG]);
-
-  if (spatial && pt != Icomplex_typ) {
-    /* fft2d will be called later, and it will only accept Icomplex_typ. */
-
-    img = Imake_image(1, title, Icomplex_typ, xsize, ysize);
-  } else img = Imake_image(1, title, pt, xsize, ysize);
-
-  if (!img) exit(Error(E_MALLOC, "%s\n", e_s[E_MALLOC]));
-
-  if ( (stat = butterworthf(img[1], cut, filter_order)) )
-    exit(Error(stat, "%s\n", e_s[stat]));
-
-  if (spatial) {
-    IBAND b;
-
-    b = Imake_band(Icomplex_typ, Ixsize(img[1]), Iysize(img[1]));
-    fft2d(img[1], b, 1, 0.0);
-
-    if (Ipixtyp(b) != pt) {
-      img[1] = mkConvertBand(b, pt);
-    } else img[1] = b;
-  }
-
-  Ihistory(img, argv[0], arg);
-  Iwrite_image(img, argv[1]);
-
-  return(0);
-}
-
-#endif /* MAIN */
