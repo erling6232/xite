@@ -89,12 +89,8 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/utl_malloc.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_STDIO_H
+#include XITE_MALLOC_H
 
 void *Mmatrix_1d(int i_first, int i_last, int i_element_size, int i_clear)
 {

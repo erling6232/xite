@@ -33,16 +33,8 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <ctype.h>
 #include <xite/strings.h>
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_STRING_H
+#include XITE_MALLOC_H
 
 char *nextSpace(char *input)
 {

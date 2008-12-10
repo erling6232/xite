@@ -34,9 +34,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <math.h>
 #include <xite/includes.h>
 #include <xite/utils.h>
-#ifdef HAVE_STDLIB_H
-# include <stdlib.h>
-#endif
+#include XITE_RANDOM_H
 
 #ifndef M_PI
 #define M_PI    3.14159265358979323846

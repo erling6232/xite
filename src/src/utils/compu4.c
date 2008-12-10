@@ -194,47 +194,17 @@ Id:             $Id$
 #include <errno.h>
 #include <xite/includes.h>
 #include <xite/compu4.h>
-#ifdef HAVE_VARARGS_H
-# include <varargs.h>
-#else
-# ifdef HAVE_STDARG_H
-#  include <stdarg.h>
-# endif
-#endif
+#include XITE_STDARG_H
 #include <stdlib.h>
 #include "compu4_L.h"
-#ifdef HAVE_FCNTL_H
-# include <fcntl.h>
-#endif
-#ifdef HAVE_SYS_FILE_H
-# include <sys/file.h>
-#else
-# ifdef HAVE_SYS_IO_H
-#  include <sys/io.h>
-# endif
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_STDLIB_H
-# include <stdlib.h>
-#endif
-#ifdef HAVE_CTYPE_H
-# include <ctype.h>
-#endif
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include XITE_FCNTL_H
+#include XITE_FILE_H
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
+#include XITE_STRING_H
+#include XITE_STRTOL_H
+#include XITE_TOUPPER_H
+#include XITE_UNISTD_H
 
 
 static char empty[] = "";

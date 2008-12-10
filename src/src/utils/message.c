@@ -219,35 +219,13 @@ ________________________________________________________________
 #include <xite/includes.h>
 #include <xite/strings.h>
 #include <xite/utils.h>
-#ifdef HAVE_VARARGS_H
-# include <varargs.h>
-#else
-# ifdef HAVE_STDARG_H
-#  include <stdarg.h>
-# endif
-#endif
-#ifdef HAVE_VFORK_H
-# include <vfork.h>
-#endif
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-#ifdef HAVE_FCNTL_H
-# include <fcntl.h>
-#endif
+#include XITE_STDARG_H
+#include XITE_FORK_H
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
+#include XITE_STRING_H
+#include XITE_UNISTD_H
+#include XITE_FCNTL_H
 
 typedef struct messagestruct {
   int level;

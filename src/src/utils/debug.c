@@ -34,12 +34,8 @@ static char *Id = "debug.c,v 1.2 1995/08/23 14:58:38 svein Exp, Blab, UiO";
 
 
 #include <xite/includes.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
+#include XITE_MALLOC_H
+#include XITE_STDIO_H
 
 #ifndef DEBUG
 # define DEBUG

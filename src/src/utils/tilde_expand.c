@@ -113,20 +113,10 @@ ________________________________________________________________
 
 #include <xite/includes.h>
 #include <xite/utils.h>
-#ifdef HAVE_STDIO_H
-#  include <stdio.h>
-#endif
-#ifdef HAVE_STRINGS_H
-# include <strings.h>
-#else
-# ifdef HAVE_STRING_H
-#  include <string.h>
-# endif
-#endif
+#include XITE_STDIO_H
+#include XITE_STRING_H
 #include <stdlib.h>
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include XITE_UNISTD_H
 
 #ifdef HAVE_SYS_PARAM_H
 #  include <sys/param.h>

@@ -60,9 +60,7 @@ ________________________________________________________________
 */
 
 #include <xite/includes.h>
-#ifdef HAVE_MALLOC_H
-# include <malloc.h>
-#endif
+#include XITE_MALLOC_H
 #include <xite/mallocp.h>
 
 int *MallocIntP(int i)
