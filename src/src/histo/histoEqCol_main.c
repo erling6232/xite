@@ -41,47 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/histo.h>
 #include <xite/message.h>
 
-#ifndef MAIN
-
-/*F:histoEqCol*
-
-________________________________________________________________
-
-		histoEqCol
-________________________________________________________________
-
-Name:		histoEqCol - histogram equalization color table
-
-Syntax:         | #include <xite/histo.h>
-                |
-                | void histoEqCol( IBAND b, Color_tab ct,
-                |    int graylevels );
-Description:    Make a color table doing histogram  equalization
-                of a band. Assuming byte pixels.
-
-                | b  - input band
-                | ct - output color table
-                | graylevels : max number of levels in color table
-
-Return value:
-Author:		Tor L|nnestad
-Id:             $Id$
-________________________________________________________________
-*/
-
-void histoEqCol(IBAND b, Color_cell *ct, int graylevels)
-{
-  histogram histo;
-  mkHisto(b,histo);
-  mkCumHisto(histo,histo);
-  scaleHisto(histo,histo, graylevels);
-  scaled2col(histo,ct);
-}
-
-#endif /* not MAIN */
-
-
-
 /*P:histoEqCol*
 
 ________________________________________________________________
@@ -113,8 +72,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE i;
@@ -134,5 +91,3 @@ int main(int argc, char **argv)
   color_write(argv[2], ct, "HistoEq", 256);
    return(0);
 }
-
-#endif /* MAIN */
