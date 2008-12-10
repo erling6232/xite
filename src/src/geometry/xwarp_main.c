@@ -29,8 +29,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 static char *Id = "$Id$, Blab, UiO";
 
 /*P:xwarp*
@@ -1215,5 +1213,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
