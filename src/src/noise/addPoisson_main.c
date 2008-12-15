@@ -45,91 +45,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:addPoisson*
-
-________________________________________________________________
-
-		addPoisson
-________________________________________________________________
-
-Name:		addPoisson - add Poisson noise to the output band
-
-Syntax:         | #include <xite/noise.h>
-                |
-                | int addPoisson( IBAND input, IBAND output );
-
-Description:    addPoisson generates Poisson distributed noise in the
-                'output' band. For each 'output' pixel, the corresponding
-		pixelvalue in 'input' is used as the mean value in the
-		distribution. If the resulting random value is larger than
-		255, output is set to 255.
-
-Restrictions:   Only unsigned byte pixeltype is accepted for 'input' and
-                'output'.
-
-Return value:   | 0 => ok
-                | 1 => Bad pixel type
-		 
-Author:		Helene Schulerud, BLAB, Ifi, UiO
-
-Id:             $Id$
-________________________________________________________________
- 
-*/
-
-int addPoisson(IBAND input, IBAND output)
-{
-  int x, y, xsize, ysize;
-  int n;
-  long rl;
-  double rl2,p,ek,xl;
- 
-  if (Ipixtyp(input) != Iu_byte_typ || Ipixtyp(output) != Iu_byte_typ)
-    return(Error(1, "addPoisson: Bad pixel type.\n"));
-
-  xsize = Ixsize(input);
-  ysize = Iysize(input);
-
-  srandom(time(0)); /* random initialization of random generator */
-
-  for ( y=1; y<=ysize; y++ )
-    for ( x=1; x<=xsize; x++ )
-      {
-	n=0;
-	p=1;
-	rl=random();
-	rl2=(double)rl/RANDOM_MAX;
-	xl=(double)input[y][x];
-	p=p*rl2;
-        ek = (double)(exp(-xl));
-	while ( p >= ek )
-	  {
-	    n++;
-	    rl=random();
-	    rl2=(double)rl/RANDOM_MAX;
-	    xl=(double)input[y][x];
-	    p=p*rl2;
-	    ek = (exp(-xl));
-	  }
-	
-	if (n<=255)
-	  output[y][x] = n ;
-	else
-	  output[y][x] = 255; 
-
-      }
- 
-  return(0);
-}
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
 /*P:addPoisson*
 
 ________________________________________________________________
@@ -194,5 +109,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
