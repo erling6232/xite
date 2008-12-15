@@ -178,6 +178,9 @@ AC_CONFIG_FILES([
     lib/median/Makefile
     lib/minmax/Makefile
     lib/morph/Makefile
+    lib/negate/Makefile
+    lib/noise/Makefile
+    lib/pnm/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -210,5 +213,8 @@ AC_CONFIG_FILES([
     src/median/Makefile
     src/minmax/Makefile
     src/morph/Makefile
+    src/negate/Makefile
+    src/noise/Makefile
+    src/pnm/Makefile
     ])
 AC_OUTPUT

@@ -31,10 +31,17 @@ libxite_la_LIBADD = \
 	matlab/libxitematlab.la \
 	median/libxitemedian.la \
 	minmax/libxiteminmax.la \
+	morph/libxitemorph.la \
+	negate/libxitenegate.la \
+	noise/libxitenoise.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
 	Image/libxiteXImage.la \
+
+libxitepnm_la_SOURCES =
+libxitepnm_la_LIBADD = \
+	pnm/libxitepnm.la
 
 SUBDIRS = \
 	arithmetic \
@@ -69,12 +76,12 @@ SUBDIRS = \
 	matlab \
 	median \
 	minmax \
-
-tt = \
 	morph \
 	negate \
 	noise \
 	pnm \
+
+tt = \
 	PostScript \
 	principal \
 	pyramid \
