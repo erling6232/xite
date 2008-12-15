@@ -1,0 +1,28 @@
+#
+#      Makefile.am for src/matlab
+#
+
+
+@SET_MAKE@
+
+SHELL = /bin/sh
+configdir = @configdir@
+
+include $(configdir)/@common_makefile@
+
+#
+#   Makefile definitions
+#
+#MATOBJ  = biff2matlab.o matlab2biff.o             # Objects using MATLAB lib
+MATPROG = biff2matlab matlab2biff                 # Programs using MATLAB lib
+MATMEX  = loadBiff saveBiff                       # MATLAB mex-files
+MATHELP = loadBiff.m saveBiff.m                   # MATLAB .m help-file
+CINCL	= matlab.i
+MANP	= biff2matlab.m matlab2biff.m
+
+bin_PROGRAMS=$(PROG) $(XPROG)
+
+LDADD = libxite.la
+
+biff2matlab_SOURCES = biff2matlab_main.c
+matlab2biff_SOURCES = matlab2biff_main.c

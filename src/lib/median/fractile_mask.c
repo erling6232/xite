@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_MALLOC_H
 #include XITE_MEMORY_H
 
-#ifndef MAIN
-
 typedef int (*func)( const void *, const void* );
 
 static func compare; 
@@ -197,5 +195,3 @@ int fractile_mask(IBAND inband, IBAND outband, ISS_BAND mask, int mirror, double
   free(sortarr);
   return(0);
 }  /* END of fractile_mask */
-
-#endif /* not MAIN */
