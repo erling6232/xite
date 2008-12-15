@@ -49,8 +49,6 @@ static char *Id = "$Id$, Blab, UiO";
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
 
-#ifndef MAIN
-
 static void hist(IBAND input, int hxstart, int hystart, int hxstop, int hystop, int *h)
 {
    int x, y;
@@ -251,74 +249,3 @@ int knn(IBAND input, IBAND output, int n, int k)
    ENDFOR; /* all y */
    return(0);
 }  /* END of knn */
-
-#endif /* not MAIN */
-
-
-
-/*P:knn*
-
-________________________________________________________________
-
-		knn
-________________________________________________________________
-
-Name:		knn - k nearest neighbour noise reduction
-
-Syntax:		knn <input image> <output image> <n> <k>
-
-Description:    Performs k nearest neighbour noise removal.
-                n x n is window size.
-		Averages over center pixel and k neighbours,
-		using histogram updating technique.
-
-Restrictions:   The input image must have pixel type unsigned byte.
-
-Reference:      L. S. Davis & A. Rosenfeld:"Noise Cleaning by
-                Iterated Local Averaging" IEEE trans. on syst.,
-		man, and cyb., vol smc-8, no 9, 1978.
-See also:       knn(3), mbknn(1), kncn(1), mbkncn(1)
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       knn mona.img monaknn.img 5 9
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE i1, i2;
-   int n, k, bn, stat;
-   char *args;
-
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <outimage> <n> <k>\n"));
-   Iset_message(TRUE);
-   Iset_abort(TRUE);
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-   if (argc != 5) Usage(2, "Illegal number of arguments.\n");
-
-   n = atoi(argv[3]);
-   k = atoi(argv[4]);
-
-   i1 = Iread_image(argv[1]);
-   i2 = Icopy_init(i1);
-
-   for (bn=1; bn LE Inbands(i1); bn++)
-     if ((stat = knn(i1[bn], i2[bn], n, k)))
-       Warning(stat, "Error in band %d\n", bn);
-
-   Ihistory(i2, argv[0], args);
-   Iwrite_image(i2, argv[2]);
-
-   return(0);
-}
-
-#endif /* MAIN */
