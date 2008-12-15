@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_STDIO_H
 #include XITE_TIME_H
 
-#ifndef MAIN
-
 /*F:mkGauss*
 
 ________________________________________________________________
@@ -99,73 +97,3 @@ BiffStatus mkGauss(IBAND b, double my, double sigma)
   ENDFOR;
   return(0);
 } /* int mkGauss */
-
-#endif /* not MAIN */
-
-
-
-/*P:mkGauss*
-
-________________________________________________________________
-
-		mkGauss
-________________________________________________________________
-
-Name:		mkGauss - make an image with gaussian random noise
-
-Syntax:		mkGauss <output image> <my> <sigma> [<xsize> [<ysize>]]
-
-Description:    'mkGauss' creates a one-band image of size xsize*ysize
-                with UNS_BYTE pixels, and inserts gaussian random noise.
-
-                | my - mean value of gaussian distribution
-                | sigma - standard deviation of gaussian distribution
-		| xsize - horizontal image size, default 512
-		| ysize - vertical image size, default xsize
-
-See also:	addGauss(1), multGauss(1), addPoisson(1), mkPoisson(1)
-
-Return value:   0 when ok, positive otherwise.
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Examples:       mkGauss monaGauss.img 100 25
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE img;
-  char arg[50];
-  double my, sigma;
-  int xsize, ysize, stat;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <outimage> <my> <sigma>  [<xsize> [<ysize>]]\n"));
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  if (argc == 1) Usage(1, (char*)0);
-  if ((argc < 4) OR (argc > 6)) Usage(2, "Bad number of arguments\n");
-
-  my = atof(argv[2]);
-  sigma = atof(argv[3]);
-  if (argc GT 4) xsize = atoi(argv[4]); else xsize = 512;
-  if (argc GT 5) ysize = atoi(argv[5]); else ysize = xsize;
-
-  img = Imake_image(1, "Gaussian noise", Iu_byte_typ, xsize, ysize);
-
-  if ((stat = mkGauss(img[1], my, sigma))) exit(stat);
-
-  sprintf(arg, " with my = %f and sigma = %f", my, sigma);
-  Ihistory(img, argv[0], arg);
-  Iwrite_image(img, argv[1]);
-   return(0);
-}
-
-#endif /* MAIN */

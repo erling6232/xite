@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_STDIO_H
 #include XITE_TIME_H
 
-#ifndef MAIN
-
 #ifndef MIN
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
@@ -103,74 +101,3 @@ BiffStatus addGauss(IBAND b1, IBAND b2, double my, double sigma)
   ENDFOR;
   return(0);
 } /* int addGauss */
-
-#endif /* not MAIN */
-
-
-
-/*P:addGauss*
-
-________________________________________________________________
-
-		addGauss
-________________________________________________________________
-
-Name:		addGauss - add gaussian random noise to an image
-
-Syntax:		addGauss <input image> <output image> [<my> [<sigma>]]
-
-Description:    Adds random noise with gaussian distribution to
-                an image. 
-                | my - mean value of gaussian distribution
-                | sigma - standard deviation of gaussian distribution
-		Default values:
-                | my = 0.0
-		| sigma = 20.0
-
-See also:	multGauss(1), mkGauss(1), addPoisson(1), mkPoisson(1)
-
-Restrictions:   UNS_BYTE pixels are assumed.
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Examples:       addGauss mona.img monaGauss.img 0 25
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE i1, i2;
-  double my, sigma;
-  int bn, stat;
-  char arg[50];
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <outimage> [<my> [<sigma>]]\n"));
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  if (argc == 1) Usage(1, NULL);
-  if ((argc < 3) OR (argc GT 5)) Usage(2, "Bad number of arguments\n");
-  
-  if (argc GE 4) my = atof(argv[3]); else my = 0.0;
-  if (argc GE 5) sigma = atof(argv[4]); else sigma = 20.0;
-
-  i1 = Iread_image(argv[1]);
-  i2 = Icopy_init(i1);
-
-  for (bn = 1; bn LE Inbands(i1); bn++)
-    if ((stat = addGauss(i1[bn], i2[bn], my, sigma)))
-      Warning(stat, "Error in band %d\n", bn);
-
-  sprintf(arg,"  my = %.3f  sigma = %.3f\n", my, sigma);
-  Ihistory(i2, argv[0], arg);
-  Iwrite_image(i2, argv[2]);
-  return(0);
-}
-
-#endif /* MAIN */
