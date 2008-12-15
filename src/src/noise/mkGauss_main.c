@@ -42,68 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_STDIO_H
 #include XITE_TIME_H
 
-#ifndef MAIN
-
-/*F:mkGauss*
-
-________________________________________________________________
-
-		mkGauss
-________________________________________________________________
-
-Name:		mkGauss - make a band with gaussian random noise
-
-Syntax:         | #include <xite/noise.h>
-		|
-                | BiffStatus mkGauss( IBAND b, double my,
-                |    double sigma );
-Description:    'mkGauss' inserts random noise with Gaussian distribution
-                in band b. The distribution has mean value my and
-                standard deviation sigma. If resulting value is
-                larger than 255 output is set to 255, and if
-                resulting value is less than 0 output is set to 0.
-
-Return value:   | 0 => ok
-                | 1 => Bad pixel type
-		| 2 => Bad my value
-		| 3 => Bad sigma value
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-BiffStatus mkGauss(IBAND b, double my, double sigma)
-{
-  int x, y, xsize, ysize, tmp;
-
-  if (Ipixtyp(b) NE Iu_byte_typ)
-    return(Error(1, "mkGauss: Bad pixel type\n"));
-  if ((my LT 0.0) OR (my GT 256))
-    return(Error(2, "mkGauss: Bad my value\n"));
-  if (sigma LT 0.0)
-    return(Error(3, "mkGauss: Bad sigma value\n"));
-  xsize = Ixsize(b);
-  ysize = Iysize(b);
-
-  srandom(time(0)); /* random initialization of random generator */
-  FOR (y=1; y LE ysize; INC y)
-    FOR (x=1; x LE xsize; INC x)
-      tmp = (int)(gaussRandom(my, sigma));
-      if (tmp LT 0) b[y][x] = 0;
-      else if (tmp GT 255) b[y][x] = 255;
-      else b[y][x] = (UNS_BYTE)tmp;
-    ENDFOR;
-  ENDFOR;
-  return(0);
-} /* int mkGauss */
-
-#endif /* not MAIN */
-
-
-
 /*P:mkGauss*
 
 ________________________________________________________________
@@ -136,9 +74,6 @@ ________________________________________________________________
 
 */
 
-
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE img;
@@ -167,5 +102,3 @@ int main(int argc, char **argv)
   Iwrite_image(img, argv[1]);
    return(0);
 }
-
-#endif /* MAIN */
