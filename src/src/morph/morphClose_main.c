@@ -41,29 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-int morphClose(IBAND inband, IBAND outband, ISS_BAND B)
-{
-  int status;
-  IBAND tmpband;
-
-  tmpband = Imake_band(Iu_byte_typ, Ixsize(inband), Iysize(inband));
-  status = morphDilate(inband, tmpband, B);
-  if (status) return(Error(status, "morphOpen: Error in morphDilate\n"));
-  status = morphErode(tmpband, outband, B);
-  if (status) return(Error(status, "morphOpen: Error in morphErode\n"));
-  Idel_band(&tmpband);
-
-  return(0);
-}
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE inimage, outimage;
@@ -104,5 +81,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
