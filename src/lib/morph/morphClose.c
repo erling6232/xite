@@ -41,8 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 int morphClose(IBAND inband, IBAND outband, ISS_BAND B)
 {
   int status;
@@ -57,52 +55,3 @@ int morphClose(IBAND inband, IBAND outband, ISS_BAND B)
 
   return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE inimage, outimage;
-  ISS_IMAGE B;
-  ISS_BAND B_band;
-  int bn;
-  char *args;
-  char *a,*b;
-
-  InitMessage(&argc,argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <outimage> -a <ascii struct elem>\n\
-       or: %s <inimage> <outimage> -b <biff struct elem>\n"));
-
-  Iset_message(TRUE);
-
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-
-  a = read_switch(&argc, argv, "-a", 1, NULL);
-  b = read_switch(&argc, argv, "-b", 1, NULL);
-
-  if (argc NE 3) Usage(2,"Illegal number of arguments.\n");
-
-  inimage  = Iread_image(argv[1]);
-
-  if (a) ascii2biff((IBAND *)&B_band, a, Is_short_typ);
-  else if (b) {
-    B = (ISS_IMAGE) Iread_image(b);
-    B_band = B[1];
-  } else Usage(3, "No structuring element.\n");
-
-  outimage = Icopy_init(inimage);
-  for (bn=1; bn LE Inbands(inimage); bn++)
-    morphClose(inimage[bn], outimage[bn], B_band);
-
-  Ihistory(outimage, argv[0], args);
-  Iwrite_image(outimage, argv[2]);
-
-  return(0);
-}
-
-#endif /* MAIN */

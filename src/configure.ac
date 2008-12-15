@@ -172,6 +172,12 @@ AC_CONFIG_FILES([
     lib/ideal/Makefile
     lib/ihs/Makefile
     lib/Image/Makefile
+    lib/kncn/Makefile
+    lib/knn/Makefile
+    lib/matlab/Makefile
+    lib/median/Makefile
+    lib/minmax/Makefile
+    lib/morph/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -198,5 +204,11 @@ AC_CONFIG_FILES([
     src/haar/Makefile
     src/ideal/Makefile
     src/ihs/Makefile
+    src/kncn/Makefile
+    src/knn/Makefile
+    src/matlab/Makefile
+    src/median/Makefile
+    src/minmax/Makefile
+    src/morph/Makefile
     ])
 AC_OUTPUT
