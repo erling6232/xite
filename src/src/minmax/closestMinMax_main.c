@@ -41,84 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/minmax.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
-#ifndef MIN
-# define MIN(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-
-/*F:closestMinMax*
-
-________________________________________________________________
-
-		closestMinMax
-________________________________________________________________
-
-Name:		closestMinMax - closest of minimum and maximum, noise reduction
-
-Syntax:         | #include <xite/minmax.h>
-		|
-                | BiffStatus closestMinMax( IBAND in_band,
-                |    IBAND out_band, int dx, int dy );
-
-Description:	Compute minimum and maximum over a local region of size
-                'dx' * 'dy'. New center pixel value is the one of the two
-		that is	closest to the old center pixel value.
-
-Restrictions:	'in_band' and 'out_band' must have pixel type unsigned byte.
-
-Return value:	| 0 => ok
-                | 1 => bad input pixel type
-		| 2 => bad output pixel type
-		| 3 => bad dx argument (less than 3)
-		| 3 => bad dy argument (less than 3)
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:	closestMinMax(b1, b2, 3, 5);
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-
-BiffStatus closestMinMax(IBAND in_band, IBAND out_band, int dx, int dy)
-{
-   int x, y, xsize, ysize, diff1, diff2;
-   IBAND min;
-
-   if (Ipixtyp(in_band) NE Iu_byte_typ)
-     return(Error(1,
-		"closestMinMax: Input pixel type must be unsigned byte.\n"));
-   if (Ipixtyp(out_band) NE Iu_byte_typ)
-     return(Error(2,
-		"closestMinMax: Output pixel type must be unsigned byte.\n"));
-   if (dx LT 3) return(Error(3, "closestMinMax: bad dx argument\n"));
-   if (dy LT 3) return(Error(4, "closestMinMax: bad dy argument\n"));
-
-   xsize = MIN(Ixsize(in_band), Ixsize(out_band));
-   ysize = MIN(Iysize(in_band), Iysize(out_band));
-   min = Imake_band(Iu_byte_typ, xsize, ysize);
-
-   minarea(in_band, min, dx, dy);
-   maxarea(in_band, out_band, dx, dy);
-
-   FOR (y=1; y LE ysize; INC y)
-     FOR (x=1; x LE xsize; INC x)
-       diff1 = in_band[y][x] - min[y][x];
-       diff2 = out_band[y][x] - in_band[y][x];
-       if (diff1 LT diff2) out_band[y][x] = min[y][x];
-     ENDFOR;
-   ENDFOR;
-   Idel_band(&min);
-   return(0);
-}  /* minarea */
-
-#endif /* not MAIN */
-
-
-
 /*P:closestMinMax*
 
 ________________________________________________________________
@@ -151,8 +73,6 @@ Id:             $Id$
 ________________________________________________________________
 
 */
-
-#ifdef MAIN
 
 int main(int argc, char **argv)
 {
@@ -187,5 +107,3 @@ int main(int argc, char **argv)
    return(0);
 
 }  /* main */
-
-#endif /* MAIN */
