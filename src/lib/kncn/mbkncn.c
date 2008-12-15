@@ -47,8 +47,6 @@ static char *Id = "$Id$, Blab, UiO";
 # define MIN(a,b) (((a)<(b)) ? (a) : (b))
 #endif
 
-#ifndef MAIN
-
 /*F:mbkncn*
 
 ________________________________________________________________
@@ -209,75 +207,3 @@ int mbkncn(IMAGE i1, IMAGE i2, int k)
   ENDFOR;
   return(0);
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:mbkncn*
-
-________________________________________________________________
-
-		mbkncn
-________________________________________________________________
-
-Name:		mbkncn - multi band k nearest connected neighbour
-                noise reduction
-
-Syntax:		mbkncn <inimage> <outimage> <k>
-
-Description:    Performs multi band 'k' nearest connected
-                neighbour noise removal. All bands are filtered
-                simultaneously. Taxi distance is used as distance
-                measure.
-
-                | inp image  - multi band input image
-                | outp image - output image 
-                | k - filtering parameter
-                |   small k => small effect
-                |   large k => large effect
-
-Restrictions:   All bands of 'inimage' must have pixel type unsigned byte.
-
-See also:	mbkncn(3), kncn(1), knn(1), mbknn(1)
-
-Return value:   0 when ok, positive otherwise
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       mbkncn color.img smooth.img 8
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE i1, i2;
-  int k;
-  char *args;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <oldfile> <newfile> <k>\n"));
-  Iset_message(TRUE);
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-
-  if (argc != 4) Usage(2, "Illegal number of arguments.\n");
-
-  k = atoi(argv[3]);
-  i1 = Iread_image(argv[1]);
-  i2 = Icopy_init(i1);
-
-  if (mbkncn(i1, i2, k)) exit(3);
-
-  Ihistory(i2, argv[0], args);
-  Iwrite_image(i2, argv[2]);
-
-  return(0);
-}
-
-#endif /* MAIN */

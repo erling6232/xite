@@ -166,6 +166,12 @@ AC_CONFIG_FILES([
     lib/fwf/Toggle/Makefile
     lib/geometry/Makefile
     lib/gradInv/Makefile
+    lib/histo/Makefile
+    lib/hough/Makefile
+    lib/haar/Makefile
+    lib/ideal/Makefile
+    lib/ihs/Makefile
+    lib/Image/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -187,5 +193,10 @@ AC_CONFIG_FILES([
     src/fractal/Makefile
     src/geometry/Makefile
     src/gradInv/Makefile
+    src/histo/Makefile
+    src/hough/Makefile
+    src/haar/Makefile
+    src/ideal/Makefile
+    src/ihs/Makefile
     ])
 AC_OUTPUT

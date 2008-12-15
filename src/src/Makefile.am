@@ -24,7 +24,6 @@ SUBDIRS = \
 	haar \
 	ideal \
 	ihs \
-	Image \
 	kncn \
 	knn \
 	matlab \

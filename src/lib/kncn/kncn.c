@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/readarg.h>
 #include XITE_MALLOC_H
 
-#ifndef MAIN
-
 #ifndef NIL
 # define NIL 0
 #endif
@@ -334,73 +332,3 @@ int kncn(IBAND b1, IBAND b2, int k)
    return(Error(1,
          "kncn: Input pixel type must be unsigned byte or unsigned short.\n"));
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:kncn*
-
-________________________________________________________________
-
-		kncn
-________________________________________________________________
-
-Name:		kncn - k nearest connected neighbour noise reduction
-
-Syntax:		kncn <inimage> <outimage> <k>  
-
-Description:    Perform k-Nearest Connected Neighbour filtering
-                for noise removal, averaging over the center pixel
-		and 'k' connected neighbours. All bands in the image
-                are filtered, one band at a time.
-
-                Small 'k' => small effect, large 'k' => large effect.
-
-Restrictions:   Only input bands with pixel type unsigned byte and unsigned
-                short are processed.
-
-Reference:	| T. Lønnestad: "Connected Filters for Noise Removal"
-                | Proc. of 9. ICPR, Rome, 1988, 848-850.
-
-See also:	kncn(3), mbkncn(1), knn(1), mbknn(1)
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       kncn mona.img monasmooth.img 8
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE i1, i2;
-  int bn, k;
-  char *args;
-
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <oldfile> <newfile> <k>\n"));
-
-  Iset_message(TRUE);
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-
-  if (argc != 4) Usage(2, "Illegal number of arguments.\n");
-
-  k = atoi(argv[3]);
-  i1 = Iread_image(argv[1]);
-  i2 = Icopy_init(i1);
-
-  for (bn=1; bn LE Inbands(i1); bn++) kncn(i1[bn], i2[bn], k);
-
-  Ihistory(i2, argv[0], args);
-  Iwrite_image(i2, argv[2]);
-
-  return(0);
-}
-
-#endif /* MAIN */

@@ -1,4 +1,4 @@
-lib_LTLIBRARIES = libxite.la
+lib_LTLIBRARIES = libxite.la libxiteX.la
 libxite_la_SOURCES =
 libxite_la_LIBADD = \
 	arithmetic/libxitearithmetic.la \
@@ -27,6 +27,10 @@ libxite_la_LIBADD = \
 	ideal/libxiteideal.la \
 	ihs/libxiteihs.la \
 
+libxiteX_la_SOURCES =
+libxiteX_la_LIBADD = \
+	Image/libxiteXImage.la \
+
 SUBDIRS = \
 	arithmetic \
 	biff \
@@ -54,9 +58,9 @@ SUBDIRS = \
 	haar \
 	ideal \
 	ihs \
+	Image \
 
 tt = \
-	Image \
 	kncn \
 	knn \
 	matlab \
