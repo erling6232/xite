@@ -26,6 +26,11 @@ libxite_la_LIBADD = \
 	haar/libxitehaar.la \
 	ideal/libxiteideal.la \
 	ihs/libxiteihs.la \
+	kncn/libxitekncn.la \
+	knn/libxiteknn.la \
+	matlab/libxitematlab.la \
+	median/libxitemedian.la \
+	minmax/libxiteminmax.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -59,13 +64,13 @@ SUBDIRS = \
 	ideal \
 	ihs \
 	Image \
-
-tt = \
 	kncn \
 	knn \
 	matlab \
 	median \
 	minmax \
+
+tt = \
 	morph \
 	negate \
 	noise \

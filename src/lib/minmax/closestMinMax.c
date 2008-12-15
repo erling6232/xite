@@ -41,8 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/minmax.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
 #ifndef MIN
 # define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #endif
@@ -114,78 +112,3 @@ BiffStatus closestMinMax(IBAND in_band, IBAND out_band, int dx, int dy)
    Idel_band(&min);
    return(0);
 }  /* minarea */
-
-#endif /* not MAIN */
-
-
-
-/*P:closestMinMax*
-
-________________________________________________________________
-
-		closestMinMax
-________________________________________________________________
-
-Name:		closestMinMax - closest of minimum and maximum, noise reduction
-
-Syntax:		| closestMinMax <inimage> <outimage> [<dx> [<dy>]]
-
-Description:	'closestMinMax' computes minimum and maximum over a local
-                region of size 'dx' * 'dy'. New center pixel value
-		is the one of the two that is closest to the old
-		center pixel value. If 'dx' is given, but not 'dy',
-		'dy' is set to 'dx'. If neither are given, both are
-		set to 3.
-
-See also:	
-
-Restrictions:	'inimage' must have bands with pixel type unsigned byte.
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO.
-
-Examples:	| closestMinMax mona.img monamin.img 
-                | closestMinMax mona.img monamin.img 7
-                | closestMinMax mona.img monamin.img 3 5
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE img1,img2;
-   int bn, dx, dy, stat;
-   char *args;
-
-   Iset_message(TRUE);
-   Iset_abort(TRUE);
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <outimage> [<dx> [<dy>]]\n"));
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-   if ((argc LT 3) OR (argc GT 5)) Usage(2, "Illegal number of arguments.\n");
-
-   if (argc GE 4) dx = atoi(argv[3]); else dx = 3;
-   if (argc GE 5) dy = atoi(argv[4]); else dy = dx;
-
-   if ((img1 = Iread_image(argv[1]))) {
-     img2 = Icopy_init(img1);
-     for (bn=1; bn LE Inbands(img1); INC bn)
-       if ((stat = closestMinMax(img1[bn], img2[bn], dx, dy)))
-         Warning(stat, "Error in band %d\n", bn);
-
-     Ihistory(img2, argv[0], args);
-     Iwrite_image(img2, argv[2]);
-   } else {
-     Error(5, "Can't read input file %s\n", argv[1]);
-   }
-
-   return(0);
-
-}  /* main */
-
-#endif /* MAIN */
