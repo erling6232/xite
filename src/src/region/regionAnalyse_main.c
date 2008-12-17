@@ -249,8 +249,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 #define TESTHSTAT { if (NOT hstat)					\
        { hstat = TRUE;							\
          if (band2) regionHisto(band2, reg, TRUE, h);			\
@@ -742,5 +740,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
