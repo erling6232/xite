@@ -34,8 +34,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifdef MAIN
-
 /*P:xpyramid*
 
 ________________________________________________________________
@@ -325,5 +323,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
