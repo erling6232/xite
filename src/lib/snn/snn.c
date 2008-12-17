@@ -40,8 +40,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
 #define NIL 0
 #ifndef MIN
 # define MIN(a,b) (((a) LT (b)) ? (a) : (b))
@@ -274,74 +272,3 @@ int snn(IBAND input, IBAND output, int dx, int dy)
    return(Error(2,
    "Input and output pixel types must be unsigned byte or unsigned short.\n"));
 }
-
-#endif /* not MAIN */
-
-
-
-/*P:snn*
-
-________________________________________________________________
-
-		snn
-________________________________________________________________
-
-Name:		snn - symmetric nearest neighbour noise reduction
-
-Syntax:		snn <inimage> <outimage> [<dx> [<dy>]] 
-
-Description:    Perform Symmetric Nearest Neighbour filtering
-                for noise removal. Filter window has size
-                'dx' * 'dy'.
-
-		'dx' has default value 3, 'dy' has default value 'dx'.
-
-Restrictions:   'inimage' must have bands with pixel type unsigned byte or
-                unsigned short.
-
-See also:	lit(1), litSnn(1)
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:       | snn mona.img monasnn.img
-                | snn mona.img monasnn.img 5
-		| snn mona.img monasnn.img 5 7
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE i1, i2;
-  int bn, dx, dy;
-  char *args;
-
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <inimage> <outimage> [<dx> [<dy>]]\n"));
-
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-  if ((argc < 3) || (argc > 5)) Usage(1, "Illegal number of arguments.\n");
-
-  if (argc GE 4) dx = atoi(argv[3]); else dx = 3;
-  if (argc GE 5) dy = atoi(argv[4]); else dy = dx;
-
-  i1 = Iread_image(argv[1]);
-  i2 = Icopy_init(i1);
-  for (bn=1; bn LE Inbands(i1); bn++)
-    if (snn(i1[bn], i2[bn], dx, dy))
-      Error(1, "%s%d\n", "Error in snn() in band ", bn);
-
-  Ihistory(i2, argv[0], args);
-  Iwrite_image(i2, argv[2]);
-
-  return(0);
-}
-
-#endif /* MAIN */

@@ -186,6 +186,8 @@ AC_CONFIG_FILES([
     lib/region/Makefile
     lib/resample/Makefile
     lib/scatter/Makefile
+    lib/segmentation/Makefile
+    lib/sigma/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -227,5 +229,8 @@ AC_CONFIG_FILES([
     src/region/Makefile
     src/resample/Makefile
     src/scatter/Makefile
+    src/scripts/Makefile
+    src/segmentation/Makefile
+    src/sigma/Makefile
     ])
 AC_OUTPUT

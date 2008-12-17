@@ -39,6 +39,8 @@ libxite_la_LIBADD = \
 	region/libxiteregion.la \
 	resample/libxiteresample.la \
 	scatter/libxitescatter.la \
+	segmentation/libxitesegmentation.la \
+	sigma/libxitesigma.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -90,11 +92,10 @@ SUBDIRS = \
 	region \
 	resample \
 	scatter \
-
-tt = \
-	scripts \
 	segmentation \
 	sigma \
+
+tt = \
 	snn \
 	statistics \
 	stdiff \
