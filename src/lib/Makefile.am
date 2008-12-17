@@ -41,6 +41,11 @@ libxite_la_LIBADD = \
 	scatter/libxitescatter.la \
 	segmentation/libxitesegmentation.la \
 	sigma/libxitesigma.la \
+	snn/libxitesnn.la \
+	statistics/libxitestatistics.la \
+	stdiff/libxitestdiff.la \
+	sunraster/libxitesunraster.la \
+	texture/libxitetexture.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -94,13 +99,13 @@ SUBDIRS = \
 	scatter \
 	segmentation \
 	sigma \
-
-tt = \
 	snn \
 	statistics \
 	stdiff \
 	sunraster \
 	texture \
+
+tt = \
 	thin \
 	threshold \
 	thresMl \
