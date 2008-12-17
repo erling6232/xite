@@ -34,6 +34,9 @@ libxite_la_LIBADD = \
 	morph/libxitemorph.la \
 	negate/libxitenegate.la \
 	noise/libxitenoise.la \
+	principal/libxiteprincipal.la \
+	pyramid/libxitepyramid.la \
+	region/libxiteregion.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -80,12 +83,11 @@ SUBDIRS = \
 	negate \
 	noise \
 	pnm \
-
-tt = \
-	PostScript \
 	principal \
 	pyramid \
 	region \
+
+tt = \
 	resample \
 	scatter \
 	scripts \
