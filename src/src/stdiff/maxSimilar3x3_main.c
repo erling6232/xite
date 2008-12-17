@@ -37,108 +37,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/stdiff.h>
 
-#ifndef MAIN
-
-#ifndef MIN
-# define MIN(a,b) ((a)<(b) ? a : b)
-#endif
-
-#define TEST(xx,yy) 					\
-   diff = input[y][x] - b[yy][xx];			\
-   if (diff < 0) diff = -diff;				\
-   if (diff < bestdiff) { bestdiff = diff; best = b[yy][xx]; }
-
-/*F:maxSimilar3x3*
-
-________________________________________________________________
-
-		maxSimilar3x3
-________________________________________________________________
-
-Name:		maxSimilar3x3 - maximum similarity 3x3 noise reduction
-
-Syntax:         | #include <xite/stdiff.h>
-		|
-                | int maxSimilar3x3( IBAND input, IBAND output );
-
-Description:    For every pixel p, calculate the five 3x3 averages:
-
-                | x x x   x x x   x x x   x x p   p x x
-		| x x x   x x x   x p x   x x x   x x x
-		| x x p   p x x   x x x   x x x   x x x
-
-		Replace p in the output band with the average that
-		is closest to p. The 1 pixel wide edge of the band
-		is copied from input without modification. The next
-		line/sample is partly processed.
-
-Restrictions:   Bands must have pixel type UNS_BYTE.
-
-Reference:      W. Niblack: "Digital Image Processing", Prentice/Hall, p80.
-
-See also:
-
-Return value:   | 0 => ok
-                | 1 => Bad input pixel type
-		| 2 => Bad output pixel type
-		| 3 => Malloc failed
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO.
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-int maxSimilar3x3(IBAND input, IBAND output)
-{
-   int x, y, xsize, ysize, best, diff, bestdiff;
-   IBAND b;
-
-   if (Ipixtyp(input) NE Iu_byte_typ)
-     return(Error(1,
-		"maxSimilar3x3: Input pixel type must be unsigned byte.\n"));
-   if (Ipixtyp(output) NE Iu_byte_typ)
-     return(Error(2,
-		"maxSimilar3x3: Output pixel type must be unsigned byte.\n"));
-
-   xsize = MIN(Ixsize(input), Ixsize(output));
-   ysize = MIN(Iysize(input), Iysize(output));
-
-   if (NOT (b = Imake_band(Iu_byte_typ, xsize, ysize)))
-     return(Error(3, "maxSimilar3x3: Malloc failed\n"));
-
-   mean(input, b, 3, 3);
-   FOR (y=2; y LT ysize; y++)
-     FOR (x=2; x LT xsize; x++)
-       bestdiff = input[y][x] - b[y][x];
-       if (bestdiff < 0) bestdiff = -bestdiff;
-       best = b[y][x];
-       TEST(x-1, y-1);
-       TEST(x+1, y-1);
-       TEST(x-1, y+1);
-       TEST(x+1, y+1);
-       output[y][x] = best;
-     ENDFOR;  /* all x */
-   ENDFOR;  /* all y */
-
-   FOR (x=1; x LE xsize; x++)
-     output[1][x] = input[1][x];
-     output[ysize][x] = input[ysize][x];
-   ENDFOR;
-   FOR (y=1; y LE ysize; y++)
-     output[y][1] = input[y][1];
-     output[y][xsize] = input[y][xsize];
-   ENDFOR;
-
-   Idel_band(&b);
-   return(0);
-}  /* maxSimilar3x3 */
-
-#endif /* not MAIN */
-
-
-
 /*P:maxSimilar3x3*
 
 ________________________________________________________________
@@ -176,8 +74,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE i1, i2;
@@ -203,5 +99,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
