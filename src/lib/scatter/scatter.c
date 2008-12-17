@@ -41,8 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
 #ifndef MIN
 # define MIN(a,b) (((a)<(b)) ? (a) : (b))
 #endif
@@ -125,79 +123,3 @@ int scatter(IBAND input1, IBAND input2, IBAND output, int *overflows)
    return 0;
 
 }  /*  scatter() */
-
-#endif /* not MAIN */
-
-
-
-/*P:scatter*
-
-________________________________________________________________
-
-		scatter
-________________________________________________________________
-
-Name:		scatter - make a scatterplot
-
-Syntax:		scatter [<option>...] <inimage1> <inimage2> <outimage>
-
-Description:	Creates a scatterplot (a two dimensional
-                histogram) of band 1 of the two input images.
-		The scatterplot is returned as an unsigned byte
-		image.
-
-Options:        &-t title, -title title
-                'title' of 'outimage'.
-
-Restrictions:	Accepts only UNS_BYTE pixels. Every scatter update that
-                would increase the scatter value beyond 255 increases an
-		overflow counter, which is eventually written to stderr.
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Examples:	| scatter image1.img image2.img scatter.img
-		| scatter image.img:1 image.img:2 scatter.img
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE i1, i2, i3;
-   char* title, *args;
-   int stat, overflows = 0;
-
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s <oldfile1> <oldfile2> <newfile>\n"));
-   Iset_message(TRUE);
-   Iset_abort(TRUE);
-
-   if (argc == 1) Usage(1, NULL);
-
-   args = argvOptions(argc, argv);
-   title = read_switch(&argc, argv, "-t", 1, "SCATTERPLOT");
-   title = read_switch(&argc, argv, "-title", 1, title);
-
-   if (argc != 4) Usage(2, "Illegal number of arguments.\n");
-
-   i1 = Iread_image(argv[1]);
-   i2 = Iread_image(argv[2]);
-   i3 = Imake_image(1, title, Iu_byte_typ, 256, 256);
-   Iset_start(i3[1], 0, 0);
-
-   if ((stat = scatter(i1[1], i2[1], i3[1], &overflows))) exit(stat);
-   if (overflows)
-     Warning(6, "Scatter overflows: %d.\n", overflows);
-
-   Ihistory(i3, argv[0], args);
-   Iwrite_image(i3, argv[3]);
-
-   return(0);
-
-} /* main */
-
-#endif /* MAIN */

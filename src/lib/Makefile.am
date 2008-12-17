@@ -37,6 +37,8 @@ libxite_la_LIBADD = \
 	principal/libxiteprincipal.la \
 	pyramid/libxitepyramid.la \
 	region/libxiteregion.la \
+	resample/libxiteresample.la \
+	scatter/libxitescatter.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -86,10 +88,10 @@ SUBDIRS = \
 	principal \
 	pyramid \
 	region \
-
-tt = \
 	resample \
 	scatter \
+
+tt = \
 	scripts \
 	segmentation \
 	sigma \

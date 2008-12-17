@@ -181,6 +181,11 @@ AC_CONFIG_FILES([
     lib/negate/Makefile
     lib/noise/Makefile
     lib/pnm/Makefile
+    lib/principal/Makefile
+    lib/pyramid/Makefile
+    lib/region/Makefile
+    lib/resample/Makefile
+    lib/scatter/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -216,5 +221,11 @@ AC_CONFIG_FILES([
     src/negate/Makefile
     src/noise/Makefile
     src/pnm/Makefile
+    src/PostScript/Makefile
+    src/principal/Makefile
+    src/pyramid/Makefile
+    src/region/Makefile
+    src/resample/Makefile
+    src/scatter/Makefile
     ])
 AC_OUTPUT
