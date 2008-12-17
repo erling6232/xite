@@ -46,8 +46,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_MALLOC_H
 #include XITE_STRING_H
 
-#ifndef MAIN
-
 static int sqrtarr_s[17000];
 #define isqrt(i) sqrtarr_s[i]
 
@@ -314,77 +312,3 @@ int stvar(IBAND input, IBAND output, int deltax, int deltay, double kt, int t)
 
   return(0);
 }
-
-#endif /* not MAIN */
-
-/*P:stvar*
-
-________________________________________________________________
-
-		stvar
-________________________________________________________________
-
-Name:		stvar - local variance
-
-Syntax:		stvar [-t] <inimage> <outimage> <deltax> <deltay> <k>
-
-Description:	Local variable threshold.
-
-                | t(x,y) = k*s(x,y) + u(x,y)
-		|      r(x,y) = b(x,y) - t(x,y) + 128
-		| [-t] r(x,y) = if( b(x,y) >= t(x,y)) then 255 else 0 
-		|
-		| r(x,y)  = output image
-		| u(x,y)  = mean component
-		| s(x,y)  = st. dev component
-		| b(b,y)  = pixel value in (x,y)
-		|
-		| deltax  = Local area width
-		| deltay  = Local area height
-
-Options:        &-t
-                Threshold the result.
-
-Restrictions:   'input' must have bands with pixel type unsigned byte.
-
-Reference:	Wayne Niblack: An introduction to Digital Image Processing
-
-Author:		Otto Milvang
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-  IMAGE input, output;
-  int i, t;
-  char *args;
-
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [-t] <inimage> <outimage> <deltax> <deltay> <k>\n"));
-
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-  if (argc != 7 && argc !=6) Usage(1, "Illegal number of arguments.\n");
-
-  if (strcmp(argv[1],"-t") == 0) t = 1; else t = 0;
-  input  = Iread_image(argv[1+t]);
-  output = Icopy_init(input);  
-
-  for (i=1; i<=Inbands(input); i++)
-    stvar(input[i], output[i],
-            atoi(argv[3+t]), atoi(argv[4+t]), atof(argv[5+t]), t);
-
-  Ihistory(output, argv[0], args);
-  Iwrite_image(output, argv[2+t]);
-
-  return(0);
-}
-     
-#endif /* MAIN */

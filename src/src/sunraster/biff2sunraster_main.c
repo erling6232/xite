@@ -51,7 +51,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_FCNTL_H
 #include XITE_FILE_H
 #include XITE_MALLOC_H
-#include "rast.h"
+/*#include "rast.h"*/
 
 #define ERR_NONE   0
 #define ERR_BIFF   1
