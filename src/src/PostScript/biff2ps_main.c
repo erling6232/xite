@@ -34,8 +34,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifdef MAIN
-
 /*P:biff2ps*
 
 ________________________________________________________________
@@ -841,5 +839,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
