@@ -43,101 +43,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/readarg.h>
 
-#ifndef MAIN
-
-#ifndef MIN
-# define MIN(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-
-
-
-/*F:histoMeanStd*
-
-________________________________________________________________
-
-		histoMeanStd
-________________________________________________________________
-
-Name:		histoMeanStd - linear scaling to desired mean and std.
-
-Syntax:         | #include <xite/statistics.h>
-                |
-                | int histoMeanStd( IBAND b1, IBAND b2,
-                |    double mean, double std );
-
-Description:    'histoMeanStd' performs a linear adjustment of
-                the input band 'b1' into the output band 'b2'
-		so that the output band receives the specified
-		mean and standard deviation, if possible.
-
-		Output values below minimum for the actual pixel type are set
-		to this minimum, and analogically for values above the
-		maximum.
-
-		Identical arguments for b1 and b2 are allowed. The routine
-		accepts all pixel types except complex and double complex.
-
-Restrictions:   Only the largest common rectangle of b1 and b2 is
-                processed.
-
-See also:	histoEq(3), histoNorm(3), scale(3)
-
-Return value:   | 0 => ok
-                | 1 => bands have different pixel types
-		| 2 => bands have complex pixel type
-		| 3 => standard deviation <= 0
-
-Author:		Tor Lønnestad, BLAB, Ifi, UiO
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-
-int histoMeanStd(IBAND b1, IBAND b2, double mean, double std)
-{
-  histogram h;
-  double oldmean, oldstd, gain, bias;
-  int  min, max, median, x, y, xsize, ysize, i, pt;
-
-  if ((pt=Ipixtyp(b1)) NE Ipixtyp(b2))
-    return(Error(1, "%s\n",
-		 "histoMeanStd(): Input bands must have same pixel type."));
-  if ((pt == Icomplex_typ) OR (pt == Id_complex_typ))
-    return(Error(2, "%s\n",
-		 "histoMeanStd(): Pixel type must be non-complex."));
-  if (std <= 0.0)
-    return(Error(3, "%s\n",
-		 "histoMeanStd(): Standard deviation must be non-negative."));
-
-  xsize = MIN(Ixsize(b1), Ixsize(b2));
-  ysize = MIN(Iysize(b1), Iysize(b2));
-  if (pt == Iu_byte_typ)
-    statistics(b1, &min, &max, &median, &oldmean, &oldstd);
-  else statistic(b1, (long *)0, (double *)0, (double *)0, 
-		 (double *)&oldmean, (double *)&oldstd);
-  gain = (oldstd > 0) ? std/oldstd : 1.0;
-  bias = mean - gain*oldmean;
-  if (pt == Iu_byte_typ) {
-    for (i=0; i LE 255; i++) {
-      h[i] = (int)(i*gain + bias + 0.5);
-      if (h[i] < 0) h[i] = 0;
-      else if (h[i] > 255) h[i] = 255;
-    }
-    for (y=1; y<=ysize; y++)
-      for (x=1; x<=xsize; x++)
-        b2[y][x] = h[b1[y][x]];
-    return(0);
-  }
-
-  scale(b1, b2, gain, bias);
-
-  return(0);
-}
-
-#endif /* not MAIN */
-
 /*P:histoMeanStd*
 
 ________________________________________________________________
@@ -180,8 +85,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE img;
@@ -214,5 +117,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
