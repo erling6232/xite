@@ -32,8 +32,6 @@ ________________________________________________________________
 
 static char *Id = "$Id$, Blab, UiO";
 
-#ifdef MAIN
-
 #include <stdlib.h>
 #include <math.h>
 #include <xite/includes.h>
@@ -431,5 +429,3 @@ int main(int argc, char **argv)
 
   return(0);
 }		/* end of histo2ps */
-
-#endif /* MAIN */
