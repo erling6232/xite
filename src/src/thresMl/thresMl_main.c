@@ -41,8 +41,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/thresMl.h>
 #include XITE_MALLOC_H
 
-#ifdef MAIN
-
 /*P:thresMl*
 
 ________________________________________________________________
@@ -140,5 +138,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
