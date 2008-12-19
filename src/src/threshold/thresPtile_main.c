@@ -43,55 +43,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:thresPtile*
-
-________________________________________________________________
-
-		thresPtile
-________________________________________________________________
-
-Name:		thresPtile - threshold at specified percentage
-
-Syntax:         | #include <xite/threshold.h>
-		|
-                | int thresPtile( histogram h, float pTile );
-Description:	Calculates the threshold value needed to perform
-                thresholding of the image behind the histogram <h>
-		according to the <pTile> argument. This argument
-		describes the percentage of the pixels that should
-		be below the threshold. The actual thresholding
-		is not performed, see the routine "threshold".
-		
-Restrictions:   pTile should be in 0.0 .. 100.0 
-
-Return value:	threshold value. Pixel values up to, and including,
-		the return value, is below the threshold.
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-int thresPtile ( histogram h, float pTile )
-{
-  int i, sum, limit ;
-
-  if (pTile LT 0.0) return(-1);
-  if (pTile GT 100.0) return(255);
-  for (sum=0, i=0; i LE 255;  sum += h[i++]) ;
-  limit = (int)((sum*pTile/100.0)+0.5);
-  for (sum=0, i=0; sum LT limit; sum += h[i++]) ;
-  return(--i);
-}  /*  thresPtile  */
-
-#endif /* not MAIN */
-
-
-
 /*P:thresPtile*
 
 ________________________________________________________________
@@ -139,8 +90,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
    IMAGE i;
@@ -181,5 +130,3 @@ int main(int argc, char **argv)
 
    return(0);
 }
-
-#endif /* MAIN */
