@@ -51,7 +51,6 @@ SUBDIRS = \
 	threshold \
 	thresMl \
 	tiff \
-	utils \
 	ximage \
 	xpm \
 	xshow \
