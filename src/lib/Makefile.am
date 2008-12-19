@@ -46,6 +46,9 @@ libxite_la_LIBADD = \
 	stdiff/libxitestdiff.la \
 	sunraster/libxitesunraster.la \
 	texture/libxitetexture.la \
+	thin/libxitethin.la \
+	threshold/libxitethreshold.la \
+	thresMl/libxitethresMl.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -54,6 +57,10 @@ libxiteX_la_LIBADD = \
 libxitepnm_la_SOURCES =
 libxitepnm_la_LIBADD = \
 	pnm/libxitepnm.la
+
+libxitetiff_la_SOURCES =
+libxitetiff_la_LIBADD = \
+	tiff/libxitetiff.la
 
 SUBDIRS = \
 	arithmetic \
@@ -104,12 +111,12 @@ SUBDIRS = \
 	stdiff \
 	sunraster \
 	texture \
-
-tt = \
 	thin \
 	threshold \
 	thresMl \
 	tiff \
+
+tt = \
 	utils \
 	ximage \
 	xpm \

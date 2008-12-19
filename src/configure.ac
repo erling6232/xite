@@ -193,6 +193,10 @@ AC_CONFIG_FILES([
     lib/stdiff/Makefile
     lib/sunraster/Makefile
     lib/texture/Makefile
+    lib/thin/Makefile
+    lib/threshold/Makefile
+    lib/thresMl/Makefile
+    lib/tiff/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -242,5 +246,9 @@ AC_CONFIG_FILES([
     src/stdiff/Makefile
     src/sunraster/Makefile
     src/texture/Makefile
+    src/thin/Makefile
+    src/threshold/Makefile
+    src/thresMl/Makefile
+    src/tiff/Makefile
     ])
 AC_OUTPUT
