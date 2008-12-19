@@ -14,8 +14,8 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 MANP_SH = cxite.m xiteStdOpt.m
-SCRIPTS = startProg xiteStdOpt
+#SCRIPTS = startProg xiteStdOpt
 
-bin_PROGRAMS=$(PROG) $(XPROG)
+bin_PROGRAMS=startProg xiteStdOpt
 
-LDADD = libxite.la
+#LDADD = libxite.la

@@ -15,13 +15,13 @@ include $(configdir)/@common_makefile@
 #
 PROG    = affine quadratic reorganize rotate shift_img transpose_img \
           warp
-SCRIPTS = warpExAnalysis
+#SCRIPTS = warpExAnalysis
 XPROG   = xwarp
 MANP    = affine.m quadratic.m reorganize.m rotate.m shift_img.m\
           transpose_img.m warp.m xwarp.m
 CINCL   = geometry.i matrix.i
 
-bin_PROGRAMS=$(PROG) $(XPROG)
+bin_PROGRAMS=$(PROG) $(XPROG) warpExAnalysis
 
 LDADD = libxite.la
 

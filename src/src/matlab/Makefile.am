@@ -20,7 +20,7 @@ MATHELP = loadBiff.m saveBiff.m                   # MATLAB .m help-file
 CINCL	= matlab.i
 MANP	= biff2matlab.m matlab2biff.m
 
-bin_PROGRAMS=$(PROG) $(XPROG)
+bin_PROGRAMS=$(MATPROG) $(XPROG)
 
 LDADD = libxite.la
 
