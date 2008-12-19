@@ -38,7 +38,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include XITE_STDIO_H
 #include XITE_MALLOC_H
 #include <xite/message.h>
-#include "matrix.h"
+#include <xite/matrix.h>
 
 #define MAXTEMP 2000
 #define NULLGRENSE 0.0000001

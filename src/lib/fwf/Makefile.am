@@ -22,8 +22,6 @@ libfwf_la_LIBADD = \
 	TextMenu/libfwfTextMenu.la \
 	Toggle/libfwfToggle.la
 
-#libfwf_la_CPPFLAGS = $(topdir)/include/Xfwf $(AM_CPPFLAGS)
-
 SUBDIRS = \
 	Board \
 	Button \

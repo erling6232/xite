@@ -16,4 +16,5 @@ include_HEADERS = \
 	ximage.h xite_endian.h xite_file.h xite_fork.h xite_funcproto.h \
 	xite_limits.h xite_mktemp.h xite_pnm.h xite_random.h xite_stat.h \
 	xite_stdarg.h xite_stdio.h xite_strtol.h xite_time.h xite_toupper.h \
-	xite_types.h xite_unistd.h XmenuBar.h Xpty.h Xslice.h zernike.h
+	xite_types.h xite_unistd.h XmenuBar.h Xpty.h Xslice.h zernike.h \
+	statistics.h

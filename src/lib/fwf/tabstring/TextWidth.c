@@ -1,7 +1,7 @@
 #include <xite/includes.h>
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
-#include "TabString.h"
+#include "Xfwf/TabString.h"
 
 /*
  *	Like TextWidth, except it takes an additional  "tabs"

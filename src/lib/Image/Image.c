@@ -1241,8 +1241,8 @@ ________________________________________________________________
 #include <X11/Xutil.h>
 #include <X11/cursorfont.h>
 #include <X11/StringDefs.h>
-#include "ImageFormat.h"
-#include "ImageP.h"
+#include <xite/ImageFormat.h>
+#include <xite/ImageP.h>
 #include "ImageBytePix.h"
 #include "ImageSignedBytePix.h"
 #include "ImageUnsignedShortPix.h"

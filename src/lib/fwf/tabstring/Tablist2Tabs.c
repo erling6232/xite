@@ -2,7 +2,7 @@
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include <stdlib.h>
-#include "TabString.h"
+#include "Xfwf/TabString.h"
 
 /*
  *	Converts a string list of tabs to an array of tabs
