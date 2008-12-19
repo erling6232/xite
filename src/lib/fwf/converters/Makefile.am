@@ -19,5 +19,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfconverters.la
+AM_CPPFLAGS = $(top_srcdir)/include/Xfwf
 
 libfwfconverters_la_SOURCES = Pen.c StrToPmap.c choosecol.c long.c strarray.c icon.c
