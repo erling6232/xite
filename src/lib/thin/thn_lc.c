@@ -43,8 +43,6 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/readarg.h>
 #include <xite/thin.h>
 
-#ifndef MAIN
-
 #define FF 255
 
 static UNS_BYTE lc_look_up[16][16]= 
@@ -157,88 +155,3 @@ int thn_lc(int verbose, IBAND inband, IBAND outband)
   
   return THN_OK;
 }
-
-#endif /* not MAIN */
-
-/*P:thn_lc*
-
-________________________________________________________________
-
-		thn_lc
-________________________________________________________________
-
-Name:		thn_lc - Lee and Chen''s thinning method.
-
-Syntax:		thn_lc <inimage> <outimage>
-
-Description:	Thin a binary image with Lee and Chen''s method. Black (0) is
-                foreground, and white (255) is background.
-
-		This method is simply an extension of Zhang and Suen''s
-		method. First, Zhang and Suen''s methhod is used. The skeleton
-		thus obtained is not truly 8-connected, since some
-		non-junction pixels have more than two neighbors, making the
-		skeleton useless for algorithms that require this constraint.
-		Therefore, some pixels have to be removed. The skeleton is
-		inspected, and each pixel is tested using a lookup table. The
-		result is a true 8-connected skeleton where only junction
-		pixels have more than two 8-neighbors.
-
-Restrictions:   'inimage' must have bands with pixel type unsigned byte.
-                The input is assumed to be binary valued with foreground = 0,
-		background = 255.
-
-See also:	thn_lc(3), thn_har(1), thn_zs(1)
-
-Reference:      &H.-J. Lee and B. Chen,
-                "Recognition of handwritten chinese characters via short
-		line segments,"
-		Pattern Recognition,
-		vol. 25, no. 5, pp. 543-552, 1992.
-
-Files:		xite/src/thin/thn_lc.c
-Author:		Øivind Due Trier, late one night at Michigan State University.
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main (int argc, char *argv[])
-{
-   int xsize, ysize;
-   IBAND inband;
-   IBAND outband;
-   char *infilename, *outfilename, *args;
-   IMAGE inimage;
-   IMAGE outimage;
-   
-   Iset_message(TRUE);
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-     "Usage: %s <inimage> <outimage>\n"));
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-   if (argc < 3) Usage(2, "Illegal number of arguments.\n");
-
-   infilename  = argv[argc-2];
-   outfilename = argv[argc-1];
-   inimage     = Iread_image(infilename);
-   inband      = (IBAND)inimage[1]; /* First band only is used. */
-   xsize       = Ixsize(inband);
-   ysize       = Iysize(inband);
-   outimage    = Imake_image(1, outfilename, Ipixtyp(inband), xsize, ysize);
-   outband     = (IBAND) outimage[1];
-   
-   if (thn_lc(Verbose(), inband, outband))
-     return(Error(3, "Error in thn_lc.\n"));
-   
-   Ihistory(outimage, argv[0], args);
-   Iwrite_image(outimage, outfilename);
-   
-   return 0; /* Unix commands should return 0 */
-
-} /* END main() */
-
-#endif /* MAIN */
