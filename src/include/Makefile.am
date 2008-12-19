@@ -1,1 +1,1 @@
-SUBDIRS = xite Xfwf
+SUBDIRS = xite X11 Xfwf
