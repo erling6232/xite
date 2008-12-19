@@ -1,4 +1,4 @@
-lib_LTLIBRARIES = libxite.la libxiteX.la
+lib_LTLIBRARIES = libxite.la libxiteX.la libxitepnm.la libxitetiff.la libxitexpm.la
 libxite_la_SOURCES =
 libxite_la_LIBADD = \
 	arithmetic/libxitearithmetic.la \
