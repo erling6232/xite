@@ -209,8 +209,6 @@ ________________________________________________________________
 #include <xite/mallocp.h>
 #include <xite/debug.h>
 
-#ifdef MAIN
-
 #define NONE -1
 
 enum {
@@ -645,5 +643,3 @@ void main(int argc, char **argv)
   start_workproc(toplevel);
   ximage_mainloop();
 }
-
-#endif /* MAIN */
