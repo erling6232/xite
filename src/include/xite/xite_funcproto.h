@@ -33,7 +33,8 @@ ________________________________________________________________
 #ifndef _XITE_FUNCPROTO_H_
 #define _XITE_FUNCPROTO_H_
 
-#include <xite/config.h>
+/*#include <xite/config.h>*/
+#include "config.h"
 
 #if defined(__STDC__) || defined(_ANSI_SOURCE) || defined(__cplusplus)
 /* __STDC__ or _ANSI_SOURCE defined */

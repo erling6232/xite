@@ -35,7 +35,7 @@ ________________________________________________________________
 
 _XITE_CPLUSPLUS_BEGIN
 
-#include XITE_STDLIB_H
+#include <stdlib.h>
 #include XITE_UNISTD_H
 
 #ifndef HAVE_MKTEMP

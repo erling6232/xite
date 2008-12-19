@@ -4,7 +4,7 @@
 #ifndef NO_XPM
 
 #include <xite/includes.h>
-#include <xpm/xpm.h>
+#include <X11/xpm.h>
 
 Boolean cvtStringToIcon(
     Display *dpy,
