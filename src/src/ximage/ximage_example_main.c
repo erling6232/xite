@@ -9,8 +9,6 @@
 #include <xite/Xdialog.h>    /* For ConfirmationBox(). */
 #include <xite/ShellWids.h>  /* For TopLevelWidget(). */
 
-#ifdef MAIN
-
 /*P:ximage_example*
 
 ________________________________________________________________
@@ -244,5 +242,3 @@ void main(int argc, char **argv)
 		NULL);
   ximage_mainloop();
 }
-
-#endif /* MAIN */
