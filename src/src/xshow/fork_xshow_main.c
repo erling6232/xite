@@ -45,101 +45,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:start_xshow*
-
-________________________________________________________________
-
-		start_xshow
-________________________________________________________________
-
-Name:		start_xshow - start xshow
-
-Syntax:		| #include <xite/fork_xshow.h>
-		| 
-		| pid_t start_xshow( int *pipe_io );
-		|
-Description:	Start xshow in the background. Upon return, 'pipe_io'[1] will
-                contain the file descriptor to use to send images to 'xshow'.
-		Send images with 'Iwrite_image' and filename "-n", where 'n'
-		equals 'pipe_io'[1]. Remember to close 'pipe_io'[1] when
-		you don''t need it anymore.
-
-		'xshow' will read from the filedescriptor in 'pipe_io[0]'.
-		This filedescriptor is not open to the parent (calling)
-		process.
-
-Diagnostics:	Error messages will be issued if the pipe could not be
-                created, if the child process could not be created, or if
-		'xshow' could not be executed.
-
-Return value:	| >0: Process ID for child process (xshow).
-                | -2: Failed in creating pipes.
-		| -1: Failed in creating child process.
-
-See also:	xshow(1), fork_xshow(1), Iwrite_image(5)
-
-Author:		Svein Bøe, BLAB, Ifi, UiO
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-pid_t start_xshow(int *pipe_io)
-{
-  int status;
-  pid_t child = 0;
-
-  errno  = 0;
-  status = pipe(pipe_io);
-
-  if (status) {
-    perror("start_xshow");
-    Error(2, "start_xshow: Failed in creating pipe.\n");
-    return((pid_t) -2);
-  }
-
-  errno  = 0;
-  child  = fork();
-
-  if (child == (pid_t) -1) {
-    /* In parent process context. */
-    close(pipe_io[0]); close(pipe_io[1]);
-    perror("start_xshow");
-    Error(2, "start_xshow: Failed in forking.\n");
-    return(child);
-  }
-
-  if (child > 0) {
-    /* In parent process context, 'child' is pid for child process. */
-
-    close(pipe_io[0]);
-    return(child);
-  }
-
-  if (child == 0) {
-    /* In child process context. */
-
-    char buf[20];
-
-    close(pipe_io[1]);
-    sprintf(buf, "%d", pipe_io[0]);
-
-    errno = 0;
-    execlp("xshow", "xshow", "-i", buf, "&", NULL);
-
-    /* Here only if execlp() failed. */
-    close(pipe_io[0]);
-    perror("start_xshow");
-    _exit(0);
-  }
-}
-
-#endif /* not MAIN */
-
-#ifdef MAIN
-
 /*P:fork_xshow*
 
 ________________________________________________________________
@@ -209,5 +114,3 @@ int main(int argc, char **argv)
 
   return(0);
 }
-
-#endif /* MAIN */
