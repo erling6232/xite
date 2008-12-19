@@ -50,7 +50,7 @@ than 20 color resources?
 #include <xite/includes.h>
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
-#include "Converters.h"
+#include "Xfwf/Converters.h"
 #include "XPM/FATAL.pm"
 #include "XPM/ERROR.pm"
 #include "XPM/WARNING.pm"

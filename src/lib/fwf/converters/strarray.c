@@ -2,7 +2,7 @@
 #include XITE_STDIO_H
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
-#include "Converters.h"
+#include "Xfwf/Converters.h"
 
 
 Boolean cvtStringToStringArray(Display *display, XrmValuePtr args, Cardinal *num_args, XrmValuePtr from, XrmValuePtr to, XtPointer *converter_data)

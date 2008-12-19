@@ -10,7 +10,7 @@ original, the color gray75 is returned instead.
 #include XITE_STDIO_H
 #include <X11/IntrinsicP.h>
 #include <X11/StringDefs.h>
-#include "Converters.h"
+#include "Xfwf/Converters.h"
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 

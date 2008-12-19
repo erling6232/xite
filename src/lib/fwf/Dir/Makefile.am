@@ -19,5 +19,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfDir.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfDir_la_SOURCES = RegExp.c Directory.c DirMgr.c
