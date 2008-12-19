@@ -43,97 +43,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
-/*F:thresMlReddi*
-
-________________________________________________________________
-
-		thresMlReddi
-________________________________________________________________
-
-Name:		thresMlReddi - multi-level thresholding by Reddi et al.
-
-Syntax:         | #include <xite/thresMl.h>
-		|
-                | int thresMlReddi( histogram h, int* t, int nt );
-
-Description:	'thresMlReddi' performs multi-level thresholding according to
-                the method by Reddi et al.
-		'h is input histogram, 't' is output threshold array,
-		indexable on 0..'nt'-1.
-
-Reference:      &S. S. Reddi, S. F. Rudin and H. R. Keshavan
-                "An Optimal Multiple Threshold Scheme for Image Segmentation"
-		IEEE Transactions on Systems, Man and Cybernetics,
-		Vol SMC-14, pp. 661-665, 1984.
-
-See also:	thresMl(1), thresMlAppScale(3), thresMlAppMean(3),
-                thresMlAppMedian(3), thresMlApply(3), histoCentroid(3),
-                thresMlCentroid(3), thresMlCentroid(3), mkComCur(3),
-                thresMlComCur(3), thresMlComCur(1), thresMlReddi(1),
-                thresMlWaHa(3), thresMlWaHa(1)
-
-Return value:	| 0 => ok
-                | 1 => nt less than 1
-
-Author:		Martin Torpe Lie, BLAB, Ifi, UiO
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-int thresMlReddi(int *h, int *t, int nt)
-{
-  histogram cum;
-  int l, split, split_val, flag, temp, diff;
-  double  mean1, mean2;
-  long cumi[256];
-
-  if (nt LT 1) return(Error(1, "thresMlReddi: nt less than 1\n"));
-
-  cum[0]=h[0];
-  cumi[0]=0;
-  FOR (l=1; l LE 255; INC l)
-    cum[l] = cum[l-1] + h[l];
-    cumi[l] = cumi[l-1] + h[l] * l;
-  ENDFOR;
-
-  split_val=0;
-  split=((cum[255])/(nt+1));
-  FOR (l=0; l LT nt; INC l)
-    while (cum[split_val] LT split*(l+1)) INC split_val;
-    t[l]=split_val;
-  ENDFOR;
-
-  flag=1;
-  WHILE (flag)
-    flag=0;
-    mean1 = (double)cumi[t[0]]/cum[t[0]];
-    FOR (l=0; l LT nt-1; INC l)
-      diff = cum[t[l+1]]-cum[t[l]];
-      mean2 = (diff) ? (((double)cumi[t[l+1]]-cumi[t[l]])/diff) 
-                : ((double)cumi[t[l]]/cum[t[l]]);
-      temp = (int)((mean1+mean2)/2.0 + 0.5);
-      if (temp NE t[l]) flag=1;
-      t[l] = temp;
-      mean1 = mean2;
-    ENDFOR;
-    diff = cum[255]-cum[t[nt-1]];
-    mean2 = (diff) ? (((double)cumi[255]-cumi[t[nt-1]])/diff) 
-             : ((double)cumi[255]/cum[255]);
-    temp = (int)((mean1+mean2)/2.0 + 0.5);
-    if (temp NE t[nt-1]) flag=1;
-    t[nt-1] = temp;
-  ENDWHILE;
-  return(0);
-}
-
-#endif /* not MAIN */
-
-
-
 /*P:thresMlReddi*
 
 ________________________________________________________________
@@ -189,8 +98,6 @@ Id: 		$Id$
 ________________________________________________________________
 
 */
-
-#ifdef MAIN
 
 int main(int argc, char **argv)
 {
@@ -248,5 +155,3 @@ int main(int argc, char **argv)
 
    return(0);
 }
-
-#endif /* MAIN */
