@@ -71,8 +71,6 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 
 extern Widget   Control_e;
 
-#ifndef MAIN
-
 #ifndef MAX
 # define MAX(a,b) ((a) >= (b) ? (a) : (b))
 #endif
@@ -1477,106 +1475,3 @@ void xhistogram(Widget wid, IMAGE image, IBAND band, Colormap map, int planes, x
    LEAVE_FUNCTION_DEBUG("Xhistogram.c: xhistogram");
 
 } /* xhistogram() */
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
-/*P:xhistogram*
-
-________________________________________________________________
-
-		xhistogram
-________________________________________________________________
-
-Name:		xhistogram - Show the histogram of an image in XITE.
-
-Syntax:		xhistogram [-split] <inimage>
-
-Description:    Display the histogram for the BIFF image read from 'inimage'.
-                Some of the command buttons will be insensitive. If making
-		a histogram from the Tools menu of an image widget in another
-		XITE display application, e.g. xshow, these buttons will be
-		sensitive.
-
-Options:        'xhistogram' supports all standard X Toolkit command line
-                arguments (see X(1)) as well as the XITE 'ximage(3)' toolkit
-                command line options.
-
-		Additional options:
-
-		&-split
-		If 'inimage' is multiband, the default behaviour is to
-		show a total histogram for all the bands. This option
-		forces one histogram per band.
-
-Resources:      In order to specify resources, it is useful to know
-                the  hierarchy of the widgets which compose 'xhistogram'.
-                In the notation below, indentation indicates hierarchical 
-                structure.
-
-		&xhistogram                 (class XHistogram)
-		| histogramShell            (class TopLevelShell)
-		|  histogramForm            (class Form)
-		|   histogramLabel          (class Label)
-		|   histogram               (class Histogram)
-		|   histogramMenuForm       (class Form)
-		|    histogramModeForm      (class Form)
-		|     histogramModeLabel    (class Label)
-		|     histogramModeList     (class XfwfMultiList)
-		|    histogramActionsForm   (class Form)
-		|     histogramActionsLabel (class Label)
-		|     histogramActionsList  (class XfwfMultiList)
-		|   colormap                (class Colormap)
-
-See also:       'xhistogram(3)', 'mkHisto(1)', 'ximage(3)', 'Histogram(3)',
-                'XfwfMultiList(3)'
-
-Files:          $XITE_HOME/etc/app-defaults/XHistogram
-
-Author:		Otto Milvang
-
-Revised:        Svein Bøe
-
-Doc:            Svein Bøe
-
-Id: 		$Id$
-________________________________________________________________
-
-*/
-
-int main(int argc, char **argv)
-{
-  IMAGE img;
-  int i;
-  char *local_usage = "Usage: %s [-split] <inimage>\n";
-  int split;
-
-  Iset_message(TRUE);
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, ximage_app_usage_text(local_usage));
-
-  Control_e = ximage_init(&argc, argv, "XHistogram", NULL, True);
-
-  if (argc == 1) Usage(1, NULL);
-  split = read_bswitch(&argc, argv, "-split");
-  if (argc != 2) Usage(2, "Illegal number of arguments.\n");
-
-  img = Iread_image(argv[1]);
-  if (img == NULL) Error(2, "Can't open file %s\n", argv[1]);
-
-  if (!split) xhistogram(NULL, img, NULL, 0, 0, ximage_display, NULL);
-  else {
-    for (i=1; i<=Inbands(img); i++) {
-      xhistogram(NULL, img, img[i], 0, 0, ximage_display, NULL);
-    }
-  }
-
-  ximage_mainloop();
-
-  return(0);
-}
-
-#endif /* MAIN */

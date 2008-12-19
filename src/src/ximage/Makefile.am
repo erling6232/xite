@@ -1,0 +1,30 @@
+#
+#      Makefile.am for src/ximage
+#
+
+
+@SET_MAKE@
+
+SHELL = /bin/sh
+configdir = @configdir@
+
+include $(configdir)/@common_makefile@
+
+#
+#   Makefile definitions
+#
+XPROG  = xhistogram xmovie ximage_example
+MANP   = Cmap.m Histogram.m ShellWids.m Visual.m Xcolor.m Xdialog.m \
+	 Xhistogram.m Xpty.m Xslice.m xmovie.m ximage.m ximage_example.m
+CINCL  = Cmap.i Histogram.i ImageForm.i ImageOptionsMenu.i ImageToolsMenu.i \
+	 ImageVisualsMenu.i ShellWids.i Visual.i WidUtils.i Xcolor.i \
+	 Xdialog.i FormDialog.i Xhistogram.i XmenuBar.i Xpty.i Xslice.i \
+	 layout.i ximage_display.i callbacks.i logPos.i ximage.i
+
+bin_PROGRAMS=$(PROG) $(XPROG)
+
+LDADD = libxite.la
+
+xhistogram_SOURCES     = xhistogram_main.c
+xmovie_SOURCES         = xmovie_main.c
+ximage_example_SOURCES = ximage_example_main.c
