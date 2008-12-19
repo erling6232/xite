@@ -43,8 +43,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:thresLloyd*
 
 ________________________________________________________________
@@ -125,91 +123,3 @@ int thresLloyd(int *h)
      t = newt;
    ENDLOOP
 }  /*  thresLloyd  */
-
-#endif /* not MAIN */
-
-
-
-/*P:thresLloyd*
-
-________________________________________________________________
-
-		thresLloyd
-________________________________________________________________
-
-Name:		thresLloyd - threshold by the method of Lloyd
-
-Syntax:		| thresLloyd [-l <lpv>] [-h <hpv>]
-		|   <inimage> [<outimage>]
-
-Description:	'thresLloyd' calculates, and eventually applies,
-		the threshold value needed to threshold the 
-                image according to Lloyd's method.
-		
-		| lpv - output for low pixels (below thrs.) Default 0
-		| hpv - output for high pixels (above thrs.) Default 255
-		| inimage - input image
-		| outimage - output image
-
-		If an output image is given, the input image is
-		thresholded and written to the output image.
-		Otherwise the threshold value is only reported
-		to standard output.
-
-Files:		
-See also:	
-Diagnostics:	
-
-Restrictions:	Only UNS_BYTE pixels are supported
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Examples:	| thresLloyd mona.img
-		| thresLloyd -h 1 mona.img monaThres.img
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE i;
-   histogram h;
-   int t, bn, lpv, hpv, output;
-   char *args;
-
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-     "Usage: %s  [-l <lpv>] [-h <hpv>] <inimage> [<outimage>]\n"));
-   Iset_message(TRUE);
-   Iset_abort(TRUE);
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-
-   lpv = read_iswitch(&argc, argv, "-l", 0);
-   hpv = read_iswitch(&argc, argv, "-h", 255);
-
-   if (argc GT 3) Usage(2, "Illegal number of arguments.\n");
-
-   i      = Iread_image(argv[1]);
-   output = (argc GE 3);
-
-   FOR (bn=1; bn LE Inbands(i); bn++)
-     mkHisto(i[bn], h);
-     t = thresLloyd(h);
-     if (output) thresholdSpOut(i[bn], i[bn], t, lpv, hpv);
-     else printf("Threshold value in band %d : %d\n", bn, t);
-   ENDFOR;
-
-   IF (output)
-     Ihistory(i, argv[0], args);
-     Iwrite_image(i, argv[2]);
-   ENDIF;
-
-   return(0);
-}
-
-#endif /* MAIN */

@@ -44,8 +44,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:thresUniErr*
 
 ________________________________________________________________
@@ -153,89 +151,3 @@ int thresUniErr(IBAND band)
   
   return t;
 }
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
-/*P:thresUniErr*
-
-________________________________________________________________
-
-		thresUniErr
-________________________________________________________________
-
-Name:		thresUniErr - Uniform Error Threshold
-
-Syntax:		| thresUniErr [-<sw>] <inimage> [<outimage>]
-
-Description:	'thresUniErr' calculates, and eventually applies,
-		the threshold value needed to threshold the 
-                image according to the uniform error thresholding metod
-                as described in Dunn & Harwood & Davis.
-
-		If an output image is given, the input image is
-		thresholded and written to the output image.
-		Otherwise the threshold value is only reported
-		to standard output.
-
-		Switches:
-		| -lpv <lpv>  - low pixel value, default 0
-		| -hpv <hpv>  - high pixel value, default 255
-
-Reference:      | S. M. Dunn & D. Harwood & L. S. Davis:
-                | "Local Estimation of the Uniform Error Threshold"
-		| IEEE Trans. on PAMI, Vol PAMI-6, No 6, Nov 1984.
- 
-Restrictions:	Only UNS_BYTE pixels are supported
-
-Bugs:       	It only works well on images whith large objects.
-
-Author:		Olav Borgli, BLAB, ifi, UiO
-
-Examples:	| thresUniErr mona.img 
-                | thresUniErr mona.img monaThres.img
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-int main(int argc, char **argv)
-{
-   IMAGE img;
-   int t, bn, lpv, hpv, output;
-   char *args;
-
-   Iset_message(TRUE); 
-   Iset_abort(TRUE);
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [-<sw>] %s <inimage> [<outimage>]\n"));
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-
-   lpv = read_iswitch(&argc, argv, "-lpv", 0);
-   hpv = read_iswitch(&argc, argv, "-hpv", 255);
-
-   if ((argc < 2) OR (argc > 3)) Usage(1, "Illegal number of arguments.\n");
-
-   img = Iread_image(argv[1]);
-   output = (argc == 3);
-   if (output) Ihistory(img, argv[0], args);
-
-   for (bn=1; bn<=Inbands(img); bn++) {
-     t = thresUniErr(img[bn]);
-     if (output) {
-       thresholdSpOut(img[bn], img[bn], t, lpv, hpv);
-     }
-     else printf("Threshold value in band %d : %d\n", bn, t);
-   }
-   if (output) Iwrite_image(img, argv[2]);
-
-   return(0);
-}
-
-#endif /* MAIN */

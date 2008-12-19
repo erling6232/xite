@@ -46,8 +46,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:thresSigma*
 
 ________________________________________________________________
@@ -108,96 +106,3 @@ int thresSigma(int *h, double x)
 
   return(t);
 }
-
-#endif /* not MAIN */
-
-
-
-#ifdef MAIN
-
-/*P:thresSigma*
-
-________________________________________________________________
-
-		thresSigma
-________________________________________________________________
-
-Name:		thresSigma - threshold at fraction of standard deviation
-
-Syntax:		| thresSigma [-x <x>] [-l <lpv>] [-h <hpv>]
-                |     <inimage> [<outimage>]
-
-Description:	'thresSigma' calculates, and eventually applies,
-		the threshold value by finding the mean (mu) and
-		the standard deviation (sigma) of the image, and
-		then finding the threshold by the formula:
-
-		t = mu + (x * sigma)
-
-		| -x <x>     - fraction of standard deviation.
-		|              Default 0
-		| -l <lpv>   - output for low pixels (below thrs.).
-		|              Default 0
-		| -h <hpv>   - output for high pixels (above thrs.).
-		|              Default 255
-
-		| inimage  - input image
-		| outimage - output image
-
-		If an output image is given, the input image is
-		thresholded and written to the output image.
-		Otherwise the threshold value is only reported
-		to standard output.
- 
-Restrictions:	Only UNS_BYTE pixels are supported
-
-Author:		Olav Borgli, BLAB, ifi, UiO
-
-Examples:	| thresSigma -x -2.5 mona.img monaThres.img
-
-Id:             $Id$
-________________________________________________________________
-*/
-
-int main(int argc, char **argv)
-{
-  IMAGE i;
-  histogram h;
-  int t, bn, lpv, hpv, output, j;
-  double x;
-  char *args;
-  
-  Iset_message(TRUE); 
-  Iset_abort(TRUE);
-  InitMessage(&argc, argv, xite_app_std_usage_text(
-    "Usage: %s [-x <x>]  [-l <lpv>] [-h <hpv>] \n\
-       <inimage> [<outimage>]\n"));
-  
-  if (argc == 1) Usage(1, NULL);
-  args = argvOptions(argc, argv);
-  
-  x   = read_dswitch(&argc, argv, "-x", 0.0);
-  lpv = read_iswitch(&argc, argv, "-l", 0);
-  hpv = read_iswitch(&argc, argv, "-h", 255);
-  
-  if ((argc < 2) || (argc > 3)) Usage(1, "Illegal number of arguments.\n");
-  
-  i = Iread_image(argv[1]);
-  output = (argc >= 3);
-  if (output) Ihistory(i, argv[0], args);
-  
-  for (bn=1; bn<=Inbands(i); INC bn) {
-    mkHisto(i[bn], h);
-    t = thresSigma(h, x);
-    
-    if (output) {
-      thresholdSpOut(i[bn], i[bn], t, lpv, hpv);
-    }
-    else Message(0, "Threshold value in band %d: %d.\n", bn, t);
-  }
-  if (output) Iwrite_image(i, argv[2]);
-  
-  return(0);
-}
-
-#endif /* MAIN */

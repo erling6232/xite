@@ -42,8 +42,6 @@ static char *Id = "$Id$, Blab, UiO";
 
 
 
-#ifndef MAIN
-
 /*F:thresRidCal*
 
 ________________________________________________________________
@@ -112,91 +110,3 @@ int thresRidCal(int *h)
      t = newt;
    ENDLOOP
 } /*  thresRidCal  */
-
-#endif /* not MAIN */
-
-
-
-/*P:thresRidCal*
-
-________________________________________________________________
-
-		thresRidCal
-________________________________________________________________
-
-Name:		thresRidCal - threshold by the Ridler and Calvard method
-
-Syntax:		| thresRidCal [-l <lpv>] [-h <hpv>]
-		|   <inimage> [<outimage>]
-
-Description:	'thresRidCal' calculates, and eventuall applies,
-		the threshold needed to threshold 'inimage' 
-                according to the method of Ridler and Calvard.
-		
-		| lpv - output for low pixels (below thrs.) Default 0
-		| hpv - output for high pixels (above thrs.) Default 255
-		| inimage - input image
-		| outimage - eventual output image
-
-		If an output image is given, the input image is
-		thresholded and written to the output image.
-		Otherwise the threshold value is only reported
-		to standard output.
-
-Files:		
-See also:	
-Diagnostics:	
-
-Restrictions:	Only UNS_BYTE pixels are supported
-
-Author:		Tor L|nnestad, BLAB, ifi, UiO
-
-Examples:	| thresRidCal mona.img
-		| thresRidCal -h 1 mona.img monaThres.img
-
-Id:             $Id$
-________________________________________________________________
-
-*/
-
-#ifdef MAIN
-
-int main(int argc, char **argv)
-{
-   IMAGE i;
-   histogram h;
-   int t, bn, lpv, hpv, output;
-   char *args;
-
-   InitMessage(&argc, argv, xite_app_std_usage_text(
-     "Usage: %s [-l <lpv>] [-h <hpv>] <inimage> [<outimage>]\n"));
-   Iset_message(TRUE);
-   Iset_abort(TRUE);
-
-   if (argc == 1) Usage(1, NULL);
-   args = argvOptions(argc, argv);
-
-   lpv = atoi(read_switch(&argc, argv, "-l", TRUE, "0"));
-   hpv = atoi(read_switch(&argc, argv, "-h", TRUE, "255"));
-
-   if (argc > 3) Usage(2, "Illegal number of arguments.\n");
-
-   i = Iread_image(argv[1]);
-   output = (argc GE 3);
-
-   FOR (bn=1; bn LE Inbands(i); bn++)
-     mkHisto(i[bn], h);
-     t = thresRidCal(h);
-     if (output) thresholdSpOut(i[bn], i[bn], t, lpv, hpv);
-     else fprintf(stderr, "Threshold value in band %d : %d\n", bn, t);
-   ENDFOR;
-
-   IF (output)
-     Ihistory(i, argv[0], args);
-     Iwrite_image(i, argv[2]);
-   ENDIF;
-
-   return(0);
-}
-
-#endif /* MAIN */
