@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfButton.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfButton_la_SOURCES = Button.c

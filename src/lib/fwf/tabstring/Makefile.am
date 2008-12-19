@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwftabstring.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwftabstring_la_SOURCES = DrawImageString.c DrawString.c Tablist2Tabs.c TextWidth.c strnchr.c

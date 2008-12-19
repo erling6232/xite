@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfScrolledList.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfScrolledList_la_SOURCES = ScrList.c

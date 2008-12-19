@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfMenuBar.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfMenuBar_la_SOURCES = MenuBar.c

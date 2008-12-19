@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfPullDown.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfPullDown_la_SOURCES = PullDown.c

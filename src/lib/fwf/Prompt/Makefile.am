@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfPrompt.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfPrompt_la_SOURCES = Prompt.c

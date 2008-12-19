@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfLabel.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfLabel_la_SOURCES = Label.c

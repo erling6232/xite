@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfRows.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfRows_la_SOURCES = Rows.c

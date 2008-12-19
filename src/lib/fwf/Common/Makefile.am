@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfCommon.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfCommon_la_SOURCES = Common.c

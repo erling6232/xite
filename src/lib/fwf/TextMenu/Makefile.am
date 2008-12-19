@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfTextMenu.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfTextMenu_la_SOURCES = TextMenu.c

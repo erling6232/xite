@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfMultiList.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfMultiList_la_SOURCES = MultiList.c

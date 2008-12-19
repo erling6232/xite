@@ -20,5 +20,6 @@ include $(configdir)/@common_makefile@
 #
 
 noinst_LTLIBRARIES = libfwfFrame.la
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 libfwfFrame_la_SOURCES = Frame.c
