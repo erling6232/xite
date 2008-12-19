@@ -50,6 +50,8 @@ libxite_la_LIBADD = \
 	threshold/libxitethreshold.la \
 	thresMl/libxitethresMl.la \
 	utils/libxiteutils.la \
+	xshow/libxitexshow.la \
+	zernike/libxitexzernike.la
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
@@ -124,7 +126,5 @@ SUBDIRS = \
 	utils \
 	ximage \
 	xpm \
-
-tt = \
 	xshow \
 	zernike

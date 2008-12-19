@@ -1,5 +1,5 @@
 #
-#      Makefile.am for lib/ihs
+#      Makefile.am for lib/zernike
 #
 
 
@@ -14,6 +14,6 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-noinst_LTLIBRARIES = libxiteihs.la
+noinst_LTLIBRARIES = libxitezernike.la
 
-libxiteihs_la_SOURCES = ihs.c ihs2rgb.c rgb2ihs.c
+libxitezernike_la_SOURCES = zernike.c

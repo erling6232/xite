@@ -201,6 +201,8 @@ AC_CONFIG_FILES([
     lib/utils/Makefile
     lib/ximage/Makefile
     lib/xpm/Makefile
+    lib/xshow/Makefile
+    lib/zernike/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -256,5 +258,7 @@ AC_CONFIG_FILES([
     src/tiff/Makefile
     src/ximage/Makefile
     src/xpm/Makefile
+    src/xshow/Makefile
+    src/zernike/Makefile
     ])
 AC_OUTPUT
