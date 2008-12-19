@@ -52,6 +52,5 @@ SUBDIRS = \
 	thresMl \
 	tiff \
 	ximage \
-	xpm \
 	xshow \
 	zernike

@@ -49,10 +49,12 @@ libxite_la_LIBADD = \
 	thin/libxitethin.la \
 	threshold/libxitethreshold.la \
 	thresMl/libxitethresMl.la \
+	utils/libxiteutils.la \
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
 	Image/libxiteXImage.la \
+	ximage/libxiteXximage.la
 
 libxitepnm_la_SOURCES =
 libxitepnm_la_LIBADD = \
@@ -61,6 +63,10 @@ libxitepnm_la_LIBADD = \
 libxitetiff_la_SOURCES =
 libxitetiff_la_LIBADD = \
 	tiff/libxitetiff.la
+
+libxitexpm_la_SOURCES =
+libxitexpm_la_LIBADD = \
+	xpm/libxitexpm.la
 
 SUBDIRS = \
 	arithmetic \
@@ -115,10 +121,10 @@ SUBDIRS = \
 	threshold \
 	thresMl \
 	tiff \
-
-tt = \
 	utils \
 	ximage \
 	xpm \
+
+tt = \
 	xshow \
 	zernike

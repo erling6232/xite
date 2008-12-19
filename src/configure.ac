@@ -122,6 +122,7 @@ AC_CONFIG_FILES([
     Makefile.def
     Makefile
     include/Makefile
+    include/X11/Makefile
     include/Xfwf/Makefile
     include/xite/Makefile
     lib/Makefile
@@ -197,6 +198,9 @@ AC_CONFIG_FILES([
     lib/threshold/Makefile
     lib/thresMl/Makefile
     lib/tiff/Makefile
+    lib/utils/Makefile
+    lib/ximage/Makefile
+    lib/xpm/Makefile
     src/Makefile
     src/arithmetic/Makefile
     src/biff/Makefile
@@ -250,5 +254,7 @@ AC_CONFIG_FILES([
     src/threshold/Makefile
     src/thresMl/Makefile
     src/tiff/Makefile
+    src/ximage/Makefile
+    src/xpm/Makefile
     ])
 AC_OUTPUT

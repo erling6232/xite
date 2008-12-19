@@ -1420,8 +1420,6 @@ int Read_ipipe(int ipipe, char *name, program *prog)
 
 
 
-#ifdef MAIN
-
 extern Display *dpy_e;
 extern Widget  Control_e;
 extern Widget  optionsmenu_e;
@@ -1620,5 +1618,3 @@ int main(int argc, char **argv)
 
   return(0);
 }       
-
-#endif /* MAIN */
