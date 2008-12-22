@@ -40,9 +40,9 @@ ________________________________________________________________
 #include <X11/cursorfont.h>
 #include <X11/StringDefs.h>
 #ifdef IMAGE_OVERLAY
-#include "ImageOverlayP.h"
+#include <xite/ImageOverlayP.h>
 #endif
-#include "ImageP.h"
+#include <xite/ImageP.h>
 #include XITE_MALLOC_H
 #include <xite/Visual.h>
 #include <xite/debug.h>

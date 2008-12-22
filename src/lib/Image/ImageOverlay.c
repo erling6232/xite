@@ -661,8 +661,8 @@ ________________________________________________________________
 #include <X11/cursorfont.h>
 #include <X11/StringDefs.h>
 #include <xite/Visual.h>
-#include "ImageOverlayP.h"
-#include "ImageFormat.h"
+#include <xite/ImageOverlayP.h>
+#include <xite/ImageFormat.h>
 #include "ImageOverlayPix.h"
 #include <xite/message.h>
 #include <xite/debug.h>
