@@ -31,7 +31,7 @@ ________________________________________________________________
 
 static char *Id = "$Id$, Blab, UiO";
 
-#include <mat.h>
+#include <matlab/mat.h>
 
 #include <xite/includes.h>
 #include <xite/matlab.h>

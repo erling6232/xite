@@ -80,7 +80,7 @@ TRASH = *~ "\#*\#" *.bak core
 DISTTRASH = $(TRASH) Makefile *.cache *.log *.status
 
 # includes = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include -I$(top_srcdir)/src/utils $(LOCALINCLUDES)
-# AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include -I$(top_srcdir)/src/utils $(LOCALINCLUDES)
+AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES)
 defines = $(GLOBALDEFS) $(LOCALDEFS) $(DEBUG) $(LOCALDEBUG)
 
 

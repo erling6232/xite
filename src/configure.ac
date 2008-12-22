@@ -13,6 +13,8 @@ AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 AC_PROG_SED
 
+# AM_PROG_CC_C_O
+
 # Checks for libraries
 AC_CHECK_LIB([X11],  [XBell])
 # Internal xpm # AC_CHECK_LIB([xpm],  [xpmReadFile])
@@ -122,6 +124,7 @@ AC_CONFIG_FILES([
     Makefile.def
     Makefile
     include/Makefile
+    include/matlab/Makefile
     include/X11/Makefile
     include/Xfwf/Makefile
     include/xite/Makefile
@@ -257,7 +260,6 @@ AC_CONFIG_FILES([
     src/thresMl/Makefile
     src/tiff/Makefile
     src/ximage/Makefile
-    src/xpm/Makefile
     src/xshow/Makefile
     src/zernike/Makefile
     ])

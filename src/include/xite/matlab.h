@@ -34,7 +34,7 @@ ________________________________________________________________
 
 _XITE_CPLUSPLUS_BEGIN
 
-#include <matrix.h>
+#include <xite/matrix.h>
 
 #undef COMPLEX     /* Defined in <matrix.h> and typedef in <xite/biff.h> */
 #undef REAL        /* Defined in <matrix.h> and typedef in <xite/biff.h> */
