@@ -25,7 +25,7 @@ XPROG = xregion
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 regionAnalyse_SOURCES    = regionAnalyse_main.c
 regionConvexHull_SOURCES = regionConvexHull_main.c

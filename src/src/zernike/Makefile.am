@@ -19,6 +19,6 @@ CINCL = zernike.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 zernike_SOURCES = zernike_main.c

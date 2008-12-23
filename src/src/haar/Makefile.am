@@ -19,7 +19,7 @@ CINCL =  haar.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 haar2d_SOURCES = haar2d_main.c
 haarTexture_SOURCES = haarTexture_main.c

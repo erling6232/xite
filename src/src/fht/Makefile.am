@@ -20,7 +20,7 @@ CINCL =  fht.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 fht2d_SOURCES     = fht2d_main.c
 ht2ft_SOURCES     = ht2ft_main.c

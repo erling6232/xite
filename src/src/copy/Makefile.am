@@ -20,7 +20,7 @@ CINCL =  copy.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biffDump_SOURCES = biffDump_main.c
 mosaic_SOURCES   = mosaic_main.c

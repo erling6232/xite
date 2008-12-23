@@ -19,6 +19,6 @@ CINCL =  scatter.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 scatter_SOURCES = scatter_main.c

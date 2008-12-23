@@ -21,7 +21,7 @@ CINCL  = histo.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 mkHisto_SOURCES = mkHisto_main.c
 histoEq_SOURCES = histoEq_main.c

@@ -19,6 +19,6 @@ CINCL =  gradInv.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 gradInv_SOURCES = gradInv_main.c

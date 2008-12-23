@@ -20,7 +20,7 @@ CINCL    = cdoc.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 add_html_toc_SOURCES = add_html_toc_main.c
 cdoc_SOURCES = cdoc_main.c

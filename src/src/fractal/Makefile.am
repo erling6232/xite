@@ -20,7 +20,7 @@ CINCL = fractal.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 minmaxTexture_SOURCES = minmaxTexture_main.c
 mkFractalSra_SOURCES  = mkFractalSra_main.c

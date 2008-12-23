@@ -19,7 +19,7 @@ CINCL =  sunraster.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biff2sunraster_SOURCES = biff2sunraster_main.c
 sunraster2biff_SOURCES = sunraster2biff_main.c

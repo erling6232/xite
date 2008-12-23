@@ -22,7 +22,7 @@ MANP	= biff2matlab.m matlab2biff.m
 
 bin_PROGRAMS=$(MATPROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biff2matlab_SOURCES = biff2matlab_main.c
 matlab2biff_SOURCES = matlab2biff_main.c

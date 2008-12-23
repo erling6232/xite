@@ -19,7 +19,7 @@ CINCL =  kncn.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 kncn_SOURCES   = kncn_main.c
 mbkncn_SOURCES = mbkncn_main.c

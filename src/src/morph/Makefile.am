@@ -19,7 +19,7 @@ CINCL =  morph.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 morphDilate_SOURCES = morphDilate_main.c
 morphErode_SOURCES  = morphErode_main.c

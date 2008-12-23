@@ -25,10 +25,9 @@ CINCL = arithmetic.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 absDiff_SOURCES = absDiff_main.c
-absDiff_LDADD = libxite.la
 addw_SOURCES = addw_main.c
 average_SOURCES = average_main.c
 crossSection_SOURCES = crossSection_main.c
@@ -47,3 +46,4 @@ signDiff_SOURCES = signDiff_main.c
 square_SOURCES = square_main.c
 squareRoot_SOURCES = squareRoot_main.c
 xadd_SOURCES = xadd_main.c
+xadd_LDADD = $(LDADD) ../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)

@@ -38,7 +38,7 @@ CINCL    = binarize.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 binarize_SOURCES = binarize_main.c
 expand_edge_SOURCES = expand_edge_main.c

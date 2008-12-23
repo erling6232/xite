@@ -19,7 +19,7 @@ CINCL   = thin.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 thn_har_SOURCES = thn_har_main.c
 thn_zs_SOURCES  = thn_zs_main.c

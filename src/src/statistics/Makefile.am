@@ -19,7 +19,7 @@ CINCL =  statistics.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 statistics_SOURCES   = statistics_main.c
 image_minmax_SOURCES = image_minmax_main.c

@@ -20,6 +20,6 @@ CINCL    = canny.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 canny_SOURCES = canny_main.c

@@ -19,7 +19,7 @@ CINCL =  minmax.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 closestMinMax_SOURCES = closestMinMax_main.c
 maxarea_SOURCES       = maxarea_main.c

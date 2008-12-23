@@ -20,7 +20,7 @@ CINCL  = draw.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 mkImg_SOURCES = mkImg_main.c
 bdf2biff_SOURCES   = bdf2biff_main.c

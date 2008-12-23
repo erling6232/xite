@@ -19,7 +19,7 @@ CINCL =  texture.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 glcm_SOURCES          = glcm_main.c
 glcmParameter_SOURCES = glcmParameter_main.c

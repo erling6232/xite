@@ -19,7 +19,7 @@ CINCL =  threshold.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 threshold_SOURCES    = threshold_main.c
 thresLloyd_SOURCES   = thresLloyd_main.c

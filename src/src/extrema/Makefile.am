@@ -20,7 +20,7 @@ CINCL =  extrema.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 extrema1_SOURCES = extrema1_main.c
 extrema2_SOURCES = extrema2_main.c

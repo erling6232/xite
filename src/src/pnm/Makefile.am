@@ -19,7 +19,7 @@ CINCL   = xite_pnm.i
 
 bin_PROGRAMS=$(PNMPROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biff2pnm_SOURCES = biff2pnm_main.c
 pnm2biff_SOURCES = pnm2biff_main.c

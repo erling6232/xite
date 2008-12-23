@@ -21,7 +21,7 @@ CINCL =  median.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 lit_SOURCES             = lit_main.c
 maxHisto_SOURCES        = maxHisto_main.c

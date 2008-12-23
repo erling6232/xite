@@ -20,7 +20,7 @@ CINCL =  convolve.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 conv3x3_SOURCES      = conv3x3_main.c
 convolve_SOURCES     = convolve_main.c

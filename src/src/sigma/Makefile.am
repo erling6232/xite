@@ -19,6 +19,6 @@ CINCL =  sigma.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 sigma_SOURCES = sigma_main.c

@@ -20,7 +20,7 @@ CINCL =  classification.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 isoCluster_SOURCES = isoCluster_main.c
 kMeansCluster_SOURCES = kMeansCluster_main.c

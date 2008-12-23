@@ -21,7 +21,7 @@ XPROG = xfilter
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 lowpass_SOURCES      = lowpass_main.c
 highpass_SOURCES     = highpass_main.c

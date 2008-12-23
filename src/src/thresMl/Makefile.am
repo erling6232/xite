@@ -21,7 +21,7 @@ CINCL =  thresMl.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 thresMlReddi_SOURCES    = thresMlReddi_main.c
 thresMlWaHa_SOURCES     = thresMlWaHa_main.c

@@ -21,9 +21,9 @@ CINCL   = color.i
 # SCRIPTS = makepseudo
 
 bin_PROGRAMS=$(PROG) $(XPROG)
-bin_SCRIPTS = $(SCRIPTS)
+bin_SCRIPTS = makepseudo
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 color2ascii_SOURCES = color2ascii_main.c
 colorquant_SOURCES  = colorquant_main.c

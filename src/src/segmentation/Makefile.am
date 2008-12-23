@@ -19,7 +19,7 @@ CINCL  = segmentation.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 segmSpannWilson_SOURCES = segmSpannWilson_main.c
 segmRandom_SOURCES = segmRandom_main.c

@@ -19,7 +19,7 @@ CINCL =  stdiff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 maxSimilar3x3_SOURCES = maxSimilar3x3_main.c
 mean_SOURCES          = mean_main.c

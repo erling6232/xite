@@ -19,7 +19,7 @@ CINCL =  negate.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 negate_SOURCES        = negate_main.c
 absValue_SOURCES      = absValue_main.c

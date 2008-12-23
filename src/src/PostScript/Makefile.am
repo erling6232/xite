@@ -18,7 +18,7 @@ MANP  = biff2ps.m histo2ps.m
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biff2ps_SOURCES  = biff2ps_main.c
 histo2ps_SOURCES = histo2ps_main.c

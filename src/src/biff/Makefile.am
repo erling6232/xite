@@ -21,7 +21,7 @@ CINCL = biff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biffcopy_SOURCES = biffcopy_main.c
 biffinfo_SOURCES = biffinfo_main.c

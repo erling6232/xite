@@ -20,6 +20,6 @@ CINCL =  dither.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 dither_SOURCES = dither_main.c

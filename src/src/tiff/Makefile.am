@@ -19,7 +19,7 @@ CINCL    = tiff.i
 
 bin_PROGRAMS=$(TIFFPROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 biff2tiff_SOURCES = biff2tiff_main.c
 tiff2biff_SOURCES = tiff2biff_main.c

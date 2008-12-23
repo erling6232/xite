@@ -18,4 +18,4 @@ MANP_SH = cxite.m xiteStdOpt.m
 
 bin_PROGRAMS=startProg xiteStdOpt
 
-#LDADD = libxite.la
+#LDADD = ../../lib/libxite.la

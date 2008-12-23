@@ -32,7 +32,7 @@ XSSRC  = Macro.o Xprog.o Xcontrol.o Xbuild_menu.o MenuBox.o \
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 ReadMenuList_SOURCES = ReadMenuList_main.c
 fork_xshow_SOURCES   = fork_xshow_main.c

@@ -20,7 +20,7 @@ CINCL =  pyramid.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 pyramid_SOURCES  = pyramid_main.c
 xpyramid_SOURCES = xpyramid_main.c

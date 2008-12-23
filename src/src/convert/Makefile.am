@@ -22,7 +22,7 @@ CINCL   = convert.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 ascii2biff_SOURCES = ascii2biff_main.c
 biff2ascii_SOURCES = biff2ascii_main.c

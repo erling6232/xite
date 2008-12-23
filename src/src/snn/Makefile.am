@@ -19,7 +19,7 @@ CINCL =  snn.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 litSnn_SOURCES = litSnn_main.c
 snn_SOURCES    = snn_main.c

@@ -23,7 +23,7 @@ CINCL   = geometry.i matrix.i
 
 bin_PROGRAMS=$(PROG) $(XPROG) warpExAnalysis
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 affine_SOURCES        = affine_main.c
 quadratic_SOURCES     = quadratic_main.c

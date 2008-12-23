@@ -19,6 +19,6 @@ CINCL =  resample.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 resample_SOURCES = resample_main.c

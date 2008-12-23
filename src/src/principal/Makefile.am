@@ -19,6 +19,6 @@ CINCL =  principal.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 linearTrans_SOURCES = linearTrans_main.c

@@ -20,6 +20,6 @@ CINCL =  combine.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 combine_SOURCES = combine_main.c

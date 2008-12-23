@@ -19,7 +19,7 @@ CINCL =  ihs.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 ihs2rgb_SOURCES = ihs2rgb_main.c
 rainbow_SOURCES = rainbow_main.c

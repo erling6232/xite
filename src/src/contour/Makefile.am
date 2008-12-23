@@ -20,6 +20,6 @@ CINCL =  contour.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 contour_SOURCES = contour_main.c

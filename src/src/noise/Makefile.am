@@ -19,7 +19,7 @@ CINCL =  noise.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 mkGauss_SOURCES    = mkGauss_main.c
 addGauss_SOURCES   = addGauss_main.c

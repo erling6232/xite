@@ -19,7 +19,7 @@ CINCL =  hough.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = libxite.la
+LDADD = ../../lib/libxite.la
 
 houghCircle_SOURCES = houghCircle_main.c  
 houghLine_SOURCES = houghLine_main.c
