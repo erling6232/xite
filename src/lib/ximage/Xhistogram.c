@@ -54,7 +54,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 #include <xite/ImageP.h> /* For pixtype */
 #include <xite/Xslice.h>
 #include <xite/histo.h>
-#include "Histogram.h"
+#include <xite/Histogram.h>
 #include <xite/message.h>
 #include <xite/statistics.h>
 #include <xite/Visual.h>

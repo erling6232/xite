@@ -27,7 +27,7 @@
 #include XITE_STDIO_H
 #endif
 
-#include "xpm.h"
+#include <X11/xpm.h>
 
 /* we keep the same codes as for Bitmap management */
 #ifndef _XUTIL_H_

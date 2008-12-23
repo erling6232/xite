@@ -7,7 +7,7 @@
 
 _XITE_CPLUSPLUS_BEGIN
 
-#include "Histogram.h"
+#include <xite/Histogram.h>
 /* include superclass private header file */
 #include <X11/CoreP.h>
 
