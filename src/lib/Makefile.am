@@ -28,7 +28,6 @@ libxite_la_LIBADD = \
 	ihs/libxiteihs.la \
 	kncn/libxitekncn.la \
 	knn/libxiteknn.la \
-	matlab/libxitematlab.la \
 	median/libxitemedian.la \
 	minmax/libxiteminmax.la \
 	morph/libxitemorph.la \
@@ -51,7 +50,7 @@ libxite_la_LIBADD = \
 	thresMl/libxitethresMl.la \
 	utils/libxiteutils.la \
 	xshow/libxitexshow.la \
-	zernike/libxitexzernike.la
+	zernike/libxitezernike.la
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \

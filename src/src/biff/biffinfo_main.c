@@ -189,7 +189,7 @@ ________________________________________________________________
 #include XITE_PARAM_H
 #include <xite/debug.h>
 
-#ifdef HAVE_DIR
+#ifndef _WIN32
   static DIR *dir_s;
   static struct dirent *dirEnt_s;
 # define dname(a)    (a->d_name)
@@ -200,10 +200,7 @@ ________________________________________________________________
     {
       return(readdir(dir));
     }
-
 #else
-#ifdef _WIN32
-
   static long dir_s;
   static struct _finddata_t dirent_s;
   static struct _finddata_t *dirEnt_s = &dirent_s;
@@ -228,7 +225,6 @@ ________________________________________________________________
       else return(NULL);
     }
 #endif /* _WIN32 */
-#endif /* HAVE_DIR */
 
 
 static struct stat buf_s;

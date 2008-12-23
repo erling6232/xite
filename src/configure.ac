@@ -78,7 +78,7 @@ AC_TYPE_MODE_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_HEADER_TIME
-AC_CHECK_TYPES([DIR, ptrdiff_t])
+AC_CHECK_TYPES([ptrdiff_t])
 AC_CHECK_MEMBERS([struct passwd.pw_dir])
 
 #AM_CFLAGS = -O3 -DSYSTEM_V -DSYSV -Dvfork=fork \

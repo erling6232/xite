@@ -577,8 +577,8 @@ ________________________________________________________________
 #include <xite/readarg.h>
 #include <xite/message.h>
 #include <xite/binarize.h>
-#include "xite/BinM.h"
-#include "write_band.c"
+#include "BinM.h"
+#include "../../lib/binarize/write_band.c"
 
 static int binarize(int bin_method, int region_size, int step_size, double distance_limit, double weight, int global_min, int global_max, int threshold, int flag, double low_bound, double up_bound, double sdev_limit, double ratio, int intermediate_images, IBAND inband, IBAND outband)
 {
