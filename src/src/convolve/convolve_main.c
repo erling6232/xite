@@ -130,8 +130,6 @@ ________________________________________________________________
 
 
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   IMAGE img, img2, kernel = NULL;

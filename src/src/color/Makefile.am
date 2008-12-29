@@ -25,6 +25,9 @@ bin_SCRIPTS = makepseudo
 
 LDADD = ../../lib/libxite.la
 
+makepseudo:	makepseudo.sh
+	cp -p $(srcdir)/makepseudo.sh makepseudo
+
 color2ascii_SOURCES = color2ascii_main.c
 colorquant_SOURCES  = colorquant_main.c
 mct_SOURCES         = mct_main.c
