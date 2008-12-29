@@ -1,3 +1,10 @@
+xite (3.4.5-1) unstable; urgency=low
+
+  * Build using autoconf/automake.
+  * Compile for x86 and amd64 processors.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Mon, 29 Dec 2008 14:23:59 +0100
+
 xite (3.4.4-4) unstable; urgency=low
 
   * Compile for Pentium 4 processor.
