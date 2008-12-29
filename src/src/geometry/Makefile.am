@@ -32,3 +32,5 @@ rotate_SOURCES        = rotate_main.c
 shift_img_SOURCES     = shift_img_main.c
 transpose_img_SOURCES = transpose_img_main.c
 warp_SOURCES          = warp_main.c
+xwarp_SOURCES         = xwarp_main.c
+xwarp_LDADD = $(LDADD) ../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)

@@ -240,7 +240,7 @@ ________________________________________________________________
 #include <xite/Xdialog.h>
 #include <xite/Xcolor.h>
 #include <xite/ShellWids.h>
-#include "matrix.h"
+#include <xite/matrix.h>
 
 #define XIMAGE       0
 #define HEADER       (XIMAGE + 1)
