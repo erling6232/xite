@@ -24,3 +24,4 @@ LDADD = ../../lib/libxite.la
 
 pyramid_SOURCES  = pyramid_main.c
 xpyramid_SOURCES = xpyramid_main.c
+xpyramid_LDADD = $(LDADD) ../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)
