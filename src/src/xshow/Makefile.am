@@ -18,6 +18,8 @@ PROG   = ReadMenuList fork_xshow xshow
 MANP   = xshow.m fork_xshow.m
 XSSRC  = Macro.o Xprog.o Xcontrol.o Xbuild_menu.o MenuBox.o \
 	 MenuCommand.o SubMenuCommand.o Xdisplay.o xshowImageOptionsMenu.o
+XSSRCC = Macro.c Xprog.c Xcontrol.c Xbuild_menu.c MenuBox.c \
+	 MenuCommand.c SubMenuCommand.c Xdisplay.c xshowImageOptionsMenu.c
 
 #xshow$(EXEEXT):  $(XSSRC)
 #	$(LINK_x_obj)
@@ -32,8 +34,9 @@ XSSRC  = Macro.o Xprog.o Xcontrol.o Xbuild_menu.o MenuBox.o \
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = ../../lib/libxite.la
+LDADD = ../../lib/libxite.la ../../lib/ximage/libxiteXximage.la \
+	../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)
 
 ReadMenuList_SOURCES = ReadMenuList_main.c
 fork_xshow_SOURCES   = fork_xshow_main.c
-xshow_SOURCES        = xshow_main.c
+xshow_SOURCES        = xshow_main.c $(XSSRCC)
