@@ -21,7 +21,11 @@ MANP    = affine.m quadratic.m reorganize.m rotate.m shift_img.m\
           transpose_img.m warp.m xwarp.m
 CINCL   = geometry.i matrix.i
 
-bin_PROGRAMS=$(PROG) $(XPROG) warpExAnalysis
+bin_PROGRAMS=$(PROG) $(XPROG)
+bin_SCRIPTS = warpExAnalysis
+
+warpExAnalysis:	warpExAnalysis.sh
+	cp -p $(srcdir)/warpExAnalysis.sh warpExAnalysis
 
 LDADD = ../../lib/libxite.la
 

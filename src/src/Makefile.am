@@ -26,7 +26,6 @@ SUBDIRS = \
 	ihs \
 	kncn \
 	knn \
-	matlab \
 	median \
 	minmax \
 	morph \
