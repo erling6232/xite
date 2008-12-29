@@ -64,8 +64,6 @@ ________________________________________________________________
 
 */
 
-#ifdef MAIN
-
 int main(int argc, char **argv)
 {
   char *args; /* To hold input arguments. */
