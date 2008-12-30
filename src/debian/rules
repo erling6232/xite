@@ -83,7 +83,7 @@ build-stamp:  configure-stamp
 
 # Clean everything up, including everything auto-generated
 # at build time that needs not to be kept around in the Debian diff
-clean: clean-patched unpatch
+clean: clean-patched
 
 clean-patched: configure
 	dh_testdir
