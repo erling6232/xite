@@ -1,3 +1,19 @@
+#
+#      Makefile.am for include/xite
+#
+
+
+@SET_MAKE@
+
+SHELL = /bin/sh
+includedir = @includedir@/xite
+
+include $(configdir)/@common_makefile@
+
+#
+#   Makefile definitions
+#
+
 include_HEADERS = \
 	arithmetic.h biff.h binarize.h blab.h callbacks.h canny.h \
 	cdoc.h classification.h Cmap.h color.h combine.h compu4.h \

@@ -1,3 +1,19 @@
+#
+#      Makefile.am for include/Xfwf
+#
+
+
+@SET_MAKE@
+
+SHELL = /bin/sh
+includedir = @includedir@/Xfwf
+
+include $(configdir)/@common_makefile@
+
+#
+#   Makefile definitions
+#
+
 include_HEADERS = \
 	Board.h \
 	BoardP.h \
