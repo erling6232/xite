@@ -1,9 +1,4 @@
 cvs checkout xite
-mkdir build
-rm -rf build/xite-3.4.4 ; cp -pr xite build/xite-3.4.4
-cd build
-find . -name CVS | xargs rm -rf
-tar czf xite-3.4.4.tar.gz --exclude=CVS xite-3.4.4
-mv xite-3.4.4 tt
-cd tt
-dpkg-buildpackage -b -rfakeroot -us -uc
+mv xite xite-3.4.5
+cd xite-3.4.5
+dpkg-buildpackage -j4 -rfakeroot -us -uc
