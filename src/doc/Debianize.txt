@@ -1,0 +1,63 @@
+1. Debian Package Management System
+===================================
+Required: dpkg, debmake, devscripts, dh-make, 
+Recommended: hello-debhelper 
+
+Here are the general steps to debianize xite:
+
+1. Fetch the source package from the upstream site (via HTTP/S. FTP/S, SSH/SCP, or any other way). 
+	mkdir xite-3.4.5
+	cvs checkout xite
+	mv xite/* xite-3.4.5
+	rmdir xite
+
+2. cd into the unpacked directory 
+	cd xite-3.4.5
+
+3. Run autoconf
+	autoreconf
+	./configure
+
+4. Build source tar file
+	cd ..
+	tar czf xite-3.4.5.tar.gz xite-3.4.5
+
+5. Debianize a regular source archive 
+	cd xite-3.4.5
+	dh_make -e Erling.Andersen@Helse-Bergen.NO --library -f ../xite-3.4.5.tar.gz
+
+6. Edit debian/control
+	Fill in "Section:" and "Description:" and if needed fill in "Depends:" 
+
+7. Edit debian/changelog
+	dsc -i, or use dch -v <version>-<revision> 
+8. Check, and maybe edit "debian/rules" (executable Makefile), but don't change the target names. 
+ Edit "debian/Readme.Debian" if needed, else delete this file. 
+ Edit "debian/conffiles.ex", and rename this file by removing the ".ex" filename part. 
+
+9. cd to the parent directory of the unpacked source package. 
+cd .. 
+
+10. Build the Debian package 
+	dpkg-buildpackage -rfakeroot -us -uc
+(11. Enter your GPG passphrase twice, to sign these files: fibo-1.0-1_i386.dsc, fibo-1.0-1_i386.changes)
+
+12. Check the sanity of the Debian package 
+	lintian -i fibo-1.0-1_i386.changes 
+13. Check the contents of the Debian package 
+	dpkg -I fibo-1.0-1_i386.deb 
+14. Install the Debian package 
+	dpkg -i fibo-1.0-1_i386.deb 
+
+ 
+ The following steps are all optional: 
+ Remove the Debian package: 
+dpkg -r fibo 
+ Setup a local Debian APT repository serving your custom made Debian package: 
+ See: http://www.interq.or.jp/libra/oohara/apt-gettable/apt-gettable/ cd /var/www ln -s /var/cache/apt/archives /var/www/debian cd debian dpkg-scanpackages . /dev/null > Packages && gzip -9c Packages > Packages.gz 
+ Update Debian and Custom APT sites in /etc/apt/sources.list: 
+apt-get update 
+ Install a Debian source package with Intel Pentium compiler optimizations: 
+apt-get install pentium-builder 
+less /usr/share/doc/pentium-builderREADME.Debian 
+apt-get source fibo -b
