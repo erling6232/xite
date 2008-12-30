@@ -1,4 +1,4 @@
-lib_LTLIBRARIES = libxite.la libxiteX.la libxitepnm.la libxitetiff.la libxitexpm.la
+lib_LTLIBRARIES = libxite.la libxiteX.la libxite_pnm.la libxite_tiff.la libxpm.la
 libxite_la_SOURCES =
 libxite_la_LIBADD = \
 	arithmetic/libxitearithmetic.la \
@@ -57,16 +57,16 @@ libxiteX_la_LIBADD = \
 	Image/libxiteXImage.la \
 	ximage/libxiteXximage.la
 
-libxitepnm_la_SOURCES =
-libxitepnm_la_LIBADD = \
+libxite_pnm_la_SOURCES =
+libxite_pnm_la_LIBADD = \
 	pnm/libxitepnm.la
 
-libxitetiff_la_SOURCES =
-libxitetiff_la_LIBADD = \
+libxite_tiff_la_SOURCES =
+libxite_tiff_la_LIBADD = \
 	tiff/libxitetiff.la
 
-libxitexpm_la_SOURCES =
-libxitexpm_la_LIBADD = \
+libxpm_la_SOURCES =
+libxpm_la_LIBADD = \
 	xpm/libxitexpm.la
 
 SUBDIRS = \
