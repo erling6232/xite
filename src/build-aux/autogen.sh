@@ -1,10 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 #
-# autogen.sh glue for hplip
+# autogen.sh glue for xite
 #
-# HPLIP used to have five or so different autotools trees.  Upstream
-# has reduced it to two.  Still, this script is capable of cleaning
-# just about any possible mess of autoconf files.
+# This script is capable of cleaning just about any possible mess of autoconf files.
 #
 # BE CAREFUL with trees that are not completely automake-generated,
 # this script deletes all Makefile.in files it can find.
@@ -34,7 +32,7 @@ test -d debian && {
 	# refresh list of executable scripts, to avoid possible breakage if
 	# upstream tarball does not include the file or if it is mispackaged
 	# for whatever reason.
-	[ "$1" == "updateexec" ] && {
+	[ "X$1" == "Xupdateexec" ] && {
 		echo Generating list of executable files...
 		rm -f debian/executable.files
 		find -type f -perm +111 ! -name '.*' -fprint debian/executable.files
