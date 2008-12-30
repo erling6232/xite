@@ -114,7 +114,7 @@ install: build
 # Build architecture-independent files here.
 binary-indep: build install
 	dh_testdir -i
-        dh_testroot
+	dh_testroot
 #	dh_installdebconf -i
 #	dh_installdocs -i
 #	dh_installexamples -i
