@@ -21,7 +21,7 @@ AC_CHECK_LIB([X11],  [XBell])
 # AC_CHECK_LIB([Xaw],  [XawAsciiSave])
 AC_CHECK_LIB([Xmu],  [XmuMakeAtom])
 AC_CHECK_LIB([Xt],   [XtConvert])
-AC_CHECK_LIB([Xext], [XextAddDisplay])
+#AC_CHECK_LIB([Xext], [XextAddDisplay])
 AC_CHECK_LIB([m],    [sqrt])
 
 # Checks for header files
@@ -32,7 +32,7 @@ AC_ARG_ENABLE(gui,
 LIBGUI=
 AS_IF([test "x$gui" = xauto],
 	[AC_CHECK_LIB([Xaw],  [XawAsciiSave],
-		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt -lXext"])
+		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt"])
 		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
 		],
 		[AC_CHECK_LIB([Xm],  [XmStringFree],
@@ -46,7 +46,7 @@ AS_IF([test "x$gui" = xauto],
 	],
       [test "x$gui" = xathena],
 	[AC_CHECK_LIB([Xaw],  [XawAsciiSave],
-		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt -lXext"])
+		[AC_SUBST([LIBGUI], ["-lXaw -lXmu -lXt"])
 		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
 		],
 	)],
@@ -203,7 +203,6 @@ AC_CONFIG_FILES([
     lib/tiff/Makefile
     lib/utils/Makefile
     lib/ximage/Makefile
-    lib/xpm/Makefile
     lib/xshow/Makefile
     lib/zernike/Makefile
     src/Makefile
@@ -263,4 +262,5 @@ AC_CONFIG_FILES([
     src/xshow/Makefile
     src/zernike/Makefile
     ])
+    #lib/xpm/Makefile
 AC_OUTPUT

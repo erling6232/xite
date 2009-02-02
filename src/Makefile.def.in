@@ -9,14 +9,23 @@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 
-bindir = $(DESTDIR)@bindir@
-etcdir = $(DESTDIR)@sysconfdir@
-datadir = $(DESTDIR)@datadir@/dcmtk
-docdir = $(DESTDIR)@datadir@/doc/dcmtk
-mandir = $(DESTDIR)@mandir@
-datarootdir = $(DESTDIR)@datarootdir@
-libdir = $(DESTDIR)@libdir@
-includedir = $(DESTDIR)@includedir@
+#bindir = @bindir@
+#etcdir = @sysconfdir@
+#datadir = @datadir@/dcmtk
+#docdir = @datadir@/doc/dcmtk
+#mandir = @mandir@
+#datarootdir = @datarootdir@
+#libdir = @libdir@
+#includedir = @includedir@
+
+#bindir = $(DESTDIR)@bindir@
+#etcdir = $(DESTDIR)@sysconfdir@
+#datadir = $(DESTDIR)@datadir@/dcmtk
+#docdir = $(DESTDIR)@datadir@/doc/dcmtk
+#mandir = $(DESTDIR)@mandir@
+#datarootdir = $(DESTDIR)@datarootdir@
+#libdir = $(DESTDIR)@libdir@
+#includedir = $(DESTDIR)@includedir@
 
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
