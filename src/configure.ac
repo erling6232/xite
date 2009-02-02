@@ -123,6 +123,9 @@ AC_SUBST(common_makefile, [Makefile.def])
 AC_CONFIG_FILES([
     Makefile.def
     Makefile
+    data/Makefile
+    data/img/Makefile
+    data/xshow/Makefile
     include/Makefile
     include/matlab/Makefile
     include/X11/Makefile
