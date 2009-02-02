@@ -1,4 +1,5 @@
-lib_LTLIBRARIES = libxite.la libxiteX.la libxite_pnm.la libxite_tiff.la libxpm.la
+#lib_LTLIBRARIES = libxite.la libxiteX.la libxite_pnm.la libxite_tiff.la libxpm.la
+lib_LTLIBRARIES = libxite.la libxiteX.la libxite_pnm.la libxite_tiff.la
 libxite_la_SOURCES =
 libxite_la_LIBADD = \
 	arithmetic/libxitearithmetic.la \
@@ -65,9 +66,9 @@ libxite_tiff_la_SOURCES =
 libxite_tiff_la_LIBADD = \
 	tiff/libxitetiff.la
 
-libxpm_la_SOURCES =
-libxpm_la_LIBADD = \
-	xpm/libxitexpm.la
+#libxpm_la_SOURCES =
+#libxpm_la_LIBADD = \
+#	xpm/libxitexpm.la
 
 SUBDIRS = \
 	arithmetic \
@@ -124,6 +125,6 @@ SUBDIRS = \
 	tiff \
 	utils \
 	ximage \
-	xpm \
 	xshow \
 	zernike
+#	xpm
