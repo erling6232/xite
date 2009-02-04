@@ -14,7 +14,7 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-dist_sysconfdir_DATA = \
+dist_sysconf_DATA = \
 	XAdd XFft XFilter XHistogram XImageExample xiteFileSel xiteHisto \
 	xiteImage xiteImageMenubar xiteImageOverlay xiteImagePopup \
 	xitePopup xitePrompt xiteSlice xiteTerm XMovie XPyramid \
