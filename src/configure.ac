@@ -126,6 +126,8 @@ AC_CONFIG_FILES([
     data/Makefile
     data/img/Makefile
     data/xshow/Makefile
+    etc/Makefile
+    etc/app-defaults/Makefile
     include/Makefile
     include/matlab/Makefile
     include/X11/Makefile

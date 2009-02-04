@@ -1,1 +1,1 @@
-SUBDIRS=include lib src
+SUBDIRS=data etc include lib src
