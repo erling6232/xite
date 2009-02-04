@@ -111,6 +111,36 @@ install: build
 
 	dh_install
 
+	mv debian/xite/usr/bin/xadd debian/xite/usr/bin/xadd.bin
+	ln -s startProg debian/xite/usr/bin/xadd
+
+	mv debian/xite/usr/bin/xfft debian/xite/usr/bin/xfft.bin
+	ln -s startProg debian/xite/usr/bin/xfft
+
+	mv debian/xite/usr/bin/xfilter debian/xite/usr/bin/xfilter.bin
+	ln -s startProg debian/xite/usr/bin/xfilter
+
+	mv debian/xite/usr/bin/xhistogram debian/xite/usr/bin/xhistogram.bin
+	ln -s startProg debian/xite/usr/bin/xhistogram
+
+	mv debian/xite/usr/bin/ximage_example debian/xite/usr/bin/ximage_example.bin
+	ln -s startProg debian/xite/usr/bin/ximage_example
+
+	mv debian/xite/usr/bin/xmovie debian/xite/usr/bin/xmovie.bin
+	ln -s startProg debian/xite/usr/bin/xmovie
+
+	mv debian/xite/usr/bin/xpyramid debian/xite/usr/bin/xpyramid.bin
+	ln -s startProg debian/xite/usr/bin/xpyramid
+
+	mv debian/xite/usr/bin/xregion debian/xite/usr/bin/xregion.bin
+	ln -s startProg debian/xite/usr/bin/xregion
+
+	mv debian/xite/usr/bin/xshow debian/xite/usr/bin/xshow.bin
+	ln -s startProg debian/xite/usr/bin/xshow
+
+	mv debian/xite/usr/bin/xwarp debian/xite/usr/bin/xwarp.bin
+	ln -s startProg debian/xite/usr/bin/xwarp
+
 # Build architecture-independent files here.
 binary-indep: build install
 	dh_testdir -i
