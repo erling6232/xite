@@ -14,7 +14,7 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-dist_datadir_DATA = \
+dist_sysconfdir_DATA = \
 	black.col black.map black.ovl.col black.ovl.map \
 	blue.col blue.map \
 	comp_e comp_n comp_ne comp_nw comp_s comp_se comp_sw comp_w \
