@@ -1,3 +1,4 @@
 debian/tmp/usr/bin/*
 debian/tmp/etc/xite/*
 debian/tmp/etc/X11/app-defaults/*
+debian/tmp/usr/share/xite/*
