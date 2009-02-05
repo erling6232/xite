@@ -272,7 +272,6 @@ Widget,Widget ,Time *
 /*ARGSUSED*/static Boolean  traverse_to_direction(self,dir,x,y,found,distance)Widget self;TraversalDirection  dir;int  x;int  y;Widget * found;int * distance;
 {
     int i;
-    Widget child, w;
     Position rx, ry;
     int dist;
     Boolean found_child = False;
@@ -797,4 +796,5 @@ WidgetClass class;
     else 
 	XtWarning
 	    ("XfwfCallFrameWidth only applies to subclasses of Common");
+	return 0;
 }
