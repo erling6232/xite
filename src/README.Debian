@@ -2,3 +2,5 @@ cvs checkout xite
 mv xite xite-3.4.5
 cd xite-3.4.5
 dpkg-buildpackage -j4 -rfakeroot -us -uc
+
+# DEB_BUILD_OPTIONS="noopt nostrip" dpkg-buildpackage -j4 -rfakeroot -us -uc
