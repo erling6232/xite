@@ -158,7 +158,6 @@ Widget
 #line 420 "Board.w"
 /*ARGSUSED*/static String  scan(s,absval,relval)String  s;Position * absval;float * relval;
 {
-    Boolean is_float;
     String p;
     char c;
     long n;
@@ -370,7 +369,7 @@ WidgetClass class;
 #line 212 "Board.w"
 /*ARGSUSED*/static void set_abs_location(self,flags,x,y,w,h)Widget self;unsigned  int  flags;int  x;int  y;int  w;int  h;
 {
-    if (flags & (CWX | CWY | CWWidth | CWHeight) == 0) return;
+    if (flags & ((CWX | CWY | CWWidth | CWHeight) == 0)) return;
     if (flags & CWX) ((XfwfBoardWidget)self)->core.x = x;
     if (flags & CWY) ((XfwfBoardWidget)self)->core.y = y;
     if (flags & CWWidth) ((XfwfBoardWidget)self)->core.width = w;
@@ -402,8 +401,7 @@ WidgetClass class;
 }
 #line 267 "Board.w"
 /*ARGSUSED*/static XtGeometryResult  geometry_manager(child,request,reply)Widget  child;XtWidgetGeometry * request;XtWidgetGeometry * reply;
-{ Widget self = XtParent(child); {
-    Widget self = XtParent(child);
+{
     Dimension wd, ht, bw;
     Position x, y;
 
@@ -417,7 +415,6 @@ WidgetClass class;
 
     XtConfigureWidget(child, x, y, wd, ht, bw);
     return XtGeometryDone;
-}
 }
 #line 289 "Board.w"
 /*ARGSUSED*/static void change_managed(self)Widget self;
