@@ -1,7 +1,8 @@
 Source: xite
 Priority: extra
 Maintainer: Erling Andersen <Erling.Andersen@Helse-Bergen.NO>
-Build-Depends: debhelper (>= 5), autotools-dev
+Build-Depends: debhelper (>= 5), autotools-dev, autoconf, automake, libtool, \
+	libxaw7-dev
 Standards-Version: 3.7.2
 
 Package: xite
