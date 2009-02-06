@@ -343,7 +343,6 @@ WidgetClass class;
 /*ARGSUSED*/static void initialize(request,self,args,num_args)Widget  request;Widget self;ArgList  args;Cardinal * num_args;
 {
     Dimension frame;
-    Position x, y;
 
     ((XfwfFrameWidget)self)->xfwfFrame.lightgc = NULL;
     ((XfwfFrameWidget)self)->xfwfFrame.darkgc = NULL;
@@ -644,6 +643,7 @@ WidgetClass class;
     case XfwfLedged: done(String, "ledged");
     default: XtError("Illegal FrameType");
     }
+    return FALSE;
 }
 #line 612 "Frame.w"
 /*ARGSUSED*/Boolean  cvtStringToShadowScheme(display,args,num_args,from,to,converter_data)Display * display;XrmValuePtr  args;Cardinal * num_args;XrmValuePtr  from;XrmValuePtr  to;XtPointer * converter_data;
@@ -679,4 +679,5 @@ WidgetClass class;
     case XfwfStipple: done(String, "stipple");
     default: XtError("Illegal ShadowScheme");
     }
+    return FALSE;
 }
