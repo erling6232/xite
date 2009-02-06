@@ -127,9 +127,11 @@ int XfwfLocatePixmapFile (Screen *screen, Colormap colormap, Visual *visual, cha
       XrmValue value;
 
       xrm_name[0] = XrmStringToName ("pixmapFilePath");
-      xrm_name[1] = (XrmName) NULL;
+      /*xrm_name[1] = (XrmName) NULL;*/
+      xrm_name[1] = 0;
       xrm_class[0] = XrmStringToClass ("PixmapFilePath");
-      xrm_class[1] = (XrmName) NULL;
+      /*xrm_class[1] = (XrmName) NULL;*/
+      xrm_class[1] = 0;
       if (!XrmGetDatabase(dpy)) {
 	(void) XGetDefault (dpy, "", "");
       }
@@ -163,9 +165,9 @@ int XfwfLocatePixmapFile (Screen *screen, Colormap colormap, Visual *visual, cha
     switch (i) {
     case 1:
       if (!(name[0] == '/'
-	    || name[0] == '.' && ( name[1] == '/'
+	    || (name[0] == '.' && ( name[1] == '/'
 				  || (name[1]=='.' && name[2]=='/')
-				  )))
+				  ))))
 	continue;
       fn = name;
       try_plain_name = False;
