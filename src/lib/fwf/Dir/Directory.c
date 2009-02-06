@@ -178,9 +178,9 @@ char *DirectoryPathExpand(char *old_path, char *new_path)
 	register char *p;
 	char path[MAXPATHLEN + 2];
 
-	if (getwd(path) == NULL) return(NULL);
+	if (getcwd(path,MAXPATHLEN + 2) == NULL) return(NULL);
 	if (chdir(old_path) != 0) return(NULL);
-	if (getwd(new_path) == NULL) strcpy(new_path,old_path);
+	if (getcwd(new_path,MAXPATHLEN + 2) == NULL) strcpy(new_path,old_path);
 	if (chdir(path) != 0) return(NULL);
 	for (p = new_path; *p != '\0'; p++);
 	if ((p != new_path) && *(p - 1) != '/')

@@ -308,8 +308,7 @@ static void Initialize(Widget request, Widget new)
 
 	if (FSCurrentDirectory(fsw) == NULL)
 	{
-		getwd(path);
-		if (path) strcpy(str,path);
+		if (getcwd(path,MAXPATHLEN + 2)) strcpy(str,path);
 		FSCurrentDirectory(fsw) = str;
 	}
 

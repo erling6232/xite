@@ -210,7 +210,7 @@ Boolean cvtStringToIcon(Display *dpy, XrmValue *args, Cardinal *num_args, XrmVal
 {
     static XpmColorSymbol table[MAXCOLORSYM];
     Cardinal n;
-    String *data, s = (String) from->addr;
+    String s = (String) from->addr;
     Widget self = (Widget) args[0].addr;
     Icon *view;
     XrmQuark q;
