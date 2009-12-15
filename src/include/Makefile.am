@@ -1,1 +1,1 @@
-SUBDIRS = matlab xite X11 Xfwf
+SUBDIRS = matlab xite X11
