@@ -60,19 +60,3 @@ Architecture: any
 Depends: ${shlibs:Depends}
 Description: Shared libraries for XITE
  This package contains the shared libraries used by XITE.
-
-Package: libfwf
-Section: libs
-Architecture: any
-Depends: ${shlibs:Depends}
-Description: Shared libraries for Xfwf widgets
- This package contains the shared libraries used by the
- Xfwf Free Widget Foundation widgets.
-
-Package: libfwf-dev
-Section: devel
-Architecture: any
-Depends: libfwf (= ${Source-Version}), libx11-dev, libxite-dev (= ${Source-Version})
-Description: Development libraries and header files for Xfwf widgets
- This development package contains the static libraries and header files for the
- Xfwf Free Widget Foundation widgets.
