@@ -20,6 +20,7 @@ AC_CHECK_LIB([X11],  [XBell])
 # Internal xpm # AC_CHECK_LIB([xpm],  [xpmReadFile])
 # AC_CHECK_LIB([Xaw],  [XawAsciiSave])
 AC_CHECK_LIB([Xmu],  [XmuMakeAtom])
+AC_CHECK_LIB([fwf],  [XfwfCallProcessMenu])
 AC_CHECK_LIB([Xt],   [XtConvert])
 #AC_CHECK_LIB([Xext], [XextAddDisplay])
 AC_CHECK_LIB([m],    [sqrt])
@@ -131,7 +132,6 @@ AC_CONFIG_FILES([
     include/Makefile
     include/matlab/Makefile
     include/X11/Makefile
-    include/Xfwf/Makefile
     include/xite/Makefile
     lib/Makefile
     lib/arithmetic/Makefile
@@ -152,27 +152,6 @@ AC_CONFIG_FILES([
     lib/fft/Makefile
     lib/fht/Makefile
     lib/fractal/Makefile
-    lib/fwf/Makefile
-    lib/fwf/Board/Makefile
-    lib/fwf/Button/Makefile
-    lib/fwf/Common/Makefile
-    lib/fwf/converters/Makefile
-    lib/fwf/Dir/Makefile
-    lib/fwf/FileSelector/Makefile
-    lib/fwf/Frame/Makefile
-    lib/fwf/Group/Makefile
-    lib/fwf/Label/Makefile
-    lib/fwf/MenuBar/Makefile
-    lib/fwf/MultiList/Makefile
-    lib/fwf/OptButton/Makefile
-    lib/fwf/Prompt/Makefile
-    lib/fwf/PullDown/Makefile
-    lib/fwf/RowCol/Makefile
-    lib/fwf/Rows/Makefile
-    lib/fwf/ScrolledList/Makefile
-    lib/fwf/tabstring/Makefile
-    lib/fwf/TextMenu/Makefile
-    lib/fwf/Toggle/Makefile
     lib/geometry/Makefile
     lib/gradInv/Makefile
     lib/histo/Makefile
