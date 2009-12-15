@@ -89,7 +89,6 @@ SUBDIRS = \
 	fft \
 	fht \
 	fractal \
-	fwf \
 	geometry \
 	gradInv \
 	histo \
