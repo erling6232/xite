@@ -34,8 +34,8 @@ XSSRCC = Macro.c Xprog.c Xcontrol.c Xbuild_menu.c MenuBox.c \
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = ../../lib/libxite.la ../../lib/ximage/libxiteXximage.la \
-	../../lib/libxiteX.la $(LIBGUI)
+LDADD = ../../lib/ximage/libxiteXximage.la ../../lib/libxiteX.la \
+	../../lib/libxite.la $(LIBGUI)
 
 ReadMenuList_SOURCES = ReadMenuList_main.c
 fork_xshow_SOURCES   = fork_xshow_main.c

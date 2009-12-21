@@ -23,7 +23,7 @@ CINCL  = Cmap.i Histogram.i ImageForm.i ImageOptionsMenu.i ImageToolsMenu.i \
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 
-LDADD = ../../lib/libxite.la ../../lib/libxiteX.la $(LIBGUI)
+LDADD = ../../lib/libxiteX.la ../../lib/libxite.la $(LIBGUI)
 
 xhistogram_SOURCES     = xhistogram_main.c
 xmovie_SOURCES         = xmovie_main.c

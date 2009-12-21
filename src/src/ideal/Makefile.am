@@ -32,4 +32,4 @@ butterworth_SOURCES  = butterworth_main.c
 exponential_SOURCES  = exponential_main.c
 lowpassIdeal_SOURCES = lowpassIdeal_main.c
 xfilter_SOURCES      = xfilter_main.c
-xfilter_LDADD = $(LDADD) ../../lib/libxiteX.la $(LIBGUI)
+xfilter_LDADD = ../../lib/libxiteX.la $(LDADD) $(LIBGUI)
