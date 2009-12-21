@@ -20,7 +20,7 @@ AC_CHECK_LIB([X11],  [XBell])
 # Internal xpm # AC_CHECK_LIB([xpm],  [xpmReadFile])
 # AC_CHECK_LIB([Xaw],  [XawAsciiSave])
 AC_CHECK_LIB([Xmu],  [XmuMakeAtom])
-AC_CHECK_LIB([fwf],  [XfwfCallProcessMenu])
+# AC_CHECK_LIB([fwf],  [XfwfCallProcessMenu])
 AC_CHECK_LIB([Xt],   [XtConvert])
 #AC_CHECK_LIB([Xext], [XextAddDisplay])
 AC_CHECK_LIB([m],    [sqrt])
@@ -33,11 +33,11 @@ AC_ARG_ENABLE(gui,
 LIBGUI=
 AS_IF([test "x$gui" = xauto],
 	[AC_CHECK_LIB([Xaw],  [XawAsciiSave],
-		[AC_SUBST([LIBGUI], ["-lXaw -lfwf -lXmu -lXt"])
+		[AC_SUBST([LIBGUI], ["-lfwf -lXaw -lXmu -lXt"])
 		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
 		],
 		[AC_CHECK_LIB([Xm],  [XmStringFree],
-			[AC_SUBST([LIBGUI], ["-lXm -lfwf"])
+			[AC_SUBST([LIBGUI], ["-lfwf -lXm"])
 			 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
 			 AC_DEFINE([MOTIF], [], [Define when you have Motif])
 			],
@@ -47,13 +47,13 @@ AS_IF([test "x$gui" = xauto],
 	],
       [test "x$gui" = xathena],
 	[AC_CHECK_LIB([Xaw],  [XawAsciiSave],
-		[AC_SUBST([LIBGUI], ["-lXaw -lfwf -lXmu -lXt"])
+		[AC_SUBST([LIBGUI], ["-lfwf -lXaw -lXmu -lXt"])
 		 AC_DEFINE([HAVE_LIBXAW], [1], [Define if you have libXaw])
 		],
 	)],
       [test "x$gui" = xmotif],
 	[AC_CHECK_LIB([Xm],  [XmStringFree],
-		[AC_SUBST([LIBGUI], ["-lXm -lfwf"])
+		[AC_SUBST([LIBGUI], ["-lfwf -lXm"])
 		 AC_DEFINE([HAVE_LIBMOTIF], [1], [Define if you have Motif])
 		],
 	)]
