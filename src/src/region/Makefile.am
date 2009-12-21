@@ -30,4 +30,4 @@ LDADD = ../../lib/libxite.la
 regionAnalyse_SOURCES    = regionAnalyse_main.c
 regionConvexHull_SOURCES = regionConvexHull_main.c
 xregion_SOURCES          = xregion_main.c
-xregion_LDADD = $(LDADD) ../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)
+xregion_LDADD = $(LDADD) ../../lib/libxiteX.la $(LIBGUI)

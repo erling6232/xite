@@ -46,4 +46,4 @@ signDiff_SOURCES = signDiff_main.c
 square_SOURCES = square_main.c
 squareRoot_SOURCES = squareRoot_main.c
 xadd_SOURCES = xadd_main.c
-xadd_LDADD = $(LDADD) ../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)
+xadd_LDADD = $(LDADD) ../../lib/libxiteX.la $(LIBGUI)

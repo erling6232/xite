@@ -27,4 +27,4 @@ LDADD = ../../lib/libxite.la
 fft2d_SOURCES       = fft2d_main.c
 fftMagPhase_SOURCES = fftMagPhase_main.c
 xfft_SOURCES        = xfft_main.c
-xfft_LDADD = $(LDADD) ../../lib/libxiteX.la ../../lib/fwf/libfwf.la $(LIBGUI)
+xfft_LDADD = $(LDADD) ../../lib/libxiteX.la $(LIBGUI)
