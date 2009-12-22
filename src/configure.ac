@@ -3,6 +3,7 @@ AC_PREREQ(2.50)
 AC_INIT([xite], [3.4.5], [Erling.Andersen@Helse-Bergen.NO])
 AC_CONFIG_SRCDIR([include/xite/blab.h])
 AC_CONFIG_HEADER([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
