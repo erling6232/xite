@@ -151,17 +151,17 @@ int extrema2(IBAND inband, IBAND outband, int min, int max, int bg)
       smaller = larger = FALSE;
       pv = inband[y][x];
       if (x>1) {
-        COMPARE1(x-1,y);
-        if (y>1) COMPARE1(x-1,y-1);
-        if (y<ysize) COMPARE1(x-1, y+1);
+        {COMPARE1(x-1,y);}
+        if (y>1) {COMPARE1(x-1,y-1);}
+        if (y<ysize) {COMPARE1(x-1, y+1);}
       }
       if (x<xsize) {
-        COMPARE1(x+1, y);
-        if (y>1) COMPARE1(x+1,y-1);
-        if (y<ysize) COMPARE1(x+1, y+1);
+        {COMPARE1(x+1, y);}
+        if (y>1) {COMPARE1(x+1,y-1);}
+        if (y<ysize) {COMPARE1(x+1, y+1);}
       }
-      if (y>1) COMPARE1(x, y-1);
-      if (y<ysize) COMPARE1(x, y+1);
+      if (y>1) {COMPARE1(x, y-1);}
+      if (y<ysize) {COMPARE1(x, y+1);}
 
       if (!larger) ;
       else if (!smaller) outband[y][x] = tempmin;
