@@ -923,8 +923,8 @@ static XtGeometryResult PreferredGeometry(Widget widget, XtWidgetGeometry *reque
 	&& request->width  == reply->width
 	&& request->height == reply->height) {
      **/
-    if (  request->request_mode & (CWWidth | CWHeight) ==
-    	    reply->request_mode & (CWWidth | CWHeight)
+    if (( request->request_mode & (CWWidth | CWHeight) ==
+    	    reply->request_mode & (CWWidth | CWHeight))
 	  && request->width == reply->width
   	  && request->height == reply->height) {
       LEAVE_FUNCTION_DEBUG("ImageForm.c: PreferredGeometry");
