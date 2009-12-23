@@ -216,8 +216,9 @@ int main(int argc, char **argv)
      nbands = Inbands(i1);
    }
    i3 = Init_image(nbands, "Result of logical");
-   if (lshift_ || rshift_)
-     if(argc >= 4) n = atoi(argv[3]); else n = 1;
+   if (lshift_ || rshift_) {
+     if(argc >= 4) {n = atoi(argv[3]);} else {n = 1;}
+   }
    if (cons) c = (UNS_BYTE)atoi(argv[3]);
 
    for (bn=1; bn <= nbands; ++bn) {

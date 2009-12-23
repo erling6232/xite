@@ -231,7 +231,7 @@ static struct stat buf_s;
 #define readstat(a, b) stat(a, b)
 #define testdir(buf)   ((buf.st_mode & S_IFMT) == S_IFDIR) 
 
-static char pathname_s[1025];
+static char pathname_s[MAXPATHLEN];
 static int item_printed_s;
 
 static void readsw(int *argc, char **argv, int *format, int *b, int *name, int *title, char **n, int *u, int *hist, int *img, int *col)

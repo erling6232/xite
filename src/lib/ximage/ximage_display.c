@@ -135,7 +135,7 @@ static void Free_band(Widget wid, XtPointer client_data, XtPointer call_data)
   img_old = img;
 
   num_bands = Inbands(img);
-  if (num_bands == 1 && !rgb || num_bands == 3 && rgb) {
+  if ((num_bands == 1 && !rgb) || (num_bands == 3 && rgb)) {
     /* Only one band left from image, or the three bands from an rgb image. */
     Idel_image(&img);
   } else {
