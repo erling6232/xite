@@ -221,7 +221,7 @@ or: \n\
   sprintf((char *) text, "%s", read_switch(&argc, argv, "-t", 1, ""));
 
   if (strcmp((char *) text, "") != 0) {
-    char *filename;
+    /*char *filename;*/
 
     if (argc != 3) Usage(1, "Illegal number of arguments.\n");
     /*
