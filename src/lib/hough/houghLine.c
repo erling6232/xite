@@ -188,7 +188,7 @@ ________________________________________________________________
 
 */
 
-static int round(double x)
+static int iround(double x)
 {
   return( x > 0 ? (int) (x + 0.5) : (int) (x - 0.5) );
 }
@@ -220,16 +220,16 @@ int drawLine(IBAND band, int theta, int rho)
   a     = -costab_s[theta]/sinth;
   b     = rho/sinth;
 
-  ystart = MAX(1,     MIN(round(a+b), round(a*xsize+b)));
-  ystop  = MIN(ysize, MAX(round(a+b), round(a*xsize+b)));
-  xstart = MAX(1,     MIN(round((1-b)/a), round((ysize-b)/a)));
-  xstop  = MIN(xsize, MAX(round((1-b)/a), round((ysize-b)/a)));
+  ystart = MAX(1,     MIN(iround(a+b), iround(a*xsize+b)));
+  ystop  = MIN(ysize, MAX(iround(a+b), iround(a*xsize+b)));
+  xstart = MAX(1,     MIN(iround((1-b)/a), iround((ysize-b)/a)));
+  xstop  = MIN(xsize, MAX(iround((1-b)/a), iround((ysize-b)/a)));
 
   if (45 <= theta && theta <= 135)
-    for (x=xstart; x LE xstop; x++) band[round(a*x + b)][x]++;
+    for (x=xstart; x LE xstop; x++) band[iround(a*x + b)][x]++;
 
   else
-    for (y=ystart; y LE ystop; y++) band[y][round((y-b)/a)]++;
+    for (y=ystart; y LE ystop; y++) band[y][iround((y-b)/a)]++;
 
   return(0);
 }    
