@@ -14,5 +14,6 @@ include $(configdir)/@common_makefile@
 #   Makefile definitions
 #
 
-include_HEADERS = \
-	xpm.h
+include_HEADERS = 
+
+	#xpm.h
