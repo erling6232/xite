@@ -130,7 +130,7 @@ int main(int argc, char **argv)
   ENDFOR;
 
   /* write output */
-  if ((NOT b) AND (NOT r)) if (i) b = TRUE; else r = TRUE;
+  if ((NOT b) AND (NOT r)) {if (i) b = TRUE; else r = TRUE;}
   Icopy_text(img, (IMAGE) ir);
   if (i) Ihistory((IMAGE) ir, argv[0], " Inverse transform");
     else  Ihistory((IMAGE) ir, argv[0], " Forward transform");
