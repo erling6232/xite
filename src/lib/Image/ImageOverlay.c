@@ -2547,10 +2547,10 @@ static void ImageRoiStop(ImageOverlayWidget iow, XEvent *event, int value)
 /* if (!iow->image_overlay.activated &&  
       (par == 1 || !iow->image_overlay.permanent) ) return;
 */
-  if (iow->image_overlay.activated)
-    if (! (iow->image_overlay.permanent)) 
+  if (iow->image_overlay.activated) {
+    if (! (iow->image_overlay.permanent)) {
       ImageRoiDraw(iow, ROI_CLEAR);
-    else {
+    } else {
       ImageWidget iw = (ImageWidget) iow;
       ImageOverlayPart *iop;
 
@@ -2563,6 +2563,7 @@ static void ImageRoiStop(ImageOverlayWidget iow, XEvent *event, int value)
 
       ImageRoiDraw(iow, ROI_SET);
     }
+  }
 
   iow->image_overlay.activated = 0;
   ROI_callback(iow, event, value);
