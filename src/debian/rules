@@ -44,6 +44,7 @@ major=3
 # awk '{if (match($$0,/\.so\.[0-9]+$$/)) print substr($$0,RSTART+4)}'`
 
 configure:
+	mkdir -p m4
 	chmod +x build-aux/autogen.sh
 	build-aux/autogen.sh
 
