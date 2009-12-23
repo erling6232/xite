@@ -98,6 +98,7 @@ static char *Id="$Id$";
 #include <xite/readarg.h>
 #include <xite/draw.h>
 #include <xite/message.h>
+#include XITE_STDLIB_H
 
 #define BDF_FOREGROUND 0           /* Must be the same as FOREGROUND and */
 #define BDF_BACKGROUND 255         /* BACKGROUND in 'bdf2biff.c'         */
@@ -223,8 +224,11 @@ or: \n\
     char *filename;
 
     if (argc != 3) Usage(1, "Illegal number of arguments.\n");
+    /*
     filename = tempnam(NULL, NULL);
     textpt   = fopen(filename, "w");
+     */
+    textpt = mkstemp("bwXXXXXX");
     fprintf(textpt,"%s\n",text);
     rewind(textpt);
   } else {
