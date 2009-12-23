@@ -3968,7 +3968,7 @@ int ImageScreenToHeight(ImageWidget wid, int height)
 ImageData ImageScreenXYtoAdr(ImageWidget wid, int x, int y, int options)
 {
   int xa, ya;
-  ImageData data;
+  ImageData data = NULL;
 
   if (wid->image.pixtype == NULL) return(NULL);
   switch(options)
@@ -3995,7 +3995,7 @@ ImageData ImageScreenXYtoAdr(ImageWidget wid, int x, int y, int options)
 
 ImageData ImagePosXYtoAdr(ImageWidget wid, int x, int y, int options)
 {
-  ImageData data;
+  ImageData data = NULL;
   if (wid->image.pixtype == NULL) return(NULL);
   switch(options)
     {
