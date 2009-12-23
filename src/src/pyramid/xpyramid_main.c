@@ -197,7 +197,7 @@ static void Colors(Widget iw, XtPointer client_data, XtPointer call_data)
 {
   XColor col[256];
   Visual *visual = NULL;
-  Colormap cmap = NULL;
+  Colormap cmap;
   int choice;
 
   XawListReturnStruct *list = (XawListReturnStruct *) call_data;
