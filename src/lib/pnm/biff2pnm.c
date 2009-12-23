@@ -37,6 +37,7 @@ static char *Id = "$Id$, Blab, UiO";
 #include <xite/message.h>
 #include <xite/convert.h>
 #include <xite/xite_pnm.h>
+#include XITE_STRING_H
 
 /*F:biff2pnmg=biff2pnm*/
 /*F:biff2pnmc=biff2pnm*/
