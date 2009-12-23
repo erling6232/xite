@@ -918,9 +918,15 @@ static XtGeometryResult PreferredGeometry(Widget widget, XtWidgetGeometry *reque
     reply->height       = w->image_form.preferred_height;
     reply->request_mode = CWWidth | CWHeight;
 
+    /**
     if (request->request_mode & (CWWidth | CWHeight) ==	(CWWidth | CWHeight)
 	&& request->width  == reply->width
 	&& request->height == reply->height) {
+     **/
+    if (  request->request_mode & (CWWidth | CWHeight) ==
+    	    reply->request_mode & (CWWidth | CWHeight)
+	  && request->width == reply->width
+  	  && request->height == reply->height) {
       LEAVE_FUNCTION_DEBUG("ImageForm.c: PreferredGeometry");
       return XtGeometryYes;
     } else if (reply->width  == w->core.width &&
