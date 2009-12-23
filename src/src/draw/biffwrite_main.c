@@ -184,6 +184,7 @@ int main(int argc, char *argv[])
   FILE *textpt;
   int  nr, length = 0, len;
   int x, y, OOR;
+  int fd = -1;
   
   OOR = 0;          /* 'Out Of Range' */
   
@@ -227,7 +228,8 @@ or: \n\
     filename = tempnam(NULL, NULL);
     textpt   = fopen(filename, "w");
      */
-    textpt = mkstemp("bwXXXXXX");
+    fd = mkstemp("bwXXXXXX");
+    textpt = fdopen(fd, "w+");
     fprintf(textpt,"%s\n",text);
     rewind(textpt);
   } else {
