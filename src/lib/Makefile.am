@@ -57,7 +57,7 @@ libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
 	Image/libxiteXImage.la \
 	ximage/libxiteXximage.la
-libxiteX_la_LDFLAGS = $(X_PRE_LIBS) $(X_LIBS) $(X_EXTRA_LIBS) -lxite
+libxiteX_la_LDFLAGS = $(LIBGUI) -lxite
 
 libxite_pnm_la_SOURCES =
 libxite_pnm_la_LIBADD = \
