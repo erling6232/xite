@@ -9,7 +9,7 @@ Abstract: XITE consists of display programs with image widget and graphical user
 Section: Science/Data Analysis
 
 Format: text
-Files: /usr/share/doc/xite-doc/WHAT_IS_XITE.gz
+Files: /usr/share/doc/xite-doc/WHAT_IS_XITE.txt.gz
 
 Format: HTML
 Index: /usr/share/doc/xite-doc/WHAT_IS_XITE.html
