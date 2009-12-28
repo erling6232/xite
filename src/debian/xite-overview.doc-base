@@ -1,5 +1,5 @@
-Document: xite-reference-manual
-Title: Xite Reference Manual
+Document: xite-overview
+Title: Xite Overview
 Author: Image Processing Laboratory, Department of Informatics, University of Oslo, Norway
 Abstract: XITE consists of display programs with image widget and graphical user
  interface as well as more than 200 command line programs and 600
@@ -8,17 +8,8 @@ Abstract: XITE consists of display programs with image widget and graphical user
  sunraster, raw, MATLAB and ascii.
 Section: Science/Data Analysis
 
-Format: debiandoc-sgml
-Files: /usr/share/doc/xite-doc/xite.sgml.gz
-
-Format: postscript
-Files: /usr/share/doc/xite-doc/xite.ps.gz
-
 Format: text
-Files: /usr/share/doc/xite-doc/xite.text.gz
+Files: /usr/share/doc/xite-doc/WHAT_IS_XITE.gz
 
 Format: HTML
-Index: /usr/share/doc/xite-doc/ReferenceManual/index.html
-Files: /usr/share/doc/xite-doc/ReferenceManual/*.html
-
-  
+Index: /usr/share/doc/xite-doc/WHAT_IS_XITE.html

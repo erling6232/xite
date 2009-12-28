@@ -1,5 +1,5 @@
-Document: xite-manual
-Title: Xite Manual
+Document: xite-reference-manual
+Title: Xite Reference Manual
 Author: Image Processing Laboratory, Department of Informatics, University of Oslo, Norway
 Abstract: XITE consists of display programs with image widget and graphical user
  interface as well as more than 200 command line programs and 600
@@ -18,7 +18,7 @@ Format: text
 Files: /usr/share/doc/xite-doc/xite.text.gz
 
 Format: HTML
-Index: /usr/share/doc/xite-doc/html/index.html
-Files: /usr/share/doc/xite-doc/html/*.html
+Index: /usr/share/doc/xite-doc/ReferenceManual/index.html
+Files: /usr/share/doc/xite-doc/ReferenceManual/*.html
 
   
