@@ -65,7 +65,7 @@ libxite_pnm_la_LIBADD = \
 libxite_tiff_la_SOURCES =
 libxite_tiff_la_LIBADD = \
 	tiff/libxitetiff.la
-libxite_tiff_la_LDFLAGS = -ltiff
+libxite_tiff_la_LDFLAGS = -ltiff -lxite
 
 #libxpm_la_SOURCES =
 #libxpm_la_LIBADD = \
