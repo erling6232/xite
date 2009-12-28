@@ -151,7 +151,11 @@ install: build
 
 	# Install documentation
 	gzip -c doc/WHAT_IS_XITE > debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.txt.gz
-	cp doc/WHAT_IS_XITE.html > debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.html
+	cp doc/WHAT_IS_XITE.html debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.html
+	gzip -c doc/UsersManual.ps > debian/xite-doc/usr/share/doc/xite-doc/UsersManual.ps.gz
+	gzip -c doc/UsersManual.pdf > debian/xite-doc/usr/share/doc/xite-doc/UsersManual.pdf.gz
+	gzip -c doc/ProgrammersManual.ps > debian/xite-doc/usr/share/doc/xite-doc/ProgrammersManual.ps.gz
+	cp -r doc/ReferenceManual debian/xite-doc/usr/share/doc/xite-doc/
 
 # Build architecture-independent files here.
 binary-indep: build install
