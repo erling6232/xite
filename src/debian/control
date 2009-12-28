@@ -47,8 +47,7 @@ Description: Documentation for the xite and libxite packages
 Package: libxite-dev
 Section: devel
 Architecture: any
-Depends: libxite (= ${Source-Version}), libx11-dev, libxaw7-dev
-Recommends: libfwf-dev
+Depends: libxite (= ${Source-Version}), libxaw7-dev, netpbm-dev, libtiff-dev, libfwf-dev
 Suggests: xite-doc
 Description: Development libraries and header files
  This development package contains the static libraries and header files for the XITE
@@ -57,6 +56,6 @@ Description: Development libraries and header files
 Package: libxite
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, libxaw7, netpbm, libtiff
 Description: Shared libraries for XITE
  This package contains the shared libraries used by XITE.
