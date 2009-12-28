@@ -15,5 +15,3 @@ include $(configdir)/@common_makefile@
 #
 
 include_HEADERS = 
-
-	#xpm.h
