@@ -1,0 +1,24 @@
+Document: xite-reference-manual
+Title: Xite Reference Manual
+Author: Image Processing Laboratory, Department of Informatics, University of Oslo, Norway
+Abstract: XITE consists of display programs with image widget and graphical user
+ interface as well as more than 200 command line programs and 600
+ subroutines, all documented on-line. XITE uses its own image file
+ format (BIFF), but comes with converters between BIFF and TIFF, pnm,
+ sunraster, raw, MATLAB and ascii.
+Section: Science/Data Analysis
+
+Format: debiandoc-sgml
+Files: /usr/share/doc/xite-doc/xite.sgml.gz
+
+Format: postscript
+Files: /usr/share/doc/xite-doc/xite.ps.gz
+
+Format: text
+Files: /usr/share/doc/xite-doc/xite.text.gz
+
+Format: HTML
+Index: /usr/share/doc/xite-doc/ReferenceManual/index.html
+Files: /usr/share/doc/xite-doc/ReferenceManual/*.html
+
+  
