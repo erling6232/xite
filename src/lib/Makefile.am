@@ -57,10 +57,12 @@ libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
 	Image/libxiteXImage.la \
 	ximage/libxiteXximage.la
+libxiteX_la_LDFLAGS = -lxite
 
 libxite_pnm_la_SOURCES =
 libxite_pnm_la_LIBADD = \
 	pnm/libxitepnm.la
+libxite_pnm_la_LDFLAGS = -lnetpbm
 
 libxite_tiff_la_SOURCES =
 libxite_tiff_la_LIBADD = \
