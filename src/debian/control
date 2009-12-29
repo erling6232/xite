@@ -48,13 +48,13 @@ Description: Documentation for the xite and libxite packages
 Package: libxite3-dev
 Provides: libxite-dev
 Conflicts: libxite-dev
-Section: devel
+Section: libdevel
 Architecture: any
 Depends: libxite3 (= ${binary:Version}), libxaw7-dev, netpbm-dev, libtiff-dev, libfwf4-dev
 Suggests: xite-doc
 Description: Development libraries and header files
- This development package contains the static libraries and header files for the XITE
- image processing routines and for the BIFF image file format.
+ This development package contains the static libraries and header files for
+ the XITE image processing routines and for the BIFF image file format.
 
 Package: libxite3
 Provides: libxite

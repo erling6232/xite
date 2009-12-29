@@ -1,6 +1,8 @@
-xite for Debian
----------------
+cvs checkout xite
+cd xite
 
-<possible notes regarding this package - if none, delete this file>
+DEB_BUILD_OPTIONS="parallel=4" dpkg-buildpackage -i -I -rfakeroot -us -uc
 
- -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>, Thu, 19 Dec 2002 10:27:14 +0100
+# DEB_BUILD_OPTIONS="parallel=4 noopt nostrip" dpkg-buildpackage -i -I -rfakeroot -us -uc
+
+lintian -i ../xite_3.4.5-1_amd64.changes
