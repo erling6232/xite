@@ -1,0 +1,2 @@
+?package(xite):needs="X11|text|vc|wm" section="Applications/Science/Data Analysis"\
+  title="xshow" command="/usr/bin/xshow"
