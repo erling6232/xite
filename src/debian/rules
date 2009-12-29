@@ -150,7 +150,7 @@ install: build
 	cp debian/xite-users-manual.doc-base debian/xite-doc/usr/share/doc-base/xite-users-manual
 
 	# Install documentation
-	mkdir -p debian/xite-doc/usr/share/xite-doc
+	mkdir -p debian/xite-doc/usr/share/doc/xite-doc
 	gzip -c doc/WHAT_IS_XITE > debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.txt.gz
 	cp doc/WHAT_IS_XITE.html debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.html
 	gzip -c doc/UsersManual.ps > debian/xite-doc/usr/share/doc/xite-doc/UsersManual.ps.gz

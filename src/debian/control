@@ -38,7 +38,7 @@ Description: X-based Image processing Tools and Environment
  A toolkit is supplied to simplify development of X11 based applications.
 
 Package: xite-doc
-Section: devel
+Section: doc
 Architecture: all
 Description: Documentation for the xite and libxite packages
  Documentation for the xite and libxite packages. In HTML, PostScript
