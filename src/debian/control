@@ -8,7 +8,7 @@ Standards-Version: 3.7.2
 Package: xite
 Section: science
 Architecture: any
-Depends: libxite (= ${Source-Version}), libfwf (>= 4.0.1)
+Depends: libxite (= ${Source-Version}), libfwf (>= 4.0.1), ${shlibs:Depends}
 Suggests: xite-doc
 Description: X-based Image processing Tools and Environment
  XITE consists of display programs with image widget and graphical user
