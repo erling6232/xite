@@ -3,13 +3,13 @@ Section: science
 Priority: extra
 Maintainer: Erling Andersen <Erling.Andersen@Helse-Bergen.NO>
 Build-Depends: debhelper (>= 5), autotools-dev, autoconf, automake, libtool, \
-	libxaw7-dev, netpbm-dev, libtiff-dev, libjpeg-dev, libfwf-dev
+	libxaw7-dev, netpbm-dev, libtiff-dev, libjpeg-dev, libfwf4-dev
 Standards-Version: 3.8.0
 
 Package: xite
 Section: science
 Architecture: any
-Depends: libxite (= ${binary:Version}), libfwf (>= 4.0.1), ${shlibs:Depends}
+Depends: libxite3 (= ${binary:Version}), libfwf4 (>= 4.0.1), ${shlibs:Depends}
 Suggests: xite-doc
 Description: X-based Image processing Tools and Environment
  XITE consists of display programs with image widget and graphical user
@@ -45,16 +45,20 @@ Description: Documentation for the xite and libxite packages
  Documentation for the xite and libxite packages. In HTML, PostScript
  and PDF format.
 
-Package: libxite-dev
+Package: libxite3-dev
+Provides: libxite-dev
+Conflicts: libxite-dev
 Section: devel
 Architecture: any
-Depends: libxite (= ${binary:Version}), libxaw7-dev, netpbm-dev, libtiff-dev, libfwf-dev
+Depends: libxite3 (= ${binary:Version}), libxaw7-dev, netpbm-dev, libtiff-dev, libfwf4-dev
 Suggests: xite-doc
 Description: Development libraries and header files
  This development package contains the static libraries and header files for the XITE
  image processing routines and for the BIFF image file format.
 
-Package: libxite
+Package: libxite3
+Provides: libxite
+Conflicts: libxite
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, libxaw7, netpbm, libtiff

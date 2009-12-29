@@ -51,23 +51,23 @@ libxite_la_LIBADD = \
 	utils/libxiteutils.la \
 	xshow/libxitexshow.la \
 	zernike/libxitezernike.la
-libxite_la_LDFLAGS = -version-info 0:0:0
+libxite_la_LDFLAGS = -version-info 3:0:0
 
 libxiteX_la_SOURCES =
 libxiteX_la_LIBADD = \
 	Image/libxiteXImage.la \
 	ximage/libxiteXximage.la
-libxiteX_la_LDFLAGS = $(LIBGUI) -lxite -version-info 0:0:0
+libxiteX_la_LDFLAGS = $(LIBGUI) -lxite -version-info 3:0:0
 
 libxite_pnm_la_SOURCES =
 libxite_pnm_la_LIBADD = \
 	pnm/libxitepnm.la
-libxite_pnm_la_LDFLAGS = -lnetpbm -lxite -version-info 0:0:0
+libxite_pnm_la_LDFLAGS = -lnetpbm -lxite -version-info 3:0:0
 
 libxite_tiff_la_SOURCES =
 libxite_tiff_la_LIBADD = \
 	tiff/libxitetiff.la
-libxite_tiff_la_LDFLAGS = -ltiff -lxite -version-info 0:0:0
+libxite_tiff_la_LDFLAGS = -ltiff -lxite -version-info 3:0:0
 
 SUBDIRS = \
 	arithmetic \
