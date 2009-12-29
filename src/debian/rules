@@ -142,7 +142,7 @@ install: build
 	mv debian/xite/usr/bin/xwarp debian/xite/usr/bin/xwarp.bin
 	ln -s startProg debian/xite/usr/bin/xwarp
 
-	mkdir -p debian/xite/usr/share/pixmaps/xite.xpm
+	mkdir -p debian/xite/usr/share/pixmaps/
 	jpegtopnm doc/mona_canny.jpg | pnmscale -xysize 32 32 | ppmtoxpm > debian/xite/usr/share/pixmaps/xite.xpm
 
 	# Install xite-doc documentation
