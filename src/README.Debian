@@ -1,6 +1,9 @@
 cvs checkout xite
 mv xite xite-3.4.5
 cd xite-3.4.5
-dpkg-buildpackage -j4 -rfakeroot -us -uc
+DEB_BUILD_OPTIONS="parallel=4" dpkg-buildpackage -rfakeroot -us -uc
 
-# DEB_BUILD_OPTIONS="noopt nostrip" dpkg-buildpackage -j4 -rfakeroot -us -uc
+# DEB_BUILD_OPTIONS="parallel=4 noopt nostrip" dpkg-buildpackage -rfakeroot -us -uc
+
+cd ..
+lintian -i xite_3.4.5-1_amd64.changes
