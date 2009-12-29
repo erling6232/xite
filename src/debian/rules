@@ -142,14 +142,7 @@ install: build
 	mv debian/xite/usr/bin/xwarp debian/xite/usr/bin/xwarp.bin
 	ln -s startProg debian/xite/usr/bin/xwarp
 
-	# doc-base control files to /usr/share/doc-base
-	#mkdir -p debian/xite-doc/usr/share/doc-base
-	#cp debian/xite-overview.doc-base debian/xite-doc/usr/share/doc-base/xite-overview
-	#cp debian/xite-reference-manual.doc-base debian/xite-doc/usr/share/doc-base/xite-reference-manual
-	#cp debian/xite-programmers-manual.doc-base debian/xite-doc/usr/share/doc-base/xite-programmers-manual
-	#cp debian/xite-users-manual.doc-base debian/xite-doc/usr/share/doc-base/xite-users-manual
-
-	# Install documentation
+	# Install xite-doc documentation
 	mkdir -p debian/xite-doc/usr/share/doc/xite-doc
 	gzip -c doc/WHAT_IS_XITE > debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.txt.gz
 	cp doc/WHAT_IS_XITE.html debian/xite-doc/usr/share/doc/xite-doc/WHAT_IS_XITE.html
