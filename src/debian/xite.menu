@@ -1,2 +1,6 @@
-?package(xite):needs="X11|text|vc|wm" section="Applications/Science/Data Analysis"\
-  title="xshow" command="/usr/bin/xshow"
+?package(xite): \
+   needs="X11"\
+   section="Applications/Science/Data Analysis"\
+   title="xshow"\
+   command="/usr/bin/xshow"\
+   icon="/usr/share/pixmaps/xite.xpm"
