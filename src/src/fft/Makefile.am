@@ -21,6 +21,7 @@ MANP    = fft2d.m xfft.m fftMagPhase.m
 CINCL   = fft.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

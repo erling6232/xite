@@ -18,6 +18,7 @@ MANP  = biff2sunraster.m sunraster2biff.m
 CINCL =  sunraster.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

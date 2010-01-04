@@ -19,6 +19,7 @@ MANP  = biffDump.m copyBand.m mosaic.m overlap.m subcopy.m
 CINCL =  copy.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

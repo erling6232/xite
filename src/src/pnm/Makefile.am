@@ -18,6 +18,7 @@ MANP    = biff2pnm.m pnm2biff.m
 CINCL   = xite_pnm.i
 
 bin_PROGRAMS=$(PNMPROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite_pnm.la ../../lib/libxite.la -lnetpbm
 

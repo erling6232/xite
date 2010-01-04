@@ -18,6 +18,7 @@ MANP  = morphDilate.m mkMorph.m
 CINCL =  morph.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

@@ -20,6 +20,7 @@ MANP  = thresMlReddi.m thresMlWaHa.m thresMlCentroid.m thresMl.m \
 CINCL =  thresMl.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

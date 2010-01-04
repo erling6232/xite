@@ -21,6 +21,7 @@ CINCL	= matlab.i
 MANP	= biff2matlab.m matlab2biff.m
 
 bin_PROGRAMS=$(MATPROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

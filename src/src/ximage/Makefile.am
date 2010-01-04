@@ -22,6 +22,7 @@ CINCL  = Cmap.i Histogram.i ImageForm.i ImageOptionsMenu.i ImageToolsMenu.i \
 	 layout.i ximage_display.i callbacks.i logPos.i ximage.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxiteX.la ../../lib/libxite.la $(LIBGUI)
 

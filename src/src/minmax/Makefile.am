@@ -18,6 +18,7 @@ MANP  = closestMinMax.m maxarea.m minarea.m
 CINCL =  minmax.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

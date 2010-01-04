@@ -18,6 +18,7 @@ MANP  = mkGauss.m addGauss.m multGauss.m mkPoisson.m addPoisson.m
 CINCL =  noise.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

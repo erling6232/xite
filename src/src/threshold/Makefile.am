@@ -18,6 +18,7 @@ MANP  = threshold.m thresLloyd.m thresOtsu.m thresPtile.m thresRidCal.m thresBer
 CINCL =  threshold.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

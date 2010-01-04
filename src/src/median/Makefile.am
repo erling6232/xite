@@ -20,6 +20,7 @@ MANP  = lit.m maxHisto.m median.m  mode.m pseudomedian3x3.m rank.m \
 CINCL =  median.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

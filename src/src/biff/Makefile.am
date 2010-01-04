@@ -20,6 +20,7 @@ MANP  = biff.m biffcopy.m biffinfo.m biffmerge.m newtitle.m\
 CINCL = biff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

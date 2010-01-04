@@ -19,6 +19,7 @@ MANP  = mkImg.m bdf2biff.m biffwrite.m
 CINCL  = draw.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

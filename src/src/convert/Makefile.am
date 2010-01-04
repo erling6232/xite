@@ -21,6 +21,7 @@ MANP    = biffConvert.m raw2biff.m ascii2biff.m pseudo2rgb.m biff2raw.m \
 CINCL   = convert.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

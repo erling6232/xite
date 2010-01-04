@@ -18,6 +18,7 @@ MANP     = biff2tiff.m tiff2biff.m
 CINCL    = tiff.i
 
 bin_PROGRAMS=$(TIFFPROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite_tiff.la ../../lib/libxite.la -ltiff
 

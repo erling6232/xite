@@ -18,6 +18,7 @@ MANP  = litSnn.m snn.m
 CINCL =  snn.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

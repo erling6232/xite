@@ -24,6 +24,7 @@ MANP  = absDiff.m  addw.m    average.m   crossSection.m divide.m   logical.m \
 CINCL = arithmetic.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

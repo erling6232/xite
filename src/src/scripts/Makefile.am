@@ -17,6 +17,7 @@ MANP_SH = cxite.m xiteStdOpt.m
 #SCRIPTS = startProg xiteStdOpt
 
 bin_SCRIPTS=startProg xiteStdOpt
+man1_MANS=$(MANP_SH)
 
 #LDADD = ../../lib/libxite.la
 

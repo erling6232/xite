@@ -19,6 +19,7 @@ MANP	= canny.m
 CINCL    = canny.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

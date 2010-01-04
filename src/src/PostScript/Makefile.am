@@ -17,6 +17,7 @@ PROG  = biff2ps histo2ps
 MANP  = biff2ps.m histo2ps.m
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

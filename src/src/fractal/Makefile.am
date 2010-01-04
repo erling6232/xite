@@ -19,6 +19,7 @@ MANP  = minmaxTexture.m mkFractalSra.m
 CINCL = fractal.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

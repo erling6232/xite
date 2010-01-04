@@ -19,6 +19,7 @@ MANP  = extrema1.m extrema2.m minima.m maxima.m
 CINCL =  extrema.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

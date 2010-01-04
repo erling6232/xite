@@ -18,6 +18,7 @@ MANP  = glcm.m glcmParameter.m glRunLength.m peanoScan.m
 CINCL =  texture.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

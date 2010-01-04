@@ -18,6 +18,7 @@ MANP  = ihs.m ihs2rgb.m rainbow.m rgb2ihs.m
 CINCL =  ihs.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

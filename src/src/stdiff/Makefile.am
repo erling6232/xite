@@ -18,6 +18,7 @@ MANP  = maxSimilar3x3.m mean.m stdev.m stdiff.m stvar.m
 CINCL =  stdiff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

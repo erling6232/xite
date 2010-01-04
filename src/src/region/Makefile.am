@@ -24,6 +24,7 @@ CINCL = region.i
 XPROG = xregion
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

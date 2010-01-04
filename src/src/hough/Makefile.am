@@ -18,6 +18,7 @@ MANP  = houghCircle.m houghLine.m
 CINCL =  hough.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

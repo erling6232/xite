@@ -20,6 +20,7 @@ CINCL = ideal.i
 XPROG = xfilter
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

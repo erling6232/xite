@@ -22,6 +22,7 @@ CINCL   = color.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 bin_SCRIPTS = makepseudo
+man1_MANS=$(MANP) $(MANP_SH)
 
 LDADD = ../../lib/libxite.la
 

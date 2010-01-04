@@ -33,6 +33,7 @@ XSSRCC = Macro.c Xprog.c Xcontrol.c Xbuild_menu.c MenuBox.c \
 #	$(COMPILE_x) $(@:.o=.c)
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/ximage/libxiteXximage.la ../../lib/libxiteX.la \
 	../../lib/libxite.la $(LIBGUI)

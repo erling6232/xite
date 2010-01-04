@@ -19,6 +19,7 @@ MANP  = fht2d.m ht2ft.m ft2ht.m fhtPower.m fhtPhase.m
 CINCL =  fht.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

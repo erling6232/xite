@@ -18,6 +18,7 @@ MANP  = statistics.m band_minmax.m histoMeanStd.m
 CINCL =  statistics.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

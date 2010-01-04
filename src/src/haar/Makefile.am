@@ -18,6 +18,7 @@ MANP  = haar.m haarTexture.m
 CINCL =  haar.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

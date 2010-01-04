@@ -20,6 +20,7 @@ MANP  = combineTransf.m histo.m histoEq.m histoEqCol.m histoNorm.m \
 CINCL  = histo.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
+man1_MANS=$(MANP)
 
 LDADD = ../../lib/libxite.la
 

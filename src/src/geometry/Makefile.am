@@ -23,6 +23,7 @@ CINCL   = geometry.i matrix.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 bin_SCRIPTS = warpExAnalysis
+man1_MANS=$(MANP)
 
 warpExAnalysis:	warpExAnalysis.sh
 	cp -p $(srcdir)/warpExAnalysis.sh warpExAnalysis
