@@ -92,6 +92,10 @@ DISTTRASH = $(TRASH) Makefile *.cache *.log *.status
 AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES)
 defines = $(GLOBALDEFS) $(LOCALDEFS) $(DEBUG) $(LOCALDEBUG)
 
+SUFFIXES = .m
+
+.c.m:
+	cdoc -t $< $@
 
 #.SUFFIXES:
 #.SUFFIXES: .o .cc .c .h
