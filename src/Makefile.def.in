@@ -95,7 +95,7 @@ defines = $(GLOBALDEFS) $(LOCALDEFS) $(DEBUG) $(LOCALDEBUG)
 SUFFIXES = .m
 
 .c.m:
-	cdoc -t $< $@
+	src/cdoc/cdoc -t $< $@
 
 #.SUFFIXES:
 #.SUFFIXES: .o .cc .c .h
