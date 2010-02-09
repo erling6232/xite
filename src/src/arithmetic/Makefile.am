@@ -8,7 +8,7 @@
 SHELL = /bin/sh
 configdir = @configdir@
 
-include $(configdir)/@common_makefile@
+include ${configdir}/@common_makefile@
 
 #
 #   Makefile definitions for arithmetic
