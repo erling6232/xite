@@ -117,7 +117,7 @@ AC_CHECK_FUNCS([clock flock mktemp mkstemp tempnam time times])
 
 
 # Common Makefile.def
-AC_SUBST(configdir, [\${top_builddir}])
+AC_SUBST(configdir, [\${top_srcdir}])
 AC_SUBST(common_makefile, [Makefile.def])
 
 # Output files
