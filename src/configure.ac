@@ -122,7 +122,6 @@ AC_SUBST(common_makefile, [Makefile.def])
 
 # Output files
 AC_CONFIG_FILES([
-    Makefile.def
     Makefile
     data/Makefile
     data/img/Makefile

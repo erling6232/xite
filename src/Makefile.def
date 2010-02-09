@@ -1,0 +1,14 @@
+#
+# Makefile.def.in for all toolkit code
+# The use of the following code requires:
+#  (a) definition of srcdir
+#  (b) definition of VPATH without using any Makefile variables (optional)
+#  (c) definition of LOCALDEFS an LOCALDEBUG (optional)
+#
+
+AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES)
+
+SUFFIXES = .m
+
+.c.m:
+	$(top_builddir)/src/cdoc/cdoc -t $< $@
