@@ -5,3 +5,5 @@
 #  (b) definition of VPATH without using any Makefile variables (optional)
 #  (c) definition of LOCALDEFS an LOCALDEBUG (optional)
 #
+
+AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES)
