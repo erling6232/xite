@@ -1,9 +1,9 @@
 SUBDIRS = \
+	cdoc \
 	arithmetic \
 	biff \
 	binarize \
 	canny \
-	cdoc \
 	classification \
 	color \
 	combine \
