@@ -6,9 +6,8 @@
 @SET_MAKE@
 
 SHELL = /bin/sh
-configdir = @configdir@
 
-include $(configdir)/@common_makefile@
+include $(top_srcdir)/Makefile.def
 
 #
 #   Makefile definitions

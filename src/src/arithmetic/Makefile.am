@@ -6,7 +6,6 @@
 @SET_MAKE@
 
 SHELL = /bin/sh
-configdir = @configdir@
 
 include $(top_srcdir)/Makefile.def
 
