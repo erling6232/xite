@@ -15,7 +15,7 @@ include $(top_srcdir)/Makefile.def
 PROG  = thresMlReddi   thresMlWaHa   thresMlCentroid   thresMl        \
 	thresMlComCur
 MANP  = thresMlReddi.m thresMlWaHa.m thresMlCentroid.m thresMl.m \
-	thresMlApply.m thresMlComCur.m
+	thresMlComCur.m
 CINCL =  thresMl.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

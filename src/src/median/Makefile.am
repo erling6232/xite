@@ -15,7 +15,7 @@ include $(top_srcdir)/Makefile.def
 PROG  = lit maxHisto median mode pseudomedian3x3 rank \
         fractile
 MANP  = lit.m maxHisto.m median.m  mode.m pseudomedian3x3.m rank.m \
-        fractile.m fractile_mask.m
+        fractile.m
 CINCL =  median.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

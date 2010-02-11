@@ -15,24 +15,7 @@ include $(top_srcdir)/Makefile.def
 PROG  = binarize expand_edge
 XPROG =
 MANP	= binarize.m \
-	bin_ab.m \
-	bin_be.m \
-	bin_etm.m \
-	bin_ki.m \
-	bin_ksw.m \
-	bin_man.m \
-	bin_mh.m \
-	bin_ni.m \
-	bin_nr.m \
-	bin_ot.m \
-	bin_pa.m \
-	bin_tfj.m \
-	bin_wr1.m \
-	bin_wr2.m \
-	bin_yb.m \
-	expand_edge.m \
-	remove_ghost.m \
-	remove_small.m
+	expand_edge.m
 CINCL    = binarize.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = biffDump mosaic overlap subcopy
 XPROG   =
-MANP  = biffDump.m copyBand.m mosaic.m overlap.m subcopy.m
+MANP  = biffDump.m mosaic.m overlap.m subcopy.m
 CINCL =  copy.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

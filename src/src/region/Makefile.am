@@ -13,12 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = regionAnalyse regionConvexHull
-MANP  = regionAnalyse.m regionArea.m    regionConvexHull.m regionCreate.m    \
-        regionDraw.m    regionFree.m    regionHisto.m      regionMean.m      \
-        regionMinMax.m  regionMoment.m  regionPerform.m    regionPerimeter.m \
-        regionPoint.m   regionSearch.m  regionSort.m       regionUnion.m     \
-	regionVolume.m  regionYline.m   regionImoment.m    regionInsert.m    \
-        xregion.m
+MANP  = regionAnalyse.m regionConvexHull.m xregion.m
 CINCL = region.i
 XPROG = xregion
 
