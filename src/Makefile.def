@@ -11,4 +11,18 @@ AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(L
 SUFFIXES = .m
 
 .c.m:
-	$(top_builddir)/src/cdoc/cdoc -t $< $@
+	-rm -f ttman
+	-@if test "$(@)" != "_MANP_"; then \
+	  echo $(top_builddir)/src/cdoc/cdoc -t \
+	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
+	  sed 's/^#\{0,1\}../-e /' |\
+	  sed 's/.[        ]*$$//' |\
+	  sed 's/=.*//' ` $< ttman ; \
+	  $(top_builddir)/src/cdoc/cdoc -t \
+	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
+	  sed 's/^#\{0,1\}../-e /' |\
+	  sed 's/.[        ]*$$//' |\
+	  sed 's/=.*//' ` $< ttman ; \
+	  echo mv ttman* $@ ; \
+	  mv ttman* $@ ; \
+	fi
