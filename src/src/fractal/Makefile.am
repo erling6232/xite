@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = minmaxTexture mkFractalSra
 XPROG =
-MANP  = minmaxTexture.m mkFractalSra.m
+MANP  = minmaxTexture.1 mkFractalSra.1
 CINCL = fractal.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

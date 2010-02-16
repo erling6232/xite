@@ -16,8 +16,8 @@ PROG    = affine quadratic reorganize rotate shift_img transpose_img \
           warp
 #SCRIPTS = warpExAnalysis
 XPROG   = xwarp
-MANP    = affine.m quadratic.m reorganize.m rotate.m shift_img.m\
-          transpose_img.m warp.m xwarp.m
+MANP    = affine.1 quadratic.1 reorganize.1 rotate.1 shift_img.1\
+          transpose_img.1 warp.1 xwarp.1
 CINCL   = geometry.i matrix.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = houghCircle houghLine
-MANP  = houghCircle.m houghLine.m
+MANP  = houghCircle.1 houghLine.1
 CINCL =  hough.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

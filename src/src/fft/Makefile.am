@@ -16,7 +16,7 @@ PROG    = fft2d fftMagPhase
 XPROG   = xfft
 #SCRIPTS = fftReal fftImag fftAmp fftPhase fftPower fftMult fftMakeLp \
 #	  fftMakeHp fftMakeBp fftMakeBs fftDisplay
-MANP    = fft2d.m xfft.m fftMagPhase.m
+MANP    = fft2d.1 xfft.1 fftMagPhase.1
 CINCL   = fft.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

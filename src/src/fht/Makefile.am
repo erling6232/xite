@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = fht2d ht2ft ft2ht fhtPower fhtPhase
 XPROG =
-MANP  = fht2d.m ht2ft.m ft2ht.m fhtPower.m fhtPhase.m
+MANP  = fht2d.1 ht2ft.1 ft2ht.1 fhtPower.1 fhtPhase.1
 CINCL =  fht.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

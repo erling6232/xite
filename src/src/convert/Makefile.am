@@ -15,8 +15,8 @@ include $(top_srcdir)/Makefile.def
 PROG    = biffConvert raw2biff ascii2biff pseudo2rgb biff2raw biff2ascii \
 	  biffswap
 XPROG   =
-MANP    = biffConvert.m raw2biff.m ascii2biff.m pseudo2rgb.m biff2raw.m \
-	  biff2ascii.m biffswap.m
+MANP    = biffConvert.1 raw2biff.1 ascii2biff.1 pseudo2rgb.1 biff2raw.1 \
+	  biff2ascii.1 biffswap.1
 CINCL   = convert.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

@@ -14,8 +14,8 @@ include $(top_srcdir)/Makefile.def
 #
 PROG    = colorquant mct saturmod color2ascii
 XPROG   =
-MANP    = colorquant.m mct.m saturmod.m color2ascii.m
-MANP_SH = makepseudo.m
+MANP    = colorquant.1 mct.1 saturmod.1 color2ascii.1
+MANP_SH = makepseudo.1
 CINCL   = color.i
 # SCRIPTS = makepseudo
 

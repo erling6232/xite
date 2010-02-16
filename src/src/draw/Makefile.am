@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = mkImg bdf2biff biffwrite
 XPROG   =
-MANP  = mkImg.m bdf2biff.m biffwrite.m
+MANP  = mkImg.1 bdf2biff.1 biffwrite.1
 CINCL  = draw.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

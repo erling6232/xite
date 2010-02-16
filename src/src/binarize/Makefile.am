@@ -14,8 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = binarize expand_edge
 XPROG =
-MANP	= binarize.m \
-	expand_edge.m
+MANP	= binarize.1 expand_edge.1
 CINCL    = binarize.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

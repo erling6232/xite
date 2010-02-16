@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = canny
 XPROG =
-MANP	= canny.m
+MANP	= canny.1
 CINCL    = canny.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

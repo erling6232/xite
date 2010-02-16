@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = gradInv
-MANP  = gradInv.m
+MANP  = gradInv.1
 CINCL =  gradInv.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

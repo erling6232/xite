@@ -14,8 +14,9 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = convolve conv3x3 gradient laplace prewitt roberts sobel grad crossing lapZeroCross
 XPROG   =
-MANP  = convolve.m conv3x3.m gradient_op.m laplace.m crossing.m lapZeroCross.m
+MANP  = convolve.1 conv3x3.1 gradient.1 laplace.1 crossing.1 lapZeroCross.1
 CINCL =  convolve.i
+#MANP = sobel.1 prewitt.1 roberts.1 grad.1 
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 man1_MANS=$(MANP)

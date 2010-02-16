@@ -16,10 +16,11 @@ PROG  = absDiff    addw      average     crossSection   divide     logical \
 	multiply   profile   rms         scale          signDiff   square  \
 	squareRoot real      imag        power          phase      logarithm
 XPROG = xadd
-MANP  = absDiff.m  addw.m    average.m   crossSection.m divide.m   logical.m \
-	multiply.m profile.m rms.m       scale.m        signDiff.m square.m \
-	squareRoot.m xadd.m  real.m      imag.m         power.m    phase.m \
-	logarithm.m
+MANP  = absDiff.1  addw.1    average.1   crossSection.1 divide.1   logical.1 \
+	multiply.1 profile.1 rms.1       scale.1        signDiff.1 square.1 \
+	squareRoot.1 xadd.1  real.1      imag.1         power.1    phase.1 \
+	logarithm.1
+#MANP = fftImag.1 fftMult.1 fftPhase.1 fftPower.1 fftReal.1
 CINCL = arithmetic.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

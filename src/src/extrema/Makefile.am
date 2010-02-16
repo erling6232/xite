@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = extrema1   extrema2   minima   maxima
 XPROG   =
-MANP  = extrema1.m extrema2.m minima.m maxima.m
+MANP  = extrema1.1 extrema2.1 minima.1 maxima.1
 CINCL =  extrema.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

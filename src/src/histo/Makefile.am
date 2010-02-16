@@ -13,9 +13,9 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = mkHisto histoEq histoEqCol histoNorm pixel_mapper gammaAdjust
-MANP  = histoEq.m histoEqCol.m histoNorm.m \
-	mkHisto.m \
-	pixel_mapper.m gammaAdjust.m
+MANP  = histoEq.1 histoEqCol.1 histoNorm.1 \
+	mkHisto.1 \
+	pixel_mapper.1 gammaAdjust.1
 CINCL  = histo.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

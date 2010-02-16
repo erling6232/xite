@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = contour
 XPROG   =
-MANP  = contour.m
+MANP  = contour.1
 CINCL =  contour.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

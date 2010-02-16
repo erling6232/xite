@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = dither
 XPROG   =
-MANP  = dither.m
+MANP  = dither.1
 CINCL =  dither.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

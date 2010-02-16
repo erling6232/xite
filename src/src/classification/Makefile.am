@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = kMeansCluster   isoCluster   
 XPROG =
-MANP  = kMeansCluster.m isoCluster.m
+MANP  = kMeansCluster.1 isoCluster.1
 CINCL =  classification.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

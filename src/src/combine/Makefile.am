@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = combine
 XPROG   =
-MANP  = combine.m
+MANP  = combine.1
 CINCL =  combine.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

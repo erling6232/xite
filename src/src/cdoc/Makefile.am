@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = add_html_toc cdoc
 XPROG =
-MANP	= cdoc.m
+MANP	= cdoc.1
 CINCL    = cdoc.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
