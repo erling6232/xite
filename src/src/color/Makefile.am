@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG    = colorquant mct saturmod color2ascii
 XPROG   =
-MANP    = colorfile.m colorquant.m mct.m saturmod.m color2ascii.m
+MANP    = colorquant.m mct.m saturmod.m color2ascii.m
 MANP_SH = makepseudo.m
 CINCL   = color.i
 # SCRIPTS = makepseudo
@@ -27,6 +27,8 @@ LDADD = ../../lib/libxite.la
 
 makepseudo:	makepseudo.sh
 	cp -p $(srcdir)/makepseudo.sh makepseudo
+
+makepseudo.m:	makepseudo.sh
 
 color2ascii_SOURCES = color2ascii_main.c
 colorquant_SOURCES  = colorquant_main.c
