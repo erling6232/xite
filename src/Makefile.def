@@ -27,6 +27,7 @@ SUFFIXES = .m
 	  echo mv ttman/man1/* . ; \
 	  mv ttman/man1/* . ; \
 	fi
+	-rm -f ttman
 
 .sh.m:
 	-rm -f ttman
@@ -47,3 +48,4 @@ SUFFIXES = .m
 	  echo mv ttman/man1/* . ; \
 	  mv ttman/man1/* . ; \
 	fi
+	-rm -f ttman
