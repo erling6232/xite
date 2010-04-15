@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = segmSpannWilson   segmRandom
-MANP  = segmSpannWilson.m segmRandom.m
+MANP  = segmSpannWilson.1 segmRandom.1
 CINCL  = segmentation.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

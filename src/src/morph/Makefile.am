@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = morphDilate   morphErode   morphOpen   morphClose mkMorph
-MANP  = morphDilate.m mkMorph.m
+MANP  = morphDilate.1 mkMorph.1
 CINCL =  morph.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

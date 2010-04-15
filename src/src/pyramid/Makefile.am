@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = pyramid
 XPROG = xpyramid
-MANP  = pyramid.m xpyramid.m
+MANP  = pyramid.1 xpyramid.1
 CINCL =  pyramid.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

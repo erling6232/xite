@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = statistics image_minmax histoMeanStd
-MANP  = statistics.m band_minmax.m histoMeanStd.m
+MANP  = statistics.1 band_minmax.1 histoMeanStd.1
 CINCL =  statistics.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

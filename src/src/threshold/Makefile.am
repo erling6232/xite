@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = threshold thresLloyd thresOtsu thresPtile thresRidCal thresBernsen thresSigma thresMinErr thresUniErr
-MANP  = threshold.m thresLloyd.m thresOtsu.m thresPtile.m thresRidCal.m thresBernsen.m thresSigma.m thresMinErr.m thresUniErr.m
+MANP  = threshold.1 thresLloyd.1 thresOtsu.1 thresPtile.1 thresRidCal.1 thresBernsen.1 thresSigma.1 thresMinErr.1 thresUniErr.1
 CINCL =  threshold.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

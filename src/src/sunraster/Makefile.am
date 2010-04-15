@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = biff2sunraster sunraster2biff
-MANP  = biff2sunraster.m sunraster2biff.m
+MANP  = biff2sunraster.1 sunraster2biff.1
 CINCL =  sunraster.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

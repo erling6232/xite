@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = closestMinMax maxarea minarea
-MANP  = closestMinMax.m maxarea.m minarea.m
+MANP  = closestMinMax.1 maxarea.1 minarea.1
 CINCL =  minmax.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

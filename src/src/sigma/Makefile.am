@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = sigma
-MANP  = sigma.m
+MANP  = sigma.1
 CINCL =  sigma.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

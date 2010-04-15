@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 CINCL  = fork_xshow.i
 PROG   = ReadMenuList fork_xshow xshow
-MANP   = xshow.m fork_xshow.m
+MANP   = xshow.1 fork_xshow.1
 XSSRC  = Macro.o Xprog.o Xcontrol.o Xbuild_menu.o MenuBox.o \
 	 MenuCommand.o SubMenuCommand.o Xdisplay.o xshowImageOptionsMenu.o
 XSSRCC = Macro.c Xprog.c Xcontrol.c Xbuild_menu.c MenuBox.c \

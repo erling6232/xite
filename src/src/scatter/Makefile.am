@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = scatter
-MANP  = scatter.m
+MANP  = scatter.1
 CINCL =  scatter.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

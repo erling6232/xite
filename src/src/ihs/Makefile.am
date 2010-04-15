@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = ihs2rgb rainbow rgb2ihs
-MANP  = ihs2rgb.m rainbow.m rgb2ihs.m
+MANP  = ihs2rgb.1 rainbow.1 rgb2ihs.1
 CINCL =  ihs.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

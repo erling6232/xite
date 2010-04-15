@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG	= thn_har thn_zs thn_lc
-MANP	= thn_har.m thn_lc.m thn_zs.m 
+MANP	= thn_har.1 thn_lc.1 thn_zs.1 
 CINCL   = thin.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

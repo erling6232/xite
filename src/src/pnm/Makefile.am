@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PNMPROG = biff2pnm pnm2biff
-MANP    = biff2pnm.m pnm2biff.m
+MANP    = biff2pnm.1 pnm2biff.1
 CINCL   = xite_pnm.i
 
 bin_PROGRAMS=$(PNMPROG) $(XPROG)

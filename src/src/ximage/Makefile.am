@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 XPROG  = xhistogram   xmovie   ximage_example
-MANP   = xhistogram.m xmovie.m ximage_example.m
+MANP   = xhistogram.1 xmovie.1 ximage_example.1
 CINCL  = Cmap.i Histogram.i ImageForm.i ImageOptionsMenu.i ImageToolsMenu.i \
 	 ImageVisualsMenu.i ShellWids.i Visual.i WidUtils.i Xcolor.i \
 	 Xdialog.i FormDialog.i Xhistogram.i XmenuBar.i Xpty.i Xslice.i \

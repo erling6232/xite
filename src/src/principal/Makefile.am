@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = linearTrans
-MANP  = linearTrans.m
+MANP  = linearTrans.1
 CINCL =  principal.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

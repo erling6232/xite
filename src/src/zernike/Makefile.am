@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = zernike
-MANP  = zernike.m
+MANP  = zernike.1
 CINCL = zernike.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

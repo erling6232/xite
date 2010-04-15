@@ -17,7 +17,7 @@ MATPROG = biff2matlab matlab2biff                 # Programs using MATLAB lib
 MATMEX  = loadBiff saveBiff                       # MATLAB mex-files
 MATHELP = loadBiff.m saveBiff.m                   # MATLAB .m help-file
 CINCL	= matlab.i
-MANP	= biff2matlab.m matlab2biff.m
+MANP	= biff2matlab.1 matlab2biff.1
 
 bin_PROGRAMS=$(MATPROG) $(XPROG)
 man1_MANS=$(MANP)

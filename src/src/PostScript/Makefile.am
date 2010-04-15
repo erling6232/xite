@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = biff2ps histo2ps
-MANP  = biff2ps.m histo2ps.m
+MANP  = biff2ps.1 histo2ps.1
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 man1_MANS=$(MANP)

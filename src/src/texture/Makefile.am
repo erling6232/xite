@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = glcm   glcmParameter   glRunLength   peanoScan 
-MANP  = glcm.m glcmParameter.m glRunLength.m peanoScan.m 
+MANP  = glcm.1 glcmParameter.1 glRunLength.1 peanoScan.1 
 CINCL =  texture.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

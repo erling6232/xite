@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = maxSimilar3x3 mean stdev stdiff stvar
-MANP  = maxSimilar3x3.m mean.m stdev.m stdiff.m stvar.m
+MANP  = maxSimilar3x3.1 mean.1 stdev.1 stdiff.1 stvar.1
 CINCL =  stdiff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = negate absValue complexConjug
-MANP  = negate.m absValue.m complexConjug.m
+MANP  = negate.1 absValue.1 complexConjug.1
 CINCL =  negate.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

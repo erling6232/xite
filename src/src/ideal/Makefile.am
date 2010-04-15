@@ -14,7 +14,7 @@ include $(top_srcdir)/Makefile.def
 #
 PROG  = lowpass highpass bandpass bandstop window butterworth exponential \
 	lowpassIdeal
-MANP  = lowpass.m window.m xfilter.m
+MANP  = lowpass.1 window.1 xfilter.1
 CINCL = ideal.i
 XPROG = xfilter
 

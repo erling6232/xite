@@ -12,7 +12,7 @@ include $(top_srcdir)/Makefile.def
 #
 #   Makefile definitions
 #
-MANP_SH = cxite.m xiteStdOpt.m
+MANP_SH = cxite.1 xiteStdOpt.1
 #SCRIPTS = startProg xiteStdOpt
 
 bin_SCRIPTS=startProg xiteStdOpt

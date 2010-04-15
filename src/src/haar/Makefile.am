@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = haar2d haarTexture
-MANP  = haar.m haarTexture.m
+MANP  = haar.1 haarTexture.1
 CINCL =  haar.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

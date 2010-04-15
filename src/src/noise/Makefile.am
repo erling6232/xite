@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = mkGauss addGauss multGauss mkPoisson addPoisson
-MANP  = mkGauss.m addGauss.m multGauss.m mkPoisson.m addPoisson.m
+MANP  = mkGauss.1 addGauss.1 multGauss.1 mkPoisson.1 addPoisson.1
 CINCL =  noise.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

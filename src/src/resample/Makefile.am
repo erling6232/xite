@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = resample
-MANP  = resample.m
+MANP  = resample.1
 CINCL =  resample.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

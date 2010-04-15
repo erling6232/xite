@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = knn mbknn
-MANP  = knn.m mbknn.m
+MANP  = knn.1 mbknn.1
 CINCL =  knn.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
