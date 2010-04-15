@@ -18,6 +18,7 @@ CINCL =  haar.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
 man1_MANS=$(MANP)
+man3_MANS=haar1d.3 haar2d.3 haar.3 haari1d.3 haari2d.3
 
 LDADD = ../../lib/libxite.la
 
