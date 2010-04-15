@@ -12,7 +12,7 @@ SUFFIXES = .m
 
 .c.1:
 	-rm -rf ttman
-	mkdir -p ttman/man1
+	mkdir -p ttman/man1 ttman/man3
 	-@if test "$(@)" != "_MANP_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
@@ -31,7 +31,7 @@ SUFFIXES = .m
 
 .sh.1:
 	-rm -rf ttman
-	mkdir -p ttman/man1
+	mkdir -p ttman/man1 ttman/man3
 	-@if test "$(@)" != "_MANP_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc -t \
 	  -s '*.sh' \
