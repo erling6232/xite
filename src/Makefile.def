@@ -11,7 +11,7 @@ AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(L
 SUFFIXES = .m
 
 .c.1:
-	-rm -f ttman
+	-rm -rf ttman
 	mkdir -p ttman/man1
 	-@if test "$(@)" != "_MANP_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc -t \
@@ -27,10 +27,10 @@ SUFFIXES = .m
 	  echo mv ttman/man1/* . ; \
 	  mv ttman/man1/* . ; \
 	fi
-	-rm -f ttman
+	-rm -rf ttman
 
 .sh.1:
-	-rm -f ttman
+	-rm -rf ttman
 	mkdir -p ttman/man1
 	-@if test "$(@)" != "_MANP_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc -t \
@@ -48,4 +48,4 @@ SUFFIXES = .m
 	  echo mv ttman/man1/* . ; \
 	  mv ttman/man1/* . ; \
 	fi
-	-rm -f ttman
+	-rm -rf ttman
