@@ -24,8 +24,8 @@ SUFFIXES = .m
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\
 	  sed 's/=.*//' ` $< ttman/ ; \
-	  echo mv ttman/man1/* . ; \
-	  mv ttman/man1/* . ; \
+	  echo mv ttman/man?/* . ; \
+	  mv ttman/man?/* . ; \
 	fi
 	-rm -rf ttman
 
@@ -45,7 +45,7 @@ SUFFIXES = .m
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\
 	  sed 's/=.*//' ` $< ttman/ ; \
-	  echo mv ttman/man1/* . ; \
-	  mv ttman/man1/* . ; \
+	  echo mv ttman/man?/* . ; \
+	  mv ttman/man?/* . ; \
 	fi
 	-rm -rf ttman
