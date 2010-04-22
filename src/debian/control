@@ -62,6 +62,6 @@ Provides: libxite
 Conflicts: libxite
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, libxaw7, netpbm, libtiff
+Depends: ${shlibs:Depends}, libxaw7, netpbm, libtiff4
 Description: Shared libraries for XITE
  This package contains the shared libraries used by XITE.
