@@ -49,7 +49,7 @@ Description:    All bands from all input images are copied into a new
 		one-band image or a multi-band image, copied in the sequence
 		they are given as arguments.
 
-		'img1', .., 'imgn' are input images.
+		'img1', , 'imgn' are input images.
 
 		'xstart' and 'ystart' give new positions for all bands in the
 		new band. Should not be smaller than 1.

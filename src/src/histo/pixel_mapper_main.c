@@ -47,7 +47,7 @@ Name:		pixel_mapper - map pixel values into new value
 Syntax:		| pixel_mapper <inimage> <outimage> [-b <b>] 
                 |    <o1> [<o2> <o3> ...] <n1>
 
-Description:    Maps pixelvalues 'o1' ... 'on' to value 'n1'.
+Description:    Maps pixelvalues 'o1', , 'on' to value 'n1'.
 
 Options:        &-b
                 Process band number 'b' is processed ('b' defaults to all).

@@ -72,7 +72,7 @@ Options:	'xwarp' supports all standard X Toolkit command line
 
 		&-warp q, ... r, ...
 		Perform the geometric correction on 'inimage-2' with the
-		polynomial coefficients given by 'q', ... and 'r', ...
+		polynomial coefficients given by 'q', , and 'r', ,
 		when starting the program. There must be the same number of
 		q and r coefficients, equal to the value of option '-ip'.
 		

@@ -51,6 +51,8 @@ static char *Id = "$Id$, Blab, UiO";
 #define M_PI    3.14159265358979323846
 #endif
 
+/*lowpass, highpass, bandpass, bandstop, butterworth, exponential, lowpassIdeal, fftMakeLp, fftMakeHp, fftMakeBp, fftMakeBs*/
+
 
 
 /*P:fftMakeLp=lowpass*/
@@ -67,7 +69,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 ________________________________________________________________
 
-lowpass, highpass, bandpass, bandstop, butterworth, exponential, lowpassIdeal, fftMakeLp, fftMakeHp, fftMakeBp, fftMakeBs
+lowpass
 ________________________________________________________________
 
 Name:		lowpass, highpass, bandpass, bandstop, butterworth,
