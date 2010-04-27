@@ -1,3 +1,4 @@
+xite source: native-package-with-dash-version
 xite: binary-without-manpage usr/bin/ReadMenuList
 xite: binary-without-manpage usr/bin/add_html_toc
 xite: binary-without-manpage usr/bin/bandpass

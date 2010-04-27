@@ -5,7 +5,7 @@ Maintainer: Erling Andersen <Erling.Andersen@Helse-Bergen.NO>
 Build-Depends: debhelper (>= 6.0.7~), autotools-dev, autoconf, automake, libtool, \
 	libxaw7-dev, netpbm-dev, libtiff-dev, libjpeg-dev, libfwf4-dev, \
 	netpbm
-Standards-Version: 3.8.4
+Standards-Version: 3.8.0
 
 Package: xite
 Section: science
