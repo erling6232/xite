@@ -2,3 +2,4 @@ usr/bin/*
 etc/xite/*
 etc/X11/app-defaults/*
 usr/share/xite/*
+usr/share/man/man1/*
