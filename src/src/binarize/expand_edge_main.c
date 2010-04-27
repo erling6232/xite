@@ -79,9 +79,6 @@ Description:    expand_edge is used on an image to aviod some types
                  |def     . . .     uvw|      fed|def     . . .     uvw|wvu
                  |ghi               xyz|      ihg|ghi               xyz|zyx
 		 |                     |         |                     |
-                 .                     .         .                     .
-                 .                     .         .                     .
-                 .                     .         .                     .
 
 Options:	&-0
                 The new pixels are set to 0 instead of being mirror images.
