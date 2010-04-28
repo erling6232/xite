@@ -49,3 +49,23 @@ SUFFIXES = .m
 	  mv ttman/man?/* . ; \
 	fi
 	-rm -rf ttman
+
+.c.3:
+	-rm -rf ttman
+	mkdir -p ttman/man1 ttman/man3
+	-@if test "$(@)" != "_MANP_"; then \
+	  echo $(top_builddir)/src/cdoc/cdoc -t \
+	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
+	  sed 's/^#\{0,1\}../-e /' |\
+	  sed 's/.[        ]*$$//' |\
+	  sed 's/=.*//' ` $< ttman/ ; \
+	  $(top_builddir)/src/cdoc/cdoc -t \
+	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
+	  sed 's/^#\{0,1\}../-e /' |\
+	  sed 's/.[        ]*$$//' |\
+	  sed 's/=.*//' ` $< ttman/ ; \
+	  echo mv ttman/man?/* . ; \
+	  mv ttman/man?/* . ; \
+	fi
+	-rm -rf ttman
+
