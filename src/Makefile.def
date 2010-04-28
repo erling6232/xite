@@ -14,12 +14,12 @@ SUFFIXES = .m
 	-rm -rf ttman
 	mkdir -p ttman/man1 ttman/man3
 	-@if test "$(@)" != "_MANP_"; then \
-	  echo $(top_builddir)/src/cdoc/cdoc -t \
+	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\
 	  sed 's/=.*//' ` $< ttman/ ; \
-	  $(top_builddir)/src/cdoc/cdoc -t \
+	  $(top_builddir)/src/cdoc/cdoc1 -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\
@@ -33,13 +33,13 @@ SUFFIXES = .m
 	-rm -rf ttman
 	mkdir -p ttman/man1 ttman/man3
 	-@if test "$(@)" != "_MANP_"; then \
-	  echo $(top_builddir)/src/cdoc/cdoc -t \
+	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
 	  -s '*.sh' \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\
 	  sed 's/=.*//' ` $< ttman/ ; \
-	  $(top_builddir)/src/cdoc/cdoc -t \
+	  $(top_builddir)/src/cdoc/cdoc1 -t \
 	  -s '*.sh' \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
@@ -54,12 +54,12 @@ SUFFIXES = .m
 	-rm -rf ttman
 	mkdir -p ttman/man1 ttman/man3
 	-@if test "$(@)" != "_MANP_"; then \
-	  echo $(top_builddir)/src/cdoc/cdoc -t \
+	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\
 	  sed 's/=.*//' ` $< ttman/ ; \
-	  $(top_builddir)/src/cdoc/cdoc -t \
+	  $(top_builddir)/src/cdoc/cdoc1 -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
 	  sed 's/.[        ]*$$//' |\

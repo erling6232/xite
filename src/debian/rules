@@ -78,6 +78,17 @@ build-stamp:  configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
+	# First make src/cdoc
+	(cd lib/biff; $(MAKE) libxitebiff.la)
+	(cd lib/cdoc; $(MAKE) libxitecdoc.la)
+	(cd lib/convert; $(MAKE) libxiteconvert.la)
+	(cd lib/utils; $(MAKE) libxiteutils.la)
+	(cd src/cdoc; \
+	$(MAKE) cdoc.o; \
+	../../libtool --tag=CC --mode=link gcc  -Wall -pipe -g -O3  -Wl,-Bsymbolic-functions \
+	-o cdoc1 cdoc.o ../../lib/biff/libxitebiff.la ../../lib/cdoc/libxitecdoc.la \
+	../../lib/convert/libxiteconvert.la ../../lib/utils/libxiteutils.la)
+	# (cd src/cdoc; $(MAKE) cdoc)
 	$(MAKE)
 
 	touch build-stamp
