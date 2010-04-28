@@ -39,14 +39,15 @@ libxitearithmetic_la_SOURCES = \
 	square.c squareRoot.c real.c imag.c power.c phase.c \
 	logarithm.c
 
-rowMax.3:	vectorPeak.c
-colMax.3:	vectorPeak.c
-rowMin.3:	vectorPeak.c
-colMin.3:	vectorPeak.c
-rowMaxBand.3:	vectorPeak.c
-colMaxBand.3:	vectorPeak.c
-rowMinBand.3:	vectorPeak.c
-colMinBand.3:	vectorPeak.c
+vectorPeak.3:	crossSection.c
+rowMax.3:	crossSection.c
+colMax.3:	crossSection.c
+rowMin.3:	crossSection.c
+colMin.3:	crossSection.c
+rowMaxBand.3:	crossSection.c
+colMaxBand.3:	crossSection.c
+rowMinBand.3:	crossSection.c
+colMinBand.3:	crossSection.c
 colMaxArr.3:	crossSection.c
 rowMaxArr.3:	crossSection.c
 colMinArr.3:	crossSection.c
