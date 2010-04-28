@@ -12,7 +12,7 @@ SUFFIXES = .m
 
 .c.1:
 	-rm -rf ttman
-	mkdir -p ttman/man1 ttman/man3
+	mkdir -p ttman/man1 ttman/man3 ttman/man5
 	-@if test "$(@)" != "_MANP_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
@@ -31,7 +31,7 @@ SUFFIXES = .m
 
 .sh.1:
 	-rm -rf ttman
-	mkdir -p ttman/man1 ttman/man3
+	mkdir -p ttman/man1 ttman/man3 ttman/man5
 	-@if test "$(@)" != "_MANP_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
 	  -s '*.sh' \
@@ -52,8 +52,8 @@ SUFFIXES = .m
 
 .c.3:
 	-rm -rf ttman
-	mkdir -p ttman/man1 ttman/man3
-	-@if test "$(@)" != "_MANP_"; then \
+	mkdir -p ttman/man1 ttman/man3 ttman/man5
+	-@if test "$(@)" != "_MANF_"; then \
 	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
 	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
 	  sed 's/^#\{0,1\}../-e /' |\
@@ -69,3 +69,21 @@ SUFFIXES = .m
 	fi
 	-rm -rf ttman
 
+.c.5:
+	-rm -rf ttman
+	mkdir -p ttman/man1 ttman/man3 ttman/man5
+	-@if test "$(@)" != "_MAND_"; then \
+	  echo $(top_builddir)/src/cdoc/cdoc1 -t \
+	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
+	  sed 's/^#\{0,1\}../-e /' |\
+	  sed 's/.[        ]*$$//' |\
+	  sed 's/=.*//' ` $< ttman/ ; \
+	  $(top_builddir)/src/cdoc/cdoc1 -t \
+	  `grep "^#\{0,1\}\/\*[PFD]:" $< |\
+	  sed 's/^#\{0,1\}../-e /' |\
+	  sed 's/.[        ]*$$//' |\
+	  sed 's/=.*//' ` $< ttman/ ; \
+	  echo mv ttman/man?/* . ; \
+	  mv ttman/man?/* . ; \
+	fi
+	-rm -rf ttman
