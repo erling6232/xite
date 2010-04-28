@@ -38,3 +38,56 @@ libxitearithmetic_la_SOURCES = \
 	logical.c multiply.c profile.c rms.c scale.c signDiff.c \
 	square.c squareRoot.c real.c imag.c power.c phase.c \
 	logarithm.c
+
+rowMax.3:	vectorPeak.c
+colMax.3:	vectorPeak.c
+rowMin.3:	vectorPeak.c
+colMin.3:	vectorPeak.c
+rowMaxBand.3:	vectorPeak.c
+colMaxBand.3:	vectorPeak.c
+rowMinBand.3:	vectorPeak.c
+colMinBand.3:	vectorPeak.c
+colMaxArr.3:	crossSection.c
+rowMaxArr.3:	crossSection.c
+colMinArr.3:	crossSection.c
+rowMinArr.3:	crossSection.c
+column.3:	crossSection.c
+row.3:		crossSection.c
+colMaxArrBand.3: crossSection.c
+rowMaxArrBand.3: crossSection.c
+colMinArrBand.3: crossSection.c
+rowMinArrBand.3: crossSection.c
+columnBand.3:	crossSection.c
+rowBand.3:	crossSection.c
+fftImag.3:	imag.c
+fftDisplay.3:	logarithm.c
+logical_and.3:	logical.c
+logical_or.3:	logical.c
+logical_xor.3:	logical.c
+logical_not.3:	logical.c
+logical_band.3:	logical.c
+logical_bor.3:	logical.c
+logical_bxor.3:	logical.c
+logical_bnot.3:	logical.c
+logical_lshift.3: logical.c
+logical_rshift.3: logical.c
+logical_eq.3:	logical.c
+logical_ne.3:	logical.c
+logical_lt.3:	logical.c
+logical_le.3:	logical.c
+logical_gt.3:	logical.c
+logical_ge.3:	logical.c
+logical_mask.3:	logical.c
+logical_bandc.3: logical.c
+logical_borc.3:	logical.c
+logical_bxorc.3: logical.c
+logical_eqc.3:	logical.c
+logical_nec.3:	logical.c
+logical_ltc.3:	logical.c
+logical_lec.3:	logical.c
+logical_gtc.3:	logical.c
+logical_gec.3:	logical.c
+fftMult.3:	multiply.c
+fftPhase.3:	phase.c
+fftPower.3:	power.c
+fftReal.3:	real.c
