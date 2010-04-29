@@ -25,3 +25,4 @@ libxiteconvert_la_SOURCES = biffConvert.c ascii2biff.c pseudo2rgb.c \
 
 mkConvertBand.3: biffConvert.c
 convertBand.3: biffConvert.c
+biff_swap.3: biffswap.c
