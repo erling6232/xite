@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxitecontour.la
 
+MANF =  contour.3
+
+man3_MANS=$(MANF)
+
 libxitecontour_la_SOURCES = contour.c
