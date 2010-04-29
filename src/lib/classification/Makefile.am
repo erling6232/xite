@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxiteclassification.la
 
+MANF =  classifyNearest.3 classMeans.3
+
+man3_MANS=$(MANF)
+
 libxiteclassification_la_SOURCES = kMeansCluster.c

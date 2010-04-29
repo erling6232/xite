@@ -15,7 +15,7 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxitecdoc.la
 
-MANF =  add_html_toc.3 open_files.3 close_files.3 getfiles.3 getopt.3 attgetopt.3
+MANF =  add_html_toc.3 open_files.3 close_files.3 getfiles.3 attgetopt.3
 
 man3_MANS=$(MANF)
 
