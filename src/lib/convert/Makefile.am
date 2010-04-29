@@ -20,8 +20,7 @@ MANF =  ascii2biff.3 biff2ascii.3 biff2raw.3 mkConvertBand.3 convertBand.3 \
 
 man3_MANS=$(MANF)
 
-libxiteconvert_la_SOURCES = biffConvert.c ascii2biff.c pseudo2rgb.c \
+libxiteconvert_la_SOURCES = convertBand.c ascii2biff.c pseudo2rgb.c \
 	biff2raw.c biff2ascii.c biff_swap.c
 
 mkConvertBand.3: biffConvert.c
-convertBand.3: biffConvert.c
