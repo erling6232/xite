@@ -20,3 +20,5 @@ MANF =  classifyNearest.3 classMeans.3
 man3_MANS=$(MANF)
 
 libxiteclassification_la_SOURCES = kMeansCluster.c
+classifyNearest.3: kMeansCluster.c
+classMeans.3: kMeansCluster.c
