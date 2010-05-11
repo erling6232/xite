@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxitegradInv.la
 
+MANF =  gradInv.3
+
+man3_MANS=$(MANF)
+
 libxitegradInv_la_SOURCES = gradInv.c

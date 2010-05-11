@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxitefractal.la
 
+MANF =  mkFractalSra.3
+
+man3_MANS=$(MANF)
+
 libxitefractal_la_SOURCES = mkFractalSra.c
