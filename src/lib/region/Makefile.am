@@ -25,6 +25,8 @@ MANF =  regionArea.3 regionConvexHull.3 regionCreate.3 regionDraw.3 \
 	regionSort.3 regionCopy.3 regionUnion.3 regionOverlap.3 \
 	regionNeighbor.3 regionVolume.3 regionYline.3
 
+man3_MANS=$(MANF)
+
 libxiteregion_la_SOURCES = regionArea.c      regionCreate.c     regionDraw.c \
 	regionFree.c regionHisto.c regionMean.c regionMinMax.c regionMoment.c  \
         regionPerimeter.c regionSearch.c regionSort.c regionVolume.c  \
