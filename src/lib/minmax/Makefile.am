@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxiteminmax.la
 
+MANF =  closestMinMax.3 maxarea.3 minarea.3
+
+man3_MANS=$(MANF)
+
 libxiteminmax_la_SOURCES = closestMinMax.c maxarea.c minarea.c
