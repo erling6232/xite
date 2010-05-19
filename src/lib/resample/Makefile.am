@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxiteresample.la
 
+MANF =  resample.3
+
+man3_MANS=$(MANF)
+
 libxiteresample_la_SOURCES = resample.c

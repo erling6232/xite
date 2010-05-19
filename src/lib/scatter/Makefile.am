@@ -15,4 +15,8 @@ include $(top_srcdir)/Makefile.def
 
 noinst_LTLIBRARIES = libxitescatter.la
 
+MANF =  scatter.3
+
+man3_MANS=$(MANF)
+
 libxitescatter_la_SOURCES = scatter.c
