@@ -2,8 +2,8 @@ Source: xite
 Section: science
 Priority: extra
 Maintainer: Erling Andersen <Erling.Andersen@Helse-Bergen.NO>
-Build-Depends: debhelper (>= 6.0.7~), autotools-dev, autoconf, automake, libtool, \
-	libxaw7-dev, netpbm-dev, libtiff-dev, libjpeg-dev, libfwf4-dev, \
+Build-Depends: debhelper (>= 6.0.7~), autotools-dev, autoconf, automake, libtool,
+	libxaw7-dev, netpbm-dev, libtiff-dev, libjpeg-dev, libfwf4-dev,
 	netpbm
 Standards-Version: 3.8.0
 
