@@ -609,7 +609,7 @@ ximage_layout:  'ximage_layout' creates 'nwids' widgets and returns a pointer
 		is the client_data returned to the menuentry button callback
 		function when this entry is selected (actually a pointer to
 		the integer, cast to XtPointer, is returned). 'int1', 'int2',
-		..., must be integers.
+		etc., must be integers.
 		
 		If a label must contain the character ":", escape it with
 		a backslash, like this
