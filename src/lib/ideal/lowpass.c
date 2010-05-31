@@ -508,7 +508,7 @@ int lowpass(IBAND band, double cut_frequency, int filter_size, window_type win_t
 
 ________________________________________________________________
 
-lowpassf, highpassf, bandpassf, bandstopf, lowpassIdealf, butterworthf, exponentialf, parseFilterTypeName, fftMakeLp, fftMakeHp, fftMakeBp, fftMakeBs
+lowpassf
 ________________________________________________________________
 
 Name:		lowpassf, highpassf, bandpassf, bandstopf, lowpassIdealf,

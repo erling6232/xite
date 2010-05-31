@@ -49,7 +49,7 @@ ________________________________________________________________
 		add_html_toc
 ________________________________________________________________
 
-Name:		add_html_toc - 
+Name:		add_html_toc - Add html toc
 
 Syntax:		| #include <xite/cdoc.h>
 		| 

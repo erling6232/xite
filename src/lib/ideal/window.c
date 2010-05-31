@@ -58,7 +58,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 ________________________________________________________________
 
-		bartlett, hamming, hanning, rectangle, triangle
+bartlett
 ________________________________________________________________
 
 Name:		bartlett, hamming, hanning, rectangle, triangle,
