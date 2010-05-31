@@ -48,7 +48,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 ________________________________________________________________
 
-		morphDilate, morphErode, morphClose, morphOpen
+		morphDilate
 ________________________________________________________________
 
 Name:		morphDilate, morphErode, morphClose, morphOpen - morphological

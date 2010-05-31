@@ -61,7 +61,7 @@ static char *Id = "$Id$, Blab, UiO";
 
 ________________________________________________________________
 
-		lowpass, highpass, bandpass, bandstop, lowpassu
+		lowpass
 ________________________________________________________________
 
 Name:		lowpass, highpass, bandpass, bandstop, lowpassu - "Ideal"

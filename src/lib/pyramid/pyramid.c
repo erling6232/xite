@@ -92,7 +92,7 @@ Description:    'pyramidAver2' performs a 2 by 2 average of pixels in
 		The final division by four will always truncate.
 
 		'pyramidRank2' sorts the four pixel values in a 2 by 2
-		window in 'b1', looks for the 'rank' ''th value in the
+		window in 'b1', looks for the 'rank' s''th value in the
 		sorted sequence, and puts this single value into
 		'b2'. The 2 by 2 window is then moved two positions,
 		and the process is repeated over the whole band.
