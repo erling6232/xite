@@ -204,7 +204,6 @@ binary-arch: build install
 	dh_installdocs -a
 	dh_installexamples -a
 	dh_installmenu -a
-	dh_desktop -a
 #	dh_installlogrotate -a
 #	dh_installemacsen -a
 #	dh_installpam -a
