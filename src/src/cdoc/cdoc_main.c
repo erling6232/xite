@@ -265,7 +265,7 @@ typedef enum {
  * Substitute NEWLINE by null character.
  * Return EOF or first character after NEWLINE. */
 
-static int getline(char *line)
+static int cdocgetline(char *line)
 {
   int cnr, intch;
 
@@ -885,7 +885,7 @@ int main(int argc, char **argv)
     }
     
     lineNum = 0;
-    while (getline(line) != EOF) {
+    while (cdocgetline(line) != EOF) {
       strip(line);
       lineNum++;
       linelen = strlen(line);
@@ -965,7 +965,7 @@ int main(int argc, char **argv)
 	      comment=1; written = 1;
 
 	      /* Expecting an empty line */
-	      getline(line); lineNum++;
+	      cdocgetline(line); lineNum++;
 	      if(mode == TEXT) putline(TEXT, line, 1, 1, quote);
 	      strip(line);
 
@@ -973,7 +973,7 @@ int main(int argc, char **argv)
 		/* Line was empty. */
 
 		/* Expecting an underscore line. */
-		getline(line);  lineNum++;
+		cdocgetline(line);  lineNum++;
 		if(mode == TEXT) putline(TEXT, line, 1, 1, quote);
 		strip(line);
 	      } else Warning(1, "Found no empty line at line %d.\n", lineNum);
@@ -982,7 +982,7 @@ int main(int argc, char **argv)
 		/* Probably an underscore line. */
 
 		/* Expecting an empty line. */
-		getline(line);  lineNum++;
+		cdocgetline(line);  lineNum++;
 		if(mode == TEXT) putline(TEXT, line, 1, 1, quote);
 		strip(line);
 	      } else Warning(1, "Found no underscore line at line %d.\n",
@@ -992,7 +992,7 @@ int main(int argc, char **argv)
 		/* Line was empty. */
 
 		/* Expecting a modulename line. */
-		getline(line);  lineNum++;
+		cdocgetline(line);  lineNum++;
 		strip(line);
 		if (mode == TEXT) fprintf(outp_s, newpage[mode]);
 	      } else Warning(1, "Found no empty line at line %d.\n", lineNum);
@@ -1027,7 +1027,7 @@ int main(int argc, char **argv)
 	      empty = 1;
 
 	      /* Expecting an underscore line */
-	      getline(line);  lineNum++;
+	      cdocgetline(line);  lineNum++;
 	      strip(line);
 	      if (!(strlen(line) > 0 && *line == '_'))
 		Warning(1, "Found no underscore line at line %d.\n", lineNum);
