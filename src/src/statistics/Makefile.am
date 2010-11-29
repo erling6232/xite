@@ -24,3 +24,5 @@ LDADD = ../../lib/libxite.la
 statistics_SOURCES   = statistics_main.c
 image_minmax_SOURCES = image_minmax_main.c
 histoMeanStd_SOURCES = histoMeanStd_main.c
+
+image_minmax.1:	band_minmax.1
