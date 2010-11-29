@@ -263,7 +263,7 @@ BiffStatus color_write(char *file_name, Color_cell *coltab, char *name, int len)
   else return(Iopenerr);
 }
 
-static char getline(FILE *inp, char *line)
+static char xxgetline(FILE *inp, char *line)
 {
   while(1) {
     *line = getc(inp);
@@ -295,7 +295,7 @@ void read_colormap(FILE *file, Color_cell *ctab, int *len)
   int pixel  = 0;
   int red = 0, green = 0, blue = 0, op, or, og, ob;
 
-  while(getline(file, line) != EOF) {
+  while(xxgetline(file, line) != EOF) {
     line_num++;
     /* Comment line? */
     if (line[0] == '#' || line[0] == ';' || line[0] == '!') continue;
