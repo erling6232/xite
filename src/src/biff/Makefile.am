@@ -15,7 +15,7 @@ include $(top_srcdir)/Makefile.def
 PROG  = biffcopy biffinfo biffmerge newtitle bifftext
 XPROG =
 MANP  = biffcopy.1 biffinfo.1 biffmerge.1 newtitle.1\
-	biffdoc.1 bifftext.1
+	bifftext.1
 CINCL = biff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)

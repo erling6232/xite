@@ -33,3 +33,5 @@ lapZeroCross_SOURCES = lapZeroCross_main.c
 prewitt_SOURCES      = prewitt_main.c
 roberts_SOURCES      = roberts_main.c
 sobel_SOURCES        = sobel_main.c
+
+gradient.1:	gradient_op.1
