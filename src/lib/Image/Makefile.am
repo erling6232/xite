@@ -24,7 +24,7 @@ MANF =  ImageError.3 ImageHasColormap.3 ImageInstallPixelType.3 \
 	ImagePosYtoScreen.3 ImageGetZoom.3 ImageSetZoom.3 \
 	ImageCopyImagePart.3 ImageCopyResources.3 ImageGetResources.3 \
 	ImageGetImageResources.3 ImageGetZoomAll.3 ImageSetZoomAll.3 \
-	Image.3 \
+	xiteImage.3 \
 	ImageTitle.3 ImageAddress.3 ImageWidth.3 ImageHeight.3 \
 	ImageLineLength.3 ImageXstart.3 ImageYstart.3 ImagePixName.3 \
 	ImagePixPrintFormat.3 ImagePixNameToBIFFPixTyp.3 ImageFormat.3 \
@@ -49,33 +49,34 @@ libxiteXImage_la_SOURCES = Image.c ImageFormat.c ImageBytePix.c ImageSignedByteP
 	ImageFloatPix.c ImageDoublePix.c ImageOverlay.c \
 	ImageOverlayPix.c ImageComplexPix.c ImageDoubleComplexPix.c
 
-ImageError.3:	Image.3
-ImageHasColormap.3:	Image.3
-ImageInstallPixelType.3:	Image.3
-ImageRedisplay.3:	Image.3
-ImageRedisplayScreen.3:	Image.3
-ImageRedisplayArea.3:	Image.3
-ImageUpdateMinMax.3:	Image.3
-ImageKill.3:	Image.3
-ImageScreenXtoPos.3:	Image.3
-ImageScreenYtoPos.3:	Image.3
-ImageScreenXYtoAdr.3:	Image.3
-ImageScreenToHeight.3:	Image.3
-ImageScreenToWidth.3:	Image.3
-ImageHeightToScreen.3:	Image.3
-ImageWidthToScreen.3:	Image.3
-ImagePosXYtoAdr.3:	Image.3
-ImageTranslateZoomPanArgs.3:	Image.3
-ImagePosXtoScreen.3:	Image.3
-ImagePosYtoScreen.3:	Image.3
-ImageGetZoom.3:	Image.3
-ImageSetZoom.3:	Image.3
-ImageCopyImagePart.3:	Image.3
-ImageCopyResources.3:	Image.3
-ImageGetResources.3:	Image.3
-ImageGetImageResources.3:	Image.3
-ImageGetZoomAll.3:	Image.3
-ImageSetZoomAll.3:	Image.3
+ImageError.3:	xiteImage.3
+ImageHasColormap.3:	xiteImage.3
+ImageInstallPixelType.3:	xiteImage.3
+ImageRedisplay.3:	xiteImage.3
+ImageRedisplayScreen.3:	xiteImage.3
+ImageRedisplayArea.3:	xiteImage.3
+ImageUpdateMinMax.3:	xiteImage.3
+ImageKill.3:	xiteImage.3
+ImageScreenXtoPos.3:	xiteImage.3
+ImageScreenYtoPos.3:	xiteImage.3
+ImageScreenXYtoAdr.3:	xiteImage.3
+ImageScreenToHeight.3:	xiteImage.3
+ImageScreenToWidth.3:	xiteImage.3
+ImageHeightToScreen.3:	xiteImage.3
+ImageWidthToScreen.3:	xiteImage.3
+ImagePosXYtoAdr.3:	xiteImage.3
+ImageTranslateZoomPanArgs.3:	xiteImage.3
+ImagePosXtoScreen.3:	xiteImage.3
+ImagePosYtoScreen.3:	xiteImage.3
+ImageGetZoom.3:	xiteImage.3
+ImageSetZoom.3:	xiteImage.3
+ImageCopyImagePart.3:	xiteImage.3
+ImageCopyResources.3:	xiteImage.3
+ImageGetResources.3:	xiteImage.3
+ImageGetImageResources.3:	xiteImage.3
+ImageGetZoomAll.3:	xiteImage.3
+ImageSetZoomAll.3:	xiteImage.3
+xiteImage.3:	Image.c
 
 ImageTitle.3:	ImageFormat.3
 ImageAddress.3:	ImageFormat.3

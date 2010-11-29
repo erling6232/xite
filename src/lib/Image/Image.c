@@ -33,34 +33,34 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 
 
 
-/*F:ImageError=Image*/
-/*F:ImageHasColormap=Image*/
-/*F:ImageInstallPixelType=Image*/
-/*F:ImageRedisplay=Image*/
-/*F:ImageRedisplayScreen=Image*/
-/*F:ImageRedisplayArea=Image*/
-/*F:ImageUpdateMinMax=Image*/
-/*F:ImageKill=Image*/
-/*F:ImageScreenXtoPos=Image*/
-/*F:ImageScreenYtoPos=Image*/
-/*F:ImageScreenXYtoAdr=Image*/
-/*F:ImageScreenToHeight=Image*/
-/*F:ImageScreenToWidth=Image*/
-/*F:ImageHeightToScreen=Image*/
-/*F:ImageWidthToScreen=Image*/
-/*F:ImagePosXYtoAdr=Image*/
-/*F:ImageTranslateZoomPanArgs=Image*/
-/*F:ImagePosXtoScreen=Image*/
-/*F:ImagePosYtoScreen=Image*/
-/*F:ImageGetZoom=Image*/
-/*F:ImageSetZoom=Image*/
-/*F:ImageCopyImagePart=Image*/
-/*F:ImageCopyResources=Image*/
-/*F:ImageGetResources=Image*/
-/*F:ImageGetImageResources=Image*/
-/*F:ImageGetZoomAll=Image*/
-/*F:ImageSetZoomAll=Image*/
-/*F:Image*
+/*F:ImageError=xiteImage*/
+/*F:ImageHasColormap=xiteImage*/
+/*F:ImageInstallPixelType=xiteImage*/
+/*F:ImageRedisplay=xiteImage*/
+/*F:ImageRedisplayScreen=xiteImage*/
+/*F:ImageRedisplayArea=xiteImage*/
+/*F:ImageUpdateMinMax=xiteImage*/
+/*F:ImageKill=xiteImage*/
+/*F:ImageScreenXtoPos=xiteImage*/
+/*F:ImageScreenYtoPos=xiteImage*/
+/*F:ImageScreenXYtoAdr=xiteImage*/
+/*F:ImageScreenToHeight=xiteImage*/
+/*F:ImageScreenToWidth=xiteImage*/
+/*F:ImageHeightToScreen=xiteImage*/
+/*F:ImageWidthToScreen=xiteImage*/
+/*F:ImagePosXYtoAdr=xiteImage*/
+/*F:ImageTranslateZoomPanArgs=xiteImage*/
+/*F:ImagePosXtoScreen=xiteImage*/
+/*F:ImagePosYtoScreen=xiteImage*/
+/*F:ImageGetZoom=xiteImage*/
+/*F:ImageSetZoom=xiteImage*/
+/*F:ImageCopyImagePart=xiteImage*/
+/*F:ImageCopyResources=xiteImage*/
+/*F:ImageGetResources=xiteImage*/
+/*F:ImageGetImageResources=xiteImage*/
+/*F:ImageGetZoomAll=xiteImage*/
+/*F:ImageSetZoomAll=xiteImage*/
+/*F:xiteImage*
 
 ________________________________________________________________
 
