@@ -20,7 +20,7 @@ MANF =  compute_line.3 compute_answer.3 compute_define.3 compute_error.3 \
 	enter_function_debug.3 envfindfilemulti.3 envfindfile.3 \
 	realloc_string.3 NextFilename.3 FilenamePart.3 gaussRandom.3 \
 	MallocFloatP.3 MallocIntP.3 InitMessage.3 PushMessage.3 \
-	PopMessage.3 Info.3 Message.3 Warning.3 Error.3 Usage.3 \
+	PopMessage.3 Info.3 Message.3 Warning.3 Usage.3 \
 	Verbose.3 ExitOnError.3 LastMessage.3 MessageStream.3 \
 	DefaultMessage.3 DefaultNoMessage.3 \
 	xite_standard_options_usage_text.3 xite_app_std_usage_text.3 \
@@ -58,7 +58,6 @@ PopMessage.3:	message.3
 Info.3:	message.3
 Message.3:	message.3
 Warning.3:	message.3
-Error.3:	message.3
 Usage.3:	message.3
 Verbose.3:	message.3
 ExitOnError.3:	message.3
