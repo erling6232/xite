@@ -60,7 +60,7 @@ static char *Id = "$Id$, Otto Milvang, Blab, UiO";
 /*F:ImageGetImageResources=xiteImage*/
 /*F:ImageGetZoomAll=xiteImage*/
 /*F:ImageSetZoomAll=xiteImage*/
-/*F:xiteImage*
+/*F:Image*
 
 ________________________________________________________________
 

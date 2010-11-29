@@ -76,7 +76,8 @@ ImageGetResources.3:	xiteImage.3
 ImageGetImageResources.3:	xiteImage.3
 ImageGetZoomAll.3:	xiteImage.3
 ImageSetZoomAll.3:	xiteImage.3
-xiteImage.3:	Image.c
+xiteImage.3:	Image.3
+	mv Image.3 xiteImage.3
 
 ImageTitle.3:	ImageFormat.3
 ImageAddress.3:	ImageFormat.3
