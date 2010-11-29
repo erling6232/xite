@@ -6,7 +6,7 @@
 #  (c) definition of LOCALDEFS an LOCALDEBUG (optional)
 #
 
-AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES)
+AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/include -I$(configdir)/include $(LOCALINCLUDES) -DXITE_BUILD_LIB
 
 SUFFIXES = .1 .3 .5
 

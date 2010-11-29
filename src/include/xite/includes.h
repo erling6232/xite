@@ -35,8 +35,9 @@ ________________________________________________________________
 #ifndef _XITE_INCLUDES_H_
 #define _XITE_INCLUDES_H_
 
-/*#include <xite/config.h>*/
+#ifdef XITE_BUILD_LIB
 #include "config.h"
+#endif
 
 #if defined(ANSI) && !defined(__STDC__)
 /* Define __STDC__ */
