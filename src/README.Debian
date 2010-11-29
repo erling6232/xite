@@ -7,3 +7,4 @@ DEB_BUILD_OPTIONS="parallel=4" dpkg-buildpackage -i -I -rfakeroot
 # DEB_BUILD_OPTIONS="parallel=4 noopt nostrip" dpkg-buildpackage -i -I -rfakeroot
 
 lintian -i ../xite_3.4.5-1_amd64.changes
+dput fs.medtek.haukeland.no xite_3.4.5-1_amd64.changes
