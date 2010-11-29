@@ -24,7 +24,7 @@ MANF =  ImageError.3 ImageHasColormap.3 ImageInstallPixelType.3 \
 	ImagePosYtoScreen.3 ImageGetZoom.3 ImageSetZoom.3 \
 	ImageCopyImagePart.3 ImageCopyResources.3 ImageGetResources.3 \
 	ImageGetImageResources.3 ImageGetZoomAll.3 ImageSetZoomAll.3 \
-	xiteImage.3 \
+	Image.3 xiteImage.3 \
 	ImageTitle.3 ImageAddress.3 ImageWidth.3 ImageHeight.3 \
 	ImageLineLength.3 ImageXstart.3 ImageYstart.3 ImagePixName.3 \
 	ImagePixPrintFormat.3 ImagePixNameToBIFFPixTyp.3 ImageFormat.3 \
