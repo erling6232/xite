@@ -1,3 +1,9 @@
+xite (3.4.5-3) stable; urgency=low
+
+  * Moved to stable release.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Thu, 02 Dec 2010 11:42:59 +0100
+
 xite (3.4.5-2) unstable; urgency=low
 
   * Renamed Image.3 to xiteImage.3 to avoid clash with file in libvolpack1-dev.
