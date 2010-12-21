@@ -1,0 +1,384 @@
+   void write_group0008();
+
+   unsigned char  *buffer1, *buffer2, *buffer3, *buffer4;
+   FILE *ptr, *ptr1;
+   long int position_1, position_2;
+   int max_pixel_value;
+
+ struct tnode {
+   char tword[150];
+   int32  count;
+   };
+
+ /* For Image Text (0051,1010)H */
+ struct ttnode {
+   char tword[5000];
+   int32  count;
+   };
+
+
+    IUS_IMAGE         outimage;
+    char              l_string[256];
+    time_t            tp;
+    char              time_stamp[80];
+   /* char              biffile[80];
+    char              tiffile[80]; */
+
+    char	      title[80];
+    char	      title1[80];
+
+  /* group 0008 variables:                */
+    int32               group_length_0008;
+    int32	        length_to_end;
+    struct tnode              recognition_code;
+    struct tnode              study_date;
+    struct tnode	        series_date;
+    struct tnode              acquisition_date;
+    struct tnode              image_date;
+    struct tnode              study_time;
+    struct tnode              series_time;
+    struct tnode              acquisition_time;
+    struct tnode              image_time;
+    int16               data_set_type;
+    struct tnode              data_set_subtype;
+    struct tnode              modality;
+    struct tnode              manufacturer;
+    struct tnode              institution_id;
+    struct tnode              referring_physician;
+    struct tnode              network_id;
+    struct tnode              station_id;
+    struct tnode              procedure_description;
+    struct tnode              institutional_department;
+    struct tnode              attending_physician;
+    struct tnode              radiologist;
+    struct tnode              operator_identification;
+    struct tnode              admitting_diagnosis;
+    struct tnode              manufacturer_model;
+    struct tnode              comments_0008;
+
+
+  /* group 0010 variables:                */
+
+
+    int32          group_length_0010;
+    struct tnode      patient_name;
+    struct tnode      patient_id;
+    struct tnode      patient_birthday;
+
+  
+    struct tnode      patient_sex;
+    struct tnode	    other_patient_id;
+    struct tnode	    other_patient_name;
+    struct tnode      patient_maiden_name;
+
+    struct tnode      patient_age;
+    struct tnode      patient_size;
+    struct tnode      patient_weight;
+    struct tnode      patient_address;
+    struct tnode      insurance_plan_id;
+    struct tnode      patient_mother_maiden_name;
+    struct tnode      comments;
+ 
+
+  /* group 0018 variables:                */
+
+    int32                  group_length_0018;
+    struct tnode              contrast_bolus_agent;
+    struct tnode              scanning_sequence;
+    struct tnode              radionuclide;
+    struct tnode              cine_rate;
+    struct tnode              slice_thickness;
+    struct tnode              kvp;
+    struct tnode              counts_accumulated;
+    struct tnode              repetition_time;
+    struct tnode              echo_time;
+    struct tnode              inversion_time;
+    struct tnode              number_of_averages;
+    struct tnode              imaging_frequency;
+    struct tnode              imaged_nucleus;
+    struct tnode              echo_number;
+    struct tnode              data_collection_diameter;
+    struct tnode              device_serial_number;
+    struct tnode              film_scanner_id;
+    struct tnode              software_version;
+    struct tnode              protocol;
+  /* hoppet over endel her ...... */
+    struct tnode              date_of_last_calibration;
+    struct tnode              time_of_last_calibration;
+    struct tnode              data_acquisition_duration;
+    struct tnode              receiving_coil;
+    struct tnode              transmitting_coil;
+    struct tnode              comments_0018;
+    struct tnode              patient_position;
+
+
+  /* group 0020 variables:                */
+
+    int32                  group_length_0020;
+    struct tnode              study;
+    struct tnode              series;
+    struct tnode              acquisition;
+    struct tnode              image;
+    struct tnode              patient_orientation;
+    struct tnode              image_position;
+    struct tnode              image_orientation;
+    struct tnode              location;
+    struct tnode              laterality;
+    struct tnode              image_geometry_type;
+    struct tnode              masking_image;
+    struct tnode              series_in_study;
+    struct tnode              acquisitions_in_series;
+    struct tnode              images_in_acquisition;
+    struct tnode              reference;
+    struct tnode              source_image_ids;
+    struct tnode              modifying_device_id;
+ 
+    struct tnode              modifying_device_manufacturer;
+    struct tnode              modified_image_id;
+    struct tnode              modified_image_date;
+    struct tnode              modifying_manufacturer;
+    struct tnode              modified_image_time;
+    struct tnode              modified_image_description;
+    struct tnode              comments_0020;
+    struct tnode              original_image_identification;
+    int16                      ioriginal_image_identification;
+    struct tnode              original_image_identification_nomenclature;
+
+
+  /* group 0028 variables:                */
+    int32                  group_length_0028;
+    int16                      image_dimension;
+    int16                      rows;
+    int16                      columns;
+    struct tnode              pixel_size;
+    struct tnode              image_format;
+    struct tnode              manipulated_image;
+    struct tnode              compression_code;
+    int16                      bits_allocated;
+    int16                      bits_stored;
+    int16                      high_bit;
+    int16                      pixel_representation;
+    int16			    smallest_pixel_value;
+    int16			    largest_pixel_value;
+    int16                      image_location;
+    struct tnode              window_center;
+    struct tnode              window_width;
+    struct tnode              rescale_intercept;
+    struct tnode              rescale_slope;
+    struct tnode              comments_0028;
+
+  /* group 7fe0 variables:  */
+   int32                     group_length_7fe0;
+
+
+  /* group 0009 variables:                */
+    int32                  group_length_0009;
+    struct tnode              shadow_owner_code_spi_0009;
+    struct tnode              shadow_owner_code_cms_0009;
+    struct tnode              shadow_owner_code_label_id_0009;
+    struct tnode              comments_0009;
+    struct tnode              unique_identifier;
+    int16                      data_object_type;
+    struct tnode              data_object_subtype;
+
+    struct tnode              number_of_measurements;
+    int32                     evaluation_mask_image;
+
+    struct tnode              storage_mode;
+    struct tnode              last_move_date;
+    struct tnode              last_move_time;
+
+    struct tnode              generator_identification_label;
+    struct tnode              gantry_identification_label;
+    struct tnode              xray_tube_identification_label;
+    struct tnode              detector_identification_label;
+    struct tnode              das_identification_label;
+    struct tnode              smi_identification_label;
+    struct tnode              cpu_identification_label;
+    struct tnode              header_version;
+
+
+  /* group 0011 variables:                */
+    int32                  group_length_0011;
+    struct tnode              shadow_owner_code_spi_0011;
+    struct tnode              shadow_owner_code_cms_0011;
+    struct tnode              organ;
+    struct tnode              registration_date;
+    struct tnode              registration_time;
+    struct tnode              used_patient_weight;
+    struct tnode              organ_code;
+
+
+  /* group 0019 variables:  */
+    int32                  group_length_0019;
+    struct tnode              shadow_owner_code_cms_0019;
+    struct tnode              shadow_owner_code_siemens_ct_id;
+    struct tnode              shadow_owner_code_siemens_mr_id;
+    struct tnode              shadow_owner_code_siemens_ct_adjust_id;
+    struct tnode              shadow_owner_code_siemens_mr_adjust_id;
+    struct tnode              shadow_owner_code_siemens_acquisition_id;
+    struct tnode              net_frequency;
+    struct tnode              measurement_mode;
+    struct tnode              calculation_mode;
+    struct tnode              noise_level;
+    struct tnode              number_of_data_bytes;
+  /* Siemens CT-subgroup skipped for now.... */
+
+  /* Siemens MR-subgroup:  */
+    struct tnode              total_measurement_time_nominal;
+    struct tnode              total_measurement_time_current;
+    struct tnode              start_delay_time;
+    struct tnode              dwell_time;
+    struct tnode              number_of_phases;
+    int32			    sequence_control_mask;
+    int32			    measurement_status_mask;
+    struct tnode              number_of_fourier_lines_nominal;
+    struct tnode              number_of_fourier_lines_current;
+    struct tnode              number_of_fourier_lines_after_zero;
+    struct tnode              first_measured_fourier_line;
+    struct tnode              acquisition_columns;
+    struct tnode              reconstruction_columns;
+    struct tnode              number_of_averages_current;
+    struct tnode              flip_angle;
+    struct tnode              number_of_prescans;
+    struct tnode              filter_type_for_raw_data;
+    struct tnode              filter_parameter_for_raw_data;
+    struct tnode              filter_type_for_image_data;
+    struct tnode              filter_parameter_for_image_data;
+    struct tnode              filter_type_for_phase_correction_data;
+    struct tnode              filter_parameter_for_phase_correction_data;
+    struct tnode              number_of_saturation_regions;
+    struct tnode              image_rotation_angle;
+    int32                     coil_id_mask;
+    struct tnode              coil_position;
+    struct tnode              epi_reconstruction_phase;
+    struct tnode              epi_reconstruction_slope;
+  /* Siemens CT Configuration and Adjust Subgroup skippe for now... */
+
+  /* Siemens MR Configuration and Adjust Subgroup:  */
+    struct tnode              magnetic_field_strength;
+    struct tnode              adc_voltage;
+    struct tnode              adc_offset;
+    struct tnode              transmitter_amplitude;
+    struct tnode              number_of_transmitter_amplitudes;
+    struct tnode              transmitter_attenuator;
+    struct tnode              transmitter_calibration;
+    struct tnode              transmitter_reference;
+    struct tnode              receiver_total_gain;
+    struct tnode              receiver_amplifier_gain;
+    struct tnode              receiver_preamplifier_gain;
+    struct tnode              receiver_cable_attenuation;
+    struct tnode              receiver_reference_gain;
+    struct tnode              receiver_filter_frequency;
+    struct tnode              reconstruction_scale_factor;
+    struct tnode              reference_scale_factor;
+    struct tnode              phase_gradient_amplitude;
+    struct tnode              readout_gradient_amplitude;
+    struct tnode              selection_gradient_amplitude;
+    struct tnode              gradient_delay_time;
+    struct tnode              total_gradient_delay_time;
+    struct tnode              sensitivity_correction_lable;
+    int32                     rf_watchdog_mask;
+    struct tnode              rf_power_error_indicator;
+    struct tnode              sar_whole_body;
+    struct tnode              specific_energy_dose;
+    int32			    adjustment_status_mask;
+    struct tnode              epi_capacity;
+    struct tnode              epi_inductance;
+    struct tnode              epi_switch_configuration_code;
+    struct tnode              epi_switch_hardware_code;
+    struct tnode              epi_switch_delay_time;
+  /* Siemens Acquisition Subgroup:      */
+    struct tnode              parameter_file_name;
+    struct tnode              sequence_file_name;
+    struct tnode              sequence_file_owner;
+    struct tnode              sequence_description;
+    struct tnode              epi_file_name;
+
+  /* group 0021 variables:  */
+    int32                  group_length_0021;
+      struct tnode		    shadow_owner_code_siemens_ubmed_0021;
+      struct tnode              shadow_owner_code_siemens_cms_0021;
+      struct tnode              shadow_owner_code_siemens_ct_0021;
+      struct tnode              shadow_owner_code_siemens_mr_0021;
+      struct tnode              shadow_owner_code_siemens_ct_raw_0021;
+      struct tnode              shadow_owner_code_siemens_mr_raw_0021;
+      struct tnode              shadow_owner_code_siemens_mr_spect_0021;
+   struct tnode              zoom;
+   struct tnode              target;
+  int16                            roi_mask;
+  /* Siemens CMS Subgroup */
+   struct tnode              field_of_view;
+   struct tnode              image_magnification_factor;
+   struct tnode              view_direction;
+   struct tnode              patient_rest_direction;
+   struct tnode              image_position;
+   struct tnode              image_normal;
+   struct tnode              image_distance;
+   int16                     image_positioning_history_mask;
+   struct tnode              image_row;
+   struct tnode              image_column;
+   struct tnode              patient_orientation_set_1;
+   struct tnode              patient_orientation_set_2;
+   struct tnode              study_name;
+   struct tnode              study_type;
+  /* Siemens CT Id Subgroup Skipped for now.... */
+  /* Siemens MR Id Subgroup:  */
+   struct tnode              phase_correction_rows_sequence;
+   struct tnode              phase_correction_columns_sequence;
+   struct tnode              phase_correction_rows_reconstruction;
+   struct tnode              phase_correction_columns_reconstruction;
+   struct tnode              number_of_3d_raw_partitions_nominal;
+   struct tnode              number_of_3d_raw_partitions_current;
+   struct tnode              number_of_3d_image_partitions;
+   struct tnode              actual_3d_image_partition_number;
+   struct tnode              slab_thickness;
+   struct tnode              number_of_slices_nominal;
+   struct tnode              number_of_slices_current;
+   struct tnode              current_slice_number;
+   struct tnode              current_group_number;
+   struct tnode              current_slice_distance_factor;
+   struct tnode              mip_start_row;
+   struct tnode              mip_stop_row;
+   struct tnode              mip_start_column;
+   struct tnode              mip_stop_column;
+   struct tnode              mip_start_slice;
+   struct tnode              mip_stop_slice;
+   struct tnode              order_of_slices;
+   int32                     signal_mask;
+   struct tnode              delay_time_after_trigger;
+   struct tnode              rr_interval;
+   struct tnode              number_of_trigger_pulse;
+   struct tnode              repetition_time_effective;
+   struct tnode              gate_phase;
+   struct tnode              gate_threshold;
+   struct tnode              gated_ratio;
+   struct tnode              number_of_interpolated_images;
+   struct tnode              number_of_echoes;
+   struct tnode              second_echo_time;
+   struct tnode              second_repetition_time;
+   struct tnode              cardiac_code;
+  /* Siemens CT RAW Data Subgroup skipped for now .....*/
+  /* Siemens MR RAW Data Subgroup does not seem to exist .....*/
+
+
+
+  /* group 0029 variables:  */
+   int32                     group_length_0029;
+   struct tnode	             shadow_owner_code_siemens_spi_0029;
+   struct tnode              shadow_owner_code_siemens_cms_0029;
+   struct tnode              window_style;
+   struct tnode              pixel_quality_code;
+   struct tnode              pixel_quality_value;
+   struct tnode              archive_code;
+   struct tnode              exposure_code;
+   struct tnode              sort_code;
+   struct tnode              splash;
+
+  /* group 0051 variables:  */
+   int32                     group_length_0051;
+   struct tnode              shadow_owner_code_siemens_cms_0051;
+   struct ttnode             image_text;
+
+
+

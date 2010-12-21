@@ -1,0 +1,9 @@
+#!/bin/tcsh
+
+foreach f ($*)
+	echo -n $f\:
+	/bin/cp -f $f /tmp/$$.dcm
+	dcmodify -e "(0028,0106)" -e "(0028,0107)" +ti -F /tmp/$$.dcm
+	dic2biff /tmp/$$.dcm $f.us
+	/bin/rm -f /tmp/$$.dcm*
+end
