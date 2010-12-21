@@ -13,7 +13,7 @@ include $(top_srcdir)/Makefile.def
 #   Makefile definitions
 #
 PROG  = dic2biff
-MANP  = dic2biff.1
+# MANP  = dic2biff.1
 CINCL =  dic2biff.i
 
 bin_PROGRAMS=$(PROG) $(XPROG)
