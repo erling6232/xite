@@ -1,6 +1,7 @@
 xite (3.4.5-4) stable; urgency=low
 
   * Added dic2biff and dcbiff commands.
+  * Added dependence on dcmtk and tcsh packages for the xite package.
 
  -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Thu, 21 Dec 2010 11:39:47 +0100
 
