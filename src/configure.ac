@@ -201,6 +201,7 @@ AC_CONFIG_FILES([
     src/convert/Makefile
     src/convolve/Makefile
     src/copy/Makefile
+    src/dic2biff/Makefile
     src/dither/Makefile
     src/draw/Makefile
     src/extrema/Makefile

@@ -11,6 +11,7 @@ SUBDIRS = \
 	convert \
 	convolve \
 	copy \
+	dic2biff \
 	dither \
 	draw \
 	extrema \
