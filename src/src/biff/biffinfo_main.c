@@ -568,7 +568,7 @@ int main(int argc, char **argv)
 
   if (dir_s) closeDir(dir_s);
 
-  LEAVE_FUNCTION_DEBUG("biffinfo.c: main()")
+  LEAVE_FUNCTION_DEBUG("biffinfo.c: main()");
 
   return(0);
 }
