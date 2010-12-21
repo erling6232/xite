@@ -1047,6 +1047,8 @@ int SelectReadFile(Widget parent, char *kind, char **return_text)
 		(XtCallbackProc)OkCallbackHandler, (XtPointer) texts);
   XtAddCallback(Selector, XtNcancelButtonCallback,
 		(XtCallbackProc)CancelCallbackHandler, (XtPointer) texts);
+  XtAddCallback(Selector,XtNselectionChangeCallback,
+                (XtCallbackProc)SelectionChangeCallbackHandler, (XtPointer) texts);
 
   XtRealizeWidget(Popup);
   XmbSetWMProperties(dpy_e, XtWindow(Popup), "FileSelector", "FileSelector",
@@ -1091,6 +1093,8 @@ int SelectWriteFile(Widget parent, char *kind, char **return_text)
 		(XtCallbackProc)OkCallbackHandler, (XtPointer) texts);
   XtAddCallback(Selector, XtNcancelButtonCallback,
 		(XtCallbackProc)CancelCallbackHandler, (XtPointer) texts);
+  XtAddCallback(Selector,XtNselectionChangeCallback,
+                (XtCallbackProc)SelectionChangeCallbackHandler, (XtPointer) texts);
 
   XtRealizeWidget(Popup);
   XmbSetWMProperties(dpy_e, XtWindow(Popup), "FileSelector", "FileSelector",
