@@ -27,7 +27,7 @@
 
 *XfwfFileSelector*Text*Background: 		White
 *XfwfFileSelector*Text*Foreground:		Black
-*XfwfFileSelector*showOkButton: 		False
+*XfwfFileSelector*showOkButton: 		True
 *XfwfFileSelector.Height: 			400
 
 *XfwfFileSelector*XfwfButton*width:		70
