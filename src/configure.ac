@@ -15,6 +15,7 @@ AC_PROG_LIBTOOL
 AC_PROG_SED
 
 # AM_PROG_CC_C_O
+AM_PROG_AR
 
 # Checks for libraries
 AC_CHECK_LIB([X11],  [XBell])
