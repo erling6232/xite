@@ -197,11 +197,11 @@ static void usage(char *s)
   bc=0;
   for (i = 0; i <= 500; i++) {
 
-     if ((buffer1[bc1] == 0x44) && (buffer1[bc1+1] == 0x49) && (buffer1[bc1+2] == 0x43)) {
+     if ((buffer1[bc1] == 0x44) && (buffer1[bc1+1] == 0x49) && (buffer1[bc1+2] == 0x43) && (buffer1[bc1+3] == 0x4d)) {
 
 	bc_dicom = bc1;
 	bc=338; 
-	printf("Oops a real DICOM file.... %0x (bc_dicom=%d)\n", buffer1[bc1], bc_dicom);
+	printf("Oops a real DICOM file.... 0x%0x (bc_dicom=%d)\n", buffer1[bc1], bc_dicom);
         }
      bc1 = bc1+1;  
   }
@@ -209,12 +209,17 @@ static void usage(char *s)
   /* Checking for DICOM (ctn) or ACR-NEMA file */
 
 
-  /* checking if the first group is group 08 or 03 */
+  /* checking if the first group is group 08 or 03 or 02 */
   if ((buffer1[bc] == 0x08) && (buffer1[bc+1] == 0x00))
-     printf("DICOM (ctn) file.... %0x (bc=%d)\n", buffer1[bc], bc);
+     printf("DICOM (ctn) file.... 0x%0x (bc=%d)\n", buffer1[bc], bc);
   else if ((buffer1[bc] == 0x03) && (buffer1[bc+1] == 0x00))
-     printf("DICOM (ctn) file.... %0x (bc=%d)\n", buffer1[bc], bc);
-  else exit(0);
+     printf("DICOM (ctn) file.... 0x%0x (bc=%d)\n", buffer1[bc], bc);
+  else if ((buffer1[bc] == 0x02) && (buffer1[bc+1] == 0x00))
+     printf("DICOM (ctn) file.... 0x%0x (bc=%d)\n", buffer1[bc], bc);
+  else {
+     printf("DICOM Unexpected group 0x%0x (bc=%d)\n", buffer1[bc], bc);
+     exit(1);
+  }
 
 	
 
