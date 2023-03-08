@@ -1,7 +1,56 @@
-ACLOCAL_AMFLAGS=-I m4
-SUBDIRS=data etc include lib src
-
-SUFFIXES=.m
-
-.c.m:
-	$(top_srcdir)/src/cdoc/cdoc -t $< $@
+SUBDIRS = \
+	cdoc \
+	arithmetic \
+	biff \
+	binarize \
+	canny \
+	classification \
+	color \
+	combine \
+	contour \
+	convert \
+	convolve \
+	copy \
+	dic2biff \
+	dither \
+	draw \
+	extrema \
+	fft \
+	fht \
+	fractal \
+	geometry \
+	gradInv \
+	histo \
+	hough \
+	haar \
+	ideal \
+	ihs \
+	kncn \
+	knn \
+	median \
+	minmax \
+	morph \
+	negate \
+	noise \
+	pnm \
+	PostScript \
+	principal \
+	pyramid \
+	region \
+	resample \
+	scatter \
+	scripts \
+	segmentation \
+	sigma \
+	snn \
+	statistics \
+	stdiff \
+	sunraster \
+	texture \
+	thin \
+	threshold \
+	thresMl \
+	tiff \
+	ximage \
+	xshow \
+	zernike
