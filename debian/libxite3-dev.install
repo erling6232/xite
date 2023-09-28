@@ -1,4 +1,4 @@
 debian/tmp/usr/include/xite
-debian/tmp/usr/lib/libxite*.*a
-debian/tmp/usr/lib/libxite*.so
+debian/tmp/usr/lib/*/libxite*.*a
+debian/tmp/usr/lib/*/libxite*.so
 debian/tmp/usr/share/man/man3
