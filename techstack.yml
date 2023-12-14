@@ -1,11 +1,11 @@
 repo_name: erling6232/xite
-report_id: 8fa59442c6c76f978bf8c031322b1b42
+report_id: 23430a1a0f4348902326f402dcd9484f
 repo_type: Public
-timestamp: '2023-11-10T07:54:38+00:00'
+timestamp: '2023-12-14T10:13:48+00:00'
 requested_by: erling6232
 provider: github
 branch: main
-detected_tools_count: 3
+detected_tools_count: 6
 tools:
 - name: C lang
   description: One of the most widely used programming languages of all time
@@ -16,6 +16,17 @@ tools:
   sub_category: Languages
   image_url: https://img.stackshare.io/no-img-open-source.png
   detection_source: Repo Metadata
+- name: pgvector
+  description: Open-source vector similarity search for Postgres
+  website_url: https://github.com/pgvector/pgvector/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source: doc/Debianize.txt
+  last_updated_by: eran
+  last_updated_on: 2008-12-30 09:30:41.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -25,6 +36,26 @@ tools:
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
   detection_source: Repo Metadata
+- name: HTML
+  description: Hypertext Markup Language for creating web pages.
+  website_url: http://
+  open_source: false
+  hosted_saas: false
+  image_url: https://img.stackshare.io/service/2270/no-img-open-source.png
+  detection_source: doc/ReferenceManual/Arithmetic_logical_Index.html
+  last_updated_by: eran
+  last_updated_on: 2002-12-19 14:26:13.000000000 Z
+- name: LangChain
+  description: Build AI apps with LLMs through composability
+  website_url: https://github.com/hwchase17/langchain
+  open_source: true
+  hosted_saas: false
+  category: Communications
+  sub_category: Large Language Model Tools
+  image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source: doc/Debianize.txt
+  last_updated_by: eran
+  last_updated_on: 2008-12-30 09:30:41.000000000 Z
 - name: Shell
   description: A shell is a text-based terminal, used for manipulating programs and
     files. Shell scripts typically manage program execution.
