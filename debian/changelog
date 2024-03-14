@@ -1,3 +1,9 @@
+xite (3.4.6-0) stable; urgency=low
+
+  * Remove square and multiply executables for a particular build.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Thu, 14 Mar 2024 09:37:00 +0100
+
 xite (3.4.5-6) stable; urgency=low
 
   * Updated for debian compat level 10

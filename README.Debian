@@ -1,6 +1,6 @@
 cvs checkout xite
-mv xite xite-3.4.5
-cd xite-3.4.5
+mv xite xite-3.4.6
+cd xite-3.4.6
 
 DEB_BUILD_OPTIONS="parallel=4" dpkg-buildpackage -i -I -rfakeroot
    and on additional platforms:
