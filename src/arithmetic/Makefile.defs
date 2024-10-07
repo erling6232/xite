@@ -3,14 +3,14 @@
 #
 OBJ   = absDiff.o  addw.o    average.o   crossSection.o divide.o   logical.o \
 	multiply.o profile.o rms.o       scale.o        signDiff.o square.o  \
-	squareRoot.o real.o  imag.o      power.o        phase.o    logarithm.o
+	squareRoot.o real.o  imag.o      phase.o    logarithm.o
 PROG  = absDiff    addw      average     crossSection   divide     logical \
 	multiply   profile   rms         scale          signDiff   square  \
-	squareRoot real      imag        power          phase      logarithm
+	squareRoot real      imag        phase      logarithm
 XPROG = xadd
 MANP  = absDiff.m  addw.m    average.m   crossSection.m divide.m   logical.m \
 	multiply.m profile.m rms.m       scale.m        signDiff.m square.m \
-	squareRoot.m xadd.m  real.m      imag.m         power.m    phase.m \
+	squareRoot.m xadd.m  real.m      imag.m         phase.m \
 	logarithm.m
 CINCL = arithmetic.i
 

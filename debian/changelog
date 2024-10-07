@@ -1,3 +1,9 @@
+xite (3.4.6-1) stable; urgency=low
+
+  * Remove power executable for a particular build.
+
+ -- Erling Andersen <Erling.Andersen@Helse-Bergen.NO>  Thu, 07 Oct 2024 12:28:00 +0200
+
 xite (3.4.6-0) stable; urgency=low
 
   * Remove square and multiply executables for a particular build.
